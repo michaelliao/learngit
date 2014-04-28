@@ -61,7 +61,7 @@ $ git branch
 ```
 - 合并分支
 ```
-$ git merge dev
+$ git merge [--no-ff -m "merge with no-ff"] dev
 ```
 - 删除分支
 ```
