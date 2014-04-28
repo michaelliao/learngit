@@ -105,13 +105,6 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
 ```
 -----------------------
-## Git原理
-### 暂存区
-![版本库-来自廖雪峰](http://www.liaoxuefeng.com/files/attachments/001384907702917346729e9afbf4127b6dfbae9207af016000/0)
-> 位于`.git`文件夹中
-> `stage`（或称为`index`）：暂存区（暂存add后，commit前的**修改**）
-
------------------------
 ## 参考资料
 1. [廖雪峰的官方网站 - Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
 1. [Wuyuan's Blog](http://wuyuans.com/2012/05/github-simple-tutorial/)
