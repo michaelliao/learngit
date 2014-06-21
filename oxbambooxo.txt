@@ -1,1 +1,2 @@
 实践一次git的pull request功能，廖老师的网站好棒啊！
+(update:modify encoding to utf-8)
