@@ -1,0 +1,6 @@
+thank you, a good session
+赞一个，非常好的教程！
+能否增加一些关于GIT挂钩的教程以及merge和rebase区别，谢谢!
+
+老师有没有解决乱码的好方法呢，谢谢！windows下面，不知道如何解决，谢谢！
+
