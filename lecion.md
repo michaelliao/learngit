@@ -1,13 +1,13 @@
-##��װ��git�󣬵�һ�����ã�
+##安装好git后，第一步配置：
 	git config --global user.name = "lecion"
 	git config --global user.email = "ylc931116@gmail.com"
 
-#��ʼ��һ��Repository
+#初始化一个Repository
 	mkdir rep
 	cd rep	
 	git init
 
-#add��commit
+#add，commit
 	git add ***
 	git commit -m "***"
 
@@ -16,97 +16,97 @@
 	git log --graph --pretty=online --abbrev-commit
 	git reflog
 
-#�ص���ʷ�汾
-	git reset --hard HEAD^ //HEAD��ʾ��ǰ�汾��HEAD^ ��һ���汾 HEAD^^ �������汾 HEAD~100 ǰ100���汾
+#回到历史版本
+	git reset --hard HEAD^ //HEAD表示当前版本，HEAD^ 上一个版本 HEAD^^ 上两个版本 HEAD~100 前100个版本
 
-#diff �鿴����
+#diff 查看差异
 	git diff ***
 
-#��������Working Directory��
->�������ܿ�����Ŀ¼ �����紴����learngit�ļ��о���һ��`������`��
-#�汾�⣨Repository��
->��������һ������Ŀ¼`.git`��������㹤����������Git�汾�⡣Git�İ汾������˺ܶණ��������Ҫ�ĳ�Ϊ`stage`��`�ݴ���`��git add ������ݾ��Ƿ����ݴ�����ֱ����commit
+#工作区（Working Directory）
+>电脑里能看到的目录 （比如创建的learngit文件夹就是一个`工作区`）
+#版本库（Repository）
+>工作区有一个隐藏目录`.git`，这个不算工作区，而是Git版本库。Git的版本库里存了很多东西，最重要的称为`stage`的`暂存区`。git add 后的内容就是放在暂存区，直到被commit
 
-#�����޸�
-	git checkout -- *** //��***�ڹ��������޸�ȫ������
-*	û��git add����ָ����Ͱ汾��һģһ��
-*	���git add����ָ�����������״̬
+#撤销修改
+	git checkout -- *** //把***在工作区的修改全部撤销
+*	没有git add，则恢复到和版本库一模一样
+*	如果git add，则恢复到缓存区的状态
 
-#������������unstage��
-	git reset HEAD *** //��***���޸Ĵӻ������Ƴ�
+#撤销缓存区（unstage）
+	git reset HEAD *** //把***的修改从缓存区移除
 
-#ɾ���ļ�
+#删除文件
 	rm test.txt
 	git rm test.txt
 	git commit -m "del test.txt"
->���ɾ���ˣ���git checkout -- test.txt ���ɽ��汾���test.txt�ָ�����������������ɾ�������޸Ķ����Բ��ô˲���
+>如果删错了，用git checkout -- test.txt 即可将版本库的test.txt恢复到工作区，无论是删除或是修改都可以采用此操作
 
-#Զ�ֿ̲�
-*	ʹ��Git������SSH Key
+#远程仓库
+*	使用Git，创建SSH Key
 
 		ssh-keygen -t rsa -C "ylc931116@gmail.com"
-*	��½Github�� ��Account Settings�� "SSH Keys"ҳ�棬����	id_rsa.pub�������
-*	Github�ϴ���Repository `learngit`
-*	���������вֿ��git����
+*	登陆Github， 打开Account Settings， "SSH Keys"页面，填入	id_rsa.pub里的内容
+*	Github上创建Repository `learngit`
+*	将本地现有仓库和git关联
 
 		git remote add origin git@github.com:lecion/learngit.git
 		git push -u origin master
-	>��Ϊ�ǵ�һ���ύ����Ҫ��`-u`�������ѱ���master��֧�������͵�Զ���µ�master��֧�����ѱ��ص�master��֧��Զ��master��֧�����������Ժ��ύ�Ϳɼ�����
-*	����Ժ󱾵������޸ģ��Ϳ���ͨ�����������ύ
+	>因为是第一次提交，需要用`-u`，不但把本地master分支内容推送到远程新的master分支，还把本地的master分支和远程master分支关联起来，以后提交就可简化命令
+*	如果以后本地做了修改，就可以通过以下命令提交
 
 		git push orgin master
 
-#��õķ�ʽ
->��Զ�̽���һ��Repository�󣬴�Զ��clone
+#最好的方式
+>在远程建立一个Repository后，从远程clone
 	
 	git clone git@github.com:lecion/gitskills.git
-#�����·�֧
+#创建新分支
 	git checkout -b dev
->`-b`��ʾ�������л�
+>`-b`表示创建并切换
 
 	git branch dev
->���ַ�ʽҲ����
+>此种方式也可以
 
-#�鿴��֧
+#查看分支
 	git branch
->���г����з�֧���ڵ�ǰ��֧ǰ��`*`��ע
+>会列出所有分支，在当前分支前以`*`标注
 
-#�л���֧
+#切换分支
 	git checkout master
-#�ϲ���֧
+#合并分支
 	git merge dev
-#ɾ����֧
+#删除分支
 	git branch -d dev
 	git branch -D dev
->`-D`ǿ��ɾ��û�кϲ��ķ�֧
+>`-D`强制删除没有合并的分支
 
-#�޸�Bug
+#修复Bug
 	git stash
->�ݴ浱ǰ��������������bug�󣬻ص��÷�֧
+>暂存当前工作区，处理完bug后，回到该分支
 
 	git stash list
->�鿴�ݴ��б�
+>查看暂存列表
 
 	git stash pop
->���������stash
+>弹出最近的stash
 	
 	git stash apply
 	git stash drop
 	git stash apply@{0}
 
-#�鿴Զ�̿�
+#查看远程库
 	git remote -v
->`-v`��ʾ��ϸ��Ϣ
+>`-v`显示详细信息
 
-#���ͷ�֧
+#推送分支
 	git push origin master
 	git push origin dev
-*	master��֧������֧�����Ҫʱ����Զ��ͬ����
-*	dev��֧�ǿ�����֧���Ŷ����г�Ա����Ҫ�����湤��������Ҳ��Ҫ��Զ��ͬ	����
-*	bug��ֻ֧�����ڱ����޸�bug����û��Ҫ�Ƶ�Զ���ˣ������ϰ�Ҫ������ÿ	�ܵ����޸��˼���bug��
-*	feature��֧�Ƿ��Ƶ�Զ�̣�ȡ�������Ƿ�����С�����������濪����
+*	master分支是主分支，因此要时刻与远程同步；
+*	dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同	步；
+*	bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每	周到底修复了几个bug；
+*	feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
 
-#ʹ�ñ�ǩ
+#使用标签
 	git tag v1.0
 	git tag -a v0.9 -m "version 0.9 released" 234234
 	git show v0.1
