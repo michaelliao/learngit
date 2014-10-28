@@ -1,0 +1,11 @@
+this is a git learn note from keen (find me on git:github.com/jacks808)
+1.git add [file name]
+2.git commit -m "msg"
+3.git push origin dev
+4.git checkout dev-keen	: create a new branch and switch to it
+5.git checkout dev	: switch to branch dev
+6.git merge dev-keen	: merge dev-keen branch to branch in use(now is dev)
+
+THANK FOR YOU COURSE!
+
+YOU CAN FIND ME AT jacks808@163.com
