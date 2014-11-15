@@ -1,6 +1,6 @@
 
 
-hello£¬Mr Liao! Your tutorial is very good, So I learned quickly, Please receive my first pull request¡£thanks!
+hello,Mr Liao! Your tutorial is very good, So I learned quickly, Please receive my first pull request. thanks!
 ======================================================================
 git init ´´½¨git²Ö¿â
 
