@@ -2,77 +2,77 @@
 
 hello,Mr Liao! Your tutorial is very good, So I learned quickly, Please receive my first pull request. thanks!
 ======================================================================
-git init ´´½¨git²Ö¿â
+git init åˆ›å»ºgitä»“åº“
 
-git status ²é¿´µ±Ç°×´Ì¬
+git status æŸ¥çœ‹å½“å‰çŠ¶æ€
 
-git add <file> Ìí¼ÓÎÄ¼şµ½»º³åÇø 
+git add <file> æ·»åŠ æ–‡ä»¶åˆ°ç¼“å†²åŒº 
 
-git commit -m "..."Ìá½»  
+git commit -m "..."æäº¤  
 
-git diff <file> ¶Ô±ÈÎÄ¼ş
+git diff <file> å¯¹æ¯”æ–‡ä»¶
 
 
-git log ÃüÁîÏÔÊ¾´Ó½üµ½Ô¶µÄÌá½»ÈÕÖ¾
+git log å‘½ä»¤æ˜¾ç¤ºä»è¿‘åˆ°è¿œçš„æäº¤æ—¥å¿—
 
-git log --pretty=online ¸ñÊ½»¯
+git log --pretty=online æ ¼å¼åŒ–
 
-°æ±¾ÍË»Ø   
-HEAD   ±íÊ¾µ±Ç°°æ±¾
-HEAD^  ±íÊ¾ÉÏÒ»¸ö°æ±¾
-HEAD^^ ±íÊ¾ÉÏÉÏ¸ö°æ±¾
+ç‰ˆæœ¬é€€å›   
+HEAD   è¡¨ç¤ºå½“å‰ç‰ˆæœ¬
+HEAD^  è¡¨ç¤ºä¸Šä¸€ä¸ªç‰ˆæœ¬
+HEAD^^ è¡¨ç¤ºä¸Šä¸Šä¸ªç‰ˆæœ¬
 
 git reset --hard HEAD^ 
 
-git reset --hard 1111111 ÍË»Øµ½Ö¸¶¨µÄ°æ±¾   1111111±íÊ¾commit id 
+git reset --hard 1111111 é€€å›åˆ°æŒ‡å®šçš„ç‰ˆæœ¬   1111111è¡¨ç¤ºcommit id 
 
-git reflog  ÏÔÊ¾ÃüÁîÖ´ĞĞÀúÊ·  
+git reflog  æ˜¾ç¤ºå‘½ä»¤æ‰§è¡Œå†å²  
 
-git checkout --<file> ³·Ïú¹¤×÷ÇøµÄĞŞ¸Ä¡£ 
+git checkout --<file> æ’¤é”€å·¥ä½œåŒºçš„ä¿®æ”¹ã€‚ 
 
-git reset HEAD file ³·ÏúÒÑ¾­addµÄĞŞ¸Ä¡£
+git reset HEAD file æ’¤é”€å·²ç»addçš„ä¿®æ”¹ã€‚
 
-É¾³ıÎÄ¼ş  
-rm <file> ´Ó±¾µØÉ¾³ıÎÄ¼ş  
+åˆ é™¤æ–‡ä»¶  
+rm <file> ä»æœ¬åœ°åˆ é™¤æ–‡ä»¶  
 
-git -rm <file>  É¾³ı°æ±¾¿âÖĞµÄÎÄ¼ş 
+git -rm <file>  åˆ é™¤ç‰ˆæœ¬åº“ä¸­çš„æ–‡ä»¶ 
 
-Ô¶³Ì²Ö¿â
+è¿œç¨‹ä»“åº“
 
-¹ØÁªÔ¶³Ì²Ö¿â gitÄ¬ÈÏÎªorigin
+å…³è”è¿œç¨‹ä»“åº“ gité»˜è®¤ä¸ºorigin
 git remote add origin git@github.com:zongyl/learngit.git
 
-°Ñµ±Ç°·ÖÖ§masterÍÆËÍµ½Ô¶³Ì¡£µÚÒ»´ÎÍÆËÍÔ¶³Ì£¬¼ÓÉÏ-u²ÎÊı£¬¿ÉÒÔ½«±¾µØµÄmaster ºÍÔ¶³ÌµÄmaster·ÖÖ§¹ØÁªÆğÀ´¡£
-ÒÔºóµÄÍÆËÍ»òÕßÀ­È¥¿ÉÒÔ¼ò»¯ÃüÁî¡£
+æŠŠå½“å‰åˆ†æ”¯masteræ¨é€åˆ°è¿œç¨‹ã€‚ç¬¬ä¸€æ¬¡æ¨é€è¿œç¨‹ï¼ŒåŠ ä¸Š-uå‚æ•°ï¼Œå¯ä»¥å°†æœ¬åœ°çš„master å’Œè¿œç¨‹çš„masteråˆ†æ”¯å…³è”èµ·æ¥ã€‚
+ä»¥åçš„æ¨é€æˆ–è€…æ‹‰å»å¯ä»¥ç®€åŒ–å‘½ä»¤ã€‚
 git push -u origin master 
 
-git push origin master  Ìá½»µ½Ô¶³Ì¡£
+git push origin master  æäº¤åˆ°è¿œç¨‹ã€‚
 
-´ÓÔ¶³Ì¿ËÂ¡µ½±¾µØ
+ä»è¿œç¨‹å…‹éš†åˆ°æœ¬åœ°
 git clone git@github.com:zongyl/learngit.git
 
-gitÖ§³Ö¶àÖÖĞ­Òé£¬Ä¬ÈÏµÄgit://Ê¹ÓÃshh£¬µ«Ò²¿ÉÒÔÓÃhttpsµÈÆäËûĞ­Òé¡£ gitĞ­ÒéËÙ¶È×î¿ì¡£
+gitæ”¯æŒå¤šç§åè®®ï¼Œé»˜è®¤çš„git://ä½¿ç”¨shhï¼Œä½†ä¹Ÿå¯ä»¥ç”¨httpsç­‰å…¶ä»–åè®®ã€‚ gitåè®®é€Ÿåº¦æœ€å¿«ã€‚
 
-·ÖÖ§¹ÜÀí 
+åˆ†æ”¯ç®¡ç† 
 
-git checkout -b dev --´´½¨²¢ÇĞ»»µ½dev·ÖÖ§ÉÏ 
--b  ±íÊ¾´´½¨²¢ÇĞ»»£¬Ïàµ±ÓÚÒÔÏÂÁ½ÌõÃüÁî
+git checkout -b dev --åˆ›å»ºå¹¶åˆ‡æ¢åˆ°devåˆ†æ”¯ä¸Š 
+-b  è¡¨ç¤ºåˆ›å»ºå¹¶åˆ‡æ¢ï¼Œç›¸å½“äºä»¥ä¸‹ä¸¤æ¡å‘½ä»¤
 git branch dev
 git checkout dev
 
-git branch ---ÁĞ³öËùÓĞ·ÖÖ§£¬´ø*ºÅµÄÎªµ±Ç°·ÖÖ§
+git branch ---åˆ—å‡ºæ‰€æœ‰åˆ†æ”¯ï¼Œå¸¦*å·çš„ä¸ºå½“å‰åˆ†æ”¯
 
-git merge dev ---ºÏ²¢Ö¸¶¨·ÖÖ§(dev)µ½µ±Ç°·ÖÖ§¡£
+git merge dev ---åˆå¹¶æŒ‡å®šåˆ†æ”¯(dev)åˆ°å½“å‰åˆ†æ”¯ã€‚
 
-git branch -d dev ---É¾³ı·ÖÖ§
+git branch -d dev ---åˆ é™¤åˆ†æ”¯
 
-git log --graph ---²é¿´·ÖÖ§ºÏ²¢Í¼¡£
+git log --graph ---æŸ¥çœ‹åˆ†æ”¯åˆå¹¶å›¾ã€‚
 
 
-·ÖÖ§ºÏ²¢Ê±£¬gitÄ¬ÈÏÊ¹ÓÃfast forwardÄ£Ê½¡£É¾³ı·ÖÖ§ºó£¬»á¶ªµô·ÖÖ§ĞÅÏ¢£¬¿´²»³ö×ö¹ıºÏ²¢¡£
+åˆ†æ”¯åˆå¹¶æ—¶ï¼Œgité»˜è®¤ä½¿ç”¨fast forwardæ¨¡å¼ã€‚åˆ é™¤åˆ†æ”¯åï¼Œä¼šä¸¢æ‰åˆ†æ”¯ä¿¡æ¯ï¼Œçœ‹ä¸å‡ºåšè¿‡åˆå¹¶ã€‚
 
-git merge --no--ff dev ºÏ²¢·ÖÖ§£¬½ûÓÃfast forward Ä£Ê½¡£
-
+git merge --no--ff dev åˆå¹¶åˆ†æ”¯ï¼Œç¦ç”¨fast forward æ¨¡å¼ã€‚
+    
 
 
 
