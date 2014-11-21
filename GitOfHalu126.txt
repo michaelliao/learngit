@@ -73,3 +73,5 @@
 36、git push origin origin tagname：推送标签到远程。
 37、git push origin --tags：推送全部标签到远程。
 38、.gitignore文件：忽略特殊文件，https://github.com/github/gitignore。
+
+大家辛苦了，comment里面欣赏下美女吧！
