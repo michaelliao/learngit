@@ -1,0 +1,5 @@
+hi，michaelliao,thanks for your help about git.
+初学git，发现的确是多人协作的好工具，刚开始觉得一个人学习不需要使用版本控制，但是发现其实早早的养成一个良好的学习习惯是好的开始，决定所有的过程都通过git记录下来。
+感谢Michael回复，开始以为只是没有merge我的文件，刚在邮箱里看到Michael的贴心回复，原来是我的文件没有用utf-8编码，这次再重新编码上传。。。
+anyway thanks 
+lgt945
