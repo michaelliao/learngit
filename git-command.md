@@ -138,10 +138,8 @@
 6. 克隆远程仓库，本地运行，修改后推送
 	+ `git clone git@server:/srv/sample.git`
 	+ `git push`
-	
-
-> 要方便管理公钥，用Gitosis
-> 要像SVN那样变态地控制权限，用Gitolite
+7. 要方便管理公钥，用Gitosis
+8. 要像SVN那样变态地控制权限，用Gitolite
 
 =======
 
