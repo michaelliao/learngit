@@ -139,6 +139,7 @@
 	+ `git clone git@server:/srv/sample.git`
 	+ `git push`
 	
+
 > 要方便管理公钥，用Gitosis
 > 要像SVN那样变态地控制权限，用Gitolite
 
