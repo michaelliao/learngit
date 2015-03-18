@@ -21,6 +21,7 @@ git log --pretty=online 格式化
 HEAD   表示当前版本
 HEAD^  表示上一个版本
 HEAD^^ 表示上上个版本
+HEAD~n 表示上n个版本
 
 git reset --hard HEAD^ 
 
