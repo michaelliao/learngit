@@ -1,0 +1,27 @@
+
+谢谢雪峰老师的经典教程!这两天我边看边练习.
+这是我第一次在github上测试pull request.
+
+下面是我一边看教程,一边实践,然后总结出来的一些有关分支(branch)的命令:
+
+创建分支：git branch <name>
+查看分支：git branch
+
+删除分支：
+git branch -d <name>  删除本地已经commit的分支
+git branch -D <name>  删除本地还未commit的分支
+加强说明:在B分支状态下,无法删除B分支.必须切换到其他分支状态下,才能删除B分支.
+
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+
+合并某分支到当前分支：git merge <name>
+
+协作完成项目时,为了把远程分支的更新同步(pull)到本地相应的分支,需先设置好二者的链接:
+git  branch  --set-upstream  <local branch name>   origin/<remote branch name>
+
+......
+
+暂时先写这些.若有不足之处,恳请朋友们斧正:)
+
+
