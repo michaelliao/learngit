@@ -19,3 +19,6 @@ git push origin master 以后push
 git clone git@github.com:candywxt/XXX.git clone一个仓库
 rm <file> 删除文件 
 git rm <file>删除版本库中的文件
+git stash 保护现场
+git stash list 保险现场的list
+git stash pop 恢复现场并且删除stash
