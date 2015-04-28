@@ -42,7 +42,8 @@ $ git diff file\
 
 \f0 \'d4\'dd\'b4\'e6\'c7\'f8\'ba\'cd\'b0\'e6\'b1\'be\'bf\'e2\'d6\'d0
 \f1 file
-\f0 \'ce\'c4\'bc\'fe\'b5\'c4\'c7\'f8\'b1\'f0
+\f0 \'ce\'c4\'bc\'fe\'b5\'c4\'c7\'f8\'b1\'f0\
+
 \f1 \
 \
 
@@ -329,7 +330,8 @@ PS
 
 \fs40 \cb2 \expnd0\expndtw0\kerning0
 Bug
-\f0 \'b7\'d6\'d6\'a7
+\f0 \expnd0\expndtw0\kerning0
+\'b7\'d6\'d6\'a7
 \f1\fs28 \cb1 \expnd0\expndtw0\kerning0
 \
 \
