@@ -33,9 +33,9 @@ git stash apply
 git stash drop
 $ git stash pop
 $ git stash apply stash@{0}
-$ git push origin dev:dev         // Ìá½»±¾µØdev·ÖÖ§×÷ÎªÔ¶³ÌµÄdev·ÖÖ§
+$ git push origin dev:dev         // æäº¤æœ¬åœ°devåˆ†æ”¯ä½œä¸ºè¿œç¨‹çš„devåˆ†æ”¯
 
-$ git push origin :dev       // ¸ÕÌá½»µ½Ô¶³ÌµÄdev½«±»É¾³ı£¬µ«ÊÇ±¾µØ»¹»á±£´æµÄ£¬²»ÓÃµ£ĞÄ
+$ git push origin :dev       // åˆšæäº¤åˆ°è¿œç¨‹çš„devå°†è¢«åˆ é™¤ï¼Œä½†æ˜¯æœ¬åœ°è¿˜ä¼šä¿å­˜çš„ï¼Œä¸ç”¨æ‹…å¿ƒ
 $ git push origin dev
 $ git remote
 $ git branch --set-upstream dev origin/dev
