@@ -1,0 +1,97 @@
+
+
+hello,Mr Liao! Your tutorial is very good, So I learned quickly, Please receive my first pull request. thanks!
+======================================================================
+git init 创建git仓库
+
+git status 查看当前状态
+
+git add <file> 添加文件到缓冲区 
+
+git commit -m "..."提交  
+
+git diff <file> 对比文件
+
+
+git log 命令显示从近到远的提交日志
+
+git log --pretty=online 格式化
+
+版本退回   
+HEAD   表示当前版本
+HEAD^  表示上一个版本
+HEAD^^ 表示上上个版本
+HEAD~n 表示上n个版本
+
+git reset --hard HEAD^ 
+
+git reset --hard 1111111 退回到指定的版本   1111111表示commit id 
+
+git reflog  显示命令执行历史  
+
+git checkout --<file> 撤销工作区的修改。 
+
+git reset HEAD file 撤销已经add的修改。
+
+删除文件  
+rm <file> 从本地删除文件  
+
+git -rm <file>  删除版本库中的文件 
+
+远程仓库
+
+关联远程仓库 git默认为origin
+git remote add origin git@github.com:zongyl/learngit.git
+
+把当前分支master推送到远程。第一次推送远程，加上-u参数，可以将本地的master 和远程的master分支关联起来。
+以后的推送或者拉去可以简化命令。
+git push -u origin master 
+
+git push origin master  提交到远程。
+
+从远程克隆到本地
+git clone git@github.com:zongyl/learngit.git
+
+git支持多种协议，默认的git://使用shh，但也可以用https等其他协议。 git协议速度最快。
+
+分支管理 
+
+git checkout -b dev --创建并切换到dev分支上 
+-b  表示创建并切换，相当于以下两条命令
+git branch dev
+git checkout dev
+
+git branch ---列出所有分支，带*号的为当前分支
+
+git merge dev ---合并指定分支(dev)到当前分支。
+
+git branch -d dev ---删除分支
+
+git log --graph ---查看分支合并图。
+
+
+分支合并时，git默认使用fast forward模式。删除分支后，会丢掉分支信息，看不出做过合并。
+
+git merge --no--ff dev 合并分支，禁用fast forward 模式。
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

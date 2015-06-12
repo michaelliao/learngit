@@ -1,0 +1,2 @@
+enjoy your interesting git tutorial, and i have a little suggestion, if a beginner mistake for the url of origin when typing "git remote add
+origin xxxxxx" then he cant use the origin to push anything, if he doesnt how to remove it ~ thank your wonderful narratives ~

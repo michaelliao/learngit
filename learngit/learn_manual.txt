@@ -1,0 +1,175 @@
+
+0.安装完成后，还需要最后一步设置，在命令行输入：
+
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。你也许会担心，如果有人故意冒充别人怎么办？这个不必担心，首先我们相信大家都是善良无知的群众，其次，真的有冒充的也是有办法可查的。
+
+1.git status
+是对比 版本库中的 branch ：master 中的文件 和 working directory中的文件
+
+2.若一样 ：
+		$ git status
+		# On branch master
+		to commit (working directory clean
+  若不一样：
+		对比是否提交到index：stage中 暂时区
+		此时可以将working directory 中的文件用命令 git checkout 和标准的master中的一样--变化的是working directory
+		
+		提交add 到stage中  则提示 是否commit
+		此时 可以用 git reset HEAD <file> to unstage
+		
+
+3.为什么Git比其他版本控制系统设计得优秀，
+	因为Git跟踪并管理的是修改，而非文件。		
+	“git commit”只负责把暂存区的修改提交了
+	
+4."git checkout -- <file>..." to discard changes in working directory)
+	是让这个文件回到最近一次git commit或git add时的状态。
+
+	
+5.git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区
+	
+	git checkout -- readme.txt
+	git reset HEAD readme.txt			HEAD原来在working directory处，当git add后 ，HEAD指向stage
+	git reset --hard HEAD^				HEAD在commit后指向master
+	
+6.你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以，需要一点设置：
+
+	$ ssh-keygen -t rsa -C "youremail@example.com"
+	 -t type     Specify type of key to create.
+	  -C comment  Provide new comment.
+	
+7.push an existing repository from the command line
+
+	git remote add origin git@github.com:fergusj/LearnGit.git
+	git push -u origin master
+	
+	从现在起，只要本地作了提交，就可以通过命令：
+	$ git push origin master
+	
+	克隆别人git
+	git clone git@github.com:michaelliao/gitskills.git
+	
+8.HEAD确定当前分支，master指向最新的提交
+每次只对HEAD指向的指针dev做操作（修改），可以两个指针合并————平行空间相遇了。
+
+9.Git鼓励大量使用分支：
+
+	查看分支：git branch
+
+	创建分支：git branch name
+
+	切换分支：git checkout name
+
+	创建+切换分支：git checkout -b name
+	
+	合并某分支到当前分支：git merge name
+	
+	删除分支：git branch -d name
+
+10. $ git diff readme.txt 
+
+
+11. 参数的git log也可以看到分支的合并情况：
+
+$ git log --graph --pretty=oneline --abbrev-commit
+
+
+12.准备合并dev分支，请注意--no-ff参数，表示禁用“Fast forward”：
+$ git merge --no-ff -m "merge with no-ff" dev
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+合并后，我们用git log看看分支历史：
+$ git log --graph --pretty=oneline --abbrev-commit
+
+13.在实际开发中，我们应该按照几个基本原则进行分支管理：
+首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+那在哪干活呢？
+
+干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+所以，团队合作的分支看起来就像这样：
+
+14.stash临时解决主线上bug ，暂存我当前工作分支，在主线上新建issue-101来解决，后恢复现场
+
+15.Feature分支 软件开发中，总有无穷无尽的新的功能要$ git branch -d feature-vulcan
+
+error: The branch 'feature-vulcan' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D feature-vulcan'.
+销毁失败。Git友情提醒，feature-vulcan分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用命令git branch -D feature-vulcan不断添加进来。
+
+
+16.并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？
+
+master分支是主分支，因此要时刻与远程同步；
+
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+
+
+17.origin 远程仓库的默认名称
+master 本地分支 和远程 分支
+
+
+
+
+18.
+他用这个命令创建本地dev分支：
+
+$ git checkout -b dev origin/dev
+
+
+
+19.
+多人协作的工作模式通常是这样：
+
+首先，可以试图用git push origin branch-name推送自己的修改；
+
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+如果合并有冲突，则解决冲突，并在本地提交；
+
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+这就是多人协作的工作模式，一旦熟悉了，就非常简单
+
+20.git pull 相当于更新本地的分支和github中的分支文件校准
+$ git push origin dev   相当于 推送本地分支 到github中
+Everything up-to-date
+
+21.标签也是版本库的一个快照。
+
+
+
+22. git tag v1.0 当前处建立标签
+	git tag v0.1 abc001 在git log 信息commit id的地方
+	git tag 查询所有标签
+	默认的是按照字母排序
+	git show v0.1 显示详细信息
+	git tag -d v0.1 删除
+	git push origin tagname 默认标签是本地的，用这个命令 推送到远程
+	git push origin --tags 一次性推送所有tag
+	
+删除已经push到origin中标签
+git tag -d v0.9
+git push origin :refs/tags/v0.9 
+
+
+命令git push origin tagname可以推送一个本地标签；
+
+命令git push origin --tags可以推送全部未推送过的本地标签；
+
+命令git tag -d tagname可以删除一个本地标签；
+
+命令git push origin :refs/tags/tagname可以删除一个远程标签。
+
+
+	
+	
+	
