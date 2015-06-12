@@ -1,0 +1,2 @@
+Through 4 days learn git,I think git is really a good version control system.
+Thanks  michaelliao for teaching me.
