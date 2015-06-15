@@ -1,0 +1,142 @@
+﻿$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+通过git init命令把这个目录变成Git可以管理的仓库：
+用命令git add告诉Git，把文件添加到仓库：$ git add readme.txt
+Unix的哲学是“没有消息就是好消息”
+用命令git commit告诉Git，把文件提交到仓库：$ git commit -m "wrote a readme file"
+add会把修改放到暂存区，commit会把暂存区里的内容提交到当前分支。
+时刻注意git status,查看修改差异，利用git diff,commit前要add.
+利用git log来查看我们队文件都做了哪些改动。如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数：
+
+如何回退：
+1.首先，Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，也就是最新的提交3628164...882e1e0（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+2.就可以使用git reset命令来回退，如git reset --hard HEAD^(回退到上一个版本)
+3.如果当前页面没有消失可以找到版本的id,页面如果要回去可以用$ git reset --hard 3628164，这两个步骤主要是把指针来回的移动罢了。
+4.要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。查看commit id就行。
+
+GIT管理的是修改，add是把修改放到了暂存区，commit是把暂存区的修改提交，所以每次修改一定要add，
+
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+git checkout -- file命令中的--很重要，没有--，就变成了“创建一个新分支”的命令，我们在后面的分支管理中会再次遇到git checkout命令。
+
+Git同样告诉我们，用命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+
+*******************************************************************************
+梳理一下：首先文件夹下有两个部分，工作区和版本区，在工作区中是我们实体的文件copy,在版本区中是进行版本控制的内容(也就是修改和工作区的最新文件备份)，其中管理的是修改。我们用的git xx命令就是在版本区执行的，我们用的rm,touch等是在工作区执行的。在工作区执行后，就产生了一次修改，git把这些修改放到版本区的暂存区（利用add命令），如果没有放到暂存区的话，git status会有说明的，因为我们只有把修改放到暂存区中我们才可以进行提交等（因为暂存区给了我们一次可以反悔的机会，我们可以checkout 和 reset）.
+举一个比较好的例子：删除工作区的一个文件rm test.txt,这对于GIT来说是一个修改，这个修改会立刻反应给GIT（因为它在工作区已经不存在了，所以add到暂存区是没有意义的），如果你真的要删除他的话，可以用git rm test.txt 把他也从版本库中删除，然后git commit 提交，这样版本库中和工作区中都没有了，如果是误删除，因为版本区里还有一个最新的备份，因此可以用checkout回复到工作区。
+
+*******************************************************************************
+
+实际情况往往是这样，找一台电脑充当服务器的角色，每天24小时开机，其他每个人都从这个“服务器”仓库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交。
+
+当然，GitHub允许你添加多个Key。假定你有若干电脑，你一会儿在公司提交，一会儿在家里提交，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
+一、推送给远程
+1.我们根据GitHub的提示，在本地的learngit仓库下运行命令：
+现在github上创建一个learngit.git的repo然后在本地git文件夹下运行。
+$ git remote add origin git@github.com:michaelliao/learngit.git//或者是http://github.com/banjnax/LeaGit.git
+请千万注意，把上面的michaelliao替换成你自己的GitHub账户名，否则，你在本地关联的就是我的远程库，关联没有问题，但是你以后推送是推不上去的，因为你的SSH Key公钥不在我的账户列表中。
+添加后，远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。
+2.下一步，就可以把本地库的所有内容推送到远程库上：$ git push -u origin master
+把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+3.此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+二、从远程拉去
+1.$ git clone git@github.com:michaelliao/gitskills.git//或者http://github.com/banjnax/LeaGit.git
+之后会在本地创建一个相对应的文件夹
+
+三、分支的创建于使用
+HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。
+一开始的时候，master分支是一条线，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点：
+当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上：不过，从现在开始，对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：假如我们在dev上的工作完成了，就可以把dev合并到master上。Git怎么合并呢？最简单的方法，就是直接把master指向dev的当前提交，就完成了合并：所以Git合并分支也很快！就改改指针，工作区内容也不变！合并完分支后，甚至可以删除dev分支。删除dev分支就是把dev指针给删掉，删掉后，我们就剩下了一条master分支：
+1.命令
+$ git checkout -b dev
+git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+$ git branch dev
+$ git checkout dev
+然后，用git branch命令查看当前分支：
+
+$ git branch
+* dev
+  master
+git branch命令会列出所有分支，当前分支前面会标一个*号。
+git push origin MyBr//把分支push到远端
+2.合并分支内容到master
+$ git merge dev//注意这个事在master分支内运行的，表示把master合并到dev分支处
+3.合并完成后，就可以放心地删除dev分支了：$ git branch -d dev
+4.注意在本地push到远端，如果想保持同步，需要把分支和master分别push到github。删除了本地分支就不能再本地同步到github上了，需要自己在github上删除，不过话又说回来了，一般来说我们只是clone远端的master,然后在本地建一个分支，然后在本地分支上修改什么的，然后合并为master,最后通过master push到github，最后在本地删除我们的分支。所以。。把我们的分支push 到github上是没有必要的。
+
+四、冲突
+1.如果多个分支对同一个文件进行了修改提交，并且分支之间进行了meger就会发生冲突。
+2.解决，我们在master上修改冲突文件，因为这是一个修改所以我们add,commit就好了，这时master比其他分支多一层，就解决了冲突问题。git log --graph命令可以看到分支合并图。
+
+--no-ff参数，表示禁用Fast forward：//merge时
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+五、stash
+对于你在分支上工作时，突然来了另一个紧急的任务，但是你的工作还没有做完怎么办呢，那就是先把当前的现场环境保留下来git stash；然后就可以去做其他事了，做完了其他事，回到本分支，用git stash list命令看看保留的现场环境：工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
+
+一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+
+另一种方式是用git stash pop，恢复的同时把stash内容也删了：
+你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：
+
+$ git stash apply stash@{0}
+
+六、多人协作
+多人协作的工作模式通常是这样：
+首先，可以试图用git push origin branch-name推送自己的修改；
+
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+如果合并有冲突，则解决冲突，并在本地提交；
+
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+七、标签
+在Git中打标签非常简单，首先，切换到需要打标签的分支上：
+然后，敲命令git tag <name>就可以打一个新标签：
+
+$ git tag v1.0
+可以用命令git tag查看所有标签：
+
+$ git tag
+v1.0
+默认标签是打在最新提交的commit上的。有时候，如果忘了打标签，比如，现在已经是周五了，但应该在周一打的标签没有打，怎么办？
+
+方法是找到历史提交的commit id，然后打上就可以了：
+比方说要对add merge这次提交打标签，它对应的commit id是6224937，敲入命令：
+
+$ git tag v0.9 6224937
+注意，标签不是按时间顺序列出，而是按字母排序的。可以用git show <tagname>查看标签信息：
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+
+$ git tag -a v0.1 -m "version 0.1 released" 3628164
+用命令git show <tagname>可以看到说明文字：
+如果标签打错了，也可以删除：
+
+$ git tag -d v0.1
+因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+
+如果要推送某个标签到远程，使用命令git push origin <tagname>：
+或者，一次性推送全部尚未推送到远程的本地标签：
+
+$ git push origin --tags
+
+如何参与一个开源项目呢？比如人气极高的bootstrap项目，这是一个非常强大的CSS框架，你可以访问它的项目主页https://github.com/twbs/bootstrap，点“Fork”就在自己的账号下克隆了一个bootstrap仓库，
+一定要从自己的账号下clone仓库，这样你才能推送修改。如果从bootstrap的作者的仓库地址git@github.com:twbs/bootstrap.git克隆，因为没有权限，你将不能推送修改。
+
+如果你想修复bootstrap的一个bug，或者新增一个功能，立刻就可以开始干活，干完后，往自己的仓库推送。
+
+如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。
+
+如果你没能力修改bootstrap，但又想要试一把pull request，那就Fork一下我的仓库：https://github.com/michaelliao/learngit，创建一个your-github-id.txt的文本文件，写点自己学习Git的心得，然后推送一个pull request给我，我会视心情而定是否接受。
