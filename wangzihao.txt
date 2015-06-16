@@ -1,0 +1,4 @@
+The time is 2015-6-16.
+It is the first time to study git and github.
+Thank you for liaoxuefeng.
+PS: The English is poor..
