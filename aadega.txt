@@ -1,0 +1,60 @@
+Thanks！
+
+工作区 -> git add -> 暂存区 -> git commit -> 版本库 -> git push -> 远程仓库
+
+版本库HEAD表示当前版本，上一个版本HEAD^，上上一个版本HEAD^^.......
+
+配置本机git
+git config --global user.name "abcd"
+git config --global user.email abcd@efgh.com
+
+git连接自己的github
+第一步：创建SSH_key: ssh-keygen -t rsa -C "aaadega@gmail.com",
+        创建成功后.ssh文件下的id_rsa是私钥，id_rsa.pub是公钥
+第二步：登陆GitHub，打开“Account settings”，“SSH Keys”页面
+第三步：添加SSH key，用公钥
+
+一切从版本库同步到远程的git都有uname和pword操作push
+其他都是从本地直接切换操作
+
+一定要从自己的账号下clone仓库，这样你才能推送修改。先fork再clone
+
+git init 初始化此文件夹为版本库
+git add readme.txt 将文件从工作区添加到暂存区
+git checkout -- readme.txt 撤销工作区文件的修改
+git commit -m "this is commit" 将文件从暂存区提交到版本库
+git reset HEAD 从暂存区回退到工作区
+git diff 查看工作区文件修改前后的差异
+git status 查看工作区与暂存区的文件修改状态
+git log 查看提交日志
+git log --pretty=oneline
+git reset --hard HEAD^ 回退到上一版本
+git reflog    查看命令历史
+git remote add origin url 为远程Git更名为origin
+git push -u origin master 首次推送此次修改
+git push origin master 然后可以不加-u
+git clone url 克隆一个远程库到本地
+git branch page 创建新分支
+git checkout page 选择新分支
+git checkout -b page 相当于上面两条一起
+git branch 查看分支
+git merge page 合并分支page到master，checkout到master分支
+git merge page --no-ff -m "plain" 禁用Fast forward
+git branch -d[D] page 删除分支page，删除前先切换到master分支[D强行删除]
+git push origin :page  删除远程分支page
+cat read.txt   查看文件内容（冲突）
+git log --graph 查看分支合并情况
+git log --graph --pretty=oneline --abbrev-commit  查看最近分支合并情况
+git stash 隐藏当前工作区
+git stath list 查看隐藏的工作区
+git stash apply stash{0} 恢复隐藏的工作区，不会删除stash
+git stash drop 删除stash
+git stash pop stash{0} 恢复隐藏的工作区，一并删除stash
+git remote -v 查看远程库信息
+git pull 拉取最新分支
+git branch --set-upstream branchName origin/branchName 指定本地与远程之间的链接
+git tag <name>  可以打一个新标签
+git tag   查看所有标签
+git tag name id  打标签
+-a指定标签名，-m指定说明文字
+git show <tagname>可以看到说明文字
