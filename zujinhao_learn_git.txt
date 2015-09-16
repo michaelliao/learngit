@@ -1,0 +1,86 @@
+1.在github网站上new  Repository创建新的仓库
+2.在本地克隆远程的版本库：
+     将仓库的https地址复制下来
+     在本地切换到目标文件，输入 git clone 复制下来的https
+     进入版本库名称的那个文件夹，将里面的内容复制到外层文件夹
+     删除版本库名字的那个文件夹
+3.git add . 将所有文件添加到版本控制里边
+4.git commit -m "First commit" 执行本地提交操作
+5.git push origin master 将提交的内容同步到远程版本库
+
+.
+.
+继续做项目
+.
+.
+现在项目内容相比于之前发生变化
+
+6.git add . 将项目添加到版本控制        把要提交的修改放在暂存区
+7.git commit -m "项目修改了"  执行本地提交  把暂存区的修改一次性的提交到分支
+8.git push origin master 将提交的内容同步到远程版本库
+
+
+1、进入一个目录
+     git init 在该目录下创建本地仓库
+     git add file 把文件添加到仓库，该文件必须在本地仓库的目录之下
+     git commit -m “aaa” 将文件提交到仓库
+2.git status 命令可以告诉你当前文件的状态  有没有被修改过
+   git diff 命令可以告诉你那里修改了
+
+3.时光穿梭机
+     撤销删除、删除文件 这两节再看一遍
+     HEAD 代表当前版本
+     HEAD^ 代表上一个版本
+     HEAD^^ 代表上上个版本  以此类推
+     HEAD~100 代表上100个版本
+     git reset --hard 版本       恢复到制定版本
+     git reflog 记录每一次命令
+     
+     工作区、版本库、分支的理解
+    
+              
+
+     一个提交的流程：
+              新增了一个文件LICENSE，和修改了文件readme.txt
+               执行
+                    git add LICENSE
+                    git add read.txt
+                暂存区变成了这样：
+
+               
+               执行git commit以后：
+
+               
+               注意，暂存区没有任何内容了。
+
+        git管理修改，每次修改都要add到暂存区，否则不会被commit提交到分支
+        git checkout --file
+               丢弃工作区的修改，恢复成上一次add或者提交的工作区
+        git reset HEAD file
+               适用于已经添加到暂存区的情况下将提交到暂存区的修改丢弃，但工作区的修改没有丢弃
+        git rm 用于删除一个文件
+               在工作区删除了一个文件，此时可通过git —checkout file将工作区区的内容复原
+               git rm file 将删除文件这个修改提交到暂存区， 
+               git commit -m “xxx” 将这个修改提交到分支，这时这个文件就删除了
+     
+4.远程仓库
+     添加远程库：
+     在github上新建一个仓库，将本地仓库和远程仓库相关联使用命令：
+          git remote add origin git@server-name:path/repo-name.git
+   关联以后，就可以通过命令来推送最新的修改到服务器了：
+      git push origin master
+   从远程库克隆：
+     网上的项目先fork一下
+     git clone 链接 即可将项目克隆到本地（用ssh协议较好）
+
+5.分支管理
+git鼓励大量使用分支：
+    
+          查看分支：git branch
+          创建分支：git branch <name>
+          切换分支：git checkout <name>
+          创建+切换分支：git checkout -b <name>
+          合并某分支到当前分支：git merge <name>
+          删除分支：git branch -d <name>
+
+     

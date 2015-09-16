@@ -1,0 +1,71 @@
+Git
+By ZTL
+---1---
+	git config --global user.name "zhaotongliang"
+	git config --glabal user.email "294064077@qq.com"
+	
+	git ini
+	
+	git add ***
+	git commit -m "***"
+	git status
+	git diff
+	
+	git reset --hard commit-id
+	git reset --hard HEAD^  			-------HEAD^^^ is OK
+
+	git log
+	git reflog
+	
+	git checkout -- ***					-------丢弃工作区
+	git reset HEAD ***					-------从暂存区放回工作区
+	
+	git rm ***
+	
+---2---
+	git remote add origin git@server:path
+	git push -u origin master
+	git push origin master
+	
+	git clone git@server:path 			-------默认名字是origin，默认指抓取master分支
+---3---
+	git branch
+	git checkout -b ***
+	git merge ***
+	git branch -d ***
+	
+	git log --graph --pretty=oneline --abbrev-commit
+	
+	git merge --no-ff -m "***" ***		-------如果不noff，只要可能是fast foward就会是
+	
+	git stash
+	git stash pop
+	git stash apply stash@{}
+	git stash list
+	dit stash drop stash@{}
+	
+	git branch -D ***
+---4---
+	git remote
+	git remote -v
+	
+	git push origin ***					-------***指分支名
+	
+	git checkout -b *** origin/***		-------Clone后本地建立对应的分支
+	git pull
+	git branch --set-upstream *** origin/*** 	--------若git pull不成功，需要先关联本地和远程分支
+	
+---5---
+	git tag ***
+	git tag *** commit-id
+	git show ***
+	git tag -a *** -m "***" commmit-id
+	git tag -d ***
+	git push origin ***
+	git push origin --tags
+	
+	git push origin:refs/tags/***
+---6---
+	
+	
+	
