@@ -1,0 +1,108 @@
+教程网址：
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+
+
+创建用户：（注明自己的身份）
+git config --global user.name "username"
+git config --global user.email "useremail"
+
+初始化：(进入相应文件夹后，在该文件夹初始化版本库)
+git init
+
+添加项目：（添加your file到版本库）
+git add (your file)
+
+添加注释信息：（为当前创建版本写上注释）
+git commit -m "your message"
+
+查看当前版本状态：
+git status
+
+查看修改内容：
+git diff
+
+查看日志：
+git log [file name]
+git log --pretty=oneline	//将日志显示到一行，每行之包括sha1码和注释信息
+				//这里的sha1码即为一个版本的ID（commit id）
+				//如果加上--abbrev-commit参数会将sha1码通过简写的方式显示
+
+回退版本：
+git reset --hard HEAD^		//HEAD后面的^的数目代表要回退的版本数
+git reset --hard HEAD~n		//n代表要回退的版本数
+git reset --hard (commit id)	//回退到相应commit id的版本，id不用写全，一般7位就够了
+
+查询回退日志：
+git reflog
+
+显示文档内容：
+cat （file）
+
+查看工作区和暂存区的区别：
+git diff HEAD -- (file)
+
+撤销最近一次对文件修改：
+git checkout -- (file)		//将文件回到最近一次git commit或git add的状态
+				//当误删除文件时可以使用此命令从git仓库还原此文件
+				//不加--就会变成创建一个分支
+
+撤销最近一次提交到暂存区的文件:
+git reset HEAD (file)		//将最近一次add到stage的文件退回
+
+克隆项目到远程库：
+git remote add origin git@server-name:path/repo-name.git
+				//origin为远程库的名字，可以改变，但习惯上叫origin
+git remote			//显示远程仓库名字
+git remote -v			//显示远程仓库详细信息
+git branch --set-upstream branch-name origin/<branch-name>
+				//将本地分支与远程分支关联
+
+将本地库推送到远程：
+git push [-u origin master]	//实际上相当于将本地的master分支内容推送到远程新的master分支
+				//并且将本地master与远程关联，方便以后的推送
+				//以后在本地推送时只需要输入git push origin master
+
+从远程库克隆仓库：
+git clone git@server-name:path/repo-name.git
+
+创建分支：
+git branch (branch-name)	//创建一个名字为branch-name的分支
+git checkout (branch-name)	//移动到branch-name分支
+git checkout -b (branch-name)	//-b参数为创建并切换，相当于上述两条命令组合
+git branch			//列出所有分支，并在当前分支前面会标一个*号。
+
+合并分支：
+git merge (branch-name)		//将指定分支（branch-name）合并到当前分支
+git log --graph			//查看分支合并图
+
+删除分支：
+git branch -d (branch-name)	//删除指定分支
+git branch -D <branch-name>	//强制删除指定分支
+
+分支管理：
+git merge --no-ff -m "<msg>" <branch-name>
+				//不使用fast forward模式合并分支，这样会在morge时添加一个commit
+				//-m参数后面即为描述信息
+
+保存现场：
+git stash			//用于保存当前工作区、暂存区现场
+git stash list			//列出当前已经存在的现场
+git stash apply <stash-name>	//跳转到<stash-name>现场，但是它本身并没有删除
+git stash drop <stash-name>	//删除<stash-name>
+git stash pop			//跳转到最新的现场，并删除（弹出）
+
+标签管理：
+git tag				//查看标签
+git tag <tag-name>		//创建一个<tag-name>的tag
+git tag <tag-name> <commit-id>	//在<commit-id>位置创建一个tag（用于给先前提交过的版本创建tag）
+git show <tag-name>		//显示<tag-name>的详细信息
+git tag -a|-s <tag-name> -m <msg> <commit-id>
+				//创建带注释的标签。-m后接注释内容。
+				//使用-a参数则创建的是公共tag。使用-s参数则会使用私钥创建带签名
+				//的标签。（使用PGP签名，需要安装GnuPG）
+git tag -d <tag-name>		//删除<tag-name>标签
+git push origin <tag-name>|--tags
+				//推送<tag-name>到远程库或一次性推送全部标签
+git push origin :refs/tags/<tag-name>
+				//删除远程库的tag。首先删除本地tag，然后通过此格式推送到远程
