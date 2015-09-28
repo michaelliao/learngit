@@ -1,0 +1,16 @@
+感谢老师的教程，这是我第一次测试pull request。
+
+顺便记录一下笔记
+
+合并A仓库的某commit到B仓库
+
+先在目录下添加远程分支到本地
+git remote add remote_origin github@git.com:SlimRoms/kernel_htc_msm8974.git
+
+将更新取回到本地
+git fetch remote_origin
+
+合并其中的commit 到自己的仓库
+git cherry-pick <hashid>
+
+如有冲突手动修改冲突文件
