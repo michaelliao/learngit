@@ -30,5 +30,4 @@
 			$ git log --pretty=oneline
 		每条记录都会有一个commit id，这条id就表示了这条记录
 		git用HEAD表示当前版本，HEAD^表示上一个版本，以此类推HEAD^^...HEAD~100
-		然后就可以使用如下命令回到过去了
-	
+		然后就可以使用如下命令回到过去
