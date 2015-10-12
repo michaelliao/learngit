@@ -1,0 +1,13 @@
+等待命运之剑
+--------------------------------
+|---github----------------------------|
+|               ①fork                |
+|liao/learngit ------> amtree/leargit |
+|              <------      ↑  |      |
+|          ⑤pull request   |  |      |
+|___________________________|__|______|
+                            |  |
+                     ④push |  | ②clone
+                            |  ↓
+                          local/leargit
+                       ③ur file、add、commit
