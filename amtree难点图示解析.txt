@@ -1,0 +1,40 @@
+关于工作目录(working directory)、暂存区(stage/index)、版本库(commit)
+
+及版本回退的难点图示解析:
+
+                     ___________版本库（Repository）__________
+                    |                                         |
+      工作区/目录   |      暂存区           分支              |
+  working directory |   stage/index      当前master  ←HEAD    |
+         1          |        1               1                |
+         ↑        add        ↑     commit    ↑                | 
+         |        ----->     |     ----->    |                | 
+         |          |        |               |                |
+         2          |        2               2                |
+ ②.checkout --     |  ①.reset HEAD     ③.reset --hard      |
+                    |_________________________________________|      
+
+                                  
+                 <--diff-->    <--(--cached)-->
+          <----------------HEAD--------------->
+
+暂存区清空操作：   
+ git reset HEAD test.txt 是指清空了暂存区,，你所有的git add且没有git 
+
+coomit的修改都将清空；
+
+回退提交的版本：
+ git reset --hard HEAD^
+ git reflog
+ git reset --hard 版本号（commit_id）
+ 其实都是用最新的版本(commit)还原
+ --------------附送删除及恢复操作------------------------------
+    rm file __恢复--> checkout -- file
+           | 
+           |__删除--> git rm & commit
+		   
+       wd  index  commit
+        1    1      1
+ rm     N    1      1
+git rm  N    N      1
+commit  N    N      N
