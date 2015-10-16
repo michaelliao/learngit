@@ -1,0 +1,3 @@
+# -*- coding:utf-8 -*-
+
+your git and python class helped me a lot, thanks!
