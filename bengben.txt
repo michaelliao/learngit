@@ -1,0 +1,28 @@
+﻿
+
+感谢峰哥，让我增长了知识，同时也记录了笔记
+	
+	
+-------------------------------------------
+
+
+添加修改的文件要存储区：git add .（添加所有）
+提交：git commit -m " commit message"
+
+创建dev分支 ：git checkout -b dev 
+切换到dev分支 ：git checkout dev
+合并分支：先切换到master->git checkout master ->git merge dev 
+删除分支：git branch -d dev
+
+查看分支历史：git log --graph --pretty=oneline --abbrev-commit
+
+为了查看历史分支合并的信息，在合并的时候需要--no-ff模式
+git merge --no-ff -m "合并分支信息" noff2
+
+临时遇到事情，而又不能提交则暂存
+git stash
+然后切换分支
+
+当解决完了相应临时的问题之后，切换暂存的分支，然后 : git stash pop
+
+推送到远端服务器： git push origin master(或者其他分支)
