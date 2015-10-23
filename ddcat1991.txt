@@ -1,0 +1,67 @@
+非常感谢这个作者的教程,很受用.也不知道写些什么,就把学的时候的笔记粘上来了.
+
+===========================================
+1.将本地仓库与远程仓库关联
+   git remote add origin git@github.com:ddcat1991/learngit.git
+2.将本地内容推送到远程仓库
+	git push -u origin master
+	其中 origin远程仓库,master为分支名	由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+=======================================================================
+1.克隆远程库到本地
+	git clone git@github.com:michaelliao/gitskills.git
+
+=======================================================================
+关于分支
+	1.创建dev分支
+	git checkout -b dev
+	-b表示创建切换: 相当于 $git branch dev  $git checkout dev
+	
+	2.查看分支
+	$git branch
+	
+	3.切回到master分支
+	$ git checkout master
+	
+	4.合并指定分支到当前分支
+	$ git merge dev
+	
+	5.删除分支
+	$git branch -d dev
+		--强制删除未合并的分支
+		  $git branch -D <分支名>
+	
+	6.查看分支合并情况
+	git log --graph --pretty=oneline --abbrev-commit
+	
+	7.合并分支,禁用fastforward
+	$ git merge --no-ff -m "merge with no-ff" dev
+	
+	8.Bug分支--储存工作现场
+		$git stash
+		关于恢复
+		$git stash apply
+		$git stash pop
+		
+	
+		
+===================================================================
+关于远程仓库
+	1.获取远程仓库信息
+		$git remote -v
+	2.推送分支
+		$git push origin master
+						-分支名
+	3.创建远程分支到本地
+		$ git checkout -b dev origin/dev
+	4.从远程抓取
+	  $ git pull
+	  
+==================================================================
+关于标签
+	1.添加标签
+		$git tag v1.0
+		$git tag v0.9 622493706
+		
+	2.带有说明的标签
+		$ git tag -a v0.1 -m "version 0.1 released" 3628164
