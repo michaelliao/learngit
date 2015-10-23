@@ -1,0 +1,95 @@
+1、git设置
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"2、
+
+2、创建git
+$ git init
+
+3、把文件添加到git，可以反复多次使用，添加多个文件
+$ git add readme.txt
+
+4、把文件提交到git仓库，-m 后面是本次提交的说明
+$ git commit -m "wrote a readme file"
+
+5、查看当前状态
+$ git status
+
+6、查看修改的内容
+$ git diff readme.txt 
+7、查看历史记录
+$ git log
+$ git log --pretty=oneline
+$ git reflog
+8、回退到上一个版本
+$ git reset --hard HEAD^
+9、回退到某个版本
+$ git reset --hard 3628164
+10、丢弃工作区的修改
+$ git checkout -- readme.txt
+11、撤销暂存区的修改unstage
+$ git reset HEAD readme.txt
+12、删除文件
+$ git rm test.txt
+13、关联远程仓库
+$ git remote add origin git@github.com:michaelliao/learngit.git
+14、推送到远程仓库
+$ git push -u origin master
+15、克隆一个本地库
+$ git clone git@github.com:michaelliao/gitskills.git
+
+Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快
+
+16、分支管理
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+17、查看分支合并图
+$ git log --graph
+$ git log --graph --pretty=oneline --abbrev-commit
+18、禁用Fast forward 模式
+$ git merge --no-ff -m "merge with no-ff" dev
+19、把工作现场存储起来，等以后恢复现场后继续使用
+$ git stash
+20、查看工作现场存放在哪里
+$ git stash list
+21、恢复现场，stash内容不删除
+$ git stash apply
+22、删除stash内容
+$ git stash drop
+23、恢复并删除stash内容
+$ git stash pop
+24、强行删除分支
+$ git branch -D feature-vulcan
+25、多人合作
+多人协作的工作模式通常是这样：
+首先，可以试图用git push origin branch-name推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+26、查看远程库的信息
+$ git remote -v
+27、创建标签
+$ git tag v1.0
+28、查看所有标签
+$ git tag
+29、在历史提交中打标签
+$ git tag v0.9 6224937
+30、-a指定标签名，-m指定说明文字
+$ git tag -a v0.1 -m "version 0.1 released" 3628164
+31、用私钥签名一个标签，签名采用PGP签名，必须先配置pgp
+$ git tag -s v0.2 -m "signed version 0.2 released" fec145a
+32、查看标签说明文字
+$ git show v0.1
+33、标签
+命令git push origin <tagname>可以推送一个本地标签；
+命令git push origin --tags可以推送全部未推送过的本地标签；
+命令git tag -d <tagname>可以删除一个本地标签；
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+﻿
+
+
