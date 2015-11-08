@@ -1,0 +1,12 @@
+this is a good introduction for a beginner especially for a chinese beginner since it is 
+written in chinese!haha!
+
+This introduction introduce the basic concepts and practice commands.
+as a beginner, maybe we can first learn this intro,
+for advanced learning, maybe some other git books are needed!
+
+
+Thanks very much for this excellent book!
+
+zou
+2015-11-06
