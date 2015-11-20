@@ -1,0 +1,47 @@
+Last login: Fri Nov 20 11:36:20 on ttys000
+xiaorudeMacBook-Pro:~ Arthur$ git clone git@github.com:mouse33333/learngit-1.git
+Cloning into 'learngit-1'...
+remote: Counting objects: 3900, done.
+remote: Compressing objects: 100% (28/28), done.
+remote: Total 3900 (delta 11), reused 0 (delta 0), pack-reused 3868
+Receiving objects: 100% (3900/3900), 1.33 MiB | 91.00 KiB/s, done.
+Resolving deltas: 100% (1338/1338), done.
+Checking connectivity... done.
+xiaorudeMacBook-Pro:~ Arthur$ git config --global color.ui true
+xiaorudeMacBook-Pro:~ Arthur$ git status
+fatal: Not a git repository (or any of the parent directories): .git
+xiaorudeMacBook-Pro:~ Arthur$ cd learngit-1
+xiaorudeMacBook-Pro:learngit-1 Arthur$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   .DS_Store
+
+no changes added to commit (use "git add" and/or "git commit -a")
+xiaorudeMacBook-Pro:learngit-1 Arthur$ vi
+
+非常感谢你的教程，让我这个文科生也会使用git了。在你的课程里的幽默、耐心以及舒服>的版式都是让人继续学下去的原因之一。
+
+我提一个修改意见哈：在解决冲突一节的视频里，你用了vi文件编辑器以及一些命令，如果能在文本中进行说明就更好啦，因为我百度了一下才知道有vi这么个东西。
+
+再次感谢你的教程~
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+E32: No file name
