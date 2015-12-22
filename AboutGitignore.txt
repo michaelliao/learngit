@@ -1,0 +1,6 @@
+Git的忽略文件.gitignore在win资源管理器下是建立不了的，win会提示必须输入文件名。解决方法很简单，先建立一个文本文档，名字随意，这里以gitignore.txt为例，打开编辑输入想要忽略的文件名或目录名，保存关闭。按住shift键，在当前文件夹空白处右键鼠标，选择在此处打开命令行，输入rename gitignore.txt .gitignore重命名文件即可。
+    还有一个问题值得注意，如上当你已经将文件加入了.gitignore后发现文件变更后还是会提示时，解决方法及原因如下：
+因为你已经把改文件加到tracked file里了 用
+git rm --cached filename.suffix(filename.suffix为你的文件名)
+把他移除 .gitignore这个文件是用于 untracked 文件的忽略列表
+你用add将文件标记为 tracked 状态 .gitignore就对其无效了
