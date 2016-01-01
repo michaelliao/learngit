@@ -1,0 +1,6 @@
+Hello michaelliao!
+Your tutorial about git is the best one of all the tutorials about git which I have seen.
+Before attending this course, I knew only a little like 'push' and 'commit'.
+But now, I have know well about more powerful skills -- branch, tag and so on.
+Git is really an awesome version control system!
+Thanks for teaching how to use git!
