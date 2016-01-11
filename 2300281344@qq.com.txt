@@ -1,0 +1,14 @@
+=============
+     Orz
+=============
+
+我是WuTianming。
+我是个中学生。
+Orz
+囧rz
+学完Linux Shell和C++之后再也无力学Git
+感到Git难得一塌糊涂有木有
+然而
+我Python都（快）会了，怎么能不会Git
+所以
+这只是个Hello World
