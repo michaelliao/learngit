@@ -1,0 +1,140 @@
+git基本命令使用
+一、	安装配置并使用git(本地)
+
+
+1、安装配置git
+
+Git config –global user.name “Your Name”
+Git config –global user.email “mail@example.com”
+
+2、	Create repository(创建版本库)
+
+随意在本地创建一个目录,然后执行 git init 命令,使其变为git可以管理的仓库！
+然后再仓库里就可以创建文件并将其提交到版本库中
+Git add 添加文件到版本库    git commit –m “Commen”  添加注释并提交
+
+3、查看当前仓库状态以及被修改过的文件
+
+Git status     git diff   
+如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+
+4、版本回退
+
+Git log –pretty-oneline  查看提交历史
+Git reflog  查看命令历史  
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id
+
+5、	撤销修改
+
+Git checkout – file 撤销工作区中所做的修改
+Git reset HEAD file 文件已被修改而且还提交到了暂存区 此时想要撤销  先执行 这条命令 然后在执行上一条命令
+
+6、	删除文件
+
+Git rm file 删除某个文件
+首先使用git log –pretty-oneline  查看提交历史
+
+然后使用找到上一次的提交id,执行 git reset –hard commit_id  来恢复刚刚已被删除的文件
+
+
+二、	远程仓库
+
+1、	创建SSH Key(在用户主目录下查看是否有 .ssh 目录存在)
+
+看看 .ssh 目录下是否存在 id_rsa和id.rsa_pub 这两个文件! 如果没有的话 打开 shell 输入 ssh-keygen –t rsa –C “xiangqiling5204@gmail.com” 创建 ssh key ! 可以一路回车使用默认值   也可以自己去设定密码  两种方式 任君自选
+
+2、	添加  SSH Key
+
+登陆 https://www.github.com  Account->settings->ssh keys->Add SSH key
+将刚刚生成的 公钥文件(id_rsa_pub)里面的内容全部全部复制 粘贴进 key文本框里,title随意填写！ 然后保存即可
+
+3、	添加远程仓库(本地仓库已经存在的前提下可以使用此方法)
+
+在github上新建一个远程仓库,然后使用下面的命令
+ git remote add origin git@github.com:security00/testGit.git  
+就可以将本地仓库与远程仓库关联起来
+
+4、	将本地库的内容推送到远程库
+
+Git push –u origin master
+第一次推送使用 –u 参数  以后本地文件若有改动 直接使用 git push origin master 即可！
+
+5、	从远程仓库克隆到本地
+
+登录自己的github账号,然后在上面创建一个远程仓库并初始化！然后在本地的shell上执行 git clone git@github.com:security00/KCon.git  (这个是你自己的仓库地址,由github自动生成) 克隆完成 就可以了
+
+
+三、	分支管理
+
+1、	创建与合并分支
+
+使用命令创建 dev 分支并切换过去 git checkout –b dev   git checkout 加上-b : 创建并切换
+创建dev分支： git branch dev
+切换到dev分支：git checkout dev
+查看当前分支：git branch (PS:当前分支前面会有一个*号标记)
+
+在dev分支上修改readme.txt 并提交,然后切换回master分支,发现刚刚修改的内容不见了！
+在master分支中合并dev分支：git merge dev (PS:git merge 用于合并指定分支到当前分支)
+删除dev分支：git branch –d dev
+
+2、	解决冲突
+
+当在两个分支中都做了修改并提交,然后执行合并就会产生冲突！
+查看冲突文件的内容 ： git diff readme.txt【filename】
+然后修改文件内容  再次提交
+查看分支合并情况：git log --graph --pretty=oneline --abbrev-commit
+删除分支：git branch –d featurel  强行删除某分支 git branch –D featurel
+
+3、	分支管理策略
+
+使用git merge 合并分支时 加上 –no-ff 参数 禁用 Fast forward模式 以保留分支信息
+git merge --no-ff -m "merge with --no-ff" dev  合并时保留分支信息
+git log --graph --pretty=oneline --abbrev-commit  查看历史分支
+
+4、	Bug分支
+
+需要修复bug时可以先将目前的分支暂时隐藏  使用 git stash
+Bug修复完成之后 重新回到之前的分支
+列出之前的工作现场列表 git stash list
+恢复工作现场 git stash apply  or git stash pop 
+	恢复指定现场 git stash apply stash@{0}
+
+5、	多人协作
+
+查看远程库信息 git remote –v
+从本地推送分支  git push origin branch-name
+从远程抓取分支 git pull
+在本地创建和远程分支对应的分支 git checkout –b branch-name origin/branch-name
+建立本地分支和远程分支的关联 git branch –set-upstream branch-name origin/name 
+或者  git branch –set-upstream-to origin/branch-name branch-name
+
+四、	标签管理
+
+1、	创建标签
+
+创建标签 git tag v1.0(tagName)
+查看所有标签  git tag
+对历史提交打标签  git log –pretty=oneline –abbrev-commit(查看历史提交)
+找寻对应的commit_id 进行创建标签 git tag v0.9 “Commit_id”
+查看标签信息  git show v1.0
+创建带有说明的标签 git –a(tagName) v1.0 –m “Description”
+创建带私钥签名的标签 git –s v0.2 “Description”   -s(使用PGP签名)
+
+2、	操作标签
+
+删除标签 git tag –d v0.1
+推送标签到远程 git push origin v1.0
+推送本地所有标签到远程 git push origin –tags
+删除远程标签 git push origin :refs/tags/<tagName>
+
+Git config –global color.ui true 文件名标注颜色
+
+五、	忽略特殊文件
+
+在git工作区的根目录创建一个名为 .gitignore 的文件,把需要忽略的文件后缀(*.ini)                             或者文件名填入此文件 然后将 .gitignore 一起push至远程仓库即可!
+
+六、	配置别名
+
+Example: git config –global alias.st status
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
