@@ -1,0 +1,145 @@
+﻿
+参考 廖雪峰的官方网站 - Git教程
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+
+一、创建版本库
+
+git init 把当前目录变成Git可以管理的仓库：
+
+git add readme.txt  告诉Git，把文件添加到仓库：----添加
+git add readme2.txt
+						//可以添加多次
+						
+git commit -m  "第一次提交" //告诉Git，把文件提交到仓库：----提交			
+
+git status  查看当前目录是否有修改的。
+git diff readme.txt  查看修改的内容
+
+git mv readme.txt git-op.txt  修改文件夹名称
+
+二、基本操作
+1.版本回退
+
+git log  查看下历史记录
+git log --pretty=oneline  精简版查看下历史记录
+git log --pretty=oneline --abbrev-commit
+
+git reset --hard HEAD^  退回上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个 写成HEAD~100。
+git reset --hard 3628164 跳转到指定的 id 版本：
+
+git reflog  记录你的每一次命令：
+
+
+2.撤销当前修改
+
+git checkout -- readme.txt  让这个文件回到最近一次git commit或git add时的状态。
+							命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
+							
+git reset HEAD readme.txt  可以把暂存区的修改撤销掉，重新放回工作区： HEAD，表示最新的版本	
+
+
+3.删除文件
+
+把某个文件删除了之后，git status会发现你删除了一个文件。现在你有两个选择：
+1.  git rm test.txt 确实要从版本库中删除该文件
+    git commit -m "remove test.txt"
+2.  git checkout -- test.txt
+
+三、远程仓库
+1.添加远程库
+
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+2.从远程库克隆
+git clone git@github.com:michaelliao/gitskills.git 在一个目录下直接克隆一个仓库
+Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+
+
+四、分支管理
+1.创建与合并分支
+git checkout -b dev 创建dev分支，并切换到dev分支：
+	> git branch dev	创建
+	> git checkout dev	切换 分支
+
+git branch 列出所有分支，当前分支前面会标一个*号。
+
+git checkout master 切换到主分支
+
+git merge dev 把指定分支合并到当前分支
+git branch -d dev 删除dev分支
+
+2.解决冲突
+当feat分支修改 并commit ，主分支也也修改了commit。
+使用git merge feat 合并的时候，如果出现冲突。
+Git 会自动的用<<<<<<<，=======，>>>>>>>标记出不同分支的内容，我们打开文件，删除这些标记，然后再做提交合并 就OK了。
+
+git log --graph 命令可以看到分支合并图。
+
+3.分支管理策略
+git merge --no-ff -m "merge with no-ff" dev 普通模式合并，合并后的历史有分支，能看出来曾经做过合并，
+											而fast forward合并就看不出来曾经做过合并。
+				本次合并要创建一个新的commit，所以加上-m参数，描述这次commit做了什么。
+
+4.Bug分支
+git stash 可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
+git stash list 查看“储藏”的列表
+恢复有两种办法：
+	> git stash apply 恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+	
+	> git stash pop 恢复的同时把stash内容也删了：
+	
+git branch -D feature-vulcan 丢弃一个没有被合并过的分支	
+
+
+5.多人协作
+git remote 查看远程库的信息，远程仓库的默认名称是origin	
+git remote -v 显示更详细的信息： 显示了可以抓取和推送的origin的地址。如果没有推送权限，就看不到push的地址。	
+	
+
+多人协作的工作模式通常是这样：
+
+首先，可以试图用git push origin branch-name推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+新clone项目
+git clone git@github.com:michaelliao/learngit.git 克隆到本地目录
+git checkout -b dev origin/dev 创建远程origin的dev分支到本地，本地和远程分支的名称最好一致；
+。。。修改之后
+git push origin dev 把dev分支push到远程：
+
+
+五、标签管理
+1.创建标签
+git log --pretty=oneline --abbrev-commit 查看历史提交的commit id
+
+git tag v1.0 就可以打一个新标签，默认为HEAD。
+git tag v0.9 6224937 对6224937这个提交，打个标签
+git tag -a v0.1 -m "version 0.1 released" 3628164 创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+
+git tag -s v0.2 -m "signed version 0.2 released" fec145a 通过-s用私钥签名一个标签：
+		签名采用PGP签名，因此，必须首先安装gpg（GnuPG），如果没有找到gpg，或者没有gpg密钥对，就会报错：
+
+git tag 查看所有标签。注：标签不是按时间顺序列出，而是按字母排序的。
+
+2.操作标签
+git tag -d v0.1  删除标签
+
+git push origin v1.0  推送某个标签到远程
+git push origin --tags  推送全部尚未推送到远程的本地标签
+
+如果标签已经推送到远程，要删除：
+	> git tag -d v0.9 先从本地删除
+	> git push origin :refs/tags/v0.9 从远程删除。
+
+
+
+
+
+	
+	
