@@ -1,0 +1,5 @@
+hello, everybody:
+	
+	this is chisj's study git note!!!
+
+thanks you!!!
