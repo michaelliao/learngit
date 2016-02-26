@@ -1,0 +1,105 @@
+#rflyee-learngit-note.txt
+#https://github.com/Rflyee
+#感谢廖雪峰老湿^_*
+
+
+初始化基本
+$git init    // 初始化
+$git add xxx.txt      // 添加到暂缓区
+$git add .    // 当前目录下所有文件添加到暂存区
+$git commit -m "xxxx"     // 添加到版本库
+$git status   // 查看当前状态
+$git log      // 查看提交log
+$git  reflog  // 查看历史操作log
+$git log --graph    // 
+
+版本回退
+$git reset --hard HEAD~        // 回退到上一个版本
+$git reset --hard HEAD~2    
+ 
+
+ 撤销修改
+ $git reset HEAD xxx.txt         // 将文件从暂缓区恢复到工作区
+ $git checkout -- xxx.txt         // 丢弃工作区，恢复到最近一次commit 或 add时的状态
+
+
+ 远程仓库
+ $ ssh-keygen -t rsa -C"youremail@example.com" // 创建SSH Key
+ $ git remote add origin git@github.com:michaelliao/learngit.git // 本地仓库关联到远程仓库 
+ $ git push -u origin master // 第一次推送 
+ $ git push origin master // 之后推送 
+ $ git clone https://github.com/Rflyee/AndroidCodes.git
+
+ 分支管理
+ $git checkout -b dev   // 新建并切换分支dev
+ 等同于
+ $git branch dev    // 新建分支
+ $git checkout dev    // 切换到dev分支
+
+ $git branch     // 查看当前分支
+ $git checkout master    //切换分支回master
+ $git merge dev     // 将dev分支合并到master
+ $git merge --no-ff -m "merge with no-ff" dev
+
+ $git branch -d feature-vulcan // 删除分支 
+ $git branch -D feature-vulcan // 强制删除没有合并的分支
+
+ 存储当前分支的修改
+ $git stash    // 保存当前分支的修改
+ $git stash list    // 查看当前分支所有的存储
+ $git stash pop    // 取出最近一次保存
+ $git stash apply stash@{0}     // 将某个存储取出到工作区
+ $git stash drop stash@{0}      // 删除某个存储
+
+ 多人协作
+ $git push origin branch-name      // 向远程推送自己的修改
+ $git pull     // 更新远程最新的代码到本地分支
+ $git branch --set-upstram branch-name origin/branch-name    // 关联本地分支合远程分支
+ $git checkout -b branch-name origin/branch-name    // 创建本地分支，并和远程分支对应
+
+ 多人协作的工作模式通常是这样：
+ 首先，可以试图用git push origin branch-name推送自己的修改；
+ 如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+ 如果合并有冲突，则解决冲突，并在本地提交；
+ 没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+ 如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，
+ 用命令git branch --set-upstream branch-name origin/branch-name。
+
+ 在本地创建和远程分支对应的分支，
+ 使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+ 标签管理
+ $git tag <tagname>     // 在当前分支新建一个标签，默认为HEAD，页可以指定一个commit id
+ $git tag    // 查看所有的tag
+ $git tag -a <tagname> -m "注释babbab"    // 创建分支，并添加注释
+ $git tag -s <tagname> -m "注释babaab"    // 使用PGP签名标签
+
+ $git push origin <tagname>      // 推送一个本地标签到远端
+ $git push origin --tags    // 推送全部标签
+ $git tag -d <tagname>    // 删除本地标签
+ $git push origin :refs/tags/<tagname>    // 删除远程标签
+
+
+ 配置别名（缩略名）
+ $ git config --global alias.st status   //  st ==> status
+ $ git config --global alias.co checkout
+ $ git config --global alias.ci commit
+ $ git config --global alias.br branch
+ // git reset HEAD file
+ $ git config --global alias.unstage 'reset HEAD'   // git unstage test.py  ===> git reset HEAD test.py
+ // git log  ===> git lg
+ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+ 配置文件
+
+ 配置Git的时候，加上--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。别名就在[alias]后面，要删除别名，直接把对应的行删掉即可。
+ .git/config   // 当前库
+ 用户主目录下的一个隐藏文件.gitconfig   // 当前用户的git配置，加上--global的配置
+
+
+
+
+
+
+
+
