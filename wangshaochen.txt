@@ -1,0 +1,108 @@
+git笔记
+yum install git
+git init 初始化
+git add file 添加到仓库
+git commit -m "the help " 提交到仓库
+git status 
+git diff file
+git log   如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数
+git reset --hard HEAD^ 回滚到上个版本
+git reset --hard  3628164(版本id前几位）
+git reflog 记录每一次命令
+
+git checkout file 丢弃工作区更改
+git reset HEAD file 撤销暂存区的修改
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库
+
+
+git rm file
+git commit -m "rm file"删除文件
+git checkout file 恢复工作区误删除文件
+
+
+ssh-keygen -t rsa -C "youremail@example.com"
+git remote add origin wangshaochen@github.com:wangshaochen/learngit.git
+git remote add origin git@server-name:path/repo-name.git
+git push -u origin master  /-u 关联仓库
+git push origin master
+
+
+ git clone git@github.com:michaelliao/gitskills.git
+
+
+git branch 查看分支
+git branch <name> 新建分支
+git checkout <name> 切换分支
+git checkout -b <name> 新建并切换到分支
+git merge <name> 合并某分支到主分支
+git branch -d <name> 删除分支
+合并分区发生冲突后修改后再合并
+
+
+
+
+git merge --no-ff -m "merge with no-ff" dev  普通合并
+git stash bug分支，存贮后台
+git stash pop  调出后台工作内容，并删除
+git stash list
+git stash apply stash@{0}
+git branch -D <name>强行删除
+
+
+
+
+因此，多人协作的工作模式通常是这样：
+
+
+
+	1. 首先，可以试图用git push origin branch-name推送自己的修改；
+
+	2. 如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+	3. 如果合并有冲突，则解决冲突，并在本地提交；
+
+	4. 没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+
+
+
+	* 
+查看远程库信息，使用git remote -v；
+
+	* 本地新建的分支如果不推送到远程，对其他人就是不可见的；
+
+	* 从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+
+	* 在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+	* 建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+
+	* 
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+
+		* 命令git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+
+		* git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+
+		* git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+
+		* 
+命令git tag可以查看所有标签。
+
+git tag -d v0.1 删除标签本地
+git push origin <tagname> 推送标签到远程
+git push origin --tags 推送全部未推送的标签
+git tag -d v0.9
+git push origin :refs/tags/v0.9 删除远程标签
+
+
+
+

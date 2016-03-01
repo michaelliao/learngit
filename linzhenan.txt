@@ -1,0 +1,3 @@
+Git is much different from SVN and Visual Studio Online.
+I believe it will be my friend when I set out for Linux from Windows.
+Thank you for this useful tutorial.

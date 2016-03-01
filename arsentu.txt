@@ -1,0 +1,130 @@
+	• git --version
+
+	• git config
+	$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+	$ git config -l // 列出所有config 
+	
+	• git init
+	$ git init
+	
+	• git add
+	$ git add readme.txt
+	$ git add .
+	
+	• git commit
+	$ git commit -m "wrote a readme file"
+	
+	• git status
+	$ git status
+	
+	• git diff
+	$git diff readme.txt
+	$git diff
+	$git diff HEAD -- readme.txt
+	$git diff origin/dev dev  // 看本地dev分支与远程的dev分支的diff
+	$git diff master dev // 查看本地dev分支与本地master分支的diff
+	$git diff origin/master dev // 查看本地dev分支与远程master分支的diff
+	$git diff origin/dev  // 将当前缺省分支与远程dev分支进行比较
+	
+	• git log
+	$git log
+	$git log --pretty=oneline // 每个commit显示为一行
+	$git log --graph --pretty=oneline --abbrev-commit 
+	
+	• git reset
+	$git reset --hard HEAD^
+	$git reset --hard 16ce9d3
+	$git reset HEAD readme.txt // 将暂存区清空，工作区不受影响
+	
+	• git reflog
+	$git reflog
+	
+	• git checkout
+	$git checkout -- readme.txt // 用“版本库 merged with 暂存区”中的内容替换工作区中的内容，相当于revert(放弃还没有提交的修改)
+	$git checkout dev // 切换到分支dev 
+			// 如果当前分支上没有修改，可以切换，切换分支时会修改工作区的内容为新分支的内容
+			// 如果当前分支上有修改，切换的分支对应的commit一样，则工作区中还没有提交的修改会留着
+			// 如果当前分支上有修改，切换的分支对应的commit不一样，则不能切换，要么将修改stash, 要么将修改revert(cheout -- file), 也就是将修改清空后再进行切换
+	$git checkout -b dev // 切换到分支dev, -b 分支不存在的情况下先创建分支
+	$git checkout -b dev origin/dev // 在本地创建和远程对应的分支，名称最好一致
+	
+	• git branch
+	$git branch dev // 创建分支dev
+	$git branch // 查看本地分支
+	$git branch -a // 查看所有分支，包括远程分支
+	$git branch -d dev // 删除分支 -D强行删除（对于还没有合并的分支）。要删除一个分支，需要跑到另一个分支下去删
+	$git branch --set-upstream dev origin/dev // 将本地分支与远程分支关联
+	
+	• git remote
+	$git remote // 查看远程仓库有关的信息
+	$git remote -v // 详细信息
+	$git remote show origin // 关于远程仓库origin更详细的信息(有哪些分支，以及分支的状态)
+	$git remote update // 让本地获知远程仓库有关的信息
+				// 对于新建的branch，状态为new而不是tracked, 则需要先update一下
+				// 远程仓库已经更新过了，但本地还不知道，需要更新一下 （否则status, diff信息不准），但不会改本地的仓库及工作区的内容
+				// 会列出来远程做过什么update (别人做的)
+	$git remote add origin https://github.com/arsentu/learngit.git  // 将本地的仓库和远程的仓库建立关联 origin代表远程的名字，后面的url是远程的具体位置
+	$git remote set-url origin git@git.oschina.net:arsentu/learngit.git  // 更改远程origin对应的位置
+	
+	• git push
+	$git push -u origin master // -u 第一次远程还没有master分支的时候用，并把本地的master分支与远程的master分支建立关联
+	$git push origin master // 后续的推送(master分支)不再需要-u参数
+	$git push origin dev // 将本地的dev分支push到远端
+	$git push // 将当前没有同步的分支都进行push , 可能push多个分支
+	$git push origin v1.0 // 将标签推送到远程
+	$git push origin --tags  // 将所有标签都推送到远程
+	$git push origin :refs/tags/v0.5 // 先用git tag -d v0.5删除本地标签，再将删除推送到远程，在远程上也删除之
+	
+	• git pull
+	$git pull // 只将当前branch的内容与远程同步，但是会显示所有远程更新的信息（相当于背后做了git remote update ?）
+	$git pull origin master:master // 从远程的master pull到本地的master
+	$git pull origin master // 从远程origin的master pull到本地的当前branch
+	$git pull origin // 从远程origin中与当前branch对应的branch进行pull
+	$git pull // 只有一个远程时，远程用缺省的，本地branch用当前的，远程branch用与当前branch对应的
+	$git pull origin master:user1 // 从远程的master pull到本地的user1, 不会改变user1的追踪(映射)关系
+	
+	• git fetch
+	$git fetch origin // 获取远程有关的信息，但是不会修改工作区的内容，便于看与远程的diff? 获取的是什么？ 和git remote update的效果一样？
+			// origin相当于远程在本地的镜像，fetch是将本地镜像与远程同步？gite remote update也可以
+	$git fetch foobar // foobar是另一个远程的名字
+	$git fetch // 获取缺省的远程
+	
+	• git rm
+	$git rm test.txt
+	
+	• ssh-keygen
+	$ssh-keygen -t rsa -C "yourname@example.com"
+	
+	• git remote add 
+	$git remote add origin git@github.com:arsentu/learngit.git // 在本地工作git工作区目录下运行，将本地仓库与远程仓库关联
+	
+	• git clone
+	$git clone git@github.com:arsentu/gitskills.git
+	
+	
+	• git merge
+	$git merge dev // 将dev分支合并到当前分支，合并会修改当前分支对应的版本库中的内容
+	$git merge --no-ff -m "merge with no-ff" dev // 禁用非Fast-forward方式merge, 会产生新的commit
+	
+	• git stash
+	$git stash // 暂存工作现场，同时revert 工作区
+	$git stash list // 列出存过的工作现场
+	$git stash apply // 恢复工作现场
+	$git stash apply stash@{0} // ?
+	$git stash drop // 删除保存的工作现场
+	$git stash pop // 恢复工作现场并删除存储的工作现场 相当于apply + drop
+	
+	• git help
+	$git help log
+	
+	• git tag
+	$git tag v1.0 // 打标签
+	$git tag // 查看标签列表
+	$git tag v0.5 102cdf77a6f3c7b228b449145c3f531679cf73cb // 给以前的某次commit补打标签
+	$git tag -a v0.1 -m "initial version: readme.txt" 330f5cff5c1849730ef94b // -a 标签名，-m 描述信息
+	$git tag -d v0.5 // 删除标签
+
+	• git show
+	$git show v0.5 // 查看某个标签
+
