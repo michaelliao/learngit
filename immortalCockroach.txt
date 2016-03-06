@@ -1,0 +1,3 @@
+非常感谢廖老师的教程
+
+git教程中关于工作区和暂存区(stage)的概念解释得非常清楚，结合git bash的提示以及分支指针(head)的概念，使得自己对checkout --(unstage) 和reset head的命令了解得更深刻了。
