@@ -1,0 +1,49 @@
+
+1. 初始化一个Git仓库
+**.git init :初始化repository, 新建一个folder-->进入--> git init.
+
+2. 添加文件到Git仓库
+**.git add <fileName> : 可以多次使用，添加多个文件
+**.git commit : 将文件提交到仓库 -m 可以对本次提交做说明，例如： git commit -m "add 1 file".
+
+3.git status 掌握仓库当前的状态
+例如：
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+4.git diff 查看上次修改的情况
+例如：
+
+$ git diff readme.txt
+diff --git a/readme.txt b/readme.txt
+index 0065b6f..5367626 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -1,2 +1,2 @@
+-Git is a version control system.
+-Git is a free software.
+\ No newline at end of file
++Git is a distributed version control system.
++Git is a free software.
+
+
+5.git log 查看提交日志, 加上 --pretty=oneline 参数，可以让格式更加简单
+	** git log --pretty=oneline
+	
+6.git reset --hard HEAD^  退回到上一个版本，若是上上一个版本就是 HEAD^^ 
+	** 如果版本太多，可以写成  HEAD~100 
+
+7.git rm <fileName> 
+	**git rm用于删除一个文件
+	
+8. $ git checkout -- <fileName>
+	** git checkout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+ 
