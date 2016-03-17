@@ -1,0 +1,10 @@
+liuskunk学习一下
+function showBgBox(pid, bid) {
+        var pid = pid || "loading";
+        var bid = bid || "ops_bgbox";
+        var bgW = $(document).width();
+        var bgH = $(document).height();
+        var bgBox = '<div id="'+bid+'" style="position:absolute;background:black;z-index:999;left:0px;top:0px;filter:alpha(opacity=30);-moz-opacity:0.4;opacity:0.4"></div>';
+        $(bgBox).css({width:bgW, height:bgH}).appendTo("body");
+        showCenterBox(pid);
+    }
