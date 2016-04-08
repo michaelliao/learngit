@@ -1,0 +1,59 @@
+廖神 ：
+    请收下我的膝盖，完美的教程。
+----------------------------------------------------------
+
+git指令笔记
+
+git init   初始化一个Git仓库
+git add <filename>   添加文件到Git仓库
+git commit -m "本次提交的说明"
+git status   显示工作区状态
+git diff   查看修改内容
+git reset --hard HEAD commit_id    回到某个版本   HEAD指向的版本就是当前的版本
+
+Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，
+上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个
+版本写100个^比较容易数不过来，所以写成HEAD~100。
+
+git reflog   查看命令历史
+git reset HEAD filename   撤销暂存区的修改
+git checkout -- filename   丢弃工作区的修改
+ssh-keygen -t rsa -C "youremail@example.com"   用户主
+git remote add origin git@github.com:EasonGG/learngit.git   关联远程库
+git push -u origin master   第一次推送master分支的所有内容，把本地库的所有内容推送到远程库上
+git push origin master   推送分支，把该分支上的所有本地提交推送到远程库
+git push origin branchname   推送指定分支
+git checkout -b dev【相当于git branch dev（创建分支） 和 git checkout dev（切换分支）】   创建dev分支，并切换到dev分支
+git branch   查看当前分支
+git merge branchname   将某分支合并到当前分支
+git branch -d branchname   将分支删除
+git log --graph --pretty=oneline --abbrev-commit   查看分支合并情况
+git merge --no-ff -m "merge with no-ff" branchname   禁用Fast Forward模式合并分支
+git stash   把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+git stash list   查看“储藏”的工作现场
+git stash apply  恢复stash（stash的内容不删除）
+git stash drop   删除stash
+git stash pop   恢复并删除stash
+git stash apply stash@{0}     恢复指定的stash
+git remote   查看远程库的信息  git remote -v  显示更详细的信息
+git pull   抓取最新的提交
+git checkout -b branchname origin/branchname
+git branch --set-upstream branchname origin/branchname  指定本地分支与origin分支的连接
+git tag <name>   添加一个新的标签
+git tag   查看所有标签
+git tag <name> commit_id     为指定提交打标签
+git tag -a <tagname> -m “描述信息”   创建带有说明的标签
+git show <tagname>    查看指定标签信息
+git tag -s <tagname> -m “描述信息”   PGP签名标签
+git tag -d <tagname>   删除标签
+git push origin <tagname>   推送某个标签到远程
+git push origin --tags   一次性推送全部尚未推送到远程的标签
+
+
+
+
+
+
+
+
+
