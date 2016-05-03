@@ -4,7 +4,8 @@
 int main()
 {
     printf("Thank you liao\n");
-    exit(0);
+	printf("xiexie\n");
+	exit(0);
 
 }
 
