@@ -5,5 +5,6 @@ int main()
 {
     printf("Thank you liao\n");
     exit(0);
+
 }
 
