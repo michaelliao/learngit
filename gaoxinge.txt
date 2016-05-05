@@ -1,0 +1,16 @@
+﻿廖老师：
+
+   git教程写的太棒了，对于我这名刚使用github的同志真是太及时了！我现在常用的命令有：
+
+	git clone
+
+        git add .
+
+        git commit -m ""
+
+        git  push origin master
+
+这是我和同学的github学习心得（https://github.com/THM-TheoreM/Github），里面链接了你的博客，望您同意。
+
+											
+										高辛格
