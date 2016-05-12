@@ -1,0 +1,33 @@
+关于git（version control system ) commit id 一般是前七位
+
+关于ssh-keygen 。Ssh-keygen -t [是指ssh加密的类型，有版本1的rsa1 ,版本2 的rsa dsa ecdsa ed25519 ] -C [评论，解释]
+
+ssh-key-gen   -b :默认的rsa 最小加密密钥是768bits，默认是2048bits
+
+注意ssh key 中的pub 必须是以ssh-rsa ssh-dsa ssh-ecdsa ssh-ed25519
+
+注意在往GitHub添加你的ssh-key 的时候，注意不能用vi  vim等打开后再复制到你的GitHub中，用cat gedit等。
+
+关于Github为什么使用ssh key？？？以我个人学习的经历看，原因有两个：1、使得我们再向远程库进行推送时，免去了输入密码，帐号的繁琐过程;2、按照www.liaoxuefeng.com 所说，就是为了让Github来确认推送是来自你，而不是来自他人。
+
+根据众多网友的评论，对于ssh-key ，如果设置完毕，可以不用在自己本地仓库里面写test 文件去测试，既然是ssh，那么肯定支持ssh链接，所以不妨就用ssh 来测试一下，看看是否用密码。（Good）
+
+Ps:判断是否有木有推送的权限：就是看看远程仓库里的信息，git remote -v show 如果能够看到抓取的、推送的，那就说明有其权限。没有权限的话，就看不到（从而猜想：是不是可以看看其他人的）
+
+# 关于一些常见单词的总结：（amend 修正，修改/revision）（thermal 热量，温度）（encounter 遭遇，邂逅，遇到）(annotate  注释，注解comment)
+
+关于Git中不能自动解决冲突的问题（conflict），必须要手动解决conflict
+
+Fast Forward模式----即一旦删除分支后，我们既无法知道分支存在过，也无法区分哪些修改是在分支上提交的。
+
+
+
+现在有conflict的情况有两种，1在合并时;2在推送时（解决办法：1必须手动进行解决在重新提交，或者加参数 -i 目的是告诉stage还有额外的文件需要提交。或者 -a 提交所有的，包括那些还没有完成的;2先把产生冲突的分支拉取下来，然后重新推送。注意在拉取时要指定本地分支和远程分支的链接）
+
+所以，看到后面说，推送失败的原因是由于远程仓库要比我们本地更  新，所以只能将远程的先拉取下来，以使得两边一样。
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+所以，fork 的目的就是为了以后如果某个版本正式确定下了，就可以推送上去了，fork到自己的远程仓库下，同时push  pull 等，如果你不进行fork的话，直接clone 别人的项目，最后导致你没有权限而不能进行推送。。。
+
+**只能接受被自动merge的pull request
