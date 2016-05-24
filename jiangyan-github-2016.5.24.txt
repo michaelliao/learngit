@@ -1,0 +1,8 @@
+廖老师，感谢你写的github教程，让我从5天就大致了解了github操作流程，教程简单易懂，赞
+常用命令： 
+	       git clone (git remote url)
+	       git add .
+	       git commit
+	       git checkout -b mybranch
+	       git branch
+
