@@ -1,0 +1,71 @@
+廖雪峰 Git 教程学习记录
+
+mkdir learngit  
+cd learngit 
+git init  #初始化Git仓库
+** create readme.txt  ** echo "line 1 ">> readme.txt 
+git add readme.txt  #添加到暂存空间
+git commit -m "first commit , 'line1'"  #提交加备注
+** echo "error line 2" >> readme.txt 
+git add readme.txt 
+git status  #查看状态
+** have a change.
+git reset HEAD readme.txt  #将暂存空间内容撤销
+git checkout readme.txt  #使用版本库里的内容覆盖工作空间内容,同时达到撤销工作空间内容的目的
+** echo "line2" >> readme.txt 
+git add readme.txt  
+git commit -m "commit line 2 " 
+git rest --hard HEAD^ #回退为上个版本
+git rest --hard (gitID) #回退为指定版本
+git log #查看当前版本及之前版本的id +--pretty=oneline简化显示
+git ref log #查看所有版本的id
+
+
+远程仓库:
+github.com 注册
+打开Git bash 
+$ ssh-keygen -t rsa -C "937203399@qq.com" #创建本机的key
+打开github.com 登陆,添加SSH KEYS
+切换到本地库
+$ git remote add origin git@github.com:ooran/learngit.git #关联远程仓库
+$ git push -u origin master #将本地库push到远程仓库 ,第一次加-u 关联 之后可以不加
+
+克隆：
+$ git clone git@github.com:ooran/gitkills.git
+
+分支： 未提交的内容在工作区,所有分支都可以看到,commit后的内容在对应的分支内,切换只能在对应的分支内看到.
+git branch #查看分支 *为当前分支
+git branch <name> #创建分支
+git checkout <name> #切换分支
+git checnout -b <name>  #创建并切换分支
+git merge <name>  #合并某分支到当前分支
+git branch -d <name> #删除分支
+git branch -D <name> #强行删除分支
+
+
+分支冲突：合并时显示分支冲突先merge 后修改<<<<分支1 <<<<分支2 之间的冲突内容,然后在提交. 当前分支会比被合并的分支多commit一次
+git log --graph --pretty=oneline --abbrev-commit  #查看分支情况
+git merge --no-ff <name>  #禁用Fast forward,不删除分支,合并后保留分支
+
+
+
+BUG分支：正在dev分支工作,需要修改bug并提交,应该先把dev当前工作区stash储藏起来.修改完bug提交后在使用 git stash pop恢复dev的内容到工作区.
+git stash #储藏当前工作区
+git stash list #查看
+git stash apply <stashid> #恢复指定内容到工作区,不在stash内删除..stashid通过git stash list查询
+git stash drop <stashid>  #删除
+git stash pop  #恢复stash的内容到工作区,并在stash内删除
+
+
+标签：
+git tag <name>  #新建标签,默认为HEAD，也可以指定一个commit id.
+git tag -a <tagname> -m "blablablabla"  #指定标签信息
+git tag -s <tagname> -m "blablablabla"  #使用PGP签名标签
+git tag #查看所有标签
+git show <tagname> #查看指定tag的详细内容
+git tag -d <tagname> #删除tag
+git push origin <tagname> #推送指定标签到远程
+git push origin --tags #推送所有标签到远程
+git tag -d <tagname>
+git push origin :refs/tags/<tagname> #从远程删除标签
+
