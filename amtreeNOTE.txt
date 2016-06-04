@@ -1,0 +1,77 @@
+改动yccphp的笔记
+git init 
+git add 
+git commit -m "add readme.text file”
+git status 
+
+git diff 
+git diff HEAD
+git diff --cached
+git log 
++	--pretty=oneline 只显示版本号和提交注视
+git reflog
+
+git reset --hard HEAD^
+git reset --hard eb737
+
+git checkout -- readme.txt  //一键还原工作区为版本库
+git reset HEAD readme.txt 
+git rm test.php
+
+生成 ssh key 
+ssh-keygen -t rsa -C “youremail@example.com"
+
+添加远程仓库
+关联
+git remote add origin git@github.com:amtree/testgit.git 
+推送到远程库
+git push -u origin master //第一次,-f强制
+以后每次提交
+git push origin master
+
+从远程仓库克隆
+git clone git@github.com:amtree/gitclonetest.git 
+
++创建合并分支
+checkout -b   分支名
+git branch 分支名
+git checkout 分支名
+git branch
+
+git merge dev
+合并指定分支 到当前分支上
+git branch -d dev   
+
+git log --graph --pretty=oneline -—abbrev-commit 
+查看分支合并图
+git gui  //visualization
+git merge --no-ff -m "merge with on-ff" dev
+合并创建一个新的提交
+—no-ff 普通合并，合并后的历史有分支，能看的出来曾经做过合并
+
+bug 分支
+git stash
+git stash pop
+git branch -D feature-vulcan
+
+git remote
+	－v 显示更详细的信息
+    查看远程分支的信息
+
+标签
+git tag <name>
+git tag v1.0 7a7e436
+git tag
+git show v1.0
+git tag -a v1.0 -m “正式版"
+git tag -d <name>
+
+git push origin v1.0
+git push origin —tags
+
+删除远程服务器上面的标签
+1、先从本地删除
+git tag -d v1.0	
+2、删除远程上的tag
+git push origin :refs/tags/v0.9
+生亦何欢，死亦何苦

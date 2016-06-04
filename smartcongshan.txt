@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    printf("Thank you liao\n");
+	printf("xiexie\n");
+	exit(0);
+
+}
+

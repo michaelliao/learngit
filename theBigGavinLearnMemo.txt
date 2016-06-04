@@ -1,0 +1,637 @@
+v0.1.2
+
+** 创建版本库
+在工作目录下执行: git init
+
+** 添加文件到版本库
+两步：
+1. git add learngit.txt
+
+2. git commit -m "wrote a learngit note"
+-m 后面输入本次提交的说明，任意文字，但当然是希望是对描述修改的有意义的文字
+
+[master (root-commit) da0313a] wrote a learngit note
+ 1 file changed, 1 insertion(+)
+ create mode 100644 learngit.txt
+执行后git 告诉我们 1个文件被变更，插入了1行内容。
+
+** 将变更提交到版本库
+提交变更和增加文件的操作一样，都是git add然后跟git commit
+提交修改文件跟增加新文件的操作一样
+1. git add learngit.txt
+2. git commit -m "add how to upload changes"
+
+[master 710675b] add how to upload changes
+ 1 file changed, 12 insertions(+)
+
+** 检查变更
+可以用git diff命令查看 当前工作区文件和暂存区或版本库文件的差异 。
+在执行git add 前，显示的是工作区文件和版本区之间的差异。
+在执行git add 后，显示的是工作区文件和暂存区之间的差异。
+再次执行 git add后，由于暂存区和工作区一致了，git diff也就不会显示差异了。
+git diff learngit.txt
+用来查看文件的版本间差异，默认是查看当前文件和库文件之间的区别
+diff --git a/learngit.txt b/learngit.txt
+index 5f04ebf..bc1b225 100644
+--- a/learngit.txt
++++ b/learngit.txt
+@@ -12,3 +12,15 @@ git commit -m "wrote a learngit note"
+
+ Git is a distributed version control system.
+ Git is free software.
++
++git diff learngit.txt
++用来查看文件的版本间差异，默认是查看当前文件和库文件之间的区别
++
++git status
++用来查看库的状态，如果有变化则有显示，无变化则无回显
++
++
++
++
++
++
+
+** 查看当前变更状态的命令
+git status
+用来查看库的状态，如果有变化则有显示，无变化则无回显
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   learngit.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+** 查看过往的变更记录
+* 可以通过 git log 查看提交记录
+commit 710675b4c5f1fd219124a014b671cf1f14d191af
+Author: bigGavin <guowei_man@126.com>
+Date:   Thu Feb 25 20:39:59 2016 +0800
+
+    add how to upload changes
+
+commit 29d38aacfdd609841a323cb297212b46eda153dc
+Author: bigGavin <guowei_man@126.com>
+Date:   Thu Feb 25 20:34:00 2016 +0800
+
+    change to UTF-8
+
+commit 57fa415fc0be00b9f2ce65fe6c53ddd7644e4eb1
+Author: bigGavin <guowei_man@126.com>
+Date:   Thu Feb 25 20:32:50 2016 +0800
+
+    add and commit operation
+
+commit da0313a560b94c788109ace064c19044d6baf6c2
+Author: bigGavin <guowei_man@126.com>
+Date:   Thu Feb 25 20:23:47 2016 +0800
+
+    wrote a learngit note
+
+* git log --pretty=oneline
+可以将每次版本变更显示为一行概要信息
+710675b4c5f1fd219124a014b671cf1f14d191af add how to upload changes
+29d38aacfdd609841a323cb297212b46eda153dc change to UTF-8
+57fa415fc0be00b9f2ce65fe6c53ddd7644e4eb1 add and commit operation
+da0313a560b94c788109ace064c19044d6baf6c2 wrote a learngit note
+
+如上，注意log的显示是倒叙的，最后的更改在最上面
+710675b4c5f1fd219124a014b671cf1f14d191af是commit id（版本号）
+
+** 版本回退
+版本回退使用 git reset 命令
+git reset --hard HEAD^
+
+测试一下：
+$ git commit -m "add how to see git log and how to go back to old version"
+[master f746122] add how to see git log and how to go back to old version
+ 1 file changed, 72 insertions(+)
+记住这个 f746122 ，一会儿回来还要用
+
+$ git reset --hard HEAD^
+HEAD is now at 710675b add how to upload changes
+这就回到了上次提交的版本 710675b4c5f1fd219124a014b671cf1f14d191af add how to upload changes
+
+$ git reset --hard HEAD^^
+HEAD is now at 57fa415 add and commit operation
+这次直接回跳两个版本到了 57fa415fc0be00b9f2ce65fe6c53ddd7644e4eb1 add and commit operation
+
+穿越结束，可以回到现实了
+$ git reset --hard f746122
+HEAD is now at f746122 add how to see git log and how to go back to old version
+好了，找回了刚才敲得一堆文字了吧
+
+** 查看过往的所有历史日志的命令
+如果已经回退了，且关闭了命令行，还想回到当前版本怎么办？ 用git reflog命令
+$ git reflog
+764b194 HEAD@{0}: commit: add test of go back and go current
+f746122 HEAD@{1}: reset: moving to f746122
+57fa415 HEAD@{2}: reset: moving to HEAD^^
+710675b HEAD@{3}: reset: moving to HEAD^
+f746122 HEAD@{4}: commit: add how to see git log and how to go back to old version
+710675b HEAD@{5}: commit: add how to upload changes
+29d38aa HEAD@{6}: commit: change to UTF-8
+57fa415 HEAD@{7}: commit: add and commit operation
+da0313a HEAD@{8}: commit (initial): wrote a learngit note
+这里记录了所有commit操作，只要输入commit命令行开头的数字串，就可返回对应的版本点
+例如:
+git reset --hard 764b194 
+
+* git log 和 git reflog的差别
+当你用 git reset --hard commit_id 返回到之前的某个版本后
+git log 只能查看那个版本及之前的变更记录，之后的变更都看不到了
+git reflog 则可以查看所有变更记录，包括reset操作。
+
+**工作区，暂存区的概念
+当前的superant目录就是 工作区
+git add就是将文件提交到 暂存区
+git commit 就是讲文件提交到 当前分支master（由创建Git版本库时自动创建）
+
+我们再当前工作区 增加了一个新的文件 license.txt
+查看一下当前状态：
+
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   learngit.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        license.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+由于license.txt 还没有加入Git版本库，所以显示为 Untracked files
+
+用git add learngit.txt license.txt 将两个文件都提交到 暂存区，再看看状态
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git add learngit.txt license.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   learngit.txt
+        new file:   license.txt
+
+看到一个词 unstage，这句告诉我们当前learngit.txt 及 license.txt 处于暂存区（stage）
+
+git commit -m "add learn of workspace and stage"
+
+提交后，再看看 status是什么情况
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git commit -m "add learn about workspace and stage"
+[master 7867955] add learn about workspace and stage
+ 2 files changed, 5 insertions(+)
+ create mode 100644 license.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git status
+On branch master
+nothing to commit, working directory clean
+
+提交变更，stage的内容进入版本库，工作区就干净了。
+
+** git add之后的修改只保留在工作区，没有再次执行 git add 前，这些修改在执行git commit时不会提交到版本库
+
+测试一下：1234^5678^9012
+这次执行git add前，我只添加了 ^5678.在git add执行之后，我再来添加 ^9012
+
+我增加了^9012后，用git status查看发现
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   learngit.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   learngit.txt
+
+learngit.txt有两个状态记录：
+1. Changes to be committed
+2. Changes not staged for commit
+说明 当前工作区中有没有提交到 暂存区的变更，也就是我们新增的^9012
+
+这时候执行 git commit 只会提交^5678，可以测试一下
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git commit -m "this commit only add ^5678"
+[master c3844b0] this commit only add ^5678
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+比较一下工作区和版本库之间的差异
+
+-----------------------------------------------------
+$ git diff learngit.txt
+diff --git a/learngit.txt b/learngit.txt
+index 393e14b..86fa509 100644
+--- a/learngit.txt
++++ b/learngit.txt
+@@ -187,9 +187,36 @@ nothing to commit, working directory clean
+
+ ** git add之后的修改只保留在工作区，没有再次执行 git add 前，这些修改在执行git commit时不会提交到版本库
+
+-测试一下：1234^5678
++测试一下：1234^5678^9012
+ 这次执行git add前，我只添加了 ^5678.在git add执行之后，我再来添加 ^9012
+
++我增加了^9012后，用git status查看发现
++Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
++$ git status
++On branch master
++Changes to be committed:
++  (use "git reset HEAD <file>..." to unstage)
++
++        modified:   learngit.txt
++
++Changes not staged for commit:
++  (use "git add <file>..." to update what will be committed)
++  (use "git checkout -- <file>..." to discard changes in working directory)
++
++        modified:   learngit.txt
++
++learngit.txt有两个状态记录：
++1. Changes to be committed
++2. Changes not staged for commit
++说明 当前工作区中有没有提交到 暂存区的变更，也就是我们新增的^9012
++
++这时候执行 git commit 只会提交^5678，可以测试一下
++Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
++$ git commit -m "this commit only add ^5678"
++[master c3844b0] this commit only add ^5678
++ 1 file changed, 2 insertions(+), 1 deletion(-)
++
++比较一下工作区和版本库之间的差异
+
+
+-----------------------------------------------------------------
+
+可见工作区和版本库中相比 ^9012 没有被加入，再次执行git add 和 git commit 才能将后面的变更更新到版本库中
+
+** 撤销修改
+撤销在不同的几个状态时，操作是不同的。
+1. 没有执行git add 前，撤销修改
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   learngit.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+如上，git status 告诉我们 可以用git checkout -- learngit.txt将版本库中的文件重新取回来，达到忽略工作区修改的目的
+
+2. 执行了git add之后，但还没有执行git commit时，撤销修改
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git add learngit.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   learngit.txt
+
+如上，git status 告诉我们 用 git reset HEAD learngit.txt 可以将暂存区(stage)中的变更撤销
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git reset HEAD learngit.txt
+Unstaged changes after reset:
+M       learngit.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   learngit.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+这里执行 git reset HEAD learngit.txt 后，其实只是将暂存区清空了，工作区的修改并没撤销，你自己修改回来就行了。
+
+3. 执行了git add 后，还执行了git commit,还想撤销修改？
+简单，利用前面的版本回退功能啦： git reset --hard HEAD
+
+
+** 删除文件
+1. 本地删除并不会影响版本库中的文件
+2. git rm filename 才真正从版本库中删除了文件，别忘了删除后还得 git commit
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git add learngit.txt deletme.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git commit -m "about delet file from Repository"
+[master 59deb57] about delet file from Repository
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 deletme.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git rm deletme.txt
+rm 'deletme.txt'
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        deleted:    deletme.txt
+
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git commit -m "real delete file from Repository"
+[master 9e50a35] real delete file from Repository
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 deletme.txt
+
+** 与GitHub配合实现远程版本库
+在superant目录下执行 git remote add origin git@github.com:theBigGavin/learnGit.git
+执行上面的命令在GitHub上为superant项目创建一个名为origin的远程库 
+origin 是远程库的名字
+theBigGavin 是你的GitHub账号名
+
+执行 git push -u origin master 实现将本地库的所有内容推送到远程库中
+The authenticity of host 'github.com (192.30.252.131)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,192.30.252.131' (RSA) to the list of known hosts.
+Counting objects: 50, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (40/40), done.
+Writing objects: 100% (50/50), 8.12 KiB | 0 bytes/s, done.
+Total 50 (delta 12), reused 0 (delta 0)
+To git@github.com:theBigGavin/learnGit.git
+ * [new branch]      master -> master
+Branch master set up to track remote branch master from origin.
+
+由于远程库是空的，第一推送master分支时，通过-u参数 将本地的master分支内容推送到远程的新master分支，
+还会把本地的master分支和远程的master分支关联起来，以后的推送或者拉取时就可以简化命令
+
+
+** 从远程库克隆到本地库
+$ git clone git@github.com:theBigGavin/cloneme.git
+Cloning into 'cloneme'...
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (3/3), done.
+Checking connectivity... done.
+
+** 分支
+通过下面的操作创建一个dev分支
+$ git checkout -b dev
+M       learngit.txt
+Switched to a new branch 'dev'
+
+* git checkout -b 相当于以下两个命令的组合
+git branch dev
+git checkout dev
+
+* 查看分支,当前的分支前会加一个*
+$ git branch
+* dev
+  master
+
+* 在分支间切换
+$ git checkout dev
+M       learngit.txt
+Switched to branch 'dev'
+
+当前在dev分支，我们提交变化
+
+然后切换到master分支，
+
+* 在master 分支上，我们现在是看不到dev分支上增加的信息的。
+
+* 合并分支 git merge dev
+
+** 删除分支
+git branch -d dev
+
+$ git branch -d dev
+Deleted branch dev (was 721227a).
+
+这时再查看git branch
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git branch
+  dev2
+* master
+
+dev分支确实消失了
+
+** 解决冲突
+$ git log --graph --pretty=oneline --abbrev-commit
+* db0fcea merge master and dev, handle fix conflicts, remove ...
+*   63ca43b merge master and dev, handle fix conflicts
+|\
+| * 721227a test switch to master
+| * 9fcfde9 test commit on dev branch
+* | 17458d9 before merge dev to master
+|/
+* 50c91d0 add GitHub to Local Repository
+* f53a393 finish of delete file from Repository
+* 9e50a35 real delete file from Repository
+* 59deb57 about delet file from Repository
+* d2f13da test finish of log and reflog
+* eafc643 review of learn git
+* 2b0692e test
+* 88b90ca this commit save all changes to Repository
+* c3844b0 this commit only add ^5678
+* a2b2634 test of modify after git add
+* 7867955 add learn about workspace and stage
+* ce4a4b7 add how to find commit id by git reflog command
+* 764b194 add test of go back and go current
+* f746122 add how to see git log and how to go back to old version
+* 710675b add how to upload changes
+* 29d38aa change to UTF-8
+
+手动解决冲突时，Git会在文件中加上不同分支之间的冲突点<<<<< HEAD ,
+=========, >>>>>> dev
+，手动编辑时 这些注释信息都要删除
+
+** 分支管理策略
+git checkout dev2
+切换到dev2 
+
+现在在dev2 上我增加了这句话，用fast forward模式merge
+
+$ git merge -m "use default fast forward mode" dev2
+Updating db0fcea..2ab295a
+Fast-forward (no commit created; -m option ignored)
+ learngit.txt | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+
+ $ git log --graph --pretty=oneline --abbrev-commit
+* 2ab295a 1. use fast forward mode merge
+* db0fcea merge master and dev, handle fix conflicts, remove ...
+*   63ca43b merge master and dev, handle fix conflicts
+
+果然，这种合并方式没有留下任何痕迹
+
+现在再切换到dev2 
+禁用fast forward模式merge
+
+在dev2 随便加点东西，关键使用--no-ff 来merge
+
+好测试结果
+$ git log --graph --pretty=oneline --abbrev-commit
+*   54ac752 2. --no-ff effect
+|\
+| * 40189fe 2 test for --no-ff
+|/
+* 965f672 0 this time test --no-ff merge
+* 2ab295a 1. use fast forward mode merge
+
+* 分支管理策略
+有一个 master分支，同时有一个dev分支，
+dev分支上再由开发人员自己随时建立临时的个人分支
+个人分支不断和dev分支进行合并，保证开发进度，
+dev分支稳定后才合入master分支，个人分支不直接合入master分支
+
+
+** 现场快照
+正在改代码，又要紧急修改bug，如何保存现场，然后创建bug分支修复bug后再继续工作？
+
+git stash 粉末登场
+
+我在开发，我在开发，我在开发，我在开发，忽然master分支发现了一个bug！！！十万火急
+
+修改bug issue-101
+改完了，返回开发任务。
+
+我回来了，我回来了，我开发完了。
+
+查看效果
+$ git log --graph --pretty=oneline --abbrev-commit
+*   4b4dbc2 解决冲突，合入dev代码
+|\
+| * e6ae3b3 dev 分支开发完了
+* |   b4bbc83 合并bug 101
+|\ \
+| |/
+|/|
+| * db9b609 fixed bug 101
+|/
+* 5ffeac3 save main before stash
+
+** 未合并的分支如何删除
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git checkout -b feature-test
+Switched to a new branch 'feature-test'
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (feature-test)
+$ git add featuretest.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (feature-test)
+$ git commit -m "add test feature"
+[feature-test ecb8d67] add test feature
+ 1 file changed, 1 insertion(+)
+ create mode 100644 featuretest.txt
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (feature-test)
+$ git status
+On branch feature-test
+nothing to commit, working directory clean
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (feature-test)
+$ git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 15 commits.
+  (use "git push" to publish your local commits)
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git branch -d feature-test
+error: The branch 'feature-test' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D feature-test'.
+
+Gavin@WIN-M2A9FMGQ5KJ MINGW64 ~/superant (master)
+$ git branch -D feature-test
+Deleted branch feature-test (was ecb8d67).
+
+-d 变成 -D 就是强行删除分支啦
+
+** 多人协作
+
+** 使用标签
+git tag v1.0
+
+** 标签管理
+操作标签
+
+阅读: 40203
+如果标签打错了，也可以删除：
+
+$ git tag -d v0.1
+Deleted tag 'v0.1' (was e078af9)
+因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+
+如果要推送某个标签到远程，使用命令git push origin <tagname>：
+
+$ git push origin v1.0
+Total 0 (delta 0), reused 0 (delta 0)
+To git@github.com:michaelliao/learngit.git
+ * [new tag]         v1.0 -> v1.0
+或者，一次性推送全部尚未推送到远程的本地标签：
+
+$ git push origin --tags
+Counting objects: 1, done.
+Writing objects: 100% (1/1), 554 bytes, done.
+Total 1 (delta 0), reused 0 (delta 0)
+To git@github.com:michaelliao/learngit.git
+ * [new tag]         v0.2 -> v0.2
+ * [new tag]         v0.9 -> v0.9
+如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+
+$ git tag -d v0.9
+Deleted tag 'v0.9' (was 6224937)
+然后，从远程删除。删除命令也是push，但是格式如下：
+
+$ git push origin :refs/tags/v0.9
+To git@github.com:michaelliao/learngit.git
+ - [deleted]         v0.9
+要看看是否真的从远程库删除了标签，可以登陆GitHub查看。
+
+
+0:43
+
+小结
+
+命令git push origin <tagname>可以推送一个本地标签；
+
+命令git push origin --tags可以推送全部未推送过的本地标签；
+
+命令git tag -d <tagname>可以删除一个本地标签；
+
+命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+** 关于GitHub的使用
+如何参与一个开源项目呢？比如人气极高的bootstrap项目，这是一个非常强大的CSS框架，你可以访问它的项目主页https://github.com/twbs/bootstrap，点“Fork”就在自己的账号下克隆了一个bootstrap仓库，然后，从自己的账号下clone：
+
+git clone git@github.com:michaelliao/bootstrap.git
+
+
+
+
+
+

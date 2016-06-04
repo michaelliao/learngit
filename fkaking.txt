@@ -1,0 +1,3 @@
+Git is an awesome version control system.
+I want to use it well.
+Thank you for writing such a useful tutorial.

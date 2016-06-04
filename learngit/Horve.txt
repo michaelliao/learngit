@@ -1,0 +1,198 @@
+创建版本库
+
+$ git init
+把目录变成Git可以管理的仓库（Git仓库）
+
+$ git add file
+把file文件添加到仓库
+
+$ git commit -m ‘commit logic’
+将暂存区内的改动提交到仓库，并加上’commit logic’的提交日志
+
+$ git status
+仓库的状态，包括有无修改，是否已经完全提交到仓库
+
+$ git diff file
+暂存区和版本库中file文件的区别
+
+
+版本回退
+
+$ git log
+仓库内文件的修改日志
+
+$ git reset --hard HEAD^
+回退到上一个版本
+
+$ git reset --hard HEAD^^
+回退到倒数第二个版本
+
+$ git reset --hard HEAD~100
+回退到倒数第100个版本
+
+$ git reset --hard ‘commit_id’
+根据git log命令得到的结果中的commit_id，回退到对应版本（commit_id只写前几位就行）
+
+$ git reflog
+记录每一次命令
+
+注：Gti的版本回退速度非常快，因为Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD指针从原始版本指向当前版本。HEAD指向的版本始终是当前版本。
+
+管理修改
+
+$ git diff HEAD -- file
+工作区和版本库里file文件最新版的区别
+
+$ git checkout -- file
+把file在工作区中的更改全部撤销。PS: “--”很重要，没有“—”就变成了一个创建新分支的命令。
+
+$ git reset HEAD file
+把file在暂存区中的修改全部撤销（unstage），重新放回工作区（就是回到git add命令之前）。
+
+$ rm file
+从工作区中删除文件，不能影响版本库
+
+$ git rm file
+从版本库中删除文件，并且要git commit提交改动
+
+github
+
+$ git remote add origin ‘git-ssh-url’
+把一个本地仓库与GitHub仓库关联
+
+$ git push -u origin master
+第一次推送master分支的所有内容【把本地库的内容推送到远程库上】
+
+$ git push origin master 
+每次本地提交后，都能使用改名了推送到远程库
+
+$ git clone ‘git-ssh-url’
+从远程库克隆一个本地库
+
+PS：GitHub给出的地址不止一个，还可以用https://github.com/xxxxx/xxxx.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。
+
+使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+
+与远程版本库关联并同步文件的流程：
+1，创建SSH Key并对GitHub进行配置；
+2，在GitHub上创建远程库；
+3，本地目录通过git init，git add, git commit等命令将本地目录配置成Git仓库，并提交更新；
+4，git remote add origin ‘git-ssh-url’命令将本地库与远程库关联；
+5，git push -u origin master命令将本地库所有的内容推送到远程库，第一次带-u，以后不用带。
+
+创建与合并分支
+
+$ git branch -b dev
+创建并切换到分支dev
+
+$ git branch dev
+创建分支dev
+
+$ git checkout dev
+切换到分支dev
+
+$ git branch 
+列出所有分支，并标示出当前分支
+
+$ git merge dev
+把dev分支的结果合并到当前分支
+
+$ git branch -d dev
+删除dev分支
+
+$ git log --graph
+查看分支合并图
+
+$ git merge --no-ff -m “no-ff merge” dev
+通过no-ff模式（非Fast forward模式）合并dev分支到当前分支
+
+PS：通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息
+如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息，也就是合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+Bug分支
+
+$ git stash 
+存储当前工作现场，修复bug后恢复工作现场
+
+$ git stash list
+查看所有存储的工作现场
+
+$ git stash apply
+恢复所有的工作现场
+
+$ git stash pop
+删除所有的工作现场
+
+$ git stash apply stash@{N} 
+恢复指定的工作现场
+
+$ git branch -D dev
+强行删除没有被合并的分支dev
+
+多人协作
+
+$ git remote
+查看远程库信息
+
+$ git remote -v
+查看远程库更多信息，如：
+origin	git@github.com:Horve/ws-exam.git (fetch)
+origin	git@github.com:Horve/ws-exam.git (push)
+PS：上面显示了可以抓取和推送的origin的地址。如果没有推送权限，就看不到push的地址。
+
+$ git push origin master
+将master分支上所有的本地提交推送到远程库
+
+抓取分支
+
+团队成员从远程库clone时，默认情况下，他将只能看到本地的master分支。如果需要在其他的分支上进行开发，就需要创建远程origin的其他分支到本地。
+
+$ git checkout -b dev origin/dev
+创建远程的dev分支到本地
+
+$ git branch --set-upstream dev origin/dev
+建立本地分支与远程分支之间的链接/关联
+
+多人协作的工作模式
+
+1，首先，可以试图用git push origin branch-name推送自己的修改；
+2，如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+3，如果合并有冲突，则解决冲突，并在本地提交；
+4，没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+5，如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+创建标签
+
+$ git tag v1.0
+为当前分支创建标签v1.0，默认为HEAD创建
+
+$ git tag
+查看分支所有标签（标签不是按时间顺序列出，而是按字母排序的）
+
+$ git tag v0.9 commit_id
+为对应的commit版本创建标签（可通过git log查看commit日志获取对应版本的commit_id）
+
+$ git show v0.9
+根据标签查找对应的版本
+
+$ git tag -a v1.0 -m “version 1.0 released” commit_id
+创建带有说明的标签，-a指定标签名，-m指定说明文字
+
+操作标签
+
+$ git tag -d v1.0
+删除标签。创建的标签都只存储在本地，不会自动推送到远程。所以打错的标签可以在本地安全删除。
+
+$ git push origin v1.0
+推送v1.0标签到远程版本库
+
+$ git push origin --tags
+一次性推送全部尚未推送到远程的本地标签
+
+删除远程标签
+
+$ git tag -d v0.9
+首先删除本地标签
+
+$ git push origin :refs/tags/v0.9
+然后用这条命令删除远程标签

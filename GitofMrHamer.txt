@@ -1,0 +1,4 @@
+First of all, thank you Mr Liao for this amazing document about git.
+I learned git many times, but those document and my stupid always let me down.
+But this time, I really understand Git and GitHub, also, Python and JavaScript document also gave me great help.
+All in all, thank you!

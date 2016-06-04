@@ -1,0 +1,12 @@
+$("#duplicates div[id^=group]").find("input[type=checkbox]").attr("checked",false).change()
+
+$("#duplicates div[id^=group] div:contains('已导入FF9983')").find("input[type=checkbox]").click().change()
+$("#duplicates div[id^=group] div:contains('书签工具栏 > 已导入FF9983')").find("input[type=checkbox]").click().change()
+
+
+var $=jQuery;
+$("#duplicates div[id^=group]").find("input[type=checkbox]").attr("checked",false).change();
+$("#duplicates div[id^=group] div:contains('Bookmarks bar > 从 IE 中导入')").find("input[type=checkbox]").click().change()
+
+
+document.write('<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>')

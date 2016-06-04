@@ -1,0 +1,94 @@
+1、git config --global user.name  "test"                    设置名字
+
+2、git config --global user.email  "test@163.cn"            设置邮箱
+
+3、git init      创建版本库
+
+4、git add file   把文件添加到仓库
+
+5、git commit -m "comment" 把文件提交到仓库
+
+6、git status   查看仓库的状态
+
+7、git diff file  查看文件的改动
+
+8、git log   显示从最近到最远的提交的日记
+
+9、git reset --head HEAD^  返回上一个版本
+
+10、git reflog   参看所有的操作日记
+
+11、把文件往Git版本库里添加的时候，是分两步执行的：
+
+    第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+
+    第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
+12、git diff HEAD -- file  查看工作区和版本库里最新版本的区别
+
+13、git checkout -- file   丢弃对file在工作区的修改
+
+    git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+
+    一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+    一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+14、git reset HEAD file  把暂存区的修改撤销掉（unstage），重新放回工作区
+
+15、git rm file    删除一个文件
+
+    1).从工作目录，提交到stage。
+    2).从stage提交到master。
+ 
+    从工作目录提交到stage，需要用add或者rm命令，只提交到stage，而没有提交到master，是不会自动同步到master的。
+    从stage提交到master用commit命令。
+    退回也是要分两步，一个是从master退回到stage，然后再从stage退回到工作目录。
+    对于还没有提交到stage的，可以从stage用checkout命令退回，这一步会取stage中的文件状态，覆盖掉工作目录中文件的状态，跟master完全没关系。
+    对于已经到达stage的，想把state中的文件状态用master中的覆盖掉，就用reset命令，这样就把stage中修改用master的状态覆盖掉了，完全跟工作目录没关系
+
+16、ssh-keygen -t rsa -C "youremail@example.com"    ssh的公钥生成
+
+17、git remote add origingit git@github.com:michaelliao/learngit.git     把一个已有的本地仓库与远程库关联
+
+18、git remote add origingit git@github.com:michaelliao/learngit.git      把本地仓库的内容推送到GitHub仓库
+
+19、git checkout -b dev    创建新的分支，并且转到新的分支上，该语句可以拆分为量句话
+    git branch dev     创建新的分支。
+	git checkout dev   切换到dev分支上
+	
+20、在分支的操作并且提交到仓库里，然后切回到master，会发现在分支的改变没有显示在master上
+    git merge dev  合并dev分支的成果到master上。
+	
+21、git branch -d dev   合并完分支后，可以删除分支
+
+22、git merge --no-ff -m "merge with no-ff" dev  通过--no-ff  来指定合并的日记
+
+23、git stash     可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+
+24、git stash list  把之前存储的工作现场显示出来
+
+25、git stash apply  恢复现场，stash内容并不删除，需要运行git stash drop来删除
+
+26、git stash pop    恢复现场，并把stash删除
+
+27、git branch -D dev   强制删除分支，删除后会导致该分支的数据丢失
+
+28、多人协作的工作模式通常是这样：
+    首先，可以试图用git push origin branch-name推送自己的修改；
+    如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+    如果合并有冲突，则解决冲突，并在本地提交；
+    没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+	
+29、git tag v1.0  打版本，默认是当前最新提交的commit。还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字
+    git tag v0.9 6224937  指定版本的commit
+	
+30、git tag -d v0.1   删除指定的版本
+
+31、git push origin v1.0 推送指定版本到远程
+
+    命令git push origin <tagname>可以推送一个本地标签；
+    命令git push origin --tags可以推送全部未推送过的本地标签；
+    命令git tag -d <tagname>可以删除一个本地标签；
+    命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+
+32、
