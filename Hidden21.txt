@@ -1,0 +1,124 @@
+1 Git简介 
+--1.1 Git的诞生
+--1.2 集中式vs分布式
+2 安装Git
+3 创建版本库
+	初始化一个Git仓库，使用git init命令。
+	添加文件到Git仓库，分两步：
+	第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+	第二步，使用命令git commit，完成。
+4 时光机穿梭
+	要随时掌握工作区的状态，使用git status命令。
+	如果git status告诉你有文件被修改过，用git diff可以查看修改内容。git diff HEAD -- readme.txt
+--4.1 版本回退
+	HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。（commit_id可以为HEAD^ 或 HEAD~100）
+	穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。(显示少量信息加上 --pretty=oneline参数)
+	要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+--4.2 工作区和暂存区
+--4.3 管理修改
+--4.4 撤销修改
+	场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。（命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令）
+	场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+	场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+--4.5 删除文件
+	命令git rm用于删除一个文件
+5 远程仓库
+	本地Git仓库和GitHub仓库之间的传输是通过SSH加密的。
+	第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+		在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+		ssh-keygen -t rsa -C "youremail@example.com"
+	第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面
+		将id_rsa.pub的内容贴到github上
+--5.1 添加远程库
+	要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+	关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+	此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改
+	eg：同步 git remote add origin git@github.com:Hidden21/WebApp.git
+			https://github.com/Hidden21/WebApp.git
+--5.1 从远程库克隆
+6 分支管理
+--6.1 创建与合并分支
+	Git鼓励大量使用分支：
+		查看分支：git branch
+		创建分支：git branch <name>
+		切换分支：git checkout <name>
+		创建+切换分支：git checkout -b <name>
+		合并某分支到当前分支：git merge <name>
+		删除分支：git branch -d <name>
+--6.2 解决冲突
+	当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+	用git log --graph命令可以看到分支合并图
+--6.3 分支管理策略
+	通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+	如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+	准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward：
+	$ git merge --no-ff -m "merge with no-ff" dev
+	git log --graph（分之合并图） --pretty=oneline（一行显示） --abbrev-commit（简写的CommitId）
+	分支策略
+		首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+		那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+		你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+	Git分支十分强大，在团队开发中应该充分应用。
+	合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+--6.4 Bug分支
+	修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+	当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+	git stash list查看
+	git stash apply stash@{0}恢复到指定
+	一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+	另一种方式是用git stash pop，恢复的同时把stash内容也删了
+--6.5 Feature分支
+	开发一个新feature，最好新建一个分支；
+	如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除
+--6.6 多人协作
+	多人协作的工作模式通常是这样：
+	首次关联后，使用命令git push -u origin master第一次推送master分支的所有内容
+	首先，可以试图用git push origin branch-name推送自己的修改；
+	如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+	如果合并有冲突，则解决冲突，并在本地提交；
+	没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+	如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name
+	
+	小结：
+	查看远程库信息，使用git remote -v；
+	本地新建的分支如果不推送到远程，对其他人就是不可见的；
+	从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+	在地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+	建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+	从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+7 标签管理
+--7.1 创建标签
+	小结
+	命令git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+	git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+	git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+	命令git tag可以查看所有标签
+--7.2 操作标签
+	小结
+	命令git push origin <tagname>可以推送一个本地标签；
+	命令git push origin --tags可以推送全部未推送过的本地标签；
+	命令git tag -d <tagname>可以删除一个本地标签；
+	命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
+8 使用GitHub
+9 自定义Git
+	配置颜色 git config --global color.ui true
+--9.1 忽略特殊文件
+	在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
+	不需要从头写.gitignore文件，GitHub已经为我们准备了各种配置文件，只需要组合一下就可以使用了
+--9.2 配置别名
+	eg:git config --global alias.st status
+		git config --global alias.unstage 'reset HEAD'
+		git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	配置Git的时候，加上--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。
+	配置文件放哪了？每个仓库的Git配置文件都放在.git/config文件中：
+--9.3 搭建Git服务器
+	搭建Git服务器非常简单，通常10分钟即可完成；
+	要方便管理公钥，用Gitosis；
+	要像SVN那样变态地控制权限，用Gitolite。
+10 期末总结
+已修复issue-101
+master 创建分支
+dev 创建分支
+
+gittest我添加了一行
+git我添加了一行
