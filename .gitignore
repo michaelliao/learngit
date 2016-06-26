@@ -1,3 +1,4 @@
 mydb.txt
-
+*.ignore
 *.so
+*.class
