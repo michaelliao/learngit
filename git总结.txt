@@ -1,0 +1,107 @@
+git config --global user.name "your name"  --指定本机所有git 仓库都使用当前配置的操作用户名
+
+git config --global user.email "your email" --指定本机所有git 仓库都使用当前配置的操作用户邮箱
+
+mkdir filename --新建文件夹
+
+git init --把当前目录变成Git可以管理的仓库
+
+git add filename --把文件添加到仓库
+
+git commit -m “提交说明” --提交文件到仓库
+
+git status --查看文件状态
+
+git diff --查看文件修改内容
+
+git diff HEAD -- “filename” --查看工作区和版本库里面最新版本的区别
+
+git log --查看提交历史记录
+
+git log --pretty=oneline --在一行里查看提交历史记录
+
+git reset --hard HEAD^ --回退到上一个版本
+
+git reset --hard HEAD^^ --回退到上上个版本
+
+git reset --hard HEAD~100 --回退到前100个版本
+
+git reset --hard “commit id” --回退到具体的版本
+
+git reflog --查看命令历史
+
+git checkout -- file --丢弃工作区的修改
+
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+
+git rm --删除文件
+
+ssh-keygen -t rsa -C "youremail@example.com" --创建SSH Key
+
+git remote add origin git@github.com:alexpdh/test.git --关联远程github仓库
+
+git push -u origin master --把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。（第一次推送）
+
+git push origin master --把本地库的内容推送到远程
+
+git clone git@github.com:alexpdh/test.git --从远程克隆仓库到本地
+
+git branch --查看分支
+
+git branch <name> --创建分支
+
+git checkout <name> --切换分支
+
+git checkout -b <name> --创建+切换分支
+
+git merge <name> --合并某分支到当前分支
+
+git branch -d <name> --删除分支
+
+Git用<<<<<<<，=======，>>>>>>>标记出不同分支的内容
+git log --graph --可以看到分支合并图
+
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+git merge --no-ff -m "merge with no-ff" dev --普通模式合并分支
+
+git log --graph --pretty=oneline --abbrev-commit --查看分支历史
+
+git stash --把当前工作现场“储藏”起来
+
+git stash list --查看工作现场
+
+git stash pop --恢复的同时把stash内容也删了
+
+git remote --查看远程仓库信息
+git remote --查看远程仓库详细信息
+
+多人协作的工作模式通常是这样：
+
+首先，可以试图用git push origin branch-name推送自己的修改；
+
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+
+如果合并有冲突，则解决冲突，并在本地提交；
+
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+
+git tag <name> 用于新建一个标签
+
+git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+
+git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+
+命令git tag可以查看所有标签。
+
+git push origin <tagname>可以推送一个本地标签；
+
+git push origin --tags可以推送全部未推送过的本地标签；
+
+git tag -d <tagname>可以删除一个本地标签；
+
+git push origin :refs/tags/<tagname>可以删除一个远程标签。
