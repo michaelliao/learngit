@@ -1,0 +1,6 @@
+0.git 简介以及git和 SVN的区别
+1.git 安装
+2.github 账户注册
+3.git init / git add <file> / git commit -m <comments> 仓库初始化，以及添加文件，提交文件
+4.git status
+5.git checkout
