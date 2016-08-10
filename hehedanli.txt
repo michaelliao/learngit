@@ -1,0 +1,12 @@
+老师的教程清晰明了，非常感谢！
+
+下面是在遇到的一些问题的总结。
+ 
+1.在已经配好ssh key之后，新建helloworld仓库，试图讲之前建立的README.md文件上传失败，
+  报错Permission denied (publickey).
+  解决方案：将新建的空仓库clone到本地后，再次上传。
+
+2.在上传README.md道helloworld中时，最后一步出现
+  error:src refspec master does not match any
+  分析：由于空目录不能提交上去，前一步已经将文件添加到origin中 
+  解决方案：按照空目录处理，将git基本命令合集等文件一同上传
