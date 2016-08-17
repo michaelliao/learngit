@@ -1,0 +1,3 @@
+sort []=[]
+sort [x:xs]=filter (<=x) xs ++ [x] ++ filter (>x) xs
+互联网因你们而美好
