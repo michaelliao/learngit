@@ -1,6 +1,0 @@
-Dear  Michael,
-
-Hello, I am a postgraduate student and just start using git instead of SVN. 
-I have learned a lot from your amazing git tutorial. Thank you Michael!
-
-Sanmisan Fan

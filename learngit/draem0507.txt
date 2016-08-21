@@ -1,5 +1,0 @@
-thanks a lot.
-用过了多年svn,半年前开始使用git来开发管理。
-之前都是使用sourcetree来进行git的管理，极少用到git 命令来完成。
-年前，刚好有时间，偶遇你的这篇教程，很nice。
-对git感兴趣的可以看下这篇文章:http://www.jianshu.com/p/25647b9920b7

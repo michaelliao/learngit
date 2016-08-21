@@ -1,8 +1,0 @@
-﻿一口气全部看完了，讲得很详细很有黑皮书的感觉。硬是要说缺点的话就是github的多人合作介绍得不够具体。
-我对github上的协作是这样理解的：fork就好比转载别人的文章，因为不转载是没有权限修改的。而转载后在自己的地盘想怎样就怎样。然后要把别人的文章下载到自己电脑上修改，这个就是clone。在自己电脑上修改完成后保存就是git add和git commit。想要发表到网上就是git push。发表了想让作者添加你的修改就得向作者提交请求，让作者知道你改了什么，这个就是pull request
-//工作区，缓存区，仓库和github这些还没想到比较好的比喻
-//用了your-github-id.txt这个文件名一定会被拒绝吧= =
-thank you very much!!!
-直接在your-github-id.txt中修改，然后推送一下看看我的内容有没有推送成功，哈哈！From：mailtohwj@gmail.com。
-test
-教程非常赞，我试试能不能pull?
