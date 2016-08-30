@@ -1,0 +1,49 @@
+8/27
+
+	Github上，在pull request被接受之前，commit会持续更新，merge后以最后一次更新为准。
+	Version Control System (VCS)
+	问题，无法在git中创建库可能是命令不可用
+	Git 工作区用 checkout -- file 修改, stage区 用 git reset HEAD file 退回工作区，commit后用 git reset –hard HEAD^进行版本退回。
+	Git rm 删除文件
+	Checkout 的本质是有版本库里的文件替换工作区的文件因此可以用于误删。
+
+8/28
+	添加远程库
+git remote add origin git@github.com:michaelliao/learngit.git
+git push –u（第一次使用的参数） origin master
+	克隆远程库
+  git clone git@github.com:michaelliao/gitskills.git
+	创建分支
+  git checkout –b <branch name>(创建并切换)
+  等同于 git branch + git checkout
+	合并分支到当前分支 git merge
+	删除分支  git branch –d
+	当无法merge是需要手动解决冲突
+	保留分支历史的merge方法（关闭fastforword）
+git merge --no-ff -m "merge with no-ff" dev
+	Bug分支
+git stash—储藏工作区
+git stash （list）/apply（保留stash内容）/pop（不保留stash内容）
+可多次stash
+	在当前分支时无法删除此分支
+	git branch –D  强制删除
+	本地创建与远程对应的分支
+git branch --set-upstream branch-name origin/branch-name
+	抓取远程心得提交
+git pull
+	把本地分支push到远程
+git push origin branchname
+	在远程创建与本地分支相关联的分支
+git push --set-upstream origin branchname
+	总的来说，先建立联系-抓取-推送
+	创建标签
+git tag <tag name>
+git tag <tag name> <commit id>
+git tag –a <tag name> -m “messege”
+	删除git tag –d <tag name>
+	推送
+git push origin <tag name>
+git push origin –tags
+	删除已推送标签
+  本地删除
+git push origin :refs/tags/v1.1
