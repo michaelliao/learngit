@@ -1,0 +1,141 @@
+``$ mkdir learngit``创建文件夹learngit
+
+``$ cd learngit``前往文件夹learngit
+
+``$ pwd``显示当前目录
+
+``$ git init``把当前目录初始化为git仓库(工作区)
+
+**在Git工作区的根目录下创建一个特殊的``.gitignore``，将要忽略的文件名写入即可使Git自动忽略这些文件**
+
+**参考：[github/gitignore](https://github.com/github/gitignore)**
+
+``$ ls``显示当前文件夹下文件
+
+``$ ls -ah``显示默认隐藏的.git目录(git的版本库)
+
+``$ git add readme.txt``添加文件到版本库的暂存区(在文件已经移动到该目录的前提下)
+
+``$ git commit -m "wrote a readme file"``一次性提交所有文件(modified, new)到版本库当前分支(default: master) -m后面是自定义提交说明
+
+``$ git status``显示仓库(暂存区)当前状态 **commit成功后stage清空，显示nothing to commit (working directory clean)**
+
+``$ git diff readme.txt``查看修改内容 **修改后需要再次添加、提交**
+
+``$ git log --pretty=oneline``查看历史历史 --pretty=oneline参数可选，简化输出信息
+
+``$ git reset --hard HEAD^``回退到上一个版本 HEAD当前版本 HEAD^^上上个版本 HEAD~100上100个版本 **在git内部，HEAD是指向当前版本的指针，前往某个版本实际上是修改HEAD指针的指向**
+
+``$ git reset --hard xxx``前往commit id为xxx的历史版本 版本号不必写全，但须distinguish
+
+``$ git reflog``显示命令历史(包括提交文件时生成的commit id)
+
+``$ cat readme.txt``输出文件内容
+
+``$ git diff HEAD -- readme.txt``查看工作区和版本库里最新版本的区别
+
+``$ git checkout -- readme.txt``把文件在工作区的修改全部撤销，回到最近一次git commit或git add后的状态
+
+``$ rm readme.txt``终端命令，删除当前文件夹下的文件 此时使用git status可以显示删除了哪些文件
+
+``$ git checkout -- readme.txt``从git版本库替换(恢复)工作区的文件，只能恢复到文件在版本库中的最新版本，丢失最近一次提交后修改的内容
+
+``$ git remote add origin git@github.com:path/repo-name.git``origin是远程库默认名称，也可以修改
+
+``$ git push -u origin master``把本地的master分支内容推送到远程新的master分支，并将两者关联起来 第一次推送需要加上-u参数
+
+``$ git push origin master``把master最新修改推送至GitHub master可以换为其他分支
+
+``$ git clone git@github.com:path/repo-name.git``从远程库克隆一个本地库
+
+``$ git remote``查看远程仓库信息 可加参数-v显示更详细的信息
+
+``$ git checkout -b dev``或
+
+``$ git branch dev $ git checkout dev``
+
+创建并切换到dev分支 参数-b创建并切换
+
+``$ git branch``列出所有分支，当前分支前会有"*"标记
+
+``$ git checkout master``
+
+``$ git merge dev``
+切换回master分支并将dev分支合并到master分支上(默认Fast forward模式) 当提交内容冲突时，Git无法执行快速合并，此时须手动把各自的修改合并起来
+
+``$ git branch -d dev``删除dev分支(Fast forward模式下删除分支后将丢失分支信息)
+
+``$ git branch -D branch-name``强行删除未合并过的分支
+
+``$ git merge --no-ff -m "statement of commit" dev``合并dev分支同时生成一个新的commit --no-ff参数表示禁用Fast forward模式，从而能从分支历史上看出分支信息
+
+``$ git log --graph --pretty=oneline --abbrev-commit``
+查看分支合并情况
+
+``$ git stash``保存当前工作现场
+
+``$ git stash list``显示保存的工作现场列表
+
+``$ git stash apply stash@{stash index}``恢复该工作现场
+
+``$ git stash drop stash@{stash index}``删除保存的该工作现场
+
+``$ git stash pop``恢复并保存
+
+*多人协作的工作模式：*
+
+1. 试图用``git push origin branch-name``推送自己的修改；**默认情况下从远程库clone只能看到本地的master分支，如果需要在dev分支上开发，就必须创建远程origin的dev分支到本地，命令为``git checkout -b dev origin/dev``**
+2. 若推送失败，则因为远程分支比你的本地更新，需要先用``git pull``把最新的提交从branch-name抓下来，然后再本地合并，解决冲突再推送；**若``git pull``提示"no tracking information"，说明本地分支和远程分支的链接关系没有创建，用命令``git branch --set-upstream branch-name origin/branch-name``**
+3. 若合并有冲突，则先解决冲突，并在本地提交；
+4. 没有冲突或者解决冲突后，再用``git push origin branch-name``推送；
+
+*tag：指向某个commit的指针，版本库的快照*
+
+``$ git tag``
+
+查看所有标签
+
+``$ git tag v1.0``
+
+将"v1.0"标签打在当前分支最新提交的commit上
+
+``$ git tag -a v1.0 -m "version 0.1 released" commitID``
+
+将"v1.0"打在相应的commit上，说明文字为引号内内容
+
+``$ git show v1.0``
+
+显示标签"v1.0"的信息
+
+``$ git tag -d v0.1``
+
+删除本地标签
+
+**远程标签的删除要先从本地删除，然后执行：**
+
+``$ git push origin :refer/tags/v0.1``
+
+
+``$ git push origin v1.0``
+
+推送某个标签到远程
+
+``$ git push origin --tags``
+
+一次性推送全部
+
+``$ git config --global alias.st status``
+
+将``git status``命令重定义为``git st`` 参数--global是全局参数，对当前用户起作用，否则只对当前仓库起作用
+
+**每个仓库的Git配置文件都放在``.git/config``**
+
+**当前用户的Git配置文件放在用户主目录下的一个隐藏文件``.gitconfig``中**
+
+
+
+
+
+
+
+
