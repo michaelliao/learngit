@@ -1,0 +1,98 @@
+1.git init 
+	git 初始化一个仓库
+2.git add file
+	git 加一个文件进缓存区,可添加多个文件
+3.git commit -m "des xxxxxx"
+	commit 刷新缓存区且 -m是描述
+4.git status 
+	查看当前的状态
+5.git reflog
+	查看所有提交的log，可以查看每次变动的版本号，方便查阅
+6.git reset --hard HARD^
+	git的管理用的是一个HARD指针，指向的提交节点就是当前版本，这句是指回滚到上次提交的版本
+	git reset --hard file
+	这里的xxxxx指的是版本号，通过此命令可以回滚到指定版本
+7.cat xxxx
+	xxxxx指的是文件全名，包括后缀，此命令查看文件内容
+8.git diff HEAD -- file
+	查看最新版本的xx文件与xx文件的对比
+9.git reset HEAD file
+	把暂缓区的修改撤销掉（unstage），重新放回工作区
+10.git checkout -- file
+	丢弃工作区的修改
+11.git rm 
+	从git 工作区中删除文件
+12.ssh-keygen -t rsa -C "youremail@example.com"
+	默认三个回车后即在命令目录中生成了两个文件，一个没有后缀名，一个后缀名为.pub的文件
+	在github中的
+		setting -> SSH Keys -> New Key
+	把.pub结尾的文件以文本文件打开后复制到 key 的文本框中，点击 Add Key 就可以添加本地key到github了
+13.git remote add origin git@server-name:path/repo-name.git
+	关联本地目录到远程库
+14.git push -u origin master 
+	第一次推送master分支中所有内容， -u 参数是将本地的master分支推送到远程库中的master分支，且把本地的master分支和远程master分支关联起来，以后可以*
+	平时使用时如果有需要可以直接git push origin master就可以推送到远程库
+15.git clone you_repo_url
+	克隆远程库
+	tips:使用ssh协议会比https速度快，因为https协议每次推送都需要口令，但要是部分公司只开放http端口的，就只能用https的
+16.git branch 
+	查看分支
+17.git branch <name>
+	创建分支
+18.git branch -d <name>
+	强行删除分支
+19.git checkout <name>
+	切换分支
+20.git checkout -b <name>
+	创建且切换分支
+21.git merge <name>
+	合并某分支到当前分支
+22.git log
+	查看分支情况
+	git log --graph
+	查看分支情况
+	git log --graph --pretty=oneline --abbrev-commit
+	查看一行分支提交情况
+23.git merge --no--ff -m "des" <name>
+	合并分支时不使用快速合并方式，因为在团队中快速合并方式在log中看不出来
+24.团队开发中最好是分三条分支，一条是master分支，一条是dev分支，一条是个人分支，mester分支是必须保持稳定的，dev是开发合并的，在发布的时候将dev和mester合并发布，而平时就个人和dev合并一下。
+25.git stash
+	保存当前分支当前工作区，以便后面恢复继续
+	git stash apply	恢复分支，但是stash内容不删除
+	git stash drop 	删除stash内容
+	git stash pop	恢复并删除stash内容
+	git stash list	查看stash列表
+	tips:可以进行多次git stash,利用git stash apply <name>	恢复到指定stash
+26.git remote
+	查看远程库信息
+	git remote -v
+	查看详细远程库信息
+	tips:如果没有推送权限是不会显示push路径
+27.git push origin <branch-name>
+	推送指定分支到远程分支
+	tips:如果提示"no tracking information"说明本地分支与远程分支的关系没有创建，需要用git --set-upstream <branch-name> origin<branch-name>
+28.git pull命令抓取分支 
+29.git tag
+	查看所有标签
+	git tag <tag-name>		设置当前分支一个表签名
+	git tag <tag-name> <commit-id>	设置指定分支的commitId一个标签名
+	git tag -a <tag-name> -m "des" <commit-id> 创建带有说明的标签
+	git tag -s <tag-name> -m "des" <commit-id> 采用PGP签名
+	git tag -d <tag-name> 		删除标签
+30.git show <tag-name>
+	查看tag文字说明
+31.git push origin <tag-name>
+	推送标签到远程库
+	git push origin --tags
+	一次性推送未推送的标签到远程标签
+	tips:如果标签已经推送到远程分支，这时想删除分支就只能先删除本地标签，再推送删除标签git push origin :refs/tags/<tag-name>,置于是否删除了远程库的标签，可以登录远程库查看
+
+
+
+
+
+
+
+
+
+
