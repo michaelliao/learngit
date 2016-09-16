@@ -1,0 +1,16 @@
+首先，tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+
+1.创建标签
+	（签名采用PGP签名，因此，必须首先安装gpg（GnuPG），如果没有找到gpg，或者没有gpg密钥对，就会报错；
+	   请参考GnuPG帮助文档配置Key，然后用命令git show <tagname>可以看到PGP签名信息）
+	   
+	命令git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id;
+	git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+	（待定）git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+	git tag可以查看所有标签。
+	
+2.操作标签
+git push origin <tagname>可以推送一个本地标签；
+git push origin --tags可以推送全部未推送过的本地标签；
+git tag -d <tagname>可以删除一个本地标签；
+git push origin :refs/tags/<tagname>可以删除一个远程标签。
