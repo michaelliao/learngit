@@ -1,0 +1,65 @@
+正好看到书的这一个参与谢老师项目的尝试。
+恩，总结一下前面看到的内容吧
+
+1.git是分布式版本控制系统
+2.<初始化>  	名字+email  
+3.<创建仓库> 	git init
+4.<提交>   		add + commit
+5.<版本查看>  	git status 仓库当前状态  git diff filename  查看修改的内容   git log 查看历史
+6.<版本回退>   	git reset --hard HEAD^  git reset --hard 525312  找不到id  则 git reflog  查看每一次命令
+7.<撤销修改>  	git checkout --readme.txt :回到最近一次add的版本 
+				若add 后： git reset HEAD readme.txt     git checkout --readme.txt
+8.<删除文件> 	git rm test.txt 相当于删除后 add     然后git commit -m "..."
+9.<远程仓库>   	创建sshKey(user/.ssh/id_rsa & is_rsa.pub)  若无  则 ssh -keygen -t ras -c "yourEmail"
+				登录github->account Settings->ssh keys页面->add
+				添加远程库    create repo->关联：git remote add origin (+远程库地址)
+								->推送：git push -u origin master (-u指关联本地和远程的master分支，第一次推送时使用)
+				从远程库克隆  git clone (+远程库地址)
+10.<分支管理>  	分支是时间线
+				创建 git branch name 创建并切换 git checkout -b name
+				提交修改
+				切换到master git checkout master
+				合并 git merge dev
+				删除dev  git branch -d dev
+11.<解决分支冲突>
+				直接修改文本，提交
+				查看分支合并图 git log --graph
+				然后删除分支
+12.<分支管理策略>
+				默认合并模式 fast forward 删除分支后会丢掉分支信息，看不出曾经合并过
+				禁用ff并合并  git merge --no-ff -m "...." dev
+13.<分支策略>
+				master 发布新版本  
+				dev 干活
+14.<bug分支>  	git stash 保存现场 git stash list 查看保存的现场
+				回复现场： git stash apply + git stash drop  恢复并删除stash
+							或者  git stash drop
+15.<Feature分支>
+				每天加一个新功能，最好新建一个feature分支  强制删除 -D
+16.<多人协作> 	查看远程库信息 git remote (-v)
+17.<推送分支> 	git push origin dev
+18.<抓取分支> 	git clone （+远程库地址）
+				git checkout -b dev origin/dev  创建本地分支关联远程分支
+				团队向dev提交时产生冲突： 	1.git push origin dev 试图推送自己的修改
+											2.git pull 从远程dev抓取最新的版本，并尝试本地合并
+												若失败：关联本地与远程 git branch --set-upstream dev origin/dev
+											3.在本地修改冲突后提交
+19.<标签管理> 	创建标签  git tag v1.0   
+				查看      git tag
+				给历史版本打标签  git tag v0.9 123312
+				查看标签信息	git show v0.9
+				创建带有说明的标签  git tag -a v0.1 -m "...."
+20.<操作标签>
+				删除   git tag -d v0.1
+				推送到远程  git push origin v1.0
+				推送全部倒远程 git push origin --tags
+				删除远程标签  git tag -d  v0.9 删除本地
+							  git push origin:refs/tags/v0.9  删除远程
+21.<使用github-参与别人的项目>
+				Fork
+				在自己账号下clone
+				发起 pull request
+
+				
+				
+				
