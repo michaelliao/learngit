@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.8 (453748)"/><meta name="altitude" content="47.98614883422852"/><meta name="author" content="152805472@qq.com"/><meta name="created" content="2016-08-11 13:49:41 +0000"/><meta name="latitude" content="23.11662093439807"/><meta name="longitude" content="113.3310164323149"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-09-27 02:47:40 +0000"/><title>Git 01</title></head><body>
+<div><span style="font-size: 16px;"><b>查看是否有安装git</b></span></div>
+<div>在命令行里直接输入 git</div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>安装Git</b></span></div>
+<div>brew install git</div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>创建版本库</b></span></div>
+<div><span style="color: rgb(146, 146, 146);"><span style="font-size: 12px;">版本库又名仓库，英文名repository，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，而所谓的管理，其实只是跟踪文本文件的改动，比如txt文件，网页，程序代码等（而图片、视频和Microsoft的word文件这些二进制文件只能告诉你大小改变了，不能告诉你发生了哪些变动）。</span></span></div>
+<div>找一个合适的目录，并在终端cd进入，输入指令</div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);"><code>$ git init</code></div>
+</div>
+<div>往后文件都在该目录下（或其它子目录下）进行git操作</div>
+<div><br/></div>
+<div>第一步：把文件添加到仓库（暂存）</div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git add &lt;file&gt;</code></div>
+</div>
+</div>
+<div><br/></div>
+<div>第二步：把文件提交到仓库</div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git <span style="color: rgb(51, 51, 51); font-weight: bold;">commit</span> -m <span style="color: rgb(221, 17, 68);">"wrote a readme file"</span></code></div>
+</div>
+</div>
+<div>-m 后面输入的是本次提交的改动说明，命令执行成功以后会告诉你文件有哪些变动。commit一次可以提交多个文件，所以可以预先add不同的文件。</div>
+<div><br/></div>
+<div>查看仓库当前状态</div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git status</code></div>
+</div>
+</div>
+<div>如果文件有变动，会提示什么文件有被修改过（但没有提交），没有执行git add的会显示红色，执行后会显示绿色。</div>
+<div><br/></div>
+<div>对比修改前后的文件</div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git diff &lt;file&gt;</code></div>
+</div>
+</div>
+<div>若不加后面的文件名，则会对仓库所有文件进行diff对比</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>查看提交记录（以便回退）</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);"><code>$ git log</code></div>
+</div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant-ligatures: normal; font-variant-position: normal; font-variant-caps: normal; font-variant-numeric: normal; font-variant-alternates: normal; font-variant-east-asian: normal; font-weight: normal; tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(250, 250, 250); background-position: initial initial; background-repeat: initial initial;">
+<div><span style="font-size: 12px;"><span style="color: rgb(68, 68, 68);"><code><span style="color: rgb(0, 128, 128);">$ </span>git log --pretty=oneline</code></span></span></div>
+</div>
+</div>
+<div>返回的有commit id, author和date，以及commit时附加的说明</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>版本回退</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git re<span style="color: rgb(51, 51, 51); font-weight: bold;">set</span> --hard HEAD^</code></div>
+</div>
+</div>
+<div>在Git中，Head表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>回退后在返回较新的版本（重返未来）</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git re<span style="color: rgb(51, 51, 51); font-weight: bold;">set</span> --hard <span style="color: rgb(0, 153, 153);">&lt;commit id&gt;</span></code></div>
+</div>
+</div>
+<div>版本号不用写全，前几位就可以了，Git会自动去找，如果忘了commit id的话，可以通过git reflog来查看每一次命令。</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div>工作区（Working Directory）：就是电脑里看得到的git目录</div>
+<div>版本库（Repository）：隐藏的.git目录，里面存放了称为stage（或者叫index）的暂存区，还有git为我们自动创建的第一个分支master，以及指向master的一个指针，叫head。</div>
+<div><br/></div>
+<div>第一步的git add是把文件添加到暂存区</div>
+<div>第二步的git commit是把暂存区的所有内容提交到当前分支</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>工作区撤销修改</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git checkout — &lt;file&gt;</code></div>
+</div>
+</div>
+<div>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>暂存区撤销修改</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git re<span style="color: rgb(51, 51, 51); font-weight: bold;">set</span> HEAD &lt;file&gt;</code></div>
+</div>
+</div>
+<div>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>提交后撤回</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code>$ git re<span style="color: rgb(51, 51, 51); font-weight: bold;">set</span> --hard HEAD^</code></div>
+</div>
+</div>
+<div>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，可以进行版本回退。（不需要重新commit）</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>删除文件(工作区)</b></span></div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>rm test.txt</code></div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>要想在版本库里也删除</b></span></div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code>$ git rm test.txt</code></div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>（工作区）误删恢复的方法</b></span></div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>git checkout -- test.txt</code></div>
+</div>
+<div>如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。</div>
+<div><br/></div>
+</body></html>

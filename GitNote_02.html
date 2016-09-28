@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.8 (453748)"/><meta name="altitude" content="51.2889289855957"/><meta name="author" content="152805472@qq.com"/><meta name="created" content="2016-08-11 17:15:38 +0000"/><meta name="latitude" content="23.11646578241713"/><meta name="longitude" content="113.3309715670972"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-09-27 03:12:44 +0000"/><title>Git 02</title></head><body>
+<div><span style="font-size: 16px;"><b>让本地已有仓库关联github的仓库</b></span></div>
+<div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git remote add origin git<span style="color: rgb(0, 128, 128);">@github</span>.<span style="color: rgb(153, 0, 115);">com:</span>alohac/learngit.git</code></div>
+</div>
+</div>
+<div>远程库的名字就是origin，是git默认的叫法。</div>
+<div>若提示 fatal: remote origin already exists</div>
+<ul>
+<li>先输入：$ git remote rm origin</li>
+<li>再输入：$ gir remote add origin git@github.com:alohac/learngit.git</li>
+</ul>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<div><b><span style="font-size: 16px;">把本地库内容推送到远程</span></b></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git push origin master</code></div>
+<div>$ git push -u origin master 第一次推送</div>
+</div>
+</div>
+<div>用git push命令，实际上是把当前分支master推送到远程</div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<div><span style="font-size: 16px;"><b>把远程仓库克隆到本地</b></span></div>
+<div>
+<div style="padding: 10px; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background: rgb(250, 250, 250);">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git clone <a dir="ltr" href="mailto:git@github.com" rev="en_rl_minimal">git</a><span style="color: rgb(0, 128, 128);"><a dir="ltr" href="mailto:git@github.com" rev="en_rl_minimal">@github</a></span><a dir="ltr" href="mailto:git@github.com" rev="en_rl_minimal">.</a><span style="color: rgb(153, 0, 115);"><a dir="ltr" href="mailto:git@github.com" rev="en_rl_minimal">com</a>:</span>alohac/gitskills.git</code></div>
+</div>
+</div>
+<div>如果多人协作开发，那么每个人各自从远程克隆一份就可以了。</div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<div><span style="font-size: 16px;"><b>git命令下载github分支代码</b></span></div>
+</div>
+<div>- github默认提供的clone链接是下载master分支的，要想下载其中一个分支的代码，可以输入「git clone -b branch_name http://github...」</div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>分支</b></span></div>
+<div>每个人创建属于自己的分支，独立开发，最后一起合并。每次commit，Git都把这些commit串成一条时间线，这条时间线就是一个分支。</div>
+<div><br/></div>
+<div>项目一般会有一个主分支，即master分支，进行开发的时候会新建一个dev分支（创建新的分支的时候，工作区的文件没有改变，只是HEAD的指向改变了）。然后每个开发人员再往dev分支上新建属于自己的分支。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>查看所有分支</b></span></div>
+<div>$ git branch</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>创建分支</b></span></div>
+<div>$ git checkout -b dev</div>
+<div>git checkout加上-b参数表示创建并切换，相当于以下两条命令：</div>
+<ul>
+<li>$ git branch dev（创建分支）</li>
+<li>$ git checkout dev（切换分支）</li>
+</ul>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>合并分支（需先切换至master分支）</b></span></div>
+<div>$ git merge dev</div>
+<div>用于合并指定分支到当前分支</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>合并完成后，可以删除分支</b></span></div>
+<div>$ git branch -d dev</div>
+<div>Git鼓励大家使用分支完成某个任务，合并后再删掉分支。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>解决冲突</b></span></div>
+<div>如果master分支和新创建分支同时修改文件，并且修改的内容不一样，则会出现合并冲突，需手动修改解决冲突再提交。</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>--no-ff</b></span></div>
+<div>通常情况下，合并分支会采用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。如果强制禁用Fast forward模式，Git会在merge时生成一个新的commit，这样从分支历史上就可以看出分支信息了。</div>
+<div>$ git merge —no-ff -m”merge with no-ff” dev</div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>分支策略</b></span></div>
+<ul>
+<li>master分支是非常稳定的，仅用于发布新版本，平时不能在上面干活</li>
+<li>干活都在dev分支上，到某个时候，比如2.0版本发布时，再把dev分支合并到master上，在master分支发布2.0版本</li>
+<li>协作人员都在dev分支上干活，每个人都有自己的分支，时不时往dev分支上合并就可以了</li>
+</ul>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>Bug分支</b></span></div>
+<div>假如现在有一个需要紧急修复的bug，但dev上的工作还没有提交，需要暂时搁置dev上的工作，转而修复bug</div>
+<div><br/></div>
+<div>Git提供了stash功能，能将当前工作现场储存起来，等以后恢复现场后继续工作</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>git stash</code></div>
+</div>
+<div><br/></div>
+<div>修复bug的时候，先确定在哪个分支出现，然后切换（checkout）到该分支，再从该分支创建临时的分支</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>git checkout -b issue-<span style="color: rgb(0, 153, 153);">101</span></code></div>
+</div>
+<div><br/></div>
+<div>把bug修复后（即修改了文件），需要进行add和commit的操作</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>git add readme.txt <br/>
+<span style="color: rgb(0, 128, 128);">$ </span>git commit -m <span style="color: rgb(221, 17, 68);">"fix bug 101"</span></code></div>
+</div>
+<div><br/></div>
+<div>然后切换回出问题的分支上（checkout），进行merge操作并把分支删除</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git checkout master</code></div>
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git merge --no-ff -m <span style="color: rgb(221, 17, 68);">"merged bug fix 101"</span> issue-<span style="color: rgb(0, 153, 153);">101</span></code></div>
+<div><span style="color: rgb(0, 128, 128);">$ </span>git branch -d issue-<span style="color: rgb(0, 153, 153);">101</span></div>
+</div>
+</div>
+<div><br/></div>
+<div>再切换回原先进行工作的分支（checkout），用来下面的命令查看之前使用过stash的工作现场</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git stash list</code></div>
+</div>
+</div>
+<div><br/></div>
+<div>再对指定的stash进行恢复（恢复的同时把stash内容也删掉）</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<div><code><span style="color: rgb(0, 128, 128);">$ </span>git stash pop</code></div>
+<div>or</div>
+<div>$ git stash apply stash@{0}</div>
+</div>
+</div>
+<div><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div>
+<hr/></div>
+<div><br/></div>
+<div><br/></div>
+<div><span style="font-size: 16px;"><b>Feature分支</b></span></div>
+<div>添加一些实验性质的代码，最好新建一个feature分支</div>
+<div><br/></div>
+<div>在dev分支下新建一个分支，比如：</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>git checkout -b feature-vulcan</code></div>
+</div>
+<div><br/></div>
+<div>add和commit之后，切换回dev分支（checkout）,进行merge操作，并删除feature分支。</div>
+<div><br/></div>
+<div>测试过，觉得该feature分支不适合在现阶段上，就先不merge，保留着。</div>
+<div><br/></div>
+<div>要强行删除分支</div>
+<div>
+<div style="padding: 10px; background: rgb(250, 250, 250); font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; font-family: Consolas, monospace, serif; color: rgb(68, 68, 68); tab-size: 4; overflow: auto; border: 1px solid rgb(221, 221, 221); border-radius: 3px; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;"><code><span style="color: rgb(0, 128, 128);">$ </span>git branch -<span style="color: rgb(0, 153, 153);">D</span> feature-vulcan</code></div>
+</div>
+<div><br/></div>
+</body></html>
