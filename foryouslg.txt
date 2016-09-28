@@ -1,0 +1,76 @@
+现在总结一下今天学的内容：
+
+git init 			【初始化一个Git仓库】
+添加文件到Git仓库，分两步：
+	git add <file>		【注意，可反复多次使用，添加多个文件】
+	git commit 		【完成提交】
+git status 			【命令可以让我们时刻掌握仓库当前的状态】
+git diff 			【顾名思义就是查看difference，显示的格式正是Unix通用的diff格式】
+git log 			【命令显示从最近到最远的提交日志】
+git log --pretty=oneline	【一行输出（没有作者与email）】
+git reset --hard HEAD^ 		【回退到上一个版本（上上一个是HEAD^^，再多就是HEAD~10）】
+git reset --hard df9b8fa3a 	【返回到指定的commit id的版本处（df9b8fa3a是版本id）】
+git reflog 			【用来记录你的每一次命令（该命令携带每次操作的commit id，一般用于找commit id）】
+git checkout -- readme.txt	【意思就是，把readme.txt文件在工作区的修改全部撤销（除已add的操作）】
+
+
+远程github
+ssh-keygen -t rsa -C "foryouslg@foxmail.com"	【在本地生成rsa】
+在远程服务器中添加刚生成的id_rsa.pub中的内容
+
+在远程新建repository
+git remote add	origin 	git@github.com:foryouslg/learngit.git	
+【连接远程】	【远程仓库名】	【远程服务器地址】:【远程服务器账户名】/【项目名】
+
+git push -u origin master	【第一次推送master】
+git push origin master		【之后的推送】
+
+git remote rm origin 		【删除远程仓库origin】
+
+删除远程库的文件
+git rm *			【删除本地库中的所有文件】
+git commit -a -m "delete all files"【提交所有操作，包括删除文件】
+git push origin master		【之后的推送】
+								
+从远程克隆
+git clone git@github.com:foryouslg/http.git
+
+分支：
+git checkout -b dev		【创建dev并切换】
+git branch dev			【创建分支dev】
+git checkout dev		【切换当前分支】
+git branch			【查看当前分支】
+git merge dev			【合并dev分支上的内容到master】
+git branch -d dev		【删除分支】
+
+
+git stash			【临时储存】		
+git stash list			【查看临时储存列表】
+git stash apply			【恢复临时储存】
+git stash drop			【删除临时储存】
+git stash pop			【恢复同时删除】
+git stash apply stash@{0}	【如果有多个临时储存，需要添加stash@{id}】
+git branch -D <name>		【强行删除没有被合并过的分支】
+git remote			【查看远程库的信息，默认仓库名是origin】
+
+多人协同工作之间的同一文件修改冲突
+A:	git checkout -b dev	【一般先在本地创建dev分支，之后才可以向远程推送】
+A:	git push -u origin dev	【向远程origin中推送dev分支】
+A:	git fetch origin/dev	【查看远程dev分支是否存在】
+B:	git branch --set-upstream dev origin/dev【先关联本地与远程的dev分支】
+B:	git pull		【抓取下远程的dev分支内容】
+B:	git add readme.md	【添加修改的文件】
+B:	git commit -m "fix + @ readme.md"【提交修改后的文件】
+B:	git push origin dev	【向远程仓库推送新分支下的修改】
+
+忽略文件配置
+.gitignore				【忽略文件配置文件】
+git add -f App.class	【-f强行添加已忽略的文件】
+git check-ignore -v App.class【检查.gitignore中忽略文件的地方】
+
+别名：
+git config --global alias.st status【将status别名处理成st】
+
+配置文件：
+cat .git/config 【查看配置文件】
+
