@@ -1,0 +1,12 @@
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+普通方式合并：git merge --no-ff -m "merge with no-ff" dev
+删除分支：git branch -d <name>
+查看分支合并：git log --graph --pretty=oneline --abbrev-commit
+存储当前工作分支：git status
+查看存储工作分支：git stash list
+恢复工作分支：git stash apply  或者  git stash pop
+恢复指定工作分支：git stash apply stash@{0}

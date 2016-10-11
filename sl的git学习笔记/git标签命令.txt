@@ -1,0 +1,11 @@
+创建标签：git tag <name>
+创建带有说明的标签：git tag -a v0.1 -m "version 0.1 released" 3628164
+创建PGP标签：git tag -s v0.2 -m "signed version 0.2 released" fec145a
+查看所有标签：git tag
+查找commit id：git log --pretty=oneline --abbrev-commit
+给对应的commit id打标签：git tag v0.9 6224937
+查看标签信息：git show <tagname>
+删除标签：git tag -d v0.1
+推送指定标签到远程：git push origin <tagname>
+推送所有标签到远程：git push origin --tags
+删除远程库标签（先从本地删除）：git push origin :refs/tags/v0.9

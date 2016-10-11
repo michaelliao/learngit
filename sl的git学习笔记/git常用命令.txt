@@ -1,0 +1,17 @@
+git init  在文件夹中初始化git，在哪个文件夹里初始化，哪个文件夹就受git控制
+git status   查看git文件夹的状态
+git add   把git文件夹中新添加的文件添加到git控制里
+git commit -m "初始化"   将git文件提交到版本库
+git push   将文件提交到服务器
+git push origin master   将文件推送到指定分支
+git log —-pretty=oneline   简洁提交记录
+git reflow   查看分支操作记录
+git reset —-hard XXX  回到指定分支，XXX为指定commit id
+git diff  工作区与暂存区的比较
+git diff —cached  暂存区与最近一次提交的比较
+git checkout -b xxx  创建并切换到分支xxx
+git branch  查看所有与当前分支
+git merge xxx  合并xxx分支到当前分支
+git branch -d xxx  删除xxx分支
+git remote -v  查看远程仓库
+git checkout -b branch-name origin/branch-name  从本地创建远程库对应分支，名称最好保持一直
