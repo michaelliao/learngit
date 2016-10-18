@@ -1,0 +1,21 @@
+﻿实际项目开发中Git使用步骤：
+1.将远程仓库里的项目克隆到本地仓库 使用命令：git clone XXX
+
+2.添加到开发IDE进行迭代开发任务 
+	创建并切换至新分支：git checkout -b newfeatur
+	查看当前分支：git branch
+	提交分支：git add XXX
+			  git commit -m "add message"
+	切换回主分支：git checkout master
+	合并分支：git merge XXX
+	删除分支：git branch -d XXX
+	
+3.开发完成后
+	1.推送分支：git push origin branch_name
+	2.如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并
+		如果git pull提示"no tracking information",则说明本地分支和远程分支
+		的链接关系没有创建，用命令git branch --set-upstream branch_name origin/branch_name
+	3.如果合并有冲突，则解决冲突，并在本地提交
+	4.没有冲突或者解决掉冲突后，再用git push origin branch_name推送
+	
+4.大功告成，关机，下班走人。--Henry
