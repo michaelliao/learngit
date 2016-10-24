@@ -1,0 +1,140 @@
+对照左侧菜单栏复习出所学git命令行
+创建版本库：
+git init learngit
+cd learngit
+touch readme.txt
+git add readme.txt
+git commit -m "new readme.txt"
+
+时光穿梭机：
+git status
+git diff readme.txt
+
+
+版本回退：
+git log
+git log --pretty=oneline
+git reset HEAD^
+git reset HEAD^^
+git reset HEAD~100
+git reset --hard HEAD^
+git reset --hard commit_id
+git reflog
+
+工作区和暂存区：
+add => Index/Stage
+commit => Repository
+
+管理修改：
+git diff HEAD -- readme.txt(工作区&版本库diff)
+
+撤销修改：
+git checkout -- file
+git reset HEAD file
+
+删除文件：
+rm test.txt
+git rm test.txt
+git commit --m "delete test.txt"
+git checkout -- test.txt
+
+添加远程库：
+git remote add origin https://github.com/codergray/learngit.git
+git push -u origin master
+git push origin master
+
+从远程库克隆：
+git clone https://github.com/codergray/learngit.git
+
+创建与合并分支：
+git branch dev
+git checkout dev
+git checkout -b dev
+git branch
+git checkout master
+git merge dev
+git branch -d dev
+
+解决冲突：
+git checkout -b feature1
+git merge feature1
+git status
+git log --graph --pretty=oneline --abbrev-commit
+git branch -d feature1
+
+分支管理策略：
+git merge -no-ff -m "merge with no-ff and generate a commit even if delete the branch" dev
+
+bug分支：
+git checkout dev
+git stash
+git status
+git checkout master
+git checkout -b issue-101
+git checkout master
+git merge --no-ff -m "merge bug fix 101" issue-101
+git checkout dev
+git stash list
+git stash apply
+git stash drop
+git stash pop
+git tash apply stash@{0}
+git stash drop
+
+Feature分支：
+git checkout -b feature-vulcan
+git checkout dev
+git merge -no-ff -m "merge feature-vulcan to dev branch" dev
+git branch -d feature-vulcan
+git branch -D feature-vulcan
+
+多人协作：
+git remote
+git remote -v
+git push origin master
+git push origin dev
+git checkout -b dev origin/dev
+git branch --set-upstream dev origin/dev
+git pull
+git add
+git commit -m "merge & fix hello.py"
+git push origin dev
+
+创建标签：
+git tag v1.0
+git tag
+git log --pretty=oneline --abbrev-commit
+git tag v0.9 commit_id
+git show v0.9
+git tag -a v0.1 -m "version 0.1 released" commit_id
+git tag -s v0.2 -m "signed version 0.2 released" commit_id
+
+操作标签：
+git tag -d v0.1
+git push origin v1.0
+git push origin --tags
+git tag -d v0.9
+git push origin :refs/tags/v0.9
+
+自定义Git：
+git config --global -e
+git config --global color.ui true
+
+忽略特殊文件：
+git add -f App.class
+git check-ignore -v App.class
+
+配置别名：
+git config --global alias.st status
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.br branch
+git ci -m 'bala bala bala ...'
+git config --global alias.unstage 'reset HEAD'
+git unstage test.py
+git config --global alias.last 'log 1'
+git last
+cat .git/config
+cat .gitconfig
+
+end 11:59 22th Oct 2016.
