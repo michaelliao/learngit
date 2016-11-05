@@ -1,0 +1,39 @@
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+丢弃一个没有被合并过的分支:
+强行删除: git branch -D feature-vulcan
+
+git stash   把当前现场工作保存起来
+git stash list  查看保存的工作现场
+git stash apply  恢复,  恢复后stash内容没有删除  需要 git stash drop 来删除
+git stash pop  恢复的同时 把stash 内容也删除了
+
+昨天看了廖神,廖老师的Git教程,真的感觉很棒.通俗易懂,零基础的同学完全可以掌握,写下我的一个学习心得:
+在git 远程仓库的时候 
+
+snow@snow-PC MINGW64 /d/repository/learngit (master)
+$ git clone git@github.com:snowluliang/learngit.git
+Cloning into 'learngit'...
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+会出现这种情况,想了想,怎么解决呢?
+我发现 在项目右上角,有个Clone or download的一个绿色按钮,可以选择使用,Use HTTPS和Use SSH,他们俩的地址也不一样,于是我就换了一个地址:
+
+$ git clone https://github.com/snowluliang/learngit.git
+Cloning into 'learngit'...
+remote: Counting objects: 6744, done.
+remote: Compressing objects: 100% (23/23), done.
+remote: Total 6744 (delta 8), reused 0 (delta 0), pack-reused 6717
+Receiving objects: 100% (6744/6744), 13.71 MiB | 971.00 KiB/s, done.
+Resolving deltas: 100% (2368/2368), done.
+
+bingo!!!! 居然完成了,
+感谢廖老师的教程.
