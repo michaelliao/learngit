@@ -1,0 +1,54 @@
+很简单实用的教程，曾经觉得多难多陌生多不可理喻多无理取闹的东东（反正曾经对git嘛都不懂的时候，下了本github的PDF文档，看了个开头就是这么觉得的），居然学懂了，谢谢廖老师！
+学无止境，谢谢那些在路上碰到的乐于分享，不吝赐教的人。可能我们问的问题很简单，很白痴，但是你们的回答很多时候都会点拨我们，至少有了一种原来可以搜索的关键词这么多的感觉！对小白的我们，很多问题真的不知怎么下手，你们的一个回答其实很多时候开拓了我们的视野-v-，谢谢这个善意的世界~啊，愿世界充满爱-v-。谢谢廖老师辛苦做的教程~
+
+
+小白笔记来凑个字数-v-
+//=====================================================================
+//readme.txt
+git is a distributed version control system.
+git is free software.
+
+It's a good time!
+cp is a sweet girl.
+English is hard.
+This is an apple.
+That is an orange.
+
+Why?
+Creating a new branch is quick.   --dev
+I created a pointer.  ----cp
+今天，我得到了100积分，相当于连续签到3个多月~激动\(≧▽≦)/
+
+又一个周一，Monday！
+
+我在分支cp上，复习一下。哼哼，我一会儿要到master分支上去，然后就要挂掉了= =知道为嘛没挂掉吗？我merge分支cp到master上了！但是cp分支确实被我删除了o.o
+
+Creating a new branch is quick and simple.
+分支管理策略，又是dev分支
+
+//哎哎，这里有个bug呢！当当当！改了它！！
+//好的，我现在就在改这个bug了！ 叮！好了！
+
+我还未完成，等你修复bug再来完成。。。
+
+
+//stupid,now I'm a big bug.
+
+//我在dev分支上工作。。working hard，这时候我接到一个bug，= =，要马上修复。。。。哎= =，我还没在dev上工作完呢，还不能commit
+
+//=========================================================================
+//license.txt
+﻿ cp,you are sweet.love you everyday.
+ I have a pen.
+ 
+Princess,eversleeping~
+
+小伙伴些，咱们好好合作哟~
+
+昂，小伙伴来也！开始修改了！
+
+你改了啊？！我也改改噢，你说我们会不会起冲突啊！
+
+summary：诶！果然冲突了呢！先git branch --set-upstream dev origin/dev链接远程的dev分支，然后git pull！咻——的一下就好啦！
+或说小伙伴咋的跑下面来了，他先提交啊，那我把你移上去~
+aha，我在我自己的computer上面杀死了my partner.why?因为不需要他了，so sad!- -.
