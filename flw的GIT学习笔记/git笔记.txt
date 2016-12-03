@@ -1,0 +1,198 @@
+1 仓库的所在目录怎么改变
+
+
+
+安装git：
+   安装完成后进入git界面的dos然后输入
+      $ git config --global user.name "Your Name"
+      $ git config --global user.email "email@example.com"
+   这一步是用来记录我的名字和email地址的。
+   注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址   。
+
+
+
+创建一个版本库：
+   第一步 创建一个空目录：
+      $ mkdir learngit
+      $ cd learngit
+      $ touch readme.txt
+      $ pwd
+      
+      /Users/michael/learngit
+   pwd命令用于显示当前目录。在我的Mac上，这个仓库位于/Users/michael/learngit。
+   如果你使用Windows系统，为了避免遇到各种莫名其妙的问题，请确保目录名（包括父目录）不包含中文。
+   
+
+   第二步  通过git init命令把这个目录变成Git可以管理的仓库：
+      目录下会有一个.git的文件，也可能隐藏了。用ls -ah命令可以看到。
+这样就创建成了。
+
+
+然后编写一个readme.txt文件放到创建的库目录下面。
+       把文件放到目录里面只需两步：
+       a 用命令git add告诉Git把文件添加到仓库；$ git add readme.txt
+       b 用命令git commit告诉Git把文件提交到仓库。$ git commit -m "wrote a readme file"
+        
+
+git log命令显示从最近到最远的提交日志。
+git log --pretty=oneline是让信息整齐显示的命令。
+
+       $ git log --pretty=oneline
+        3628164fb26d48395383f8f31179f24e0882e1e0 append GPL
+        ea34578d5496d7dd233c827ed32a8cd576c5ee85 add distributed
+        cb926e7ea50ad11b8f9e909c05226233bf755030 wrote a readme file
+大串字符是commit的id
+
+
+
+把Git退到上一个版本，$ git reset --hard HEAD^  第上100个版本是$ git reset --hard HEAD~100
+
+$ cat readme.txt查看版本内容
+
+$ git reset --hard 3628164通过commit的id来查找版本
+
+Git提供了一个命令git reflog用来记录你的每一次命令
+
+
+
+
+
+
+
+    a HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+
+    b 穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+
+    c 要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+
+  $cat readme.txt是查看文件的修改内容：有点疑惑
+
+ $git diff HEAD -- readme.txt  查看工作区和版本库里面最新版本的区别
+
+
+
+丢弃工作区的修改：git checkout -- readme.txt
+
+把暂存区的修改撤销掉：$git reset HEAD readme.txt
+  **记住，添加过的修改。撤销分两步，1是先撤销暂存区的add，用$git reset HEAD readme.txt 
+2然后撤销工作区的修改 $git checkout readme.txt
+
+
+遇到退不出的界面用esc 或者q 或者wq或者是ctrl+d
+
+
+
+
+
+分支的问题：
+   新创建一个分支叫dev。
+        方法是：$git branch dev   这是创建一个dev。
+                $git checkout dev 切换到dev的分支。
+也可以简写成一句话：$git checkout -b dev
+
+
+   可以用命令：$git branch  来查看当前分支的情况。git branch会列出所有的分支，当前的分支是带有*标志的那个。
+
+    $git merge dev合并指定的分支到当前的分支上面。
+    $git branch -d dev 删除名字叫dev的分支
+
+
+git解决冲突：如果出现合并冲突的情况，需要手动解决冲突。然后再添加，推送到本地的git库。
+
+   $git log --graph --pretty=oneline --abbrev-commit
+    
+这句话的意思是显示git的合并图。
+
+
+
+
+通常合并分支时，git会用fast forward模式。但这种模式下。删除分之后，会丢掉分支的信息，
+如果轻质禁用fast forward 模式。git就会再merge时生成一个新的commit，这样，从分支历史上就可以看到分支的信息。
+     
+
+bug分支，当你正在dev上面开发时，有一个紧急的bug需要修复，这时候可以用$git stash将当前的工作现场储藏起来，等以后恢复现场后继续工作。
+
+然后再切换到master的分支上。创建一个名字叫issue-101的分支。$git checkout -b issue-101
+然后开始修复bug，修复好之后，切换到master分支上面，合并分支。然后删除issue-101的分支。$git checkout master    $git merge --no-ff -m "merge bug fix 101" issue-101     
+$git branch -d issue-101
+
+
+最后，切换到dev的分支继续干活。$git checkout dev 
+$git stash list用来查看工作现场的存贮列表，需要恢复一下。
+
+a $git stash apply恢复，但是恢复之后，stash内容并不删除，需要用$git stash drop来删除
+b 可以用$git stash pop，再恢复的同时，把stash内容也删除了。
+
+
+开发feature-vulcan分支。没有合并的分支不能直接删除，可以强制用$git branch -D feature-vulcan
+
+这样删除就成功了
+
+
+
+
+关于git远程仓库的问题：	
+1 创建SSH Key 
+$ ssh-keygen -t rsa -C "1143205094@qq.com"
+然后一直回车，
+之后在用户主目录下面找到id_rsa.pub公钥。
+登陆github，把公钥的内容粘贴到ssh keys里面。
+
+
+添加远程库，创建一个远程的版本库，记住不要创建readme.md文件。然后关联本地的库和远程库
+关联：$git remote add origin git@github.com:flshers/gitlink.git添加后，
+推送：$git push -u origin master 第一次推送要加上-u的参数之后推送就是$git push origin master就行了
+
+
+克隆远程库到本地：$ git clone git@github.com:flshers/github1.git
+
+
+
+
+
+多人协作：克隆完成时就是把分支对应起来了 远程的仓库默认的名字是origin
+可以用$git remote来查看
+或者用$git remote -v 来查看详细的信息
+推送分支用$git push origin master或者是$git push origin dev
+
+
+抓取分支：
+
+模拟小伙伴在同一台电脑的不同盘符目录下克隆
+克隆完成后发现，默认情况下，小伙伴只能看到本地的master分支。必须在dev上面开发
+就必须创建远程origin的dev分支到本地，$git checkout -b origin/dev,然后在dev上修改，再时不时的push一下。
+
+小伙伴开发完成之后，我也修改了相应的dev文件准备提交推送，发现不能推送。原因是我与兄啊或半的提交有冲突了，我必须先把小伙伴的dev拉下来，用pull，然后合并一下。
+
+
+pull也会失败，因为是灭有指定本地的dev与远程origin/dev分支的链接，根据提示设置dev 和origin/dev的链接$git branch --set-uostream dev origin/dev
+
+然后pull一下，合并会有冲突，需要手动解决一下，然后再push一下。
+
+
+
+标签管理
+
+创建标签：先切换到要打标签的分支上面。用$git tag v1.0打上标签
+可以用$git tag查看所有的标签。
+
+用命令$git show v0.9来查看标签的详细信息
+
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字。
+$git tag -a v0.1 -m "version0.1 released" 3628164
+签名的标签就不用了
+
+操作标签：
+如果标签打错了，也可以删除；
+$git tag -d v0.1  标签只会存储在本地，不会自动推送到远程，所以打错的标签可以在本地的删除
+
+如果要推送某个标签到远程可以用$git push origin v0.1
+或者可以一次推送所有的没有推送到远程的本地标签
+$git push origin --tags
+
+推送到远程的标签删除比较麻烦。先从本地删除，$git tag -d v0.9 
+然后从远程删除：$git push origin :refs/tags/v0.9
+
+
+老师讲的像小说一样，特别喜欢这样的学习方式。希望自己以后也能成为想老师一样的大牛。
+
