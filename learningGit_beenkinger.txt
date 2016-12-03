@@ -1,0 +1,22 @@
+git learning:
+
+1. git config --global user.name "xxx"
+   git config --global user.email "xxxx"
+   
+   
+2. git init
+   git add filename
+   git commit -m "comment text"
+   git status
+   
+3. git diff filename   
+   git log
+   
+4. git reset --hard version/HEAD
+   git reflog
+   
+5. 工作区和版本库(workSpace, Repository)
+
+6. git checkout --filename //撤销工作区的修改
+
+
