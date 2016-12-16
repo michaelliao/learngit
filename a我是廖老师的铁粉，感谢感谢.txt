@@ -1,0 +1,33 @@
+真的很感谢廖老师：
+
+
+先创建一目录 learngit
+$ cd Desktop
+ $ mkdir learngit
+ $ cd learngit
+
+通过git init命令把这个目录变成Git可以管理的仓库
+$ git init
+
+通过git add命令告诉Git，把文件添加到仓库暂存区
+$ git add readme.txt
+
+通过git commit命令告诉Git，把文件提交到仓库，-m后面输入的是本次提交的说明
+$ git commit -m "wrote a readme file"
+
+修改了文件内容后，可通过 git status命令可以让我们时刻掌握仓库当前的状态
+$ git status
+
+查看具体修改了什么内容，通过 git diff 命令, 再次添加，提交 转到3，4步
+$ git diff
+
+通过 git log 查看版本历史记录，如果输出信息太多， --pretty=oneline参数，git log --pretty=oneline
+$ git log 或  $ git log  --pretty=oneline
+
+返回之前某个版本，在Git中，用HEAD表示当前版本，也就是最新的提交3628164...882e1e0（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+$ git reset --hard HEAD^
+
+回退后又想重新回到最最新的版本，通过 git reflog 来查看我们用过的命令
+$ git reflog
+这个命令列出了我们每一次提交的 commit id，通过命令 git reset --hard 04163a6cf ，可以返回最新的版本
+$  git reset --hard 04163a6cf
