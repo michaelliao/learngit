@@ -1,0 +1,95 @@
+1.
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+mkdir 版本库名字				——创建版本库（repository）
+git init							——把这个目录变成Git可以管理的仓库
+ls –ah							——查看当前版本库隐藏文件
+git add 文件名					——把文件添加到仓库
+git commit –m “本次提交说明”	——把文件提交到仓库
+git status						——查看仓库当前状态
+git diff							——查看与上次修改的不同
+git log							——显示从最近到最远的提交日志
+git log –pretty=oneline			——显示提交日志简介版
+git reset –hard HEAD^			——回退到上一个版本
+git reset –hard 想回到的版本的版本号
+git reflog 						——查看命令历史，确定回到未来哪个版本
+git diff HEAD -- readme.txt		——查看工作区和版本库里最新版本的区别
+git checkout -- readme.txt			——把readme.txt文件在工作区的修改全部撤销
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+git reset HEAD file				——可以把暂存区的修改撤销掉（unstage），重新放回工作区
+ 
+git rm 							——删除一个文件，如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
+2.远程仓库
+$ ssh-keygen -t rsa -C youremail@example.com ——创建SSH Key
+$git remote add origin git@server-name:path/repo-name.git ——关联一个远程库
+$ git push -u origin master			——第一次推送master分支的所有内容
+$ git push origin master				——推送最新修改
+$ git clone git@github.com:CandlerDing/repo-name.git	——从远程库克隆
+3.分支管理
+git branch							——查看分支
+git branch <name>					——创建分支
+git checkout <name>					——切换分支
+git checkout -b <name>				——创建+切换分支
+git merge <name>					——合并某分支到当前分支
+git branch -d <name>					——删除分支
+
+ 
+ 
+ 
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+
+$ git stash 						——有bug后，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+$ git stash list					——工作区是干净的，刚才的工作现场存到哪去了？用git stash list命令看看
+git stash apply					——恢复工作现场，stash内容并不删除
+git stash drop					——删除stash内容
+git stash pop						——恢复现场同时删除stash内容
+
+git checkout -b feature			——实验性质，例如添加新功能的分支
+git branch -D <name>			——要丢弃一个没有被合并过的分支，强行删除
+git remote						——查看远程库的信息
+git remote -v						——查看远程库的详细信息
+$ git push origin master			——推送分支，就是把该分支上的所有本地提交推送到远程库。推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上
+$ git push origin dev				——推送其他分支
+ 
+
+因此，多人协作的工作模式通常是这样：
+    首先，可以试图用git push origin branch-name推送自己的修改；
+    如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+    如果合并有冲突，则解决冲突，并在本地提交；
+    没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream branch-name origin/branch-name。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+
+ 
+4.标签管理
+tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起
+git tag <name>						——用于新建一个标签，默认为HEAD，也可以指定一个commit id
+git tag -a <tagname> -m "blablabla..."	——可以指定标签信息
+git tag -s <tagname> -m "blablabla..."	——可以用PGP签名标签
+git tag								——可以查看所有标签
+
+git push origin <tagname>			——推送一个本地标签
+git push origin –tags					——推送全部未推送过的本地标签
+git tag -d <tagname>					——删除一个本地标签
+git push origin :refs/tags/<tagname>	——删除一个远程标签
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
