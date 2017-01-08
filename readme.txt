@@ -8,4 +8,7 @@ Git can merge branches.
 update by wk
 update by frogy
 
+<<<<<<< HEAD
 this is from billwang
+=======
+>>>>>>> 2e3ba62650634f2f0a08f9d964b88c846a00c991

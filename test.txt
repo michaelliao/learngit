@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 Thank you very much.
+=======
+thank you for your git article~
+thanks very much too!
+>>>>>>> 2e3ba62650634f2f0a08f9d964b88c846a00c991

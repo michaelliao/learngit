@@ -2,7 +2,10 @@
 
 版本库HEAD表示当前版本，上一个版本HEAD^，上上一个版本HEAD^^.......
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2e3ba62650634f2f0a08f9d964b88c846a00c991
 配置本机git
 git config --global user.name "abcd"
 git config --global user.email abcd@efgh.com

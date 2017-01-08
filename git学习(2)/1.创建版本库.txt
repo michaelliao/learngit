@@ -1,0 +1,6 @@
+1.一步进入某目录下：
+	cd f:/repository/GitTest
+2.通过git init命令把此目录变成Git可以管理的仓库：
+3.添加文件到Git仓库，分两步：
+	第一步：git add <file>,注意，可反复多次使用，添加多个文件；
+第二步：git commit -m "提交信息“

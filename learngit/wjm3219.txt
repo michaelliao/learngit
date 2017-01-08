@@ -1,0 +1,6 @@
+接触github接近一年了
+之前都是直接在网站上查看源代码和下载编译好的工具用
+一直都没接触到用git工具来对自己fork过的源码进行clone和commit
+廖大大的教程写得蛮好，基本熟悉了git与github的关系
+也学会了如何通过git去clone源代码到本地、commit修改后代码至github
+非常感谢~

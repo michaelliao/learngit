@@ -1,0 +1,27 @@
+1.知道工作区的状态：使用git status命令；
+2.git diff可以查看具体的修改内容；
+
+版本回退
+3.HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用git reset --hard commit_id;
+4.穿梭前，用git log可以查看提交历史，以便确定要退到哪个版本；
+5.要重新到最新的版本，用git reflog查看命令历史，以便确定要前进到哪个版本；
+
+工作区和暂存区
+6.工作区（Working Directory） 版本库（Repository）
+
+管理修改
+7.第一次修改 -> git add -> 第二次修改 -> git add -> git commit
+
+删除文件
+8.命令git rm用于删除一个文件
+
+远程仓库
+
+添加远程库
+9.要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容
+之后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改
+
+从远程库克隆
+10.要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆
+Git支持多种协议，包括https,但通过ssh支持的原生git协议速度更快

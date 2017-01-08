@@ -1,0 +1,3 @@
+在Github上，可以任意Fork开源仓库；
+自己拥有Fork后的仓库读写权限；
+可以推送pull request给官方仓库来贡献代码。
