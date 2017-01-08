@@ -1,0 +1,41 @@
+<Download for Linux and Unix>
+
+It is easiest to install Git on Linux using the preferred package manager of your Linux distribution.
+
+Debian/Ubuntu
+$ apt-get install git
+
+Fedora
+$ yum install git (up to Fedora 21)
+$ dnf install git (Fedora 22 and later)
+
+Gentoo
+$ emerge --ask --verbose dev-vcs/git
+
+Arch Linux
+$ pacman -S git
+
+openSUSE
+$ zypper install git
+
+FreeBSD
+$ cd /usr/ports/devel/git
+$ make install
+
+Solaris 9/10/11 (OpenCSW)
+$ pkgutil -i git
+
+Solaris 11 Express
+$ pkg install developer/versioning/git
+
+OpenBSD
+$ pkg_add git
+
+Alpine
+$ apk add git
+
+Mac OS X
+https://git-scm.com/download/mac
+
+Windows
+https://git-scm.com/download/win

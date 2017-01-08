@@ -1,0 +1,56 @@
+创建SSH Key
+$ ssh-keygen -t rsa -C "youremail@example.com"
+
+id_rsa		私钥，不可泄漏
+id_rsa.pub	公钥
+
+将 id_rsa.pub 复制到 https://github.com/settings/keys
+
+关联一个远程库
+$ git remote add <shortname> <url> 
+$ git remote add origin git@server-name:path/repo-name.git
+	<shortname>		origin			默认的远程库的名字，可以修改
+	<url>			server-name		github.com
+					path/repo-name	github的用户名/项目名
+
+从远程仓库中抓取与拉取
+$ git fetch [remote-name]
+	访问远程仓库，从中拉取所有还没有的数据
+	会拥有那个远程仓库中所有分支
+
+推送更新
+$ git push origin master
+	origin	远程仓库的默认名称
+	master	需要推送的分支名称
+
+	-u		把本地的master分支内容推送的远程新的master分支
+			并把本地的master分支和远程的master分支关联
+			首次推送可以加-u
+
+从远程库克隆到本地
+$ git clone <add>
+
+查看远程仓库
+$ git remote
+	-v (--verbose)，显示对应的克隆地址
+	
+	$ git remote show [remote-name]
+		列出远程仓库的 URL 与跟踪分支的信息
+
+抓取分支
+$ git pull
+
+在本地创建和远程分支对应的分支
+$ git checkout -b branch-name origin/branch-name
+
+关联本地分支和远程分支
+$ git branch --set-upstream branch-name origin/branch-name
+	如果git pull提示“no tracking information”，进行本操作
+	branch-name			分支名称
+	origin/branch-name	远程分支名称
+
+远程仓库的重命名
+$ git remote rename <old name> <new name>
+
+移除远程仓库
+$ git remote rm <name>

@@ -1,0 +1,77 @@
+创建仓库
+$ git init
+
+对文件进行跟踪
+$ git add <file>
+
+忽略文件
+创建一个名为 .gitignore 的文件
+列出要忽略的文件模式，例：
+*.[oa]		# 忽略所有以 .o 或 .a 结尾的文件
+*~			# 所有以波浪符（~）结尾的文件
+GitHub汇总多语言.gitignore文件，地址: https://github.com/github/gitignore
+
+提交更新
+$ git commit
+	-m ""	添加更新说明
+	-a		跳过使用暂存区域,自动把所有已经跟踪过的文件暂存起来一并提交
+	-–amend	修改最后一次的提交
+
+检查当前文件状态
+$ git status
+	-s		-s表示short
+
+查看工作目录中当前文件和暂存区域快照之间的差异(difference)
+$ git diff
+	--staged 或 --cached	已经暂存起来的文件和上次提交时的快照之间的差异
+
+查看提交历史
+$ git log
+	--graph	查看分支合并图（建议使用时加--oneline）
+	-p		显示每次提交的内容差异
+		-–word-diff	可以从单词层面对比，用于书籍、论文等
+		--oneline		--pretty=oneline --abbrev-commit 的简化用法
+		--stat			显示每次更新的文件修改统计信息
+		--shortstat		只显示 --stat 中最后的行数修改添加移除统计
+		--name-only		仅在提交信息后显示已修改的文件清单。
+		--name-status	显示新增、修改、删除的文件清单。
+		--abbrev-commit	仅显示 SHA-1 的前几个字符，而非所有的 40 个字符
+	-(n)	仅显示最近的 n 条提交	(例：-2)
+		--since, --after	仅显示指定时间之后的提交
+		--until, --before	仅显示指定时间之前的提交
+		--author			仅显示指定作者相关的提交
+		--committer			仅显示指定提交者相关的提交
+
+查看某次历史修改内容
+$ git show <commit id>
+	查看某次commit的修改内容
+$ git show <tagname>
+	查看某标签修改的内容
+
+回退到上一个版本
+$ git reset --hard HEAD^
+	git reset --hard <commit id>	回退到某个版本，<commot id>在 git log 中查看
+
+查看命令历史 (确定要回到未来的哪个版本)
+$ git reflog
+
+取消工作区的修改
+$ git checkout -- <file>
+
+把暂存区的修改回退到工作区 / 取消已经暂存的文件
+$ git reset HEAD <file>
+
+删除仓库中的文件
+$ git rm <file>
+	删除后需要执行 git commit 将删除文件操作更新到仓库中
+	
+	-f	删除之前修改过并且已经放到暂存区域的文件，则必须要用强制删除选项
+
+	$git rm --cached <file>
+		把文件从 Git 仓库中删除（亦即从暂存区域移除）
+		但仍然希望保留在当前工作目录中
+	
+移动文件
+$ git mv <file-from> <file-to>
+	Git 并不显式跟踪文件移动操作
+	* 这条命令可以用于文件的改名

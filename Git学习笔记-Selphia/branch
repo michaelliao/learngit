@@ -1,0 +1,35 @@
+分支管理
+
+主分支:	master
+
+创建分支
+$ git checkout -b <name>
+	-b 创建并切换分支等于一下两条命令
+		$ git branch <name>		创建分支<name>
+		$ git checkout <name>	切换到<name>分支
+
+查看分支
+$ git branch
+
+合并指定分支到当前分支
+$ git merge <name>
+	--no-ff		用普通模式合并，产生一个新的 merge commit.
+				默认使用 Fast forward 模式没有 merge commit.
+
+删除分支
+$ git branch -d <name>
+	-d	删除合并后的分支
+	-D	强制删除分支
+
+暂存当前正在进行的工作
+$ git stash
+
+查看已暂存的工作
+$ git stash list
+
+恢复暂存的工作同时把暂存内容删除
+$ git stash pop
+	恢复暂存的工作
+	$ git stash apply stash@{0}
+	将暂存内容删除
+	$ git stash drop stash@{0}

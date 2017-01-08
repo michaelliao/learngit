@@ -1,0 +1,17 @@
+# 文档及图片
+README					说明文件
+list					目录
+istall					安装
+set						安装完成后设置
+repository				仓库
+principle				原理
+GitHub					GitHub 使用 / 远程仓库
+branch					分支
+tag						标签
+Git-Logo-2Color.png		GitHub 的 logo
+
+# 脚本
+git-server.sh			安装并配置 git 服务端
+git-repository.sh		在 git 服务器上创立一个仓库
+add-Keys.py				读取当前目录内所有文件，并添加到 authorized_keys
+add-keys.sh				输入密钥，并添加到 authorized_keys

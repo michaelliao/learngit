@@ -1,0 +1,13 @@
+安装完成后进行如下设置
+
+设置姓名
+$ git config --global user.name "Your Name"
+
+设置邮箱
+$ git config --global user.email "email@example.com"
+
+执行 git push 没有指定分支时，只有当前分支会被 push 到你使用 git pull 获取的代码
+$ git config --global push.default simple
+
+让Git适当的显示颜色
+$ git config --global color.ui true

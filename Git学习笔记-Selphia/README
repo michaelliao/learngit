@@ -1,0 +1,13 @@
+在学习 Git 过程中记录的笔记
+
+内容请查阅目录文件：list
+
+感谢 Linus torvalds 创造了 Git 这个分布式版本控制系统
+
+感谢官网的说明文档：https://git-scm.com/book/zh/v1
+虽然看的一脸蒙逼，不是很懂。
+但在对 Git 有一定了解以后，官方文档还是提供了很大帮助
+
+感谢廖雪峰老师：http://www.liaoxuefeng.com/
+在没看懂官网说明文档的情况下，廖老师的教程给我提供了很大的帮助
+这份笔记已经 pull request 到廖老师的 GitHub 上
