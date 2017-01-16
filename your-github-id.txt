@@ -1,7 +1,5 @@
-Git is a version control system.
+Gyour-github-id.txtit is a version control system.
 Git is free software.
 Thank you for your teaching!Best wishes to you!
-<<<<<<< HEAD
 hello world
-=======
->>>>>>> 2e3ba62650634f2f0a08f9d964b88c846a00c991
+mbq
