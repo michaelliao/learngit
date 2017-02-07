@@ -1,0 +1,9 @@
+感谢廖老师这么好的学习资料，要是每一门技术都有廖老师这样的人来分享就好了...
+
+对安装git这一章节想做些补充
+我原来是Ubuntu和Windows的用户，linux用yum或者apt一条指令就安装了，Windows上官网下一个安装包就可以用git shell了，这两点老师的网站中也说到了。
+最近工作平台切换到了mac，经过我的摸索，mac有三种方式，homebrew、command line tools和git官网的安装器：
+1、homebrew和linux的包管理工具没啥大区别，不说了
+2、command line tools在mac osx 10.9之后就可以脱离Xcode单独安装了，毕竟Xcode太大了，而且对平时不用Xcode开发的人是一个累赘。直接在命令行中输入git，就会弹出对话框，有下载Xcode和安装command line tools的两个按钮，直接安装就会按在/usr/bin中，大约两百mb，下载很快。
+3、直接去git官网下载安装器，下载十分缓慢...安在/usr/local/git/bin中，因此需要添加PATH
+PS：当时看廖老师网站的时候，对mac怎么用git苦恼了一天，才发现Xcode和命令行工具的关系，命令行工具中的git和官网一样都是2.10.1的，不用担心版本旧的问题，其他还有gcc、g++等工具更是常用，我个人觉得mac平台还是独立安装命令行工具或者去git官网下安装器是最好的选择。
