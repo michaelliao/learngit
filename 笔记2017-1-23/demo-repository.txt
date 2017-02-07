@@ -1,0 +1,107 @@
+
+git 分布式版本控制
+
+1 初始化版本库：git init
+*此时会提示版本库初始化为空：initialize empty git repository
+*初始化完成，在上层目录多出一个.git的文件，它是git控制的关键，也是git的版本库，查看它需要命令：ls -ah
+
+2 把此文件demo-repository添加给git的版本库中(仓库)：git add demo-repository.txt
+*此时没有提示，说明添加成功
+*可能报错文件匹配不到：fatal:pathspec 'xx' did not match any files
+	**解决：检查文件是否存在指向的当前目录中，查看当前目录命令：pwd
+
+3 把添加的文件再提交回仓库并命名一个版本名(-m:其实是本次提交的说明)：git commit -m 'xx版本'
+*此时提示root管理员在主分支master提交一个叫做xx的文件，1个文件被改动，共有12行被插入(12行的原因是我在12行结束时再添加了一次)：
+[master (root-commit) 69aa247] demo-repository1
+1 file changed,12 insertions(+)
+create mode 100644 demo-repository.txt
+*为啥需要add,commit的原因：commit可以一次提交多个文件，而且add添加一次是添加之前的文件，当添加后再次修改又需要添加一次
+
+4 查看当前仓库的状态：git status
+*三种情况：
+====1
+*文件修改但仓库中没有添加/提交时，即暂存区是干净的(暂存区存在)，工作区有修改：
+此时提示在主分支master上变动没有被保存到提交的文档里，可以使用git add <file>这个命令去更新到下一个将提交的版本里，也可以使用
+git checkout --<file>撤销在工作区做的变动
+On branch master
+Change not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git checkout -- <file...> to discard changes in working directory")
+*会提示你添加到已经存在的最新版本里去，使用命令：git add或者git commit -a
+====2
+*添加到仓库中时：
+此时提示改变会被提交，使用git reset HEAD <file> 把暂存区的修改撤销掉，把暂存区的内容回退到工作区(暂存区清空)
+On branch master
+Change to be commited:
+(use "git reset HEAD <file> ..." to unstage)
+====3
+*在工作区新建一个文件，没有放入暂存区stage时：
+此时提示没有跟踪到文件，使用git add <file>放在之后会提交的暂存区内
+Untracked files:
+(use "git add <file>..." to include in what will be committed)
+
+5.1 查看没有提交/添加到暂存区的文件改动部分：git diff 
+5.2 工作区(不管是否添加到暂存区)与版本库里最新版本的区别：git diff HEAD -- <file> 
+*此命令会把没有添加到仓库的文件改动部分显示在控制台，-表示之前版本，+表示更改之后变动
+diff --git a/demo-repository.txt b/demo-repository.txt
+index 366c425 100644
+--- a/demo-repository
++++ b/demo-repository
+...
+
+6 查看文件中所有内容：cat <file>
+
+7.1 查看历史版本：git log
+*commit：版本号 Author：github账号 Date：日期
+*查看精简信息：git log --pretty=oneline
+7.2 查看分支情况：git log --graph --pretty=oneline --abbrev-commit
+
+8.1 回退上一版本：git reset --hard HEAD^
+*HEAD是一个指针 指向当前版本 HEAD^^上两个版本 HEAD~10上10个版本 也可以指定回退到哪一个版本号
+8.2 把暂存区的内容回退到工作区(暂存区清空)：git reset HEAD <file>
+*add之后，内容存到暂存区，要把暂存区清空就需要这个命令
+
+9 记录操作的命令：git reflog
+*前面是版本号 后面是指向 最后是操作命令
+
+10 vi编辑器：vi <file>
+*使用控制器进行文件内容更改 a/i 进入编辑模式 其中a进入光标为首行 i进入光标在鼠标所在行 退出	编辑esc 保存退出ZZ
+
+11 撤销修改，注意--，去掉后意义不同：git checkout -- <file>
+*两种情况
+====1
+如果暂存区没有清空，在添加到暂存区之后再修改的内容会被清空
+====2
+暂存区为空，撤销回到最新版本的内容
+
+12 删除最新版本中的某个文件：rm <file>
+*此时是没有提示的，因为版本库.git中还保存有此版本，所以可以使用命令：git checkout -- <file>来撤销到上一版本
+
+13 要从版本库中删除某个文件：git rm <file>
+*版本中就没有这个文件了，此时提交就不会报错
+
+**
+工作区和暂存区
+工作区：working directory
+git init的那个目录就是工作区
+版本库：repository
+工作区有一个隐藏目录.git 是Git的版本库
+在版本库里有暂存区：stage(栈),git会自动的创建第一个分区：master，指向master的指针为HEAD
+**
+
+**
+文件执行概念
+git add 把文件添加到暂存区stage
+git commit 把暂存区的内容提交到当前分支
+即需要提交的文件放入暂存区，一次性提交暂存区的所有修改,提交后暂存区的内容将会清空
+这个是没有放到暂存区的哦（但并不会在提交之后就消失咯 强行加一段话 用vi demo-repository)
+
+
+**
+文件执行顺序
+1 进入文件修改之后，若没有添加到暂存区，查看状态会发现提示你要不添加暂存区要不撤销到上一版本或者是回退到上一次暂存区的状态(git checkout -- <file>)
+2 添加到暂存区后，查看状态,提示将会提交，可以选择git reset HEAD <file> 取消/清空暂存区。
+3 查看暂存区与工作区的不同：git diff，查看版本库与工作区的不同：git diff HEAD -- <file>
+
+
+

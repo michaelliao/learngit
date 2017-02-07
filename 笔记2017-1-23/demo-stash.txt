@@ -1,0 +1,11 @@
+**
+贮存工作区？
+1 可以在存储当前分支上的工作区，再新的分支上进行其他操作：git stash 
+2 查看之前存储的工作现场：git stash list
+3 恢复工作区并删除stash内容：git stash pop
+4 删除工作区：git stash drop
+5 恢复工作区：git stash apply 指定的stash号
+合并必须要提交吗？
+
+**
+从哪个分支上修复，就在哪个上创建分支

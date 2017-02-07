@@ -1,0 +1,5 @@
+1 连接到远程：git remote add origin git@地址/远程版本库
+2 把本地的内容推送到远程：git push -u origin master
+master是总分支，origin是远程的 -u是把本地的master分支也推送到远程的master分支上，而且关联起来，之后都可以通过这个命令把文件推送到远程
+
+这样就可以在没有联网的时候自己在本地工作，等到有网的时候就推送到远程
