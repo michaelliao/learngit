@@ -1,0 +1,63 @@
+Some common commands
+1.git init (Create a repository and default a branch called master)
+2.git add (Add the operation created or changed to STAGE not repository)
+3.git status (Show the current status of this working directory)
+4.git commit -m "the description of your action" (Submit or merge the new operation from stage
+ to master branch of the repository)
+5.git diff (Show differences between the current version and the last version)
+6.git log (Show all the versions of this file) Add '--pretty=oneline' to simply the show result
+7.git reset --hard HEAD^ (Back to the last version)
+8.git reflog (Show your actions or commands history)
+9.git reset --hard 'the version id' (Back the particular version)
+10.rm <filename> (Romove a file, but this operation won't be submitted to stage)
+11.git checkout -- <filename> (Back to the last change that you have not commit)
+
+a highlight on point 11: this operation can recover file that have not been submitted to stage,
+ if files were add to stage, they won't be recovered.
+
+12.git rm <filename> (Romove a file, and this operation will be submitted to stage, so you don't
+ need to add it)
+13.git branch (Check the status of branch)
+14.git branch <branch name> (Create a new branch)
+15.git checkout <branch name> (Switch to a particular branch)
+16.git checkout -b <branch name> (Create a new branch and switch to it)
+17.git merge <branch name> (Merge this branch to a particular branch)
+18.git branch -d <branch name> (Delete a branch)
+
+a highlight on point 18: if you want to delete a branch while it have not merged to master branch,
+you have to replace sentence "-d" by "-D" forcely. 
+
+19.git remote add origin git@github.com:<username>/<origin repository name>.git	(Connect your 
+ local repository to the remote repository on your github)
+20.git push -u origin master (Push the master branch to remote)
+
+a hightlight on point 20: Once you add '-u' at your command, you can use a simplied command --
+'git push origin master' -- to push your operation to remote origin repository after the first push.
+If you want to push another branch, just replace the branch name after word "origin".
+
+21.git clone <URL or SSH> (Clone a repositiry from origin branch)
+22.ls (List all files in current folder)
+23.--graph (List in graph format)
+24.--pretty-oneline (Simply each message to oneline)
+25.--no-ff (Merge two branch with no-ff mode)
+26.git stash (Pause and stash status of current work)
+27.git stash list (Show your works preserved before)
+28.git stash pop (Recover your work from stash)
+29.git remote (Check out the name of remote repository)
+30.git remote -v(Check out more imformation of remote repository)
+31.git branch --set-upstream-to=origin/<branch name> <local branch name> (Connect the local branch 
+to a remote origin branch)
+32.git pull (Pull content from remote repositiry)
+33.git tag <tag name> (Set a tag on current commit)
+34.git tag (Show all tags)
+35.git tag <tag name> <commit id>(Set a tag on a particular commit)
+36.git tag -a <tag name> -m "Description" <commit id> (Set a tag with a description)
+37.git tag -s <tag name> -m "Description" <commid id> (Set a tag with a description by PGP)
+38.git tag -d <tag1 name> <tag2 name> ... (Delete tags)
+39.git push origin <tag name> (Push particular tag to remote branch)
+40.git push origin --tags (Push all of local tags to remote branch)
+41.git push origin :refs/tags/<tag name> (Delete a tag on remote branch)
+
+a highlight on point 41: Before delete tags on remote repositiry, you have to delete it on local 
+repository.
+

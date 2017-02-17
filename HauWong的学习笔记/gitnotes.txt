@@ -1,0 +1,57 @@
+This is a note about git konwledges.
+
+1.How to build a remote origin repository connected to your local repository?
+	(1)Create a new SSH key. Use a command -- "ssh-keygen -t rsa -C '<youremail@example.com>'"
+	-- to create a new folder named ".ssh", if there is no .ssh folder in your local user floder.
+	And press ENTER at the next several steps. Then a id_rsa file and a id_rsa.pub file will 
+	appear in the new folder named .ssh.
+	(2)Log in your GitHub account, and open the "Account setting", "SSH key" page. Then click the 
+	"Add SSH key" or "New SSH" button, fill any words you want in "Title", and copy the content of
+	id_rsa.pub file in .ssh folder to "Key" textbox.
+	(3)Click the button "Add Key", and then you can see your key on the next page.
+	
+2.How should I do if two branches are conflicted.
+	If you want to merge two branches, but they are conflicted, you have to remove the conflict 
+	between them manually, and then you can merge them.
+	
+3.What if the local repository is not the newest compared with remote repository.
+	If your local repository is not the newest one, you may not push your local commits to remote.
+	You can execute command -- "git pull <remote repository name> master" -- to make the local 
+	repository updated, and then push the local commits to remote repository. 
+	
+4.What is the diffrence between ff(Fast Forward) mode and no-ff mode?
+	(1)In fast forward mode, you will merge two branches without preserving merging operation. It means
+	once you delete the other branch, you will never know where the last change was from. 
+	(2)And in the no-ff mode, git will create a commit that indicates your merging operation when you 
+	merge two branches in one(master). Then you can figure out the branch from where some mistakes 
+	originated.
+	
+5.What if I find a new bug needed to be fixed currently, but I am busy completeing other work on 
+another branch?
+	Don't worry! Git supply a friendly system. 
+	(1)If you are unable to commit the current task, never mind, you should preserve this task into 
+	stash, by giving a command -- "git stash", in current branch. 
+	(2)Then switch to master branch, create and switch to a new branch for fixing issue.
+	(3)Fix your bug in the new branch, commit it to your respository, then switch to master branch, 
+	make a no-ff merging.
+	(4)If your bug has been fixed, you can switch back to your unfinished task branch. List your 
+	stash through a command -- "git stash list", and you can see the unfinished task in the list.
+	Give a command -- "git stash pop" -- to recover the previous status, then you can continue your 
+	work. 
+	
+	a highlight on method 5: If your previous task is conflict with the file after repair, you have to 
+	remove the conflict when you merge them.
+	
+6.How to cooperate with other partners?
+	You and your partners will clone the same repository from remote server, but you will work alone 
+	for diffrient features on diffrient branches(at your local pc).
+	And the remote repository has two branches including master and dev. The master is the main branch, 
+	and the dev is development branch.
+	You will push your commit to remote branch. Once you find your version is after the remote one, you 
+	have to pull the remote version to your local pc. If there are some conflicts between them, you 
+	should remove conflicts firstly, and then merge them.
+	Finally, push the new version to the remote branch.
+	
+	a highlight on method 6: if your local branch has not gotten connection to the corresponding remote 
+	branch, you have to connect them firstly. command, "--set-upstream-to=origin/<branch name> <local 
+	branch name>".
