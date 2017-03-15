@@ -1,0 +1,7 @@
+
+感谢老师出的这个教程！教程易懂，不枯燥，很容易上手
+这次的推送流程：
+1、在learngit上加入自己的txt文档
+2、命令：add commit
+3、命令：git push origin master
+4、在github上pull request
