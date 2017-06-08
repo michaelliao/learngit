@@ -1,0 +1,2 @@
+The tutorial of how to use Git by Michael LIAO is very helpful and easy to understand, so is the Course of Python.
+And thanks a lot to him.
