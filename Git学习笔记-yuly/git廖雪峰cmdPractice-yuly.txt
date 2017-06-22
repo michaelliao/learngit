@@ -1,0 +1,1147 @@
+Git:
+
+安装Git
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000
+22:35 2017/5/23
+linux
+
+ apt-install git
+
+Mac OS x
+
+ homebrew安装
+ Xcode中集成，  "Xcode"->"Preferenes"
+
+Windows
+
+ msysgit是Windows版的Git，从https://git-for-windows.github.io下载（网速慢的同学请移步国内镜像https://pan.baidu.com/s/1kU5OCOB#list/path=%2Fpub%2Fgit）
+
+配置基本信息
+ 
+ git config --global user.name "you name"
+ git config --global user.email "email@example.com"
+end of (安装Git)
+
+
+创建版本库
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743256916071d599b3aed534aaab22a0db6c4e07fd0000
+23:14 2017/5/23
+
+ mkdir learngit
+ cd learngit
+ pwd
+ git init
+
+记得把Notepad++的默认编码设置为UTF-8 without BOM
+或 默认资源管理员中新建文本没有问题，ANSI编码
+编写一个readme.txt文件
+
+Git is a version control system.
+Git is free software.
+
+添加此文件到git版本中, 文件有new file：前缀
+ 
+ git add readme.txt
+
+做一个提交
+
+ git commit -m "wrote a readme file"
+
+end of (创建版本库)
+10:33 2017/2/13
+
+
+时光机穿梭
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743858312764dca7ad6d0754f76aa562e3789478044000
+7:25 2017/5/24
+
+修改readme.txt文件
+
+Git is a distributed version control system.
+Git is free software.
+
+历史记录得不同会出现Binary files differ 然后就不能比较这是为什么?
+可能是编码格式不统一造成的吧
+用-a参数，强制以文本格式比较
+默认资源管理员中新建文本没有问题，ANSI编码
+
+查看差异，没有加文件名，表所有有差异
+
+ git diff readme.txt
+ git add readme.txt
+ git status
+
+做一个提交
+
+ git commit -m "add distributed"
+
+网友总结
+git add的各种区别
+ 
+ git add -A    //添加所有改动
+ git add *	//添加新建文件和修改，但是不包括删除
+ git add .	//添加新建文件和修改，但是不包括删除
+ git add -u	//添加新建文件和删除，但是不包括新建文件
+
+在commit前撤销add
+
+ git reset [file]   //撤销提交单独文件
+ git reset	    //所有提交缓存到unstage
+
+添加到缓存区stage，电脑中图标为X红色，提交后为*绿色OK，
+同时，checkout没有用，要先reset此文件，再checkout
+
+ git checkout -- readme.txt	//注意，add添加加(同commit提交后）就无法通过这种方式撤销修改
+
+快捷
+
+ git commit -a		//等价先git add所有文件,再提交
+end of (时光机穿梭)
+
+
+版本回退
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013744142037508cf42e51debf49668810645e02887691000
+22:16 2017/5/24
+修改readme.txt文件
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+
+提交到版本库
+
+ git add readme.txt
+ git commit -m "append GPL"
+
+查看版本历史记录，两种方式
+ 
+ git log	
+ git log --pretty=oneline
+
+回退版本，HEAD为一个指针，表当前在那个位置，类似于虚拟机快照在那里
+HEAD当前版本  HEAD^上个版本  HEAD^^上上个版本   HEAD^5上5个版本   中间的版本历史中没有了, 用reflog查到最新版本，中间版本自动恢复显示
+注意：到还原版本之间的版本历史记录没有了，，可查原commit id找回,当命令窗口没有关
+HEAD可用commit id来代替
+reset是指将当前head的内容重置，不会留任何痕迹。
+
+ git reset --hard		//回退到当前版本，修改的全部没有了
+ git reset --hard  [提交ID]	//回退到当前版本，修改的全部没有了
+
+小节：
+git reset 会保留工作目录。这样，提交是没有了，但是修改内容还在磁盘上。这是一种安全的选择，但通常我们会希望一步就“撤销”提交以及修改内容 — 这就是 --hard 选项的功能。
+revert效果看起来相同，但实现机制不一样，当前建一个新版本，再还原为指定版本，中间版本有
+reflog  还原到任何版本，保括历史中没有的， 几个月后自动要清理不用的reflog
+ff0bf00 HEAD@{13}: commit: add distributed
+commit_id也可以用reflog中 HEAD@{X}  引用操作历史
+checkout单个文件还原
+
+end of (版本回退)
+
+
+工作区和暂存区
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013745374151782eb658c5a5ca454eaa451661275886c6000
+22:34 2017/5/25
+工作区（Working Directory) 就是电脑中能看到的文件与目录
+暂存区（stage）或叫index	
+修改文件readme.txt,加上一行
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+
+添加到stage,查看状态,做一个提交
+
+ git status
+ git add readme.txt
+ git add LICENSE
+ git status
+ git commit -m "understand how stage works"
+ git status
+
+end of (工作区和暂存区)
+
+
+管理修改
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374829472990293f16b45df14f35b94b3e8a026220c5000
+0:07 2017/5/26
+Git管理的是修改，而不是文件，测试，对readme.txt修改，加一行
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+
+放到stage缓存区
+
+ git add readme.txt
+ git status
+
+再修改文件readme.txt
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+
+做一个提交
+ 
+ git commit -m "git tracks changes"
+
+当重命名一个文件名，没有add，Git认为是删除，再新建一个,
+add后，识别到rename, 原理是反向操作运算得出差异
+end of (管理修改)
+
+
+撤销修改
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374831943254ee90db11b13d4ba9a73b9047f4fb968d000
+7:22 2017/5/27
+修改readme.txt文件
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+My stupid boss still prefers SVN.
+
+查看状态，发现没有加入到暂存stage区,两种情况
+暂存stage区, 放弃当前工作区文件，为上次提交commit id状态
+已加入暂存stage区，放弃当前工作区文件，为暂存区文件
+记放弃当前工作区, 还原最近文件,
+注意，没有文件，表所有文件,--指当前分支，没有与文件名，表切换分支
+
+ git status
+ git checkout -- readme.txt
+
+修改readme.txt文件
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes of files.
+My stupid boss still prefers SVN.
+
+添加到暂存区stage
+
+ git add readme.txt
+ git status
+
+从暂存区stage修改回到工作区,如起用checkout,还原是stage区的，看起来没效果
+教程表达有误：git reset HEAD readme.txt只是取消文件在stage去unstage,但真没有到工作区(现实中文件夹）
+只是做了一个复制，提交用的到，checkout不，不会到工作区中，，类似于于文件在其它目标打复选,有勾表可提交，
+没勾不提交，但文件压根没在工作区文件夹中呀！
+ 
+ git reset HEAD readme.txt
+ git checkout -- readme.txt
+
+
+实验：
+ 原有文件内容设置A，添加stage区
+ git reset HEAD^^ readme.txt      设备版本B   到了工作区，但文件不同，没有还原，要确认，有chekcout
+ 此时stage区还有文件，但不是reset还原过来的内容，还是A
+ 
+ git checkout -- readme.txt
+ 后，内容为B
+
+ 又
+ git reset HEAD readme.txt
+ git check out -- readme.txt
+
+ 神奇成了最初A内容,何解，还有第三存储区吗？
+
+end of (撤销修改)
+
+
+删除文件
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013758392816224cafd33c44b4451887cc941e6716805c000
+23:55 2017/5/31
+删除也是一个修改操作，先建一个test.txt, 加一个内容，提交
+
+ git add test.txt
+ git commit -m "add test.txt"
+
+删除test.txt文件，看状态，显示已删除
+
+ rm test.txt
+ git status
+
+删除，有两种处理方法
+
+ git rm test.txt
+ git commit -m "remove test.txt"
+
+
+或者add来确认
+
+ git add test.txt
+ git commit -m "remove test.txt"
+
+git rm test.txt
+等于
+rm test.txt
+git add test.txt
+
+还原版本
+
+ git checkout -- test.txt
+
+
+git add a.txt -> 匹配到a.txt
+git add *.txt -> 匹配到当前目录下所有txt
+git add **/*.txt -> 匹配到当前目录和子目录下所有txt
+git add . -> 匹配到当前目录下所有文件
+
+有小误网友羲皇殿
+1 说的也不清楚，应该还是要区分
+假定HEAD版本为版本1
+
+1、工作区你修改了，为 版本2 ，但没add，那么 checkout 就会使你工作区回到版本1
+2、工作区你修改了，为版本2，add了，stage区也为版本2，然后你又修改了工作区，为版本3，没再次add，那么checkout就会使你stage区的版本2失效，理解为清空也行，但是工作区依然版本3
+end of (有小误网友羲皇殿)
+
+
+end of (删除文件)
+
+
+远程仓库
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374385852170d9c7adf13c30429b9660d0eb689dd43a000
+12:06 2017/6/4
+生成密钥, id_rsa为私钥  id_rsa.pub为公钥, 公钥上传到Github
+Account Settings->SSH Keys->Add SSH Key
+$ ssh-keygen -t rsa -C "ibm8808@sohu.com"
+
+C:\用户（就是中文两个字用户）\Administrator\.ssh
+
+Github说明
+…or create a new repository on the command line
+
+echo "# gitlearn2" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/yuly/gitlearn2.git
+git push -u origin master
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/yuly/gitlearn2.git
+git push -u origin master
+
+添加远程库
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013752340242354807e192f02a44359908df8a5643103a000
+14:36 2017/6/4
+添加推送与拉取地址，名称默认origin,这里取其它名称实验，本地文件夹为反learngit
+https模式上传要密码
+	$ git remote add origin https://github.com/yuly/gitlearn2.git
+$ git remote add myshh3 git@github.com:yuly/gitlearn.git
+$ git remote -v
+	$ git push -u origin master
+$ git push -u myshh3 master
+
+第一次提交，要输入yes
+第一次后，
+$ git push myshh3 master
+或
+$ git push
+
+end of (添加远程库)
+
+
+从远程库克隆
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375233990231ac8cf32ef1b24887a5209f83e01cb94b000
+15:25 2017/6/4
+建立一个新仓库，初始化README文件
+本地一个新目录，执行完自动新建一个默认文件夹为仓库名称,可以改名
+$ git clone https://github.com/yuly/gitskills
+end of (从远程库克隆)
+end of (远程仓库)
+
+
+分支管理
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013743862006503a1c5bf5a783434581661a3cc2084efa000
+15:35 2017/6/4
+创建与合并分支
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000
+15:40 2017/6/4
+快速分支，只是移动指针
+建立dev分支，并切换
+$ git branch dev
+$ git checkout dev
+
+也可合并为一句
+$ git checkout -b dev
+
+查看分支,前面为*为当前分支
+$ git branch
+end of (创建与合并分支)
+
+做readme.txt文件修改，提交
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+Createing a new branch is quick
+
+$ git add readme.txt
+$ git commit -m "branch test"
+
+切回master分支，神奇的readme.txt还回到master那个版本，用notepad2的文件变更通知直观看
+$ git checkout master
+
+分支删除
+$ git branch -d dev
+Deleted branch dev (was ada6748).
+
+测试果真是指针变化
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (master)
+$ git log --pretty=oneline
+5df4cff96e6d9009546cd270f5803c37fd874e44 remove test.txt
+59d5ed7664784c66a8fb61f5c6dc6fff03ddec15 add test.txt
+2df0892f74f1e84d2055aede93971fbe22a9fc9e git tracks changes
+
+
+
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (dev)
+$ git log --pretty=oneline
+ada67485d8177d380271482ee818f838f81bb287 branch test
+5df4cff96e6d9009546cd270f5803c37fd874e44 remove test.txt
+59d5ed7664784c66a8fb61f5c6dc6fff03ddec15 add test.txt
+
+
+$ git merge dev
+Updating 5df4cff..ada6748
+Fast-forward
+ readme.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (master)
+
+
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (master)
+$ git log --pretty=oneline
+ada67485d8177d380271482ee818f838f81bb287 branch test
+5df4cff96e6d9009546cd270f5803c37fd874e44 remove test.txt
+59d5ed7664784c66a8fb61f5c6dc6fff03ddec15 add test.txt
+
+
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (dev)
+$ git log --pretty=oneline
+ada67485d8177d380271482ee818f838f81bb287 branch test
+5df4cff96e6d9009546cd270f5803c37fd874e44 remove test.txt
+59d5ed7664784c66a8fb61f5c6dc6fff03ddec15 add test.txt
+
+end of (
+Git教程
+Git简介
+Git的诞生
+集中式vs分布式
+安装Git
+创建版本库
+时光机穿梭
+版本回退
+工作区和暂存区
+管理修改
+撤销修改
+删除文件
+远程仓库
+添加远程库
+从远程库克隆
+分支管理
+创建与合并分支
+解决冲突
+分支管理策略
+Bug分支
+Feature分支
+多人协作
+标签管理
+创建标签
+操作标签
+使用GitHub
+自定义Git
+忽略特殊文件
+配置别名
+搭建Git服务器
+期末总结
+关于作者
+
+
+
+
+ 
+end of (创建与合并分支)
+
+解决冲突
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
+22:29 2017/6/4
+创建分支feature1,并切换过去,并修改最后一行readme.txt,并提交
+$ git checkout -b feature1
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+Createing a new branch is quick AND simple
+
+$ git add readme.txt
+$ git commit -m "AND simple"
+
+切换到master分支，并修改最后一行readme.txt,并提交
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+Createing a new branch is quick & simple.
+
+$ git add readme.txt
+$ git commit -m "& simple"
+
+执行合并feature1到master，有冲突, 没法快速合并，要自动新建一个分支，冲突解决后，continue继续
+$ git merge feature1
+Auto-merging readme.txt
+CONFLICT (content): Merge conflict in readme.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git status
+On branch master
+Your branch is ahead of 'myshh3/master' by 2 commits.
+  (use "git push" to publish your local commits)
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   readme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+修改冲突文件，HEAD表主，后面表合过来内容,删除=====即为合并OK，用add
+$ git add readme.txt
+$ git commit -m "conflict fixed"
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (master)
+$ git log --graph --pretty=oneline --abbrev-commit
+*   5cf6c14 conflict fixed
+|\
+| * 598aabf AND simple
+* | 03b3ad2 & simple
+|/
+* ada6748 branch test
+* 5df4cff remove test.txt
+* 59d5ed7 add test.txt
+* 2df0892 git tracks changes
+* c2348bc understand how stage works
+* 2e95965 append GPL
+* ff0bf00 add distributed
+* af834b0 wrote a readme file
+
+删除feature1分支，注意要不在删除分支上
+$ git branch -d feature1
+
+end of (解决冲突)
+
+
+分支管理策略
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013758410364457b9e3d821f4244beb0fd69c61a185ae0000
+23:05 2017/6/4
+禁用Fast forward模式， git merge --no--ff
+创建并切换dev分支，修改readme.txt文件,并提交
+$ git checkout -b dev
+$ git add readme.txt
+$ git commit -m "add merge"
+
+$ git checkout master
+$ git merge --no-ff -m "merge with no-ff" dev
+
+查看log图形化
+$ git log --graph --pretty=oneline --abbrev-commit
+
+简单地说就是 -no-ff 模式进行了一次新的 git commit 操作。
+这也是为什么采用 -no-ff 模式要加入参数 -m 的原因。
+
+end of (分支管理策略)
+
+
+Bug分支
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137602359178794d966923e5c4134bc8bf98dfb03aea3000
+7:21 2017/6/6
+stash功能，用于临时保存所有工作现场与暂存区，相当于commit -a
+修改readme.txt,新建文件hello.py
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+Createing a new branch is quick and simple   git merge --no-ff
+stash test start
+
+查看状态，有修改与新增,stash后再查看,跟踪文件全相当于提交了
+在主分区创建BUG分支，来修负
+dev分支ID 新增reflog  73df054 HEAD@{0}: reset: moving to HEAD
+dev分支ID log没有变化
+
+$ git status
+$ git checkout master
+$ git checkout -b issue-101
+
+修改readme.txt文件，并issue-101分支提交
+$ git add readme.txt
+$ git commit -m "fix bug 101"
+
+合并issue-101到master分支,并删除，中途看一下log与reflog
+$ git checkout master
+$ git merge --no-ff -m "merged bug fix 101" issue-101
+$ git branch -d issue-101
+
+恢复dev现场,list是列表，用apply要用drop删除，用pop表恢复与删除
+$ git checkout dev
+$ git stash list
+$ git stash apply
+或
+$ git stash pop
+
+恢复指定stash,用list来看
+$ git stash apply stash@{0}
+
+
+解印时会有提示冲突，需手动改一次文件
+骄傲儿童可爱多 created at 2-16 17:13, Last updated at 5-27 10:53
+概览：master合并merge解决好的bug后，不要先把dev解印，先合并master，获取里面的bug方案后，在解印。解印时会有提示冲突，需手动改一次文件。
+
+1：在  dev 下正常开发中，说有1个bug要解决，首先我需要把dev分支封存stash
+
+2：在master下新建一个issue-101分支，解决bug，成功后
+
+3：在master下合并issue-101
+
+4：在 dev  下合并master，  这样才同步了里面的bug解决方案
+
+5：解开dev封印stash pop，系统自动合并 & 提示有冲突，因为封存前dev写了东西，此时去文件里手动改冲突
+
+6：继续开发dev，最后add，commit
+
+7：在master下合并最后完成的dev
+
+代码过程如下：
+
+```
+在此插入代码
+
+1： $ git stash
+
+2： $ git checkout master
+   $ git checkout -b issue-101
+    //去文件里修bug
+    $ git add README.md
+    $ git commit -m "fix-issue-101"
+
+3： $ git checkout master
+   $ git merge --no-ff -m "m-merge-issue-101" issue-101
+   $ git branch -d issue-101
+
+4： $ git checkout dev
+    $ git merge --no-ff -m "dev-merge-m" master
+
+5： $ git stash pop
+            //提示冲突，去文件手动改正
+            Auto-merging README.md
+            CONFLICT (content): Merge conflict in README.md
+
+6： //继续开发 ... ... ，完成后一并提交
+    $ git add README.md
+    $ git commit -m "fixconflict & append something"
+
+7： $ git checkout master
+    $ git merge --no-ff -m "m-merge-dev" dev
+    $ git branch -d dev
+end of (Bug分支)
+
+
+** Feature分支
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001376026233004c47f22a16d1f4fa289ce45f14bbc8f11000
+21:58 2017/6/6
+添加新功能，新建分支feature-vulcan, 在dev基础上
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitlearn/liaoGit/learngit (dev)
+$ git checkout -b feature-vulcan
+
+新功能开发完成，提交新文件vulcan.py
+$ git add vulcan.py
+$ git status
+On branch feature-vulcan
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   vulcan.py
+
+
+$ git commit -m "add feature vulcan"
+
+切回dev
+$ git checkout dev
+
+删除出错,不是一个全合并，表没有合并到其它分支,用大写-D就行了
+$ git branch -d feature-vulcan
+error: The branch 'feature-vulcan' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D feature-vulcan'.
+
+
+多人协作
+end of (** Feature分支)
+
+
+** 多人协作
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013760174128707b935b0be6fc4fc6ace66c4f15618f8d000
+6:30 2017/6/7
+查看远程仓库信息，默认为origin, 双向为fetch(pull), push
+$ git remote
+myshh3
+myssh
+myssh2
+
+$ git remote -v
+myshh3  git@github.com:yuly/gitlearn.git (fetch)
+myshh3  git@github.com:yuly/gitlearn.git (push)
+
+上传两个分支，这里是master, dev   目标教程中是origin
+$ git push myshh3 master
+$ git push myshh3 dev
+
+模拟另一个人员，在另一台电脑,注意SSH Key添加到GitHub, 或同一电脑别一个新独立目录
+$ git clone git@github.com:yuly/gitlearn.git
+
+设置项目信息
+$ git config user.name "sky"
+$ git config user.email "sky@hello.world"
+
+自动变为默认origin, 这前推送别名没有影响，
+$ git remote -v
+origin  git@github.com:yuly/gitlearn.git (fetch)
+origin  git@github.com:yuly/gitlearn.git (push)
+
+只有master分支
+$ git branch
+* master
+
+创建远程分支到本地,修改文件readme.txt，并提交
+$ git checkout -b dev origin/dev
+
+Git is a distributed version control system.
+Git is free software distributed under the GPL.
+Git has a mutable index called stage.
+Git tracks changes.
+Createing a new branch is quick and simple   git merge --no-ff
+/usr/bin/env
+
+$ git add readme.txt
+$ git commit -m "add /usr/bin/evn"
+$ git push origin dev
+
+原始人员这边,添加happy.py修改, 提交产生冲突
+$ vi hello.py
+$ git add hello.py
+$ git commit -m "add coding: utf-8"
+$ git push myshh3 dev
+To github.com:yuly/gitlearn.git
+ ! [rejected]        dev -> dev (fetch first)
+error: failed to push some refs to 'git@github.com:yuly/gitlearn.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+解决冲突，先pull到本地，如是默认origin, 这里可不写自定名称myshh3,与下载到那个分支dev
+$ git pull myshh3 dev
+$ git branch --set-upstream dev myshh3/dev
+
+如是pull默认，要建立远程分支与本地指定分支关联,最后再pull， 自动合并
+$ git pull
+$ git branch --set-upstream dev origin/dev
+$ git pull
+
+删除分支
+git push origin :<branch name>
+
+
+新建一个Repository
+进1入Repository的Settings
+在Collaborators里就可以添加合作者了
+将生成的地址发给你的合作者，合作者选择是否同意
+接下来就可以愉快的合作开发了
+
+end ** 多人协作
+end of (分支管理)
+
+
+* 标签管理
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013762144381812a168659b3dd4610b4229d81de5056cc000
+21:13 2017/6/7
+原理就是指向一个COMMIT ID，内容永远不会变，分支指针会变化
+认人好记做COMMIT ID
+
+** 创建标签
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001376951758572072ce1dc172b4178b910d31bc7521ee4000
+21:18 2017/6/7
+切换到要打标签的分支上
+$ git branch
+$ git checkout master
+
+打一个新标签
+$ git tag v1.0
+$ git tag
+
+为指定commit id的打标签,commit id是add merge
+$ git tag v0.9 73df054
+
+查看标签详细信息
+$ git show v0.9
+
+还可以通过-s用私钥签名一个标签：
+$ git tag -s v0.2 -m "signed version 0.2 released" fec145a
+
+创建带有说明的标签-a表标签名， -m指定说明文字,这里把提交
+add distributed做为一个标签
+$ git log --pretty=oneline --abbrev-commit
+$ git tag -a v0.1 -m "version 0.1 released" 2e95965
+$ git show v0.1
+
+end of (** 创建标签)
+
+
+** 操作标签
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001376951885068a0ac7d81c3a64912b35a59b58a1d926b000
+22:15 2017/6/7
+删除标签
+$ git tag -d v0.1
+Deleted tag 'v0.1' (was 7e0d926)
+
+标签不会自动推送到远程，只存储在本地
+$ git push myshh3 v1.0
+
+推送所有标签到远程
+$ git push myshh3 --tags
+
+删除远程标签，先删本地,冒号前没有相当于一个空标签去替换
+$ git tag -d v0.9
+Deleted tag 'v0.9' (was 73df054)
+
+$ git push myshh3 :refs/tags/v0.9
+或,还可以不删除本地标签
+git push origin :<tag name>
+
+
+end of (** 操作标签)
+end of (* 标签管理)
+
+
+* 使用GitHub
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137628548491051ccfaef0ccb470894c858999603fedf000
+22:34 2017/6/7
+Fork到自己名下,github.com中，点击Fork, 修改后Pull Request到对方，看是否接受
+https://github.com/twbs/bootstrap
+
+测试
+https://github.com/michaelliao/learngit
+
+end of (* 使用GitHub)
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+3. 把本地内容推送到github远程库上(第一次push 参数带 `-u` 关联远程仓库)
+
+		$ git push -u origin master
+
+
+$ git clone git@github.com:yuly/learngit
+$ git clone git@github.com:yuly/learngit.git
+
+看分支历史
+$ git log --graph --pretty=oneline --abbrev-commit
+$ git log --pretty=oneline --abbrev-commit
+a26d8f0 merged bug fix 101
+
+指定分支
+$ git log --branches="issue-101" --pretty=oneline
+
+$ git stash apply
+$ git stash pop
+$ git stash list
+$ git stash drop
+
+$ git branch -d feature-vulcan
+$ git branch -D feature-vulcan
+
+
+git add a.txt -> 匹配到a.txt
+git add *.txt -> 匹配到当前目录下所有txt
+git add **/*.txt -> 匹配到当前目录和子目录下所有txt
+git add . -> 匹配到当前目录下所有文件
+
+通过将Git配置变量 core.quotepath 设置为false，就可以解决中文文件名称在这些Git命令输出中的显示问题，示例：
+$ git config --global core.quotepath false
+
+$ git clone https://github.com/yuly/gitskills
+
+$ git remote add myshh3 git@github.com:yuly/gitlearn.git
+
+$ git push myshh3 master
+或
+$ git push
+
+1 说的也不清楚，应该还是要区分
+假定HEAD版本为版本1
+
+1、工作区你修改了，为 版本2 ，但没add，那么 checkout 就会使你工作区回到版本1
+2、工作区你修改了，为版本2，add了，stage区也为版本2，然后你又修改了工作区，为版本3，没再次add，那么checkout就会使你工作区为版本2
+所有可理解为最近距离操作方向,工作区再次修改，checkout不会生效，阻止，要reset,   reset也可取消提交，不一定要回工作区，相当一个文件提交开关
+文件没有，就往再一级取文件       工作区(work)->未暂存unstage->暂存区stage->分支
+暂存区stage,直用git checkout -- <filename>	没有用
+reset默认只能一级， 要版本到工作区用参数--hard        指定版本  默认stage,unstage被清空选择文件，内容一样，   没有版本，stage->unstage
+unstage区 修改，新增，删除 自动git反映出来,拷贝的
+
+add->commit
+checkout<-reset
+
+
+
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+分支管理
+
+
+创建与合并分支
+
+创建并切换到
+$ git checkout -b dev
+等同
+$ git branch dev
+$ git checkout dev
+
+$ git branch
+
+修改readme.txt
+$ git add readme.txt
+$ git commit -m "branch test"
+$ git checkout master
+查看readme.txt，内容已返回
+合并分支到当前分支
+$ git merge dev
+删除分支dev
+$ git branch -d dev
+
+
+小结
+查看分支：git branch
+创建分支：git branch <name>
+	$ git branch -f <branch> [<start point>]
+切换支分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+
+
+git push origin master 也没有完全合并
+你要自己push本地dev分支到远程
+git push origin dev
+end of (创建与合并分支)
+
+
+解决冲突
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
+$ git checkout -b feature1 #Switched to a new branch 'feature1'
+修改文件readme.txt
+$ git add readme.txt
+$ git log --pretty=oneline
+$ git checkout master
+修改文件readme.txt
+$ git add readme.txt
+$ git commit -m "% simple"
+
+合并分支-冲突
+$ git merge feature1
+$ git status
+$ cat readme.txt		;HEAD到======表当前分支，====到分支名为要合并分支的内容
+<<<<<<< HEAD
+Creating a new branch is quick & simple.
+=======
+Creating a new branch is quick AND simple
+>>>>>>> feature1
+
+修改后再提交：
+$ vi readme.txt
+$ git add readme.txt
+$ git commit -m "conflict fixed"
+
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitLiaoxuefeng (master|MERGING)
+变为,少了MERGING
+yuly@yuly-PC MINGW32 /d/yuly/doc/gitLiaoxuefeng (master)
+
+$ git log --pretty=oneline --graph --abbrev-commit
+删除feature1分支
+$ git branch -d feature1
+
+小结：
+合并分支时，有冲突，修改文件，文件里面有提示，add后，自动 (master|MERGING)变为(master)
+pull：本地 <-- 远程
+push：本地 --> 远程
+本质上都是同步commit
+如果你本地落后远程，必然要pull
+如果你本地超前远程，必然要push
+end of (解决冲突)
+
+
+分支管理策略
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013758410364457b9e3d821f4244beb0fd69c61a185ae0000
+禁用Fast forward模式，合并时有一个新的commit,从分支历史上就可以看出来
+--no-ff
+
+实验
+$ git checkout -b dev
+修改readme.txt
+$ vi readme.txt
+$ git commit -m "add merge at branch dev"
+切换回master：
+$ git checkout master
+合并，用--no-ff参数,表禁用Fast forward
+$ git merge --no-ff -m "merge with no-ff" dev
+$ git log --pretty=oneline --graph --abbrev-commit
+
+分支策略
+master应该是非常稳定，发布新版本，只用于合并发布
+dev为大家工作
+个人，建立分支，合并到dev
+
+end of (分支管理策略)
+
+Bug分支
+目前dev上开发工作，临时修复一个代号101的bug的任务时，很自然地，你想在master创建一个分支issue-101
+$ git checkout dev
+$ vi readme.txt
+切换到要修复的BUG分支，来修复BUG
+$ git checkout master
+$ git checkout -b issue-101
+$ vi readme.txt
+$ git commit -m "fix bug 101"
+检查合并到master主线
+$ git checkout master
+$ cat readme.txt
+$ git merge --no-ff -m "merged bug fix 101" issue-101
+$ git branch -d issue-101
+恢复到原dev状态
+$ git checkout dev
+$ git status
+恢复原现场
+$ git stash list
+$ git stash apply
+一般用 $ git stash pop
+或 git stash drop来删除；另一种方式是用git stash pop，恢复的同时把stash内容也删了
+git stash drop来删除；
+	#恢复指定stash, 可多次stash
+	$ git stash apply stash@{0}
+end of (Bug分支)
+
+
+Feature分支
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001376026233004c47f22a16d1f4fa289ce45f14bbc8f11000
+准备环境
+$ git checkout -b feature-vulcan
+$ vi vulcan.py
+$ git add vulcan.py
+$ git status
+$ git commit -m "add feature vulcan"
+
+切回dev,
+$ git checkout dev
+有新内容文件，删除不了，用-D
+$ git branch -D feature-vulcan
+
+小节
+git push origin :[要删除的远程分支名字]
+例如要删除 远程的github上的dev分支：
+git push origin :dev 
+
+
+20:36 2017/2/22
+
+end of (Feature分支)
+end of (分支管理)
+
+使用GitHub
+20:01 2017/2/27
+git clone git@github.com:michaelliao/bootstrap.git
+pull request要主要负责这个项目人才可以更新
+在GitHub上，可以任意Fork开源仓库；
+自己拥有Fork后的仓库的读写权限；
+可以推送pull request给官方仓库来贡献代码。
+end of (使用GitHub)
+
+自定义Git
+20:01 2017/2/27
+让Git显示颜色,git status测试
+$ git config --global color.ui true
+忽略特殊文件
+文件名为 .gitignore
+有模板https://github.com/github/gitignore
+
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# My configurations:
+db.ini
+deploy_key_rsa
+
+文件被忽略，又想添加
+$ git add -f 文件名
+测试一下具体.gitignore文件哪里定义了ignore原则
+git check-ignore -v 文件名
+
+end of (忽略特殊文件)
+
+配置别名
+$ git config --global alias.st status
+接下来可用
+$ git st
+例子
+$ git config --global alias.co checkout
+$ git config --global alias.ci commit
+$ git config --global alias.br branch
+
+用
+$ git ci -m "bala bala bala.."
+
+撤消上一次修改
+$ git config --global alias.unstage 'reset HEAD'
+最后一次提交记录
+$ git config --global alias.last 'log -1'
+$ git last
+
+格式化提交记录
+$ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+$ git lg
+
+配置文件
+--system	整个电脑域
+--global	在~/.gitconfig, 当前用户所有项目
+没有--global	在项目目录.git/config
+
+
+
+
+end of (配置别名)
+
+搭建Git服务器
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000
+
+end of (搭建Git服务器)
+end of (自定义Git)
+end of (Git)

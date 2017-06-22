@@ -1,0 +1,12 @@
+配置基本信息
+ 全局范围
+ 
+ git config --global user.name "you name"
+ git config --global user.email "email@example.com"
+
+
+Git status
+红色，表文件没有add到提交缓存区
+绿色，已add了，提交就生效
+
+git commit -a		//等价先git add所有文件,再提交
