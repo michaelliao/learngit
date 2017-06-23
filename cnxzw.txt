@@ -1,0 +1,27 @@
+﻿好几次想学习Git都最终因为晦涩难懂放弃，看了廖老师的博客，虽然不至于完全理解，但还是学到很多，理解并整理部分如下，后续会深入学习。
+
+1.本地
+git init		初始化git仓库
+git add file		添加file至暂存区
+git status		查看状态
+git commit -m ''	提交并输入提交信息
+git log			查看commit记录
+git branch		查看分支情况，后加参数可添加分支
+git branch -d a 	删除a分支
+git checkout a 		切换到a分支
+git checkout -b a	添加分支a并切换进a，= git branch a & git checkout a
+git merge a		把a分支的代码合并过来
+git tag v1.0 		新建v1.0标签
+
+2.远程
+git remote add origin <remote URL>	本地仓库关联到远端URL所在仓库，并为远端仓库命名为origin（也可用其他名字）
+git config --global user.name ''	设置自己的用户名
+git config --global user.email ''	设置自己的邮箱
+git pull origin master			将远端origin代码拉到本地master分支
+git push origin master			将本地master分支代码推到远端origin
+git clone <HTTP URLs/remote URL>	复制远端项目到本地
+
+3.进阶
+git config --global alias.co commit			将commit设置别名co
+git config --global alias.psm 'push origin master'	将push origin master设置别名为psm
+git diff						文件修改后（未add）查看不同
