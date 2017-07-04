@@ -1,0 +1,206 @@
+1、git status - 查看当前状态
+
+2、git diff - 查看修改
+
+3、git log - 查看历史修改记录，显示修改时添加的备注、修改人、修改时间等
+   git log --pretty=oneline  //只显示备注
+   
+   
+4、git reset - 回退版本到指定版本
+
+（1）git reset --hard HEAD^    //回退到上个版本，HEAD^表示上个版本，HEAD^^表示上两个版本，HEAD~100回退一百个版本
+
+（2）git reset --hard commitID //回退到commitID版本，每个版本都有一个ID号，输入前6位即可，git会自己去找
+
+
+5、git reflog - 查看历史命令，以便确定要回到哪个版本。
+
+
+6、我们把文件往Git版本库里添加的时候，是分两步执行的：
+
+第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+
+第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
+因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
+
+
+
+7、一旦提交后，如果你又没有对工作区做任何修改，那么工作区就是“干净”的：working directory clean
+
+
+
+8、git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别。
+
+
+
+9、Git是如何跟踪修改的：每次修改，如果不add到暂存区，那就不会加入到commit中。
+
+
+
+10、git checkout -- readme.txt  //丢弃readme.txt在工作区的所有修改。
+
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+
+
+11、git reset HEAD readme.txt   //可以把暂存区的修改撤销掉（unstage），重新放回工作区.
+
+
+
+12、rm readme.txt   //删除文件的shell命令
+    cat readme.txt  //查看文件内容的shell命令
+
+
+
+13、git rm readme.txt        //确认删除文件，删除后要commit才会提交到分支
+
+
+14、如果删除了，直接git checkout -- readme.txt  //相当于svn的update，只是是本地版本库的update。
+
+
+
+15、在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。
+（可以创建私有的，但要收费）
+
+
+
+16、创建SSH Key：ssh-keygen -t rsa -C "youremail@example.com"
+
+
+
+17、由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+其他时候，推送到远程库，只需要git push origin master
+
+
+18、关联远程库：git remote add origin https://github.com/yushengming/first.git
+
+
+
+19、git checkout -b dev   //创建dev分支，然后切换到dev分支
+git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+
+$ git branch dev
+$ git checkout dev
+
+
+
+20、git branch   //查看当前分支
+
+
+21、git merge dev     //合并分支
+
+
+22、git branch -d dev  //删除分支
+
+
+
+23、git log --graph --pretty=oneline --abbrev-commit   //查看分支合并
+
+
+
+24、git merge --no-ff -m "merge with no-ff" dev    // --no-ff 表示禁用Fast forward模式
+
+//通过no-ff的方式合并分支，git会在merge时生成一个新的commit，这样，从分支历史上就能看出分支信息
+
+//而git如果可能的话，会用Fast forward模式合并分支，这种模式下，删除分支后，会丢掉分支信息。
+
+//合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+
+
+25、git stash    //“储藏”工作现场，等恢复现场后继续工作
+                 //场景：要开分支修改bug，但是现在分支的工作没做完。
+				 
+				 
+				 
+26、可以在分支上继续创建分支，比如在master上创建dev开发分支，然后每个人都可以在dev上创建自己的分支，或者创建bug分支等。
+
+
+
+27、git stash list  //查看“储藏”的列表
+
+
+
+28、恢复储藏起来的工作现场：
+（1）git stash apply   //恢复但不删除stash内容，需要用git stash drop删除
+
+（2）git stash pop     //恢复的同时把stash内容也删了。
+
+（3）git stash apply stash@{0}   //恢复指定的工作现场，pop同理。
+
+
+
+29、分支还没有被合并时，如果使用 git branch -d <分支> 来删除，git会友情提醒并报错。
+    如果要强行删除，可以使用git branch -D <分支>
+	
+	
+
+30、git remote  //查看远程库信息
+    git remote -v  //查看更详细信息
+	
+	
+31、推送提交
+git push origin master   //推送到主分支。如果想推送到其他分支，改一下分支名即可。
+
+
+哪些分支需要推送，哪些不需要呢？
+
+~ master分支是主分支，因此要时刻与远程同步；
+
+~ dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+
+~ bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+
+~ feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+
+
+
+32、从gitHub上clone时，只会clone master分支，其他分支需要手动去关联：
+git branch --set-upstream dev origin/dev   //dev是本地分支，origin/dev是远程分支，通过--set-upstream命令关联。本地和远程分支的名称最好一致。
+
+
+
+33、git pull    //update代码
+
+
+
+34、git tag v1.0  //打标签，默认为HEAD，也可以指定一个commit id
+    git tag       //查看标签列表
+	git tag v0.9 <commit id> //给某次提交打标签
+	git show v0.9  //查看标签信息
+	git tag -a v0.9 -m "version 0.9 released" <commit id>   //给标签加上说明
+	git tag -d v0.9  //删除标签
+	git push origin <tagname>  //推送某个标签到远程
+	git push origin --tags     //一次性全部推送未推送的本地标签
+	
+	git push origin :refs/tags/v1.0   //要删除标签的话，先本地删除，再执行这句命令 
+	
+	
+	
+35、如何参与一个开源项目呢？比如人气极高的bootstrap项目，这是一个非常强大的CSS框架，你可以访问它的项目主页https://github.com/twbs/bootstrap，点“Fork”就在自己的账号下克隆了一个bootstrap仓库，然后，从自己的账号下clone。
+
+
+一定要从自己的账号下clone仓库，这样你才能推送修改。如果从bootstrap的作者的仓库地址git@github.com:twbs/bootstrap.git克隆，因为没有权限，你将不能推送修改。
+
+
+如果你想修复bootstrap的一个bug，或者新增一个功能，立刻就可以开始干活，干完后，往自己的仓库推送。
+
+如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。
+
+
+
+
+
+
+
+
+
+
+
