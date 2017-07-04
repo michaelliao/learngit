@@ -1,0 +1,135 @@
+Git 分布式版本控制系统
+创建版本库
+初始化一个Git仓库，使用git init命令。
+添加文件到Git仓库，分两步：
+第一步，使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+第二步，使用命令git commit，完成。add完后一起commit
+git add .  添加所有改过的文件
+git commit -a  commit所有add的文件
+ 
+时光穿梭机
+git status  查看状态，有没有被改过
+git diff readme.txt   查看改过哪些内容
+要随时掌握工作区的状态，使用git status命令。 如果git status告诉你有文件被修改过，用git diff可以查看修改内容。 
+在Git中，用git log命令查看历史记录git log   /   git log --pretty=oneline
+在Git中，用HEAD表示当前版本,上一个版本就是HEAD^，上上一个版本就是HEAD^^，上100个版本写成HEAD~100
+git reset --hard HEAD^  退回到上一个版本
+Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。 
+工作区和暂存区
+工作区：就是电脑里能看到的目录，learngit文件夹就是一个工作区
+版本库Repository：工作区有一个隐藏目录.git，就是Git的版本库。
+Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD
+1.用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+2.用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+第一次修改 -> git add -> 第二次修改 -> git add -> git commit
+撤销修改
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+删除文件
+当从工作区删掉文件后：
+如果要从版本库中删除文件，就用命令git rm删掉，并且git commit
+如果删错了，因为版本库里还有，所以可以很轻松地把误删的文件恢复到最新版本：git checkout -- test.txt
+
+远程仓库
+同一个Git仓库，可以分布到不同的机器上
+GitHub网站，就是提供Git仓库托管服务的，充当服务器
+“有了远程仓库，妈妈再也不用担心我的硬盘了。”——Git点读机
+
+添加远程库
+已经在本地创建了一个Git仓库后，又在GitHub创建一个Git仓库，并且让这两个仓库进行远程同步，这样，GitHub上的仓库既可以作为备份，又可以让其他人通过该仓库来协作，真是一举多得。
+要关联一个远程库，使用命令git remote add origin git@github.com:lijianfigting/learngit.git
+然后使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，就可用命令git push origin master 推送最新修改；
+从远程库克隆
+先创建远程库，然后，从远程库克隆
+登陆GitHub，创建一个新的仓库,下一步是用命令git clone克隆一个本地库.
+如果有多个人协作开发，那么每个人各自从远程克隆一份就可以了。
+Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+
+分支管理
+创建一个属于自己的分支，别人看不到，还继续在原来的分支上正常工作，而我在自己的分支上干活，想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作。
+创建与合并分支
+Git鼓励大量使用分支：
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+主分支，即master分支。HEAD严格来说不是指向提交，而是指向master，master才是指向提交的
+因为创建、合并和删除分支非常快，所以Git鼓励使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。
+
+解决冲突
+当两个分支中都修改一个文件，再合并时会冲突，当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+用git log --graph命令可以看到分支合并图
+
+分支管理策略
+Git分支十分强大，在团队开发中应该充分应用。
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+在实际开发中，我们应该按照几个基本原则进行分支管理：
+master分支应该是非常稳定的，仅用来发布新版本，平时不能在上面干活；
+干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+
+Bug分支
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+
+Feature分支
+每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。
+
+多人协作
+远程仓库的默认名称是origin。要查看远程库的信息，用git remote [-v] 可选
+推送分支
+把该分支上的所有本地提交推送到远程库
+本地新建的分支如果不推送到远程，对其他人就是不可见的
+
+git push origin master  ／ git push origin dev （dev分支）
+master分支是主分支，因此要时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，也需要与远程同步； bug分支只用于在本地修复bug，就没必要推到远程了 feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。 抓取分支
+多人协作的工作模式通常是这样：
+首先，可以试图用git push origin branch-name推送自己的修改； 如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并； 如果合并有冲突，则解决冲突，并在本地提交； 没有冲突或解决掉冲突后，再用git push origin branch-name推送就能成功！ 
+标签管理
+tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+创建标签
+git tag <name>新建一个标签，默认为HEAD，也可以指定一个commit id；
+git tag -a <tagname> -m "blablabla..."可以指定标签信息； git tag -s <tagname> -m "blablabla..."可以用PGP签名标签； git tag可以查看所有标签。 git show <tagname>查看标签信息
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+git tag -a v0.1 -m "version 0.1 released" 3628164
+还可以通过-s用私钥签名一个标签,签名采用PGP签名
+
+操作标签
+git push origin <tagname>可以推送一个本地标签； git push origin --tags可以推送全部未推送过的本地标签； git tag -d <tagname>可以删除一个本地标签； git push origin :refs/tags/<tagname>可以删除一个远程标签。 
+使用GitHub
+GitHub还是一个开源协作社区，通过GitHub，既可以让别人参与你的开源项目，也可以参与别人的开源项目。
+* 在GitHub上，可以任意Fork开源仓库；
+* 自己拥有Fork后的仓库的读写权限；
+* 可以推送pull request给官方仓库来贡献代码。
+
+自定义Git
+我们已经配置了user.name和user.email，实际上，Git还有很多可配置项。
+比如，让Git显示颜色，会让命令输出看起来更醒目：
+忽略特殊文件
+在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。
+忽略某些文件时，需要编写.gitignore；
+.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！ 
+配置别名
+git config --global alias.st status  :  st == status
+很多人都用co表示checkout，ci表示commit，br表示branch
+--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用
+git config --global alias.unstage 'reset HEAD'  :git unstage file 撤销修改
+git config --global alias.last 'log -1'  ：用git last显示最近一次的提交
+
+配置文件
+配置Git的时候，加上--global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。
+每个仓库的Git配置文件都放在.git/config文件中
+当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中
+配置别名也可以直接修改这个文件，如果改错了，可以删掉文件重新配置
+
+搭建Git服务器
+既不想公开源代码，又舍不得给GitHub交保护费，那就只能自己搭建一台Git服务器作为私有仓库使用。
+搭建Git服务器非常简单，通常10分钟即可完成； 要方便管理公钥，用Gitosis； 要像SVN那样变态地控制权限，用Gitolite。
