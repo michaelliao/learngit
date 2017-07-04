@@ -1,0 +1,103 @@
+http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013744142037508cf42e51debf49668810645e02887691000
+1、Git:是分布式版本控制系统的一种
+      CVS：是集中式版本控制系统的一种
+2、集中式版本控制系统：版本库集中存放在中央服务器且必须联网才能工作。
+    分布式版本控制系统：每个人电脑上都是一套完整的版本库，安全性高于集中式版本控制系统
+3
+版本
+
+集中式版本控制系统
+CSV
+集中式版本控制系统
+SVN
+集中式版本控制系统
+ClearCase(IBM)
+集中式版本控制系统
+VSS(微软)
+分布式版本控制系统
+Git
+分布式控制系统
+BitKeeper
+分布式版本控制系统
+Mercurial
+分布式版本控制系统
+Bazaar
+4、
+创建git版本库
+* 初始化一个Git仓库  git init
+* 添加文件到Git仓库
+* 1、git add <file>  可反复多次使用，添加多个文件 2、使用git commit 完成
+5、git status  :查看git工作状态；   git diff  <文件名>：查看修改内容 
+6版本回退
+* HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+返回前一版本：git reset —hard HEAD^
+* 穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+* Git log —pretty=oneline 可以将信息简洁显示
+
+* 要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+改变文件信息  没有add和commit  用status查看更改信息
+改变文件信息，add之后,用status查看状态  显示需要commit
+改变文件内容，add和commit之后，status查询 ，显示工作区很干净
+7
+* A、文件被修改（没有add和commit），想回到改变前的状态，git checkout —<flie>
+* B、文件被修改并且add到了存储区，分两步走，第一步 git reset HEAD file就回到了A场景，在用git checkout —<file>就好了
+* C、已经add并且commit了  参考版本回退
+*           git reset --hard  commit_id
+8文件删除
+* 用 rm <file>将文件从文件管理器中删除或者直接删除  对应两种情况
+* 1.误删   将版本库里的文件恢复到本地    git checkout —<file>     2、确实要删掉 连带版本库中的也删掉   git rm <file>     &&   git commit -m “remove  <file>”
+8、关联一个远程库
+* 关联一个远程库  git remote add origin git@github.com:coffee100/learngit.git      也就是  git remote add origin git@server-name:path/repo-name.git
+* 关联后，第一次将本地库内容推送到远程库：git push -u origin master   以后再提交的话  git push origin master
+9、从远程库克隆
+* git clone git@server-name:path/repo-name.git
+* Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+10、创建与合并分支
+* 查看分支  git  branch
+* 创建分支  git branch <name>
+* 切换分支 git checkout <name>
+* 创建+切换分支   git checkout -b <name>
+* 合并某分支到当前分支  git merge <name>
+* 删除分支  git branch -d <name>
+11、解决冲突
+* git log --graph --pretty=oneline --abbrev-commit   查看分支合并图
+* 有冲突之后 要将两个版本统一才能合并
+12、分支管理策略
+* 合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+* master分支非常稳定，仅用来发布新版本，平时不能再上面干活儿；dev分支不稳定，平时干活儿就在dev上干，当发布某个版本时，再把dev分支合并到master上，在master分支发布1.0版本。
+13、Bug分支
+* 修复bug时，通过创建新的bug分支进行修复，然后合并，最后删除。
+* 1、BUG为线上bug时。当前分支为dev  ,首先保存当前环境  git stash;2、然后到master分支上  git checkout master；3、修改代码，在master上创建新分支  git branch -b new   4、然后通过add和commit提交   git add <file>   && git commit -m “fix bug”  ；5、然后将new合并到master上  git merge --no-ff  -m  “bug100”  new     这样bug就修复好了 6回到dev干活儿  git checkout dev  用git status 发现工作区是干净的  用 git stash list 命令查看刚才的工作区  git stash pop恢复原来的工作区
+14、Feature分支
+* 开发新功能，最好新建一个feature分支比如代号为home的新功能   git checkout -b feature-home
+* 开发完成后，git add home.py
+* 切回dev准备合并   git checkout dev
+* 若要舍弃一个没有合并过的分支，可以通过git branch -D <name>删除   git branch -D  feature-home
+15、多人协作
+* master分支是主分支，因此要时刻与远程同步；
+
+* dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+
+* bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+
+* feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+16、打标签
+* 列显已有的标签  git tag
+* 查找某一类标签   git tag -1 ‘v1.2.*’查到所有v1.2.*的标签
+* 新建标签(含附注的)git tag -a v1.4 -m “my version 1.4”    -m后内容是标签说明
+* git show 命令显示标签和附注
+* 命令git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+
+* git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+
+* git tag -s <tagname> -m "blablabla..."可以用PGP签名标签；
+
+* 命令git tag可以查看所有标签。
+17、操作标签
+* 命令git push origin <tagname>可以推送一个本地标签；
+
+* 命令git push origin --tags可以推送全部未推送过的本地标签；
+
+* 命令git tag -d <tagname>可以删除一个本地标签；
+
+* 命令git push origin :refs/tags/<tagname>可以删除一个远程标签。
