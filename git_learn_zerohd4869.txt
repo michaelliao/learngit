@@ -1,0 +1,37 @@
+Git is a distributed version control system.
+git_install: http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000
+
+
+## init
+mkdir learngit	//在当前目录创建一个空目录learngit
+cd learngit	//进入该目录
+pwd		//显示当前目录
+git init			//使用当前目录作为git仓库，初始化git
+git init newrepo		//使用指定目录作为git仓库
+
+
+## origin repo
+git add readme.txt file.txt	//添加文件readme.txt和file.txt到暂存区Stage
+git commit -m "add 2 files”	//提交暂存区的文件到当前分支（默认master分支），-m ””是本次提交说明
+rm test.txt >> git rm test.txt	>> gitcommit -m “remove test.txt”	//先后删除工作区、暂存区、版本库的test.txt文件
+git checkout -- readme.txt	//把工作区还原到最新暂存区Stage的状态
+git reset HEAD file		//把暂存区的修改回退到工作区
+
+git status
+git diff	//查看修改内容
+git diff HEAD -- readme.txt	//查看readme.txt文件在暂存区Stage和最新版本库的区别 
+cat readme.txt	//查看文档内容
+git log
+git log	-pretty=oneline		//查看提交日志记录
+git reset —hard HEAD^		//退回到上一个版本，HEAD^上一个版本，HEAD^^上上个版本，HEAD～100往上100个版本
+git reflog	//查看命令记录及其id
+git reset -hard 3628164		//指定回到某个版本，3628164为该版本的commit id
+
+
+## remote repo
+# 现有本地库，添加远程库，然后关联
+git remote add origin git@github.com:michaelliao/learngit.git		//在本地learngit仓库下运行,关联远程仓库
+git push -u origin master	//推送当前分支到远程，仅第一次推送需加-u
+# 先添加远程库，然后clone到本地
+git clone git@github.com:michaelliao/bootstrap.git	//clone账号michaelliao下git仓库的bootstrap项目
+git clone <repo> <directory>	//从现有git仓库clone到指定目录，<repo>仓库
