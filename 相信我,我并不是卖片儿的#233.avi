@@ -1,0 +1,107 @@
+git init - init resp
+git add xxx.xx - add xx.xx to resp but no commit
+git commit -m "text" - commit the new
+git status - check resp's status
+git diff xxx.xx - check modify
+git push - push part
+git log - check history && git log --pretty=online
+	commit 2d6f51d5d572068a4132acdf99d7d6032418bf46 --version
+	commit 756119511244466782bf62d01d47225b5476fae8 --version
+
+return test
+
+git reset --hard HEAD^ -return previous
+
+git reset --hard vermber -return to point version
+
+------------------------------------------------------------------
+1. .git --version repostiory 
+2. init part is workspeace
+3. repostiory is stage && master && a point to master
+4. git add:  add to stage,it is storage cache
+5. git commit: submit to master
+------------------------------------------------------------------
+change manage
+Git tracks and manages changes not a doc
+------------------------------------------------------------------
+
+git checkout --file : discard workspeace changes
+
+git rm file : remove from stage
+-----------------------------------------------------------------
+ssh-keygen -t rsa -C "email"
+
+ls -a ~/.ssh/ >> id_rsa :private key ,id_rsa.pub: public key
+
+-----------------------------------------------------------------
+link repositary
+
+git remote add orgin git@github.com:username/xxx.git
+
+---------------------------------------------------------------
+git push -u origin master :push to git 
+-u : at the first use when git haven't local libray
+after first use : git push origin master
+----------------------------------------------------------------
+git clone git@github.com:xxx/xx.git : clone from remote libray to local libray
+----------------------------------------------------------------------
+* branch managment
+
+realy is move HEAD to point other master,when you finshed it,you can change HEAD to point to master and merge its.
+after delete new branch
+
+git checkout -b branch : create branch and use it >> git branch xx && git checkout xx
+
+git branch : check all branches
+
+git merge xxx : merge master and xxx
+
+git branch -d xxx :delete xxx branch
+
+-------------------------------------------
+<<<<<<< HEAD
+conflict2
+=======
+conflic
+
+>>>>>>> featurel
+
+----------------------------------------------
+new branch
+git log --graph --pretty=oneline --abbrev-commit : checkout branch view
+---------------------------------------------------
+bug branch
+
+git stash : storage 
+git stash list : show storage's code
+git stash apply :return
+git stash drop : delete
+git stash pop : returan && delete
+
+-------------------------------------------------------------------------------
+git remote -v :show crawl and push origin address
+ 
+First of all, you can try to push your own modifications using the GIT push origin branch-name;
+If the push fails, you need to try merging with the  GIT pull because the remote branch is larger than your local update;
+If the merge is in conflict, resolve the conflict and submit locally;
+No conflicts or resolve conflicts, and then git push origin branch-name push will be successful!
+If git pull prompts "no tracking information", then the link between the local branch and the remote branch is not created. Use the command git branch --set-upstream branch-name origin/branch-name.
+
+git push origin branch-name -> git pull -> git checkout -b branchname origin/branchname -> git branch -set-upstream branchname origin/branch-name -> git pull
+
+--------------------------------------------------------------------------------------------------
+git tag xx
+git tag v0.9 vernumber
+git show tagname
+
+git tag -s xx -m "xxx" xxx
+
+git tag -d xx
+
+git push origin xx
+
+git push origin --tags
+
+git push origin :refs/tags/xx
+
+
