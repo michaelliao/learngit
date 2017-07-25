@@ -1,0 +1,148 @@
+创建和添加
+2017年7月13日
+20:39
+ 
+git init #初始化当前目录为Git仓库
+#目录可以不为空
+ 
+git add <file> #添加文件到暂存区
+git add -f <file> #强制添加文件到暂存区（可用于添加忽略文件）
+git commit -m "说明" #暂存区的内容提交到分支
+#可以add多次，然后commit一次
+ 
+ 
+ 
+时光机穿梭
+2017年7月13日
+20:40
+ 
+查看状态、差异
+git status #查看工作区状态
+git diff [file] #比较工作区和暂存区的差异
+git diff --cached [file] #比较暂存区和版本库的差异
+git diff HEAD -- [file] #比较工作区和版本库的差异
+ 
+版本切换
+git log #查看提交历史
+git log -1 #查看最后一次提交信息（-2 查看最后两次）
+--pretty=oneline #单行格式显示提交历史
+--graph #显示分支合并图
+--abbrev-commit #简写的commit_id
+git reflog #查看命令历史
+git reset --hard HEAD^ #回退到上一个版本
+#HEAD 当前版本，HEAD^ 上一个版本，HEAD^^ 上上个版本，HEAD~100 往前第100个版本
+git reset --hard commit_id #切换到指定版本
+#跟踪管理的是修改，而非文件
+ 
+撤销修改
+git checkout -- <file> #撤销工作区的修改
+#回到最近一次add 或commit 时的状态
+git reset HEAD <file> #撤销暂存区的修改
+#若已commit 但没提交到远程库，撤销可用版本回退
+ 
+删除文件
+1. 工作区删除，提交
+rm <file> ... #工作区删除文件
+git add <file> ... #添加到暂存区
+git commit -m "说明" #提交到分支
+2. 工作区和暂存区删除，提交
+git rm <file> ... #工作区和暂存区删除文件
+git commit -m "说明" #提交到分支
+#新建、删除文件也算修改
+ 
+ 
+ 
+远程仓库
+2017年7月13日
+20:40
+ 
+创建SSH Key
+ssh-keygen -t rsa -C "youremail@example.com"
+#生成的秘钥在家目录的.ssh目录中，id_rsa.pub 是公钥，id_rsa 是私钥
+#把公钥加到github才能推送代码
+ 
+添加远程库
+git remote add origin git@github.com:path/repo_name.git #添加远程库
+git remote #查看远程库信息
+-v #查看详细信息
+git push -u origin <branch> #推送并关联指定分支到远程库
+#除第一次关联，之后push不用加-u选项
+ 
+从远程库克隆
+git clone git@github.com:path/repo_name.git #将远程库克隆到当前目录
+git pull #拉取远程仓库内容
+ 
+ 
+ 
+分支管理
+2017年7月13日
+21:19
+ 
+git branch <branch> #创建分支
+git checkout <branch> #切换到指定分支
+git checkout -b <branch> #创建并切换到该分支
+git branch #查看现有分支
+git branch -d <branch> #删除指定分支
+git branch --set-upstream <branch_local> <branch_remote> #指定本地分支与远程分支关联
+git merge <branch> #合并指定分支到当前分支
+--no-ff <branch> #禁用快速合并
+git merge --no-ff -m "说明" <branch> #普通方式合并，并附提交说明
+git stash #保存当前工作状态（工作区和暂存区）
+git stash list #查看保存的工作列表
+git stash apply [stash@{x}] #恢复工作状态，不删除stash内容
+git stash pop [stash@{x}] #恢复工作状态，删除stash内容
+git stash drop [stash@{x}] #删除stash内容
+git branch -D <branch> #强制删除分支（常用于未合并的分支）
+#HEAD不是直接指向提交，而是指向分支，分支再指向提交
+ 
+多人协作
+ 
+#error: failed to push some refs to ...
+1. git pull
+2. 解决冲突（若有），再push
+ 
+ 
+ 
+标签管理
+2017年7月13日
+21:38
+ 
+git tag #查看标签
+git tag <tag_name> #给当前commit打标签
+git tag <tag_name> <commit_id> #给指定的commit打标签
+git tag -a <tag_name> -m "说明" <commit_id> #给指定的commit打标签，并附说明
+-s <tag_name> -m "说明" <commit_id> #用gpg私钥签名
+-d <tag_name> #删除标签
+git show <tag_name> #显示标签信息
+git push origin <tag_name> #推送标签到远程库
+git push origin --tags #推送所有未推的标签到远程库
+git push origin :refs/tags/<tag_name> #删除远程标签（先删除本地，再使用该命令删除）
+ 
+ 
+ 
+自定义Git
+2017年7月13日
+21:44
+ 
+git config --global user.name "name" #设置全局用户名
+git config --global user.email "email@example.com" #设置全局邮箱
+git config --global color.ui true #设置全局颜色显示
+git config --global alias.<alias_name> <'command_name'> #设置别名
+ 
+忽略特殊文件
+在工作区目录下创建.gitignore文件
+git check-ignore -v <file> #查看忽略该文件的规则
+ 
+常用别名
+git config --global alias.confg 'config --global'
+git confg alias.st status
+git confg alias.co checkout
+git confg alias.ci commit
+git confg alias.br branch
+git confg alias.unstage 'reset HEAD'
+git confg alias.last 'log -1'
+git confg alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+ 
+搭建Git服务器
+略
+ 
