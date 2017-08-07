@@ -1,0 +1,135 @@
+1 目录操作
+mkdir 目录名： 创建目录
+cd 路径： 切换到指定目录
+pwd ：显示当前所在目录
+ls -ah： 查看隐藏目录
+cat 文件名：显示文件内容
+touch 文件名：创建文件
+vi 文件名：编辑文件
+
+2 名词解释
+工作区：在电脑里能看到的目录
+版本库：工作区里的隐藏目录 .git。里面最重要的内容是暂存区(称为stage或index)、Git自动创建的第一个分支master，以及指向master的指针HEAD
+
+3 版本库操作
+git init： 将当前目录变成Git可以管理的仓库
+git add file_1 file_2：把文件修改添加到暂存区
+git status： 查看仓库的状态
+git diff：查看具体的修改内容
+git diff HEAD -- file_name：可以查看工作区和版本库里面最新版本的区别
+git commit "注释，修改内容" ：把暂存区的所有内容提交到当前分支
+git commit -m "注释，修改内容"：一次性把暂存区的所有修改提交到分支
+
+git log ：显示最近到最远的日志提交
+     --pretty=oneline ：减少显示内容
+git reflog : 显示每一次的命令
+     总结一下：
+     HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+     穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+     要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+
+git mv
+git rm：将文件从版本库中删除。如果一个文件已经被提交到版本库，只能恢复文件到最新版本，会丢失最近一次提交后你修改的内容
+     --cached      只从暂存区删除
+     -f     从暂存区和本地删除
+git checkout -- file_name：丢弃工作区的修改，让这个文件回到最近一次git commit或git add时的状态。其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+     没有 -- 就是切换分支的命令
+     文件自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+     修改已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态
+git reset HEAD file_name：把暂存区的修改撤销掉（unstage），重新放回工作区/既可以回退版本，也可以把暂存区的修改回退到工作区
+
+git reset --hard HEAD^：回退到上个版本
+git reset --hard HEAD^^：回退到上上个版本
+
+git reset --hard HEAD~100： 回退到前100个版本
+git reset --hard commit_id：回退到 commit_id指定的版本
+原理：HEAD指向指定版本号
+
+git revert HEAD^
+
+git pull     会隐藏修改细节
+git fetch     推荐使用
+
+4 远程仓库
+4.1 关联远程仓库
+     git remote add origin git@github.com:yanbinbi/python_basic.git
+删除已有远程库
+     git remote rm origin
+
+4.2 推送
+     git push
+第一次推送  git push -u origin master
+之后推送 git push origin master
+
+4.3 从远程克隆
+      git clone git@github.com:yanbinbi/gitskills.git
+4.4 创建与合并分支
+原理：每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即master分支。一开始的时候，master分支是一条线，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点。HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支。
+
+当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上
+当在dev上的工作完成了，就可以把dev合并到master上。Git怎么合并呢？最简单的方法，就是直接把master指向dev的当前提交，就完成了合并
+
+创建分支：git branch  分支名
+切换分支：git checkout 分支名
+创建+切换分支：git checkout -b <name>
+
+查看当前分支：git branch
+
+合并分支：git merge 被合并的分支名
+
+删除分支：git branch -d 要删除的分支名
+
+git log --graph命令可以看到分支合并图
+
+4.5 分支管理策略
+Fast-forward：默认模式，但这种模式下，删除分支后，会丢掉分支信息。
+--no-ff模式：要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，从分支历史上就可以看出分支信息。
+     git merge --no-ff -m "merge with no-ff" dev，因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去
+
+4.6 Bug分支
+git stash：封存当前分支
+git stash list：查看stash内容
+git stash apply:恢复但不删除stash内容
+git stash apply stash_id：恢复指定stash内容
+
+git stash drop：删除stash内容
+git stash pop：恢复的同时把stash内容也删了
+git branch -D feature-vulcan：-D表示强行删除没有合并的分支feature-vulcan
+
+4.7 多人协作
+git remote： 查看远程库信息
+
+git remote -v：显示更详细的信息
+git push origin master：将master分支的所有本地提交推送到远程库origin
+git push origin dev： 将dev分支的所有本地提交推送到远程库origin
+
+当出现冲突时：
+     指定本地 <branch> 分支与远程对应的origin/ <branch> 分支的链接
+          git branch --set-upstream-to=origin/<branch> dev
+     将最新提交抓下来，在本地解决冲突
+          git pull
+多人协作的工作模式通常是这样：
+     首先，可以试图用git push origin branch-name推送自己的修改；
+     如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+     如果合并有冲突，则解决冲突，并在本地提交；
+     没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+     如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，用命令 git branch --set-upstream-to=origin/<branch> dev
+
+5 标签管理tag
+git tag <name>：打一个新标签，默认标签是打在最新提交的commit上。创建的标签都只存储在本地，不会自动推送到远程。
+     git tag v1.0
+     git tag v0.9 commit_id
+     git tag -a v0.9 -m "version 0.9 released" commit_id
+          -a：指定标签名
+          -m：指定说明文字
+      git tag -s v0.9 -m "signed version 0.9 released" commit_id
+
+          -s：用私钥签名一个标签(PGP  GnuPG)
+git tag：查看所有标签
+git show <tag-name>：查看标签信息
+git tag -d <tag-name>：删除未推送到远程的标签标签
+git push origin <tag-name>：推送标签到远程
+git push origin --tags：一次性推送全部尚未推送到远程的本地标签
+删除已经推送到远程的标签：
+     先从本地删除：git tag -d <tag-name>
+     从远程删除：git push origin :refs/tags/v0.9
