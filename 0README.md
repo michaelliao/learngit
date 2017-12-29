@@ -1,5 +1,8 @@
 工作区 -> git add -> 暂存区 -> git commit -> 版本库 -> git push -> 远程仓库
 
+
+
+
 版本库HEAD表示当前版本，上一个版本HEAD^，上上一个版本HEAD^^.......
 
 配置本机git
