@@ -1,4 +1,0 @@
-the best profit of git is more branch will not add repository file size ,just record changes and index.
-
-
--- wrote by jiucai at 2014-09-17

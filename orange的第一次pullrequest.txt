@@ -1,4 +1,0 @@
-i am orange
-this is my first fork;
-this is my first pull request
-i want to have a try.

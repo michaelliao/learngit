@@ -1,3 +1,0 @@
-Hello Mr.Liao,My name is Zhang Wenlong.
-Thanks for your git learning website.
-This text is for learning github pull request.

@@ -1,1 +1,0 @@
-这是来自一个git新手的推送，测试教程中所说的fork,clone,pull request的操作方法

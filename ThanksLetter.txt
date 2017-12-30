@@ -1,7 +1,0 @@
-Hi,
-
-Thanks for your tutorial for Git. I've learnt a lot from you.
-
-
-Best, 
-Zhe

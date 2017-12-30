@@ -1,3 +1,0 @@
-Hi, Michael
-This guide of Git is awesome!
-This file is for testing pull request.

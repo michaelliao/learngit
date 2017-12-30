@@ -1,4 +1,0 @@
-Today is March 28th,2017.
-Thank you for Mr.Liao.
-I study git by your blog.
-This text file means a test and thanksgiving.

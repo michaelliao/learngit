@@ -1,2 +1,0 @@
-thx!
-i'm maoyutao.

@@ -1,2 +1,0 @@
-Thank a lot to liuxuefeng, the author of the Chinese version Git Tutorial.
-This file is a part of my learning, trying to submit a pull request.

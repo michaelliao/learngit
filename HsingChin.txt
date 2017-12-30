@@ -1,2 +1,0 @@
-Dear Michael:
-    This Git lesson is very helpful, thanks a lot, it was you who show me the door to the amazing world of git.
