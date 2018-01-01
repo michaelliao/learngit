@@ -1,1 +1,0 @@
-console.log("重新学了下git基础，感谢");

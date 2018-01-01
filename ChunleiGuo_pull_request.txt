@@ -1,3 +1,0 @@
-This is a 'pull_request' test from ChunleiGuo,
-and I have learnt a lot about Git from Mr Liao.
-Thank you!

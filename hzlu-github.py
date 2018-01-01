@@ -1,1 +1,0 @@
-print "hello, thank you for your GIT Tutorial."

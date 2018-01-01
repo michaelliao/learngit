@@ -1,5 +1,0 @@
-git tag
-git tag -d <tagname>
-git tag <tagname>
-git push origin <tagname>
-git tag -d <tagname> git push origin :refs/tags/<tagname>

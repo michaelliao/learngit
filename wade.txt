@@ -1,3 +1,0 @@
-This is my first learning of git.
-And this is my first fork and first pull request.
-Please accept it.

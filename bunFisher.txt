@@ -1,2 +1,0 @@
-test pull request
-谢谢廖老师，通俗易懂的教材，接下去准备学习pro git。

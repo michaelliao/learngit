@@ -1,3 +1,0 @@
-This this a wonderful tutorial about Git.
-
-Thanks for Michael Liao.

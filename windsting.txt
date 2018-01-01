@@ -1,6 +1,0 @@
-Thank you for the tutorial, about the "signed tag" topic,
-maybe a "suggested content link" is better, I think.
-for my case, I read a short "get started", and signed a tag,
-the "get started" I read is here:
-http://www.ruanyifeng.com/blog/2013/07/gpg.html
-thanks to the author.

@@ -1,5 +1,0 @@
-#include<iostream>
-
-int main(){
-      cout<<"hello github,thank you, Mr Liao"
-}
