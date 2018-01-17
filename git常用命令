@@ -1,0 +1,61 @@
+1）git diff 文件全局名
+对比文件与当前版本库的不同。
+PS：效果等同：
+git diff HEAD -- 文件全局名
+
+2）cat 文件全局名 
+查看文件内容
+
+3）git log
+查看提交版本日志（只展示当前所在版本及以前版本）。
+PS：单排显示：
+git log --pretty=oneline
+版本号简写显示：
+git log --pretty=oneline --abbrev-commit
+时间线显示：
+git log --graph --pretty=oneline --abbrev-commit
+
+4）git reflog
+查看提交版本日志（展示所有版本）
+
+6）git reset --hard HEAD^
+PS：版本穿梭，HEAD表示当前版本，HEAD^表示上一版本，HEAD^^表示上两个版本...
+
+7）git reset --hard HEAD~1
+PS：版本穿梭，HEAD表示当前版本，HEAD~1表示上一版本，HEAD~2表示上两个版本...
+
+8）git reset --hard 版本号
+PS：版本穿梭，版本号不必32位都写全，一般写7位就可以了，git会自己去查找。
+
+9）git checkout -- 文件全局名
+工作区文件内容会被版本库上最新的内容覆盖
+
+10）git reset HEAD 文件全局名
+这样可以清空暂存区，而工作区的内容不变，所以工作区文件状态会发生变化
+
+11）git rm 文件全局名
+删除文件
+PS：只有提交至版本库的文件才能rm，只是在工作区或暂存区是不能使用rm的
+
+12）ssh-keygen -t rsa -C "qwebh3210@163.com"
+生成ssh key
+
+13）git remote add origin git@github.com:qwebh3210/gittest.git
+本地仓库关联远程仓库
+PS：也可以用http协议关联：
+git remote add origin https://github.com/qwebh3210/gittest.git
+
+14）git push -u origin master
+把本地仓库当前分支推送到远程仓库指定分支
+PS：第一次推送需要参数-u进行验证，之后不需要
+
+15）git clone 远程仓库地址
+克隆远程仓库
+PS：git clone下来的只有master分支
+
+16）git add 文件全局名
+把文件添加至暂存区
+PS：删除的文件不需要add，可以直接commit
+
+17）git log -1
+PS：显示最后一次提交信息（作者、时间、提交注释）
