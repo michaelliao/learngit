@@ -1,0 +1,137 @@
+git init 
+初始化git仓库
+
+git add <filename>
+将修改的文件提交到暂存区（stage）
+
+git commit -m <提交注释>
+将暂存区的内容提交到master分支
+
+git status
+查看git仓库的状态
+
+* git用HEAD表示版本追溯开始的位置
+
+git log [--pretty=oneline]
+查看HEAD版本及HEAD之前的版本记录，--pretty将版本日志转成一行显示
+* 如果使用git reset命令将文件回退到某个历史版本，该历史版本就成为HEAD，这时使用git log将从当前HEAD位置开始追溯，不显示HEAD之后的版本信息 
+
+git reflog
+查看版本迁徙流水记录
+
+git reset --hard <版本号前几位即可>
+回退版本，将某个版本号设置为HEAD
+git reset HEAD  <file>
+将
+
+git diff HEAD -- <file>
+查看工作区和版本库里面最新版本的区别
+
+撤销修改
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃修改内容时，用命令git checkout -- <file>
+场景2：当你改乱了文件，又已经用git add提交到了暂存区，用命令git reset HEAD <file>，就用版本库中的最新版本覆盖了工作区中的内容（仅限该文件），并且取消了该文件提交到暂存区中的修改（unstage）
+场景3：如果将暂存区的内容已经提交到了版本库，就可以用git reset --hard HEAD 回退版本
+
+git rm <file> 并且 git commit 
+从版本库中将某个文件彻底删除
+
+本地仓库关联远程仓库（先有本地库）
+ssh-keygen -t rsa -C "youremail@example.com"
+由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以在本地需要创建SSH Key，然后可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，然后把id_rsa.pub文件的内容在GitHub上登记一下
+
+git remote add <自定义的远程仓库名字> <远程仓库地址>
+将本地仓库和远程仓库关联，如果在本地关联了多个远程库，可以自己给各个远程库起不同的名字用以区分
+如：
+git remote add github ... （github）
+git remote add gitee ... （码云git）
+但是如果只有一个远程库，一般都会叫origin，origin这个名字一看就知道是远程库
+
+git push -u <自定义的远程仓库名字> master
+把本地的master分支的内容推送到远程库上。由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。从现在起，只要本地作了提交，就可以通过命令 git push origin master 
+
+将远程仓库克隆到本地（先有远程仓库）
+先进入要创建仓库的上级目录，如：想在D盘下创建这个仓库，那么就进入D盘，然后执行：
+git clone <远程仓库地址>
+就会在D盘创建一个与远程仓库同名的文件夹，文件夹里包含了.git文件夹，那么说明本地仓库就克隆好了
+
+分支管理
+分支在实际中有什么用呢？假设你准备开发一个新功能，但是需要两周才能完成，第一周你写了50%的代码，如果立刻提交，由于代码还没写完，不完整的代码库会导致别人不能干活了。如果等代码全部写完再一次提交，又存在丢失每天进度的巨大风险
+
+其他版本控制系统如SVN等都有分支管理，但是用过之后你会发现，这些版本控制系统创建和切换分支比蜗牛还慢，简直让人无法忍受，结果分支功能成了摆设，大家都不去用。
+
+但Git的分支是与众不同的，无论创建、切换和删除分支，Git在1秒钟之内就能完成！无论你的版本库是1个文件还是1万个文件
+
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+将某分支合并到当前分支：git merge <name>
+
+解决冲突
+当分支之间的提交存在冲突时，需要手动解决冲突，然后
+git add <冲突文件>
+告知git冲突已经解决，然后才能正常提交
+
+主版本冲突解决并提交后，如果仍然需要继续在分支版本进行开发，那么分支版本需要先与主版本合并(同步)一次，否则分支版本仍然会引发冲突
+
+分支管理策略
+通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+
+git merge --no-ff -m "merge with no-ff" dev
+这样git将使用‘recursive’策略进行合并
+
+结果对比：使用--no-ff参数合并dev分支，不使用参数合并dev2分支，dev分支虽然被删除，但是由于在合并时选择了禁用Fast forward模式并做了一次提交，log中记录了master和dev合并的信息，而没有记录master与dev2合并的信息 
+
+
+分支策略
+在实际开发中，我们应该按照几个基本原则进行分支管理：
+首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+所以，团队合作的分支看起来就像这样：
+
+
+也就是：每个人--dev--master
+
+Bug分支
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场的内容用git stash“藏匿”一下，然后去修复bug，修复后，再git stash pop 或 git stash apply，将“藏匿”的内容恢复到工作现场。
+
+git stash
+保存工作现场
+git stash list
+可以多次stash，然后查看stash历史，stash采用栈结构，最初的stash在栈底，最后的stash在最栈顶
+git stash pop
+使用栈顶的stash恢复工作现场，并删除stash
+git stash apply [stash名称]
+默认使用栈顶的stash恢复工作现场，如果指定了名称，使用指定的stash，但不删除stash
+git stash drop [stash名称]
+删除一个stash，不会恢复工作现场，默认删除栈顶的stash，如果指定了名称，则删除指定的stash
+
+Feature分支
+添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好在dev分支上新建一个feature分支，在上面开发，完成后，向dev分支合并，最后，删除该feature分支。
+
+一切顺利的话，feature分支和bug分支是类似的，合并，然后删除。
+但是，
+就在此时，接到上级命令，因经费不足，新功能必须取消！
+虽然白干了，但是这个分支还是必须就地销毁	
+使用 git branch -d <分支名称> 提示删除分支失败，因为分支还没有被合并过
+那么就要使用git branch -D feature-vulcan  强制删除该分支
+
+多人协作
+1.git clone <远程库地址>
+此时只能得到master分支
+git remote -v 
+可以查看远程库信息
+
+2.git checkout -b dev <远程库名字>/dev 
+在新本地仓库创建dev分支，并且跟远程库建立联系，这相当于：
+git checkout -b dev
+git branch --set-upstream-to=origin/<远程分支名称> <本地分支名称>
+
+3.git pull
+从远程dev分支拉取最新内容
+
+
