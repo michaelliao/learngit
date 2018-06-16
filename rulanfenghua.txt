@@ -1,0 +1,8 @@
+2. 合并分支
+$git merge --no-of -m
+--no-of:禁用Fast forward
+
+3. 显示历史
+$ git log --graph --pretty=oneline --abbrev-commit
+
+4. 
