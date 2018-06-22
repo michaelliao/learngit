@@ -1,0 +1,206 @@
+创建一个版本库非常简单
+
+$ mkdir [filename]
+$ cd [filename]
+$ pwd
+$ git init
+$ ls -ah (查看目录)
+
+将文档添加到Git仓库,**文档必须在版本库下面
+
+$ git add [filename]
+$ git commit -m [message]
+
+已经成功添加并提交了一个readme.txt文件,如果继续修改文件
+运行 $ git status
+
+会输出告诉我们,readme.txt被修改过了,但还没有准备提交的修改
+虽然Git告诉我们readme.txt被修改了,但如果能看看具体修改了什么内容,自然是很好的
+查看具体修改了什么内容 可以使用 $ git diff [filename] 这个命令查看
+
+可以使用 $ git log命令查看历史记录
+如果嫌输入信息太多,看的眼花缭乱,可以试试加上--pretty=oneline参数:
+
+$ git log --pretty=oneline
+
+开始的一大串类似1094adb...的是commit id(版本号),这个版本号是一个SHA1计算出来的一个非常大的数字,用十六进制表示,而且每个人的commit id都不相同.
+每提交一个新版本,实际上Git就会把他们自动串成一条时间线.
+
+如果想将文档回退到上一个版本,需要以下几步
+1.首先,Git必须知道当前是哪个版本,在Git中,用HEAD表示当前版本,上一个就是HEAD^,上上个版本就是HEAD^^,也可以写成HEAD~100
+2.使用 $ git reset
+
+$ git reset --hard HEAD^
+
+当退回到之前版本之后,又想用最新的版本,就必须使用最新版本的commit id.
+Git提供了一个 $ git reflog用来记录每一次命令的 commit id
+$ git reflog
+
+找到commit id之后再使用 $ git reset --hard [commit id];
+例: $ git reset --hard 11db224
+
+
+工作区和暂存区
+    Git和其他版本控制系统有一个不同之处就是有暂存区的概念
+    一、工作区(Working Directory)
+        就是电脑里能看到的目录,比如learngit文件夹就是一个工作区
+    
+    二、版本库(Repository)
+        工作区有一个隐藏目录,这个不算工作区,而是Git的版本库
+        Git的版本库里面存了很多东西,其中最重要的就是stage(或者叫index)的暂存区,还有Git自动创建的第一个分支master,以及执行master的一个指针叫HEAD
+
+        当把文件往Git版本库里添加的时候,是分两个步骤执行的
+        1.用git add把文件添加进去,实际上就是把文件修改添加到暂存区
+        2.用git commit提交更改,实际上就是把暂存区的所有内容提交到当前分支
+
+        当创建Git版本库时,Git自动创建了唯一一个master分支,所以,现在,git commit就是往master分支上提交更改.
+        可以简单的理解为,需要提交的文件修改通通放到暂存区,然后,一次性提交暂存区的所有修改
+
+        使用git add命令实际上就是把要提交的所有修改放到暂存区(Stage),
+        然后,执行git commit就可以一次性把暂存区的所有修改提交到分支
+
+        一旦提交后,如果你有没有对工作区做任何修改,那么工作区就是'干净的'
+
+管理修改
+    Git跟踪并管理的是修改,而非文件.
+    如果是按照以下操作过程:第一次修改>git add>第二次修改>git commit
+    当时用git add命令后,在工作区的第一次修改被放入暂存区,准备提交,但是,在工作区的第二次修改并没有放入暂存区,所以,git commit只负责把暂存区的修改提交了,也就是第一次的修改提交了,第二次的修改不会被提交
+
+    提交后,可以使用 git diff HEAD -- [filename]命令查看工作区和版本库里面最新版本的区别
+    $ git diff HEAD -- [filename]
+    
+撤销修改
+    在准备提交之前,发现有错误,如果发现及时,就很容易修改
+    你可以删掉最后一样,手动把文件恢复到上一个版本的状态
+    如果用git status查看一下,可以发现,Git会告诉你, git checkout -- file可以丢弃工作区的修改
+
+    $ git checkout -- [filename]
+    命令 git checkout -- readme.txt意思就是,把readme.txt文件在工作区的修改全部撤销,这里有两种情况:
+    一种是readme.txt自修改后还没有被放到暂存区,现在,撤销修改就回到和版本库一模一样的状态;
+    一种是readme.txt已经添加到暂存区,又作了修改,现在,撤销修改就回到添加到暂存区后的状态.
+    总之,就是让这个问价回到最近一次git commit或git add时的状态
+    $ git checkout -- [filename] 命令中的--很重要,没有--,就变成了'切换到另一个分支'的命令,我们在后面的分支管理中会再次遇到git checkout命令
+
+    如果已经使用git add到暂存区了,在commit之前,发现了问题,用git status查看一下,修改只是添加到了缓存区,并没有提交
+    Git同样告诉我们,用命令git reset HEAD [filename]可以把暂存区的修改撤销掉(unstage),重新放回工作区
+    $ git reset HEAD [filename]
+
+    git reset命令既可以回退版本,也可以把暂存区的修改回退到工作区.当我们使用HEAD时,表示最新版本
+    在使用git status查看一下,现在暂存区就是干净的,工作区有修改,然后在使用git checkout -- [filename]丢弃工作区的修改
+
+    如果不但改错了东西,还从暂存区提交到了版本库,怎么办?可以使用 $ git reset --hard HEAD^
+
+    小结:
+        场景1:当改乱了工作区某个文件的内容,想直接丢弃工作区的修改时,用命令git checkout -- [filename]
+        场景2:当你不但改乱了工作区某个文件的内容,还添加到了暂存区时,想丢弃修改,分两步,第一步用命令git reset HEAD [filename],就回到了场景1,第二步按场景1操作
+        场景3:已经提交了不合适的修改到版本库时,想撤销本次提交,使用 $ git reset --hard HEAD^回溯到上一个版本
+
+
+删除文件
+    在Git中,删除也是一个修改操作,一般情况下,通常直接在文件管理器中吧没用的文件删了,或者用rm命令删了
+    $ rm [filename]
+    这个时候,Git知道你删除了文件,因此,工作区和版本库就不一致了,git status命令会立刻告诉你哪些文件被删除了
+    
+    现在有两个选择,一是确实要从版本库中删除该文件,那就用命令git rm删除掉,并且git commit,这样文件就从版本库中被删除了
+    另一种情况是删错了,因为版本库例还有呢,所以可以很轻松地把误删的文件恢复到最新版本
+    $ git checkout -- [filename]
+
+    git checkout其实是用版本库里的版本替换工作区的版本,无论工作区是修改还是删除,都可以'一键还原'
+
+远程仓库
+    Git是分布式版本控制系统,同一个Git仓库,可以分布到不同的机器上.最早,只有一台机器有一个原始版本,此后,别的机器可以"克隆"这个原始版本库,而且每台机器的版本库其实都是一样的,并没有主次之分
+    实际情况是,找一台电脑充当服务器的角色,每天24小时开机,其他每个人都从这个'服务器'仓库克隆一份到自己的电脑上,并且各自把各自的提交推送到服务器仓库里,课从服务器仓库中拉取别人的提交
+
+    完全可以自己搭建一台Git服务器,不过现阶段,为了学Git先搭个服务器绝对是小题大做,好在这个世界上后一个叫GitHub的神奇网站,这个网站就是提供Git仓库托管服务的,所以,只要注册一个Git账号,就可以免费获得Git远程仓库
+    由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的,所以,需要一点设置:
+        1.创建SSH Key.在用户住目录下,看看有没有.ssh目录,如果有,再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件,如果已经有了,可以直接跳到下一步.如果没有,打开Shell(Windows下打开Git Bash),创建SSH Key:
+        
+        $ ssh-keygen -t rsa -C "youemail@example.com"
+        需要把邮箱地址换成自己的邮箱地址,然后一路回撤,使用默认值即可,可以不用设置密码
+        配置完成之后,可以在用户主目录里找到.ssh目录,里面有id_rsa和id_rsa.pub两个文件,这两个就是SSH Key的密钥对,id_rsa是私钥,不能泄露,id_rsa.pub是公钥,可以放心地告诉任何人
+
+添加远程库
+    已经在本地创建了一个Git仓库后,又想在GitHub创建一个Git仓库,并且让这两个仓库进行远程同步,这样,GitHub上的仓库既可以作为备份,又可以让其他人桶盖该仓库来协作.
+    首先,登录GitHub,创建一个新的"New repository",目前,这个仓库还是空的,GitHub告诉我们,可以从这个仓库克隆出新的仓库,也可以把一个以后的本地仓库与之关联,然后,把本地仓库的内容推送到GitHub仓库
+
+    现在,根据GitHub的提示,在本地的learngit仓库下运行命令:
+    
+    $ git remote add origin https://github.com/sunyanzhe/learngit.git
+
+    下一步,就可以把本地库的所有内容推送到远程库上
+    
+    $ git push -u origin master
+
+    把本地库的内容推送到远程,用git push命令,实际上是把当前分支master推送到远程
+    由于远程库是空的,我们第一次推送master分支时,加上了-u参数,Git不但会把本地的master分支内容推送的远程新的master分支,还会把本地的master分支和远程master分支关联起来,在以后的推送或者拉取是就可以简化命令
+
+    从现在起,只要本地做了提交,就可以通过命令:
+    
+    $ git push origin master
+
+    把本地master分支的最新修改推送至GitHub,现在,就拥有了真正的分布式版本库
+
+    SSH警告
+    当第一次使用Git的clone或者push命令链接GitHub时,会得到一个警告
+    The authenticity of host 'github.com (xx.xx.xx.xx)' can't be established.
+    RSA key fingerprint is xx.xx.xx.xx.xx.
+    Are you sure you want to continue connecting (yes/no)?
+
+    这是因为Git使用SSH链接,而SSH链接在第一次验证GitHub服务器的Key时,需要你确认GitHub的Key的指纹信息是否真的来自GitHub服务器,输入yes回车即可
+    Git会输出一个警告,告诉你已经把GitHub的Key添加到本机的一个信任列表里了:
+    Warning:Permanently added 'github.com' (RSA) to the list of know hosts.
+
+    这个警告只会出现一次,后面的操作就不会有任何警告了
+    如果你是在担心有人冒充GitHub服务器,输入yes前可以对照GitHub的RSA key的指纹信息是否与SSH链接给出的一致
+    
+    小结
+        1.要关联一个远程库,使用命令 $ git remote add origin git@[server-name;path/repo-name.git];
+        2.关联后,使用命令 $ git push -u origin master第一次推送master分支的所有内容
+        3.此后,每次本地提交后,只要有必要,就可以使用命令git push origin master推送最新修改;
+        4.分布式版本系统的最大好处之一是在本地工作完全不需要考虑远程库的存在,也就是有没有联网都可以正常工作.
+
+从远程库克隆
+    假设从零开发,那么最好的方式是先创建远程库,然后从远程库克隆
+    首先,登录GitHub,创建一个新的仓库,名字叫gitskills;
+    现在,远程库已经准备哦好了,下一步使用命令$ git clone克隆一个本地库:
+    $ git clone [url]
+    Cloning into 'gitskills'...
+    remote: Counting objects: 3, done.
+    remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3
+    Receiving objects: 100% (3/3), done
+
+    注意,把Git库的地址换成你自己的,然后进入gitskills目录看看,
+    $ cd gitskills
+    $ ls
+    
+    如果有多人协作开发,那么每个人各自从远程克隆一份就可以了
+    你也许还注意到,GitHub给出的地址不止一个,还可以用https://github.com/xxx/xxx.git这样的地址.实际上,Git支持多种协议,默认的git://使用ssh,但也可以使用https等其他协议
+    使用https除了速度慢意外,还有个最大的麻烦事每次推送就必须输入口令,但是在某些只开放http端口的控死内部就无法使用ssh协议而只能使用https
+
+    小结
+        要克隆一个仓库,首先必须知道仓库的地址,然后使用git clone命令克隆
+        Git支持多种协议,包括https,但通过ssh支持的原生git协议速度最快
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
