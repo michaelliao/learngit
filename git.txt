@@ -1,0 +1,201 @@
+初始化一个Git仓库，使用git init命令。
+添加文件到Git仓库，分两步：
+使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+使用命令git commit -m <message>，完成。
+（git add命令实际上就是把要提交的所有修改放到暂存区（Stage），
+然后，执行git commit就可以一次性把暂存区的所有修改提交到分支。
+Git跟踪的是修改，每次修改，如果不用git add到暂存区，那就不会加入到commit中。）
+
+cat file查看工作区文件具体内容
+
+要随时掌握工作区的状态，使用git status命令。
+如果git status告诉你有文件被修改过，用git diff可以查看修改内容。
+git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+
+版本回退
+Git必须知道当前版本是哪个版本，在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，
+当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。git reset --hard HEAD^
+或者，HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+（如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数：$ git log --pretty=oneline）
+要重返以前，用git reflog查看命令历史，以便确定要回到之前的哪个版本。
+Git跟踪的是修改，每次修改，如果不用git add到暂存区，那就不会加入到commit中。
+
+修改
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销
+（git checkout -- readme.txt命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令）
+git reset HEAD readme.txt可以把暂存区的修改撤销掉（unstage），重新放回工作区
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，
+第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退git reset --hard 1094a，
+不过前提是没有推送到远程库。
+
+删除
+一般情况下，你通常直接在文件管理器中把没用的文件删了，或者用rm命令删了：$ rm test.txt
+现在你有两种情况，
+一种情况是工作区删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：
+$ git checkout -- test.txt
+（rm test.txt是对工作区的修改， git rm test.txt是对缓存区的修改）
+另一种是确实要从版本库中删除该文件，那就用命令git rm test.txt删掉，并且git commit -m "remove test.txt"
+（小提示：先手动删除文件，然后使用git rm <file>和git add <file>效果是一样的。）
+例如：rm text.txt 误删了那怎么恢复呢
+执行
+git checkout -- text.txt 把版本库的东西重新写回工作区就行了
+如果执行了
+git rm text.txt 我们会发现工作区的text.txt也删除了
+执行 git status 会看到
+Changes to be committed:
+表示其实这个命令相当于
+rm text.txt
+git add text.txt
+如果想恢复，先清除暂存区,再从版本库写回到工作区
+git reset head text.txt
+git checkout -- text.txt
+如果真的想从版本库里面删除文件前面git rm text.txt删除之后可以继续执行
+git commit -m "delete text.txt"
+
+创建分支
+使用命令：git checkout -b dev 创建名为dev的分支，然后切换到dev分支
+git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+$ git branch dev
+$ git checkout dev
+使用git branch命令可以查看当前分支，git branch命令会列出所有分支，当前分支前面会标一个*号。
+然后，我们就可以在dev分支上正常提交
+切换回master分支：$ git checkout master
+git merge命令用于合并指定分支到当前分支：把dev分支的工作成果合并到master分支上：$ git merge dev
+合并完成后，就可以放心地删除dev分支了：$ git branch -d dev
+
+解决冲突
+用带参数的git log也可以看到分支的合并情况：
+$ git log --graph --pretty=oneline --abbrev-commit （后面的参数表示一行简写内容）
+当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+用git log --graph命令可以看到分支合并图。
+
+分支管理策略
+通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+合并dev分支，请注意--no-ff参数，表示禁用Fast forward：$ git merge --no-ff -m "merge with no-ff" dev
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，
+而fast forward合并就看不出来曾经做过合并。
+
+Bug分支
+Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：$ git stash
+庵后新建一个修复bug分支，修复完合并之后用git stash list命令看看刚才的工作现场存到哪去了：$ git stash list
+Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：
+一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+另一种方式是用git stash pop，恢复的同时把stash内容也删了：$ git stash pop
+你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：$ git stash apply stash@{0}
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+Feature分支
+新建Feature分支准备合并又取消了需要删除：$ git branch -d feature-vulcan，
+但是$ git branch -d feature-vulcan销毁失败
+Git友情提醒，feature-vulcan分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用大写的-D参数。
+现在我们强行删除：$ git branch -D feature-vulcan
+开发一个新特性，最好新建一个分支；
+如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。
+
+多人协作
+当你从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，
+并且，远程仓库的默认名称是origin。
+要查看远程库的信息，用git remote：
+$ git remote
+origin
+或者，用git remote -v显示更详细的信息：
+$ git remote -v
+origin  git@github.com:Smile-Lei/learngit.git (fetch)
+origin  git@github.com:Smile-Lei/learngit.git (push)
+推送分支
+就是把该分支上的所有本地提交推送到远程库。
+推送时，要指定本地分支，这样，Git就会把该分支推送到远程库对应的远程分支上：$ git push origin master
+如果要推送其他分支，比如dev，就改成：$ git push origin dev
+并不是一定要把本地分支往远程推送，那么，哪些分支需要推送，哪些不需要呢？
+master分支是主分支，因此要时刻与远程同步；
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+总之，就是在Git中，分支完全可以在本地自己藏着玩，是否推送，视你的心情而定！
+抓取分支
+多人协作时，大家都会往master和dev分支上推送各自的修改。
+现在，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆：
+$ git clone git@github.com:Smile-Lei/learngit.git
+当你的小伙伴从远程库clone时，默认情况下，你的小伙伴只能看到本地的master分支。
+现在，你的小伙伴要在dev分支上开发，就必须创建远程库origin的dev分支到本地，于是他用这个命令创建本地dev分支：
+$ git checkout -b dev origin/dev
+现在，他就可以在dev上继续修改，然后，时不时地把dev分支push到远程：
+$ git add env.txt
+$ git commit -m "add env"
+$ git push origin dev
+你的小伙伴已经向origin/dev分支推送了他的提交，而碰巧你也对同样的文件作了修改，并试图推送：
+推送失败，因为你的小伙伴的最新提交和你试图推送的提交有冲突，解决办法也很简单，
+Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，
+然后，在本地合并，解决冲突，再推送：$ git pull
+git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：
+$ git branch --set-upstream-to=origin/dev dev
+这回git pull成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突完全一样。
+解决后，提交，再push：
+$ git commit -m "fix env conflict"
+$ git push origin dev
+因此，多人协作的工作模式通常是这样：
+首先，可以试图用git push origin <branch-name>推送自己的修改；
+如果推送失败，则因为远程分支比你的本地分支更新，需要先用git pull把最新的提交从origin/dev抓下来，
+然后，在本地合并；
+如果合并有冲突，则解决冲突，并在本地add，commit提交；
+没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，
+用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+小结
+查看远程库信息，使用git remote -v；
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，
+本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+rebase
+rebase操作的特点：把分叉的提交历史“整理”成一条直线，看上去更直观。缺点是本地的分叉提交已经被修改过了。
+rebase操作可以把本地未push的分叉提交历史整理成直线；
+rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
+创建标签
+在Git中打标签非常简单，首先，切换到需要打标签的分支上：
+$ git branch
+$ git checkout master
+然后，敲命令git tag <name>就可以打一个新标签：
+$ git tag v1.0
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+可以用命令git tag查看所有标签：$ git tag
+默认标签是打在最新提交的commit上的。
+有时候，如果忘了打标签，比如，现在已经是周五了，但应该在周一打的标签没有打，怎么办？
+方法是找到历史提交的commit id，然后打上就可以了，先查找commit id：$ git log --pretty=oneline --abbrev-commit
+比方说要对备注说明为add merge这次提交打标签，它对应的commit id是f52c633，敲入命令：
+$ git tag v0.9 f52c633
+注意，标签不是按时间顺序列出，而是按字母排序的。可以用git show <tagname>查看标签信息：
+$ git show v0.9
+注意：标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，
+那么在这两个分支上都可以看到这个标签。
+操作标签
+如果标签打错了，也可以删除：
+$ git tag -d v0.1
+如果要推送某个标签到远程，使用命令git push origin <tagname>：
+$ git push origin v1.0
+或者，一次性推送全部尚未推送到远程的本地标签：
+$ git push origin --tags
+如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+$ git tag -d v0.9
+然后，从远程删除。删除命令也是push，但是格式如下：
+$ git push origin :refs/tags/v0.9
+
+
+
+
+
+
+
+
+
