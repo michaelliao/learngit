@@ -1,0 +1,9 @@
+﻿StreamSets的应用场景：
+用例一：
+	Apache Kafka 使用StreamSets，您可以将应用程序连接到Kafka而无需编写一行代码！
+用例二：
+	Hadoop摄取 StreamSets可以让您轻松连续地将数据提取到Hadoop和周围的生态系统中。
+用例三：
+	云迁移  将数据迁移到云服务提供商（包括亚马逊，微软和谷歌）。
+用例四：
+	搜索启用  StreamSets使得用任何来源的数据填充选择的搜索解决方案变得非常容易。
