@@ -1,0 +1,91 @@
+1.	设置用户和邮箱：
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+2.	初始化pwd查看当前文件夹   cd加文件夹名表示选中：
+git init
+3.	添加文件到暂存区：
+git add readme.txt
+4.	暂存区上传：
+git commit –m “add readme.txt”
+5.	查看仓库状态：
+git status
+6.	查看修改具体：
+git diff readme.txt
+7.	查看历史记录：
+git log
+8.	查看历史记录（commit id）：
+git log –pretty=oneline
+9.	回退到历史版本：
+git reset –hard HEAD^
+几个^表示第几个历史版本
+或者写为HEAD~n
+10.	回到未来的版本：
+git reset –-hard commitid(几位即可)
+11.	记录历史命令（寻找commit id）：
+git reflog
+12.	查看文件：
+cat readme.txt
+13.	撤销修改（修改后未放到暂存区）
+git checkout –readme.txt
+工作区回到和版本库一样的状态
+14.	撤销修改（修改后放到暂存区）
+git reset HEAD read.txt
+git checkout –readme.txt
+15.	删除文件：
+rm test.txt
+16.	确定从版本库删除:
+git rm test.txt
+git commit –m “remove test.txt”
+17.	15中误删了回复和版本库一样的状态：
+git checkout – test.txt
+18.	创建SSHkey（连接GitHub）
+ssh-keygen -t rsa -C "youremail@example.com"
+19.	本地关联远程GitHub库：
+git remote add origin git@github.com:michaelliao/learngit.git
+20.	把本地所有内容推到远程库上：
+git push –u origin master
+21.	以后提交到远程库：
+git push origin master
+22.	从远程库克隆到本地库：
+git clone git@github.com:isshpan/gitskills.git
+23.	创建dev分支并切换：
+git checkout –b dev（==git branch dev     换行   git checkout dev）
+24.	查看当前分支
+git branch
+25.	切换到master分支：
+git checkout master
+26.	把dev分支合并到master上：
+git merge dev
+27.	删除dev 分支：
+git branch –d dev
+28.	存储当前分支工作状态：
+git stash
+checkout 回到某分支
+git stash list 查看刚才的工作现场
+恢复刚才工作：
+git stash apply +git stash drop  or
+git stash pop
+多次stash恢复时先查看list然后
+git stash apply stash@{0}
+29.	开发新内容最好新建分支，要丢弃一个没有合并的分支：
+git branch –D feature
+30.	查看远程库信息
+git remote   or   git remote –v(详细)
+31.	本地分支提交到远程库：
+git push origin master      git push origin dev 
+32.	另一台电脑克隆只能看到本地master分支要在dev分支开发，
+git checkout –b dev origin/dev
+33.	多人提交冲突：
+设置dev和origin/dev连接：git branch –set-upstream-to=origin/dev dev
+把提交抓下来本地合并推送：git pull
+合并有冲突，把冲突文件改为需要的内容再次合并git log –graph查看分支合并图
+再push，git push origin dev 
+34.	git rebase
+?	rebase操作可以把本地未push的分叉提交历史整理成直线；
+?	rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+35.	标签和commit挂钩
+切换到分支git tag 查看标签，git tag v1.0 打标签给最近的commit ,git tag v1.0 commit id 打给某个commit 的标签，git show v1.0 查看对应标签信息
+还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字：
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+删除标签 git tag –d v1.0  ,推送标签 git push origin v1.0 全部git push origin –tags 
+删除远程标签：git push origin :refs/tags/v1.0
