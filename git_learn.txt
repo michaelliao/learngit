@@ -1,0 +1,82 @@
+参考地址：https://www.cnblogs.com/ximiaomiao/p/7140456.html
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000
+
+设置用户名：git  config -- global  user.name  '你再github上注册的用户名';
+设置用户邮箱：git  config -- global  user.email  '注册时候的邮箱';
+（注意：该配置会在github主页上显示谁提交了该文件）
+
+初始化git（创建git仓库）：git init
+
+将文件添加到暂存区：git add '文件名'
+
+将文件从暂存区提交到仓库：git commit -m '描述'
+
+删除文件：git rm '文件名'
+
+将远程仓库（github上对应的项目）复制到本地：git clone 仓库地址
+
+切换分支：git checkout master
+
+下载代码：git clone git://github.com/schacon/grit.git
+
+拉取代码：git pull
+
+推向远程：git push origin master
+
+对比修改前后文件：git diff 文件名
+
+显查看提交历史：git log --graph --pretty=oneline --abbrev-commit（接着输入q会自动退出git log命令）
+
+查看命令历史：git reflog
+
+还原版本：git reset --hard HEAD^（上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100）
+
+还原至指定commit id：git reset --hard commit_id
+
+本地还原版本后，推向远程：git push --force
+
+回到最近一次git commit或git add时的状态：git checkout -- 文件名
+
+把暂存区的修改撤销，重新放回工作区：git reset HEAD 文件名
+
+删除文件：git rm 文件名
+
+关联远程库：git remote add origin git@server-name:path/repo-name.git
+
+第一次推送master分支的所有内容：git push -u origin master
+
+推送最新修改：git push origin master
+
+创建并切换分支dev：git checkout -b dev
+
+查看当前分支：git branch
+
+合并指定分支dev到当前分支:git merge dev（Fast forward模式在删除分支后，会丢掉分支信息）
+
+分支历史上就可以看出分支信息：git merge --no-ff -m "merge with no-ff" dev
+
+删除指定分支dev：git branch -d dev
+强行删除指定分支dev：git branch -D dev
+
+创建分支dev：git branch dev
+
+储藏当前工作现场：git stash
+查看储藏的工作现场列表：git stash list
+恢复并删除stash内容：git stash pop
+恢复但不删除stash内容：git stash apply stash@{0}
+删除stash内容：git stash drop stash@{0}
+
+查看远程库信息：git remote -v
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+新建一个标签v1.0：git tag v1.0
+指定commit_id新建标签：git tag v0.9 commit_id
+指定标签信息：git tag -a <tagname> -m "blablabla..."
+查看所有标签：git tag
+查看标签信息：git show v1.0
+
+获取远程tag：git fetch origin tag <tagname>
