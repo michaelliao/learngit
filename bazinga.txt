@@ -1,4 +1,6 @@
 Let's pull request.
-×ø±ê£¬Íşº£Ê¯µº
-ÈÕÆÚ£¬20180709
-ÌìÆø£¬ÓêÁË¸öÓê
+åæ ‡ï¼Œå¨æµ·çŸ³å²›
+æ—¥æœŸï¼Œ20180709
+å¤©æ°”ï¼Œé›¨äº†ä¸ªé›¨
+Seems GB18030 is not recognized, this time, let me transcode it to UTF-8.
+BTW, github is cool.
