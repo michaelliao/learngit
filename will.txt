@@ -1,0 +1,82 @@
+Git创建：
+首先，选择一个合适的地方，创建一个空目录：
+第二步，通过git init命令把这个目录变成Git可以管理的仓库
+把文件添加到版本库
+把一个文件放到Git仓库只需要两步：
+第一步，用命令git add告诉Git，把文件添加到仓库： git add readme.txt
+第二步，用命令git commit告诉Git，把文件提交到仓库git commit -m "wrote a readme file"
+
+修改文件：
+运行git status命令看看结果：
+虽然Git告诉我们readme.txt被修改了，但如果能看看具体修改了什么内容，自然是很好的。
+比如你休假两周从国外回来，第一天上班时，已经记不清上次怎么修改的readme.txt，
+所以，需要用git diff这个命令看看
+
+git log命令，查看日志
+回退：git reset --hard HEAD^(windows好像用HEAD^^好用)
+版本回退
+HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本
+
+撤销：
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+删除文件
+工作区手动删除之后，一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit：（1. git rm test.txt 2.git commit -m “删除信息”）
+另一种情况是删错了，因为版本库里还有呢，所以可以很轻松地把误删的文件恢复到最新版本：git checkout -- test.txt
+
+远程仓库
+Gitbub，远程创建仓库，
+①要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+②关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+分布式版本系统的最大好处之一是在本地工作完全不需要考虑远程库的存在，也就是有没有联网都可以正常工作，而SVN在没有联网的时候是拒绝干活的！当有网络的时候，再把本地提交推送一下就完成了同步，真是太方便了！
+
+ 从远程库克隆
+git clone git@github.com:用户名/仓库名.git
+分支管理
+创建合并分支
+ 
+解决冲突
+当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+用git log --graph命令可以看到分支合并图
+ 
+分支管理策略
+通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+git merge --no-ff -m "merge with no-ff" dev
+分支策略
+ 
+Bug分支
+Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。
+Feature分支
+添加一个新功能时，你肯定不希望因为一些实验性质的代码，把主分支搞乱了，所以，每添加一个新功能，最好新建一个feature分支，在上面开发，完成后，合并，最后，删除该feature分支。
+开发一个新feature，最好新建一个分支；
+如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除
+多人协作
+  
+Rebase
+标签管理
+创建标签
+?	命令git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+?	命令git tag -a <tagname> -m "blablabla..."可以指定标签信息；
+?	命令git tag可以查看所有标签。
+可以用git show <tagname>查看标签信息：
+操作标签
+删除标签：git tag -d 标签
+推送某个标签到远程：git push origin 标签
+一次性全部推送：git push origin –tags
+标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：git tag -d <tagname>
+然后，从远程删除。删除命令也是push； git push origin :refs/tags/<tagname>
+ 
+
+使用GitHub
+fork别人的，然后在自己账号下克隆到本地（git clone git@github.com:michaelliao/bootstrap.git），修改之后，可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了
+ 
