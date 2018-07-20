@@ -1,0 +1,8 @@
+提交到远程仓库的协议，https协议和ssh协议，可以切换，
+
+方法一：先把原来的删除掉（git remote rm origin），再添加git remote add origin
+方法二：直接更改 git remote set-url origin 【新的地址】
+
+哈哈，git很好很强大啊。。！！
+
+谢谢廖老师。。。
