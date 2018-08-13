@@ -1,0 +1,102 @@
+Hi, my name is liuyuexizhi. this is my first time to study git.
+I think it's very useful for me. There are some my study notes.
+Hope for help others!
+
+(1) 初始化git目录
+git init
+
+(2) 添加文件并提交
+git add [filename01]
+git add [filename02]
+...
+git commit -m "..."
+
+(3) 查看版本历史
+git log
+git log --pretty=oneline
+git log --pretty=oneline --abbrev-commit
+
+(4) 回退版本
+git reset HEAD^	上一个版本
+git reset HEAD^^	往上第二个版本
+git reset HEAD~100	网上第100个版本
+
+(5) 撤销回退
+git reset --hard [commit_id]	id写前几位就可以了，git会自动寻找
+
+(6) 查看命令历史
+git reflog	可以查看commit_id
+(7) 工作区的状态
+git status
+
+(8) 比较
+git diff HEAD -- [filename]	比较工作区与版本库最新的差别
+
+(9) 撤销工作区的修改
+git checkout -- [filename]
+
+(10) 撤销暂存区的修改
+git reset HEAD
+
+(11) 删除文件
+本地 rm [filename] ---> git rm [filname]
+如果本地误删，版本库还没有删除，可以用
+git checkout -- [filname] 一键还原
+
+(12) 创建远程仓库
+github上创建一个仓库
+git remote add origin  git@github.com:liuyuexizhi/liuyuexizhi.git
+origin远程库的名字
+
+(13) 克隆远程仓库
+git clone
+
+
+(14) 查看修改用户名和邮箱
+[root@10-8-47-142 repository]#  git config user.name
+tyler
+[root@10-8-47-142 repository]#  git config user.email
+liuyuexizhi@qq.com
+[root@10-8-47-142 repository]# git config --global user.name "liuyuexizhi"
+[root@10-8-47-142 repository]#  git config user.name
+liuyuexizhi
+
+(15) 分支
+git checkout -b dev	git branch dev
+-b 参数表示创建并切换	git checkout dev
+git branch	查看当前分支
+git checkout dev	切换分支
+git merge dev [master]	合并分支
+git branch -d dev	删除分支
+git merge --no-ff -m "merge with no-ff" dev	普通模式合并分支，合并后的历史有分支，能看出来曾经做过合并
+git stash	保存工作区状态，清空工作区
+git stash list	查看保存的工作区状态
+git stash drop [stashid]	删除stash
+git stash apply [stashid]	恢复工作区
+git stash pop [stashid]	恢复工作区并删除stash内容
+git branch -D <name>	删除未合并的分区
+
+(16) 抓取分支
+git branch --set-upstream-to=origin/dev dev	指定本地与远程的分支连接
+
+(17) 标签
+创建标签,切换到需要的分支	git tag v1.0 <commit id>
+查看标签	git tag
+查看标签信息	git show <tagname>
+删除本地标签	git tag -d v1.0
+推送一个标签	git push origin v1.0
+推送所有标签	git push origin --tags
+删除远程标签，先删除本地标签	git push origin:refs/tags/v1.0
+
+
+
+
+
+
+
+
+
+
+
+
+
