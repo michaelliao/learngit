@@ -1,0 +1,97 @@
+git config --global user.name "xxx" 设置git的用户名
+git config --global user.email "xxx@.com" 设置git的邮箱
+
+git init 初始化一个空的git仓库
+
+git add <file> 将修改的内容增加到暂存区
+
+git commit -m "xxxxx" 将添加在暂存区的内容提交到git仓库
+
+git status 查看git当前仓库中文件的状态
+
+git diff <file> 查看文件修改的具体内容
+
+git log 查看git日志
+
+git log --pretty=oneline 已简单的方式显示git日志
+
+git reflog 查看git的操作日志
+
+git reset --hard HEAD^ 将内容撤回到某个版本，^表示上个版本，^^表示上上个版本，如果版本太多，可以使用HEAD~50（表示将文件恢复到第50次修改时的内容）
+
+git checkout  -- <file> 当一个文件只在工作区修改后并未提交到暂存区，可以使用该命令撤回到最近一次修改状态
+
+git checkout HEAD <file> 当文件修改后已经提交到暂存区，可以使用该命令撤回暂存区的提交
+
+git rm <file> 删除某个文件
+
+git remote add origin https://github.com/<userName>/<repositoryName> 本地仓库关联远程仓库地址 第一次推送关联git push -u origin master
+
+git push origin <branchName> 推送最新修改到远程仓库
+
+git clone git@github.com:<userName>/<repositoryName> 从远程github仓库克隆到本地仓库
+
+git branch 查看分支，前有*的表示当前分支
+
+git branch <branchName> 创建分支
+
+git checkout <branchName> 切换分支
+
+git checkout -b <branchName> 创建并切换分支
+
+git merge <branchName> 合并分支到当前分支
+
+git branch -d <branchName> 删除分支
+
+git log --graph 查看合并日志
+
+git stash 将工作区未完成内容暂时储存（stash）起来
+
+git stash list 查看临时储存区的储存信息
+
+git stash apply 将储存区内容恢复到工作区（不删除储存区内容），删除用git stash drop
+
+git stash pop 将储蓄区内容恢复到工作区，并删除储蓄区内容
+
+git branch -D <branchName> 强制删除一个分支内容
+
+git remote -v 查看远程仓库信息
+
+git branch --set-upstream-to=origin/<branchName> <branchName> 将本地分支库和远程分支库建立关系
+
+git pull 抓取当前分支库最新代码
+
+git tag <tagName> 创建一个标签
+
+git tag 查看当前仓库分支的所有标签
+
+git show <tagName> 查看某个标签的信息
+
+git tag -a <tagName> -m "xxx" 创建一个带说明的标签
+
+git tag <tagName> <commitId> 根据提交id打标签
+
+git push origin <tagName> 将标签推送到远程库
+
+git push origin --tags 将当前分支中的所有标签推送到远程库
+
+git tag -d <tagName> 删除本地库标签
+
+git push origin :refs/tags/<tagName> 删除远程库某个标签
+
+git remote rm <originName> 删除本地库和远程库的关联
+
+git remote add github git@github.com:<userName>/<repositoryName.git> 将本地库关联到github远程库，并且将原始的origin修改为github， 推送git push github master
+
+git remote add gitee git@gitee.com:<userName>/<repositoryName.git> 将本地库关联到gitee远程库，并且将原始的origin修改为gitee, 推送git push gitee mater
+
+git config --global color.ui true 设置git显示颜色
+
+git忽略文件，在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进，在将.gitignore也提交到Git
+
+git add -f <flie> 将忽略的文件强制提交到git
+
+git check-ignore -v <flie> 检查文件是否符合忽略规则
+
+git config --global alias.<asName> <gitShell> 设置git命令别名，方便操作，如：git config --global alias.st status 将 git status 命令改为git st
+
