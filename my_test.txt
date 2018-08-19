@@ -1,0 +1,5 @@
+
+git config --global user.name "you name"
+git config --global user.email "email@example.com"
+
+这个我的GitHub的name跟码云的name不同，不过好像这个只是用来显示详情的时候显示的，不关事
