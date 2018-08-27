@@ -1,0 +1,135 @@
+1）git help <command> # 显示command的help
+
+2）git show # 显示某次提交的内容 git show $id
+
+3）git co -- <file> # 抛弃工作区修改
+
+4）git co . # 抛弃工作区修改
+
+5）git add <file> # 将工作文件修改提交到本地暂存区
+
+6）git add . # 将所有修改过的工作文件提交暂存区
+
+7）git rm <file> # 从版本库中删除文件
+
+8）git rm <file> --cached # 从版本库中删除文件，但不删除文件
+
+9）git reset <file> # 从暂存区恢复到工作文件
+
+10）git reset -- . # 从暂存区恢复到工作文件
+
+11）git reset --hard # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改
+
+12）git ci <file> git ci . git ci -a # 将git add, git rm和git ci等操作都合并在一起做　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　git ci -am "some comments"
+
+13）git ci --amend # 修改最后一次提交记录
+
+14）git revert <$id> # 恢复某次提交的状态，恢复动作本身也创建次提交对象
+
+15）git revert HEAD # 恢复最后一次提交的状态
+
+16）git diff <file> # 比较当前文件和暂存区文件差异 git diff
+
+17）git diff <id1><id1><id2> # 比较两次提交之间的差异
+
+18）git diff <branch1>..<branch2> # 在两个分支之间比较
+
+19）git diff --staged # 比较暂存区和版本库差异
+
+20）git diff --stat # 仅仅比较统计信息
+
+21）git log git log <file> # 查看该文件每次提交记录
+
+22）git log -p <file> # 查看每次详细修改内容的diff
+
+23）git log -p -2 # 查看最近两次详细修改内容的diff
+
+24）git log --stat #查看提交统计信息
+
+25）git br -r # 查看远程分支
+
+26）git br <new_branch> # 创建新的分支
+
+27）git br -v # 查看各个分支最后提交信息
+
+28）git br --merged # 查看已经被合并到当前分支的分支
+
+29）git br --no-merged # 查看尚未被合并到当前分支的分支
+
+30）git co <branch> # 切换到某个分支
+
+31）git co -b <new_branch> # 创建新的分支，并且切换过去
+
+32）git co -b <new_branch> <branch> # 基于branch创建新的new_branch
+
+33）git co $id # 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除
+
+34）git co $id -b <new_branch> # 把某次历史提交记录checkout出来，创建成一个分支
+
+35）git br -d <branch> # 删除某个分支
+
+36）git br -D <branch> # 强制删除某个分支 (未被合并的分支被删除的时候需要强制)
+
+37）git merge <branch> # 将branch分支合并到当前分支
+
+38）git merge origin/master --no-ff # 不要Fast-Foward合并，这样可以生成merge提交
+
+39）git diff > ../sync.patch # 生成补丁
+
+40）git apply ../sync.patch # 打补丁
+
+41）git apply --check ../sync.patch #测试补丁能否成功
+
+42）git stash # 暂存
+
+43）git stash list # 列出所有stash
+
+44）git stash apply # 恢复暂存的内容
+
+45）git stash drop # 删除暂存区
+
+46）git pull # 抓取远程仓库所有分支更新并合并到本地
+
+47）git pull --no-ff # 抓取远程仓库所有分支更新并合并到本地，不要快进合并
+
+48）git fetch origin # 抓取远程仓库更新
+
+49）git merge origin/master # 将远程主分支合并到本地当前分支
+
+50）git co --track origin/branch # 跟踪某个远程分支创建相应的本地分支
+
+51）git co -b <local_branch> origin/<remote_branch> # 基于远程分支创建本地分支，功能同上
+
+52）git push # push所有分支
+
+53）git push origin master # 将本地主分支推到远程主分支
+
+54）git push -u origin master # 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)
+
+55）git push origin <local_branch> # 创建远程分支， origin是远程仓库名
+
+56）git push origin <local_branch>:<remote_branch> # 创建远程分支
+
+57）git push origin :<remote_branch> #先删除本地分支(git br -d <branch>)，然后再push删除远程分支
+
+58）git remote -v # 查看远程服务器地址和仓库名称
+
+59）git remote show origin # 查看远程服务器仓库状态
+
+60）git remote add origin git@ github:robbin/robbin_site.git # 添加远程仓库地址
+
+61）git remote set-url origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm <repository> # 删除远程仓库
+
+62）git clone --bare robbin_site robbin_site.git # 用带版本的项目创建纯版本仓库
+
+63）scp -r my_project.git git@ git.csdn.net:~ # 将纯仓库上传到服务器上
+
+64）mkdir robbin_site.git && cd robbin_site.git && git --bare init # 在服务器创建纯仓库
+
+65）git remote add origin git@ github.com:robbin/robbin_site.git # 设置远程仓库地址
+
+66) git push -u origin master # 客户端首次提交
+
+67) git push -u origin develop # 首次将本地develop分支提交到远程develop分支，并且track
+
+68) git remote set-head origin master # 设置远程仓库的HEAD指向master分支
