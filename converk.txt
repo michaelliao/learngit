@@ -1,0 +1,96 @@
+
+git diff    #是工作区(work dict)和暂存区(stage)的比较 
+git diff --cached    #是暂存区(stage)和分支(master)的比较git diff --cached    #是暂存区(stage)和分支(master)的比较
+
+
+命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+
+用命令git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区
+
+
+
+一是确实要从版本库中删除该文件，那就用命令git rm删掉，并且git commit：
+
+分支管理：
+创建名为div的分支：　git branch div
+切换到这个分支：git checkout div
+查看所有分支：git branch
+之后可以进行修改工作，在div这个分支上进行提交
+切换回master: git checkout master
+合并ｄｉｖ分支到当前分支：git merge div
+删除分支：git branch -d div
+
+解决冲突:
+当新建一个分支f1的时候,在这个分支上修改文件并提交,
+之后切换回master分支,再在master上修改并提交,
+当合并两个分支的时候会出现冲突,这个是因为当只有一个领先时,却在两个分支上有两个状态,所以无法合并.
+当再次修改并提交时master分支上比初始领先了两个提交,f1分支也可以再通过一次修改和提交来达到这时的状态,所以通过再一次修改和提交来解决冲突,从而合并两个分支.
+
+
+分支管理策略
+在合并分支的时候,默认使用 Fast forward 方式,合并后会丢失分支的信息，
+在　--no-ff方式下使用git merge,会禁用Fast forward 方式，不会删除分支的信息
+但git会生成一个新的commit
+命令大概如下 git merge --no-ff -m "merge with no-ff" dev
+dev为分支名称
+可以用git log --graph --pretty=oneline --abbrev-commit来查看分支历史
+
+
+利用分支来修改bug:
+当你正在dev分支上进行工作,这时候已经发布的版本出现了一个bug,你需要去改正这个bug,这时候你就需要保存dev分支下的工作进度
+Git还提供了一个stash功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：git stash
+切换到拎一个分支进行修改bug:  git checkout master
+新建一个分支: git checkout -b bug-1
+在这个分支下进行修改bug,改完之后切换回master:
+git checkout master
+之后将修改的结果与master进行合并并删除这个分支:
+git merge --no-ff -m "merged bug fix 101" issue-101
+回到dev进行未完成的工作
+git checkout dev
+利用命令 git stash pop来恢复现场
+
+
+多人协作:
+git remote用来查看远程库的信息
+git remote -v 用来查看远程库的详细信息,
+如果要推送其他分支,比如dev，就改成：git push origin dev
+对于几个分支的区别和是否推送:
+	master分支是主分支，因此要时刻与远程同步；
+
+	dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+
+	bug分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+
+	feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+
+当有人在这个电脑的另一个目录下clone下了远程仓库:
+git clone https://github.com/converk/learn_git.git
+但是当他git branch 时只能看到master一个分支,
+如果想在dev分支上进行开发,就必须创建远程的origin/dev分支到本地,使用下面这个命令:  git checkout -b origin/dev dev.
+这时他就可以在dev分支上进行修改并推送到远程仓库.
+
+在那个人向远程仓库推送结束后,你在dev分支上对文件也做了修改,在推送到远程仓库的时候会报错,因为你的小伙伴的最新提交和你试图推送的提交有冲突.
+这时使用命令:git pull 将最新的提交从origin/dev上抓下来,然后合并,再推送.
+当git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接:git branch --set-upstream-to=origin/dev dev
+然后再git pull ,
+之后再git commit和git push就行了
+
+
+打标签:
+首先要切换到要打标签的分支上,然后使用 git tag v1.0 打上标签 v1.0是标签名,
+可以用git tag来查看所有标签,
+可以用git show v1.0来查看标签的详细信息
+也可以用git tag v0.9 sgu7824来找相应的commit号来打上标签
+命令git tag -a <tagname> -m "blablabla..."可以指定标签信息
+
+
+
+

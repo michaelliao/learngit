@@ -1,0 +1,11 @@
+查看远程分支
+git branch -r
+
+创建并切换分支
+git checkout -b dev
+提交本地分支到远程分支
+git push origin dev:dev
+
+删除远程分支
+git branch -r -d origin/dev
+git push origin :dev
