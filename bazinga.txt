@@ -1,0 +1,6 @@
+Let's pull request.
+坐标，威海石岛
+日期，20180709
+天气，雨了个雨
+Seems GB18030 is not recognized, this time, let me transcode it to UTF-8.
+BTW, github is cool.
