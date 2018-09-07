@@ -1,0 +1,287 @@
+一、Git配置
+//配置Git用户名
+git config --global user.name ""
+//配置Git邮箱
+git config --global user.email ""
+//设置文本编译器
+git config --global core.editor
+//差异分析工具
+git config --global merge.tool vimdiff
+//设置git log的提交时间格式
+$ git config --global log.date iso
+//查看配置信息
+git config --list
+git config --list --show-origin
+//查询某项配置设置的值
+git config user.email
+git config --list --show-origin|grep "user.email"
+
+#：参数--system、--global和--local依次为针对所有用户的配置、针对当前用户的配置、针对当前git仓库的配置，
+   如果存在同样的配置优先级从高低为：--local、--global、--system。
+
+   
+
+二、创建Git仓库的两种方式
+//初始化当前目录为Git仓库
+git init
+//克隆远程仓库到本地
+git clone git@server-name:path/repo-name.git
+
+三、本地仓库与远程仓库
+//将远程仓库的引用添加到本地仓库中。origin为远程仓库别名，git@server-name:path/repo-name.git为远程仓库地址
+git remote add origin git@server-name:path/repo-name.git
+
+//查看本地仓库添加的远程库引用名称
+git remote
+//查看本地仓库添加的远程库引用名称和对应远程仓库URL
+git remote -v
+//查看远程分支详细信息(远程分支列表以及状态、本地分支pull和push对应的远程分支等)
+git remote show [远程仓库引用名称]
+//删除本地仓库中的远程仓库引用名称
+git remote rm [远程仓库引用名称]
+//重命名远程仓库引用名称。注意：之前origin/master访问远程分支，修改后origin-test/master访问远程分支。
+git remote rename [原有远程仓库引用名称] [新的远程仓库引用名称]
+
+三、提交
+//添加文件到暂存区
+git add <file-name>：
+//将暂存区中指定文件从暂存区提交到本地Git仓库
+git commit -m "commit desc" <file-name>
+//将暂存区中所有文件从暂存区提交到本地Git仓库
+git commit
+//跳过暂存区直接提交到本地仓库，相当于git add *;git commit.。注意此命令不会将未跟踪(Untracked files)的文件提交到本地仓库中。
+git commit -a -m "commit desc"等同于git commit -am "commit desc"
+//查看本地Git仓库状态
+git status
+
+四、对比
+//工作区和暂存区的文件不同对比
+git diff <file-name>
+//暂存区和本地Git仓库文件最后一次提交不同对比
+git diff --cached <file-name>
+//工作区和本地Git仓库文件最后一次提交不同对比
+git diff HEAD <file-name>
+//比较当前分支与master分支最新内容的不同
+git diff master
+//比较当前分支与当时创建dev分支的master分支内容的不同
+git diff master...dev
+
+一个与最新master最新版本比较，一个与创建dev分支的基础master比较(dev分支和它同 master 分支的共同祖先之间的差异)。
+
+#查看当前Git可使用以及支持哪些diff插件
+git difftool --tool-help
+#使用指定的diff插件比较文件差异
+git difftool --tool=vimdiff3
+
+五、撤销&回退
+//将暂存区中文件移除暂存区
+git reset HEAD <file>
+//将工作区中的文件还原到本地Git仓库版本的最新版本
+git reset checkout --<file>
+
+//回退到指定版本
+git reset --hard 版本号
+//回退到上一个版本
+git reset --hard HEAD^
+//修改最近一次提交的文件和提说明。此命令执行后暂存区的文件将会被提交，并可以重新填写说明，生成一个新的commit来覆盖最近一次commit
+git commit --amend
+
+六、提交记录查看
+//查看命令历史记录
+git reflog 
+//查看当前分支(HEAD)分支从第2条命令之后的命令记录
+git reflog HEAD@{2}
+//查看master分支从第2条命令之后的命令记录
+git reflog master@{2}
+
+//查看当前分支提交历史以一个简短的SHA-1值和提交说明
+git log --oneline
+//查看合并的提交记录(在提交历史中查看以合并的提交记录，也就是有两个父commit对象的提交)
+git log --merges
+//查看未合并的提交历史记录(在提交历史中查看未合并的提交记录，也就是除了有两个父commit对象的提交之外的提交)
+git log --no-merges
+注意：--merges和--no-merges并不能查看某个分支是否合并到了当前分支，而是对已经合并的历史记录做过滤而已。
+//查看存在于iss11分支中的提交不在master提交(即有iss33分支有哪些提交为合并到master中)
+git log masster..iss11
+//查询当前目录24到25号两天的提交记录，并且以oneline形式显示提交记录、未合并的(--no-merges)、范围在当前目录下(./)的文件提交记录
+git log --after="2018-07-24" --before="2018-07-25" --pretty=oneline --no-merges -- ./
+//命令操作历史记录
+gitk
+//按照提交时间显示所有提交记录
+git log
+git log选项说明：
+	//------显示形式相关参数：
+    -p:按补丁格式显示每个更新之间的差异。
+    --stat:显示每次更新的文件修改统计信息。
+    --shortstat:只显示 --stat 中最后的行数修改添加移除统计。
+    --name-only:仅在提交信息后显示已修改的文件清单。
+    --name-status:显示新增、修改、删除的文件清单。
+    --abbrev-commit:仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。
+    --relative-date:使用较短的相对时间显示（比如，“2 weeks ago”）。
+    --graph:显示 ASCII 图形表示的分支合并历史。
+    --pretty:使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。
+			format选项说明：
+				%H 提交对象（commit）的完整哈希字串
+				%h 提交对象的简短哈希字串
+				%T 树对象（tree）的完整哈希字串
+				%t 树对象的简短哈希字串
+				%P 父对象（parent）的完整哈希字串
+				%p 父对象的简短哈希字串
+				%an 作者（author）的名字
+				%ae 作者的电子邮件地址
+				%ad 作者修订日期（可以用 -date= 选项定制格式）
+				%ar 作者修订日期，按多久以前的方式显示
+				%cn 提交者(committer)的名字
+				%ce 提交者的电子邮件地址
+				%cd 提交日期
+				%cr 提交日期，按多久以前的方式显示
+				%s 提交说明
+	--date:指定提交历史中的提交时间显示格式，--date=iso、--date=local
+	//------过滤条件相关
+    -(n):仅显示最近的 n 条提交
+    --since, --after:仅显示指定时间之后的提交。
+    --until, --before:仅显示指定时间之前的提交。
+    --author:仅显示指定作者相关的提交。
+    --committer:仅显示指定提交者相关的提交。
+	--grep:仅显示含指定关键字的提交
+	-S:仅显示添加或移除了某个关键字的提交
+
+七、从本地Git移除文件(不在进行Git版本管理)
+//从磁盘和版本库中删除文件。最后执行git commit - m "commit desc"命令级将rm操作提交到版本库
+git rm <file-name>
+//仅从版本库中删除文件，并不删除磁盘上的文件。最后执行git commit - m "commit desc"命令级将rm操作提交到版本库
+git rm --cached <file-name>
+//文件重命名
+git mv <file-name>
+
+
+八、本地仓库推送到远程仓库
+//推送当前分支到分支关联的远程仓库分支
+git push
+//推送本地仓库分支到远程仓库分支，如果远程仓库没有此分支会新建分支
+git push [远程仓库名称] [本地分支名称]:[远程仓库名称]
+//将本地分支推送到远程仓库分支。如果远程仓库没有此分支会新建分支，并建立本地分支和远程仓库分支的关联关系
+git push --set-upstream [远程仓库名称] [本地分支名称]:[远程仓库名称] 等同 git push -u [远程仓库名称] [本地分支名称]:[远程仓库名称]
+
+//删除远程仓库中的分支和本地对此远程分支的引用,并不删除本地的分支。从命令格式可以看出推送一个空的仓库到远程分支就达到了删除的目的。
+git push [远程仓库名称] :[远程分支名称]
+
+
+九、远程仓库拉取到本地仓库
+//拉取当前分支关联的远程分支内容到本地
+git pull
+//拉取远程仓库所有分支以及分支内容到本地仓库中的分支(做合并)
+git pull [远程分支名称]
+//拉取特定分支
+git pull [远程分支名称] [本地分支]:[远程分支名称]
+
+注意:git pull相当于git fetch+git merge。拉取过程中提示失败，可能是本地Git仓库内容和远程仓库内容不一致，会进入mergeing模式，使用git status命令会提示出哪些文件需要merge，人工进行merge后git commit即可。
+
+//抓取当前分支关联的远程分支内容到本地仓库中的远程分支引用分支
+git fetch
+//从远程仓库抓取所有分支以及内容到本地仓库中的远程分支引用分支
+git fetch [远程仓库名称]
+//抓取特定分支
+git fetch [远程仓库名称] [远程分支名]
+
+十、分支
+git branch <branch-name>：创建分支
+git checkout <branch-name>：切换分支
+git checkout -b <branch-name>：创建分支并切换到创建的分支
+
+git branch：查看所有分支
+
+git branch -v：查看每一个分支最后一次提交
+git branch -vv：查看本地仓库分支和远程仓库分支对应关系以及每一个分支最后一次提交
+git branch -r：查看远程仓库引用
+git branch -a：查看本地分支和远程仓库分支引用(即列出所有分支)
+git branch -vva:git branch -vv + git branch -a。
+git branch --merge：查看哪些分支已经合并到当前分支。如果分支已经合并到当前分支删除以合并的分支，删除后也不会丢失文件版本，因为已经合并到当前分支。
+git branch --no-merges：查看哪些分支没有合并到当前分支
+
+git branch -d branch name：删除分支(如果分支有文件修改而没有merge会不让删除)
+git branch -D branch name：强制删除分支
+
+git checkout -b dev origin/dev：在本地创建和远程仓库中对应的分支。
+
+//在本地仓库分支和远程仓库分支对应关系。也就是说git pull，git fetch，git push如果不指定远程仓库分支会作用于默认的本地仓库分支对应的远程仓库分支。
+git branch --set-upstream-to [远程仓库名称]/[分支名称] [本地分支名称]
+
+十一、合并
+git merge <branch-name>：将指定分支合并到当前分支，Fast-forward为“快进模式”，直接将master指向指定分支(即<branch-name>)。此情况可以顺利执行，不会提示有冲突：你在创建完分支并进行文件修改期间没有其他人向master提交，也就说在你merge时你是在最新版本上进行修改的，否则会提示文件有冲突，冲突的情况下需要手工修改文件解决冲突在进行merge。解决冲突后会将合并好的文件提交到版本库。
+git merge --no-ff -m "<desc>" dev：不使用Fast-forward模式。
+
+
+git stash：将当前工作和暂存区储藏
+git stash list：查储藏工作区列表
+git stash pop：回复并删除储藏区
+git stash apply：回复储藏区。添加 --index 参数会将暂存区的文件恢复到暂存区，否则所有文件将恢复到工作区，这不是我们想看到的。
+git stash drop：删除储藏区
+git stash show -p stash@{0} | git apply -R：取消恢复的储藏。stash@{0}为储藏名称，不加名词默认取消最近回复的储藏。
+
+十一、标签
+//给最近的commit打一个标签(轻量标签,lightweight)
+git tag <tag-name>
+//给最近的commit打一个标签，并给标签添加描述(附注标签,annotated)
+git -a tag-name -m "tag desc"
+//给某次commit打一个标签
+git tag <tag-name> commit的SHA-1
+
+//查看所有标签
+git tag
+//查看符合条件的标签名称。查看标签名称以1.1开头的标签
+git tag -l "1.1*"
+//删除标签
+git tag -d <tag-name>
+//推送指定标签到远程仓库
+git push [远程仓库引用名称] [标签名称]
+//推送所有标签到远程仓库
+git push origin --tags
+
+一个轻量标签很像一个不会改变的分支 - 它只是一个特定提交的引用。
+然而，附注标签是存储在 Git 数据库中的一个完整对象。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard （GPG）签名与验证。 通常建议创建附注标签，这样你可以拥有以上所有信息；但是如果你只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。
+
+十二、其它
+//交互式暂存命令
+git add -i
+
+获取Git命令格式帮助
+git help <verb>
+git <verb> --help
+man git-<verb>
+
+
+
+十三、子模块
+项目中的子目录不受项目git版本管理，有独立的git版本管理。进入子模块执行git add或git commit等命令是作用在子模块的git版本管理，项目中(上层项目或主项目)文件不受影响，反之也是。
+1,克隆一个子模块
+git submodule add [远程仓库地址] 远程仓库别名
+
+2,克隆一个带子模块的项目
+//进入子模块目录执行如下命令初始化子模块版本控制相关文件
+git submodule init
+//进入子模块目录执行如下命令更新子模块中的文件
+git submodule update
+
+
+
+
+新增文件：会出现在各个分支的工作区和暂存区中，那个分支先进行git commit，这个新增文件就是那个分支的，commit后其他分支就看不见了。
+修改文件：修改文件如果不进行commit是不允许进行git checkout 切换分支的。
+即一个文件commit一个分支后才会明确属于那个分支，否则之前会逗留在每个分支的工作区和暂存区。
+这里的使用技巧：如果在切换到其它分支进行工作前，请将当前分支文件commit到git仓库，或使用 git stash进行工作区暂存。
+
+记住，任何已经提交到 Git 的都可以被恢复。即便在已经删除的分支中的提交，或者用 --amend 重新改写的提交，都可以被恢复（关于数据恢复的内容见第九章）。
+所以，你可能失去的数据，仅限于没有提交过的，对 Git 来说它们就像从未存在过一样。
+
+dev类型分支：分支用于开发，多人开发的代码合并到dev分支。
+master主分支：想远程Git库push和pull用。一般当在dev上开发完成一个版本或一个阶段后会将dev合并到master主分支。
+feature类型分支：用于开发新功能。
+issuse类型分支：用于修改bug和修复问题。
+
+
+什么是版本控制？
+什么是分布式和集中式版本管理系统?
+什么是Git？
+什么是GitHub、Gitee?
+什么是工作区、暂存区、本地仓库和远程仓库?
