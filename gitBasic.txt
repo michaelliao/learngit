@@ -1,0 +1,59 @@
+1:设置用户名和邮箱
+	git config --grobal user.name "***"
+	git config --grobal user.email "**@**.**"
+	
+2:创建版本库
+	mkdir DirName
+	cd DirName
+	pwd              //显示目录
+	git init         //将这个目录变成git仓库
+	
+3:添加文件
+	git add **.txt   //添加一个文件
+	git commit -m "file info"     //提交文件，并且可以解释文件信息
+
+4:文件版本控制
+	git status       //查看修改了哪些文件（在没提交修改的文件前查看修改了什么内容） ——随时掌握工作区的状态
+	git diff **.txt  //查看具体修改了什么内容
+	
+5:版本回退
+	git log          //查看提交的日志
+	git log --pretty=oneline  //一行简易输出
+	git reset --hard HEAD^    //返回上一个版本（Head~number,number表示返回上几个版本）
+	git reset --hard **       //**为commit id的前几位，可以直接将版本回到这个状态
+	git reflog                //查看你已经完成的每条命令
+	
+6:工作区和暂存区
+	工作区就是我们的项目文件；
+	暂存区就是在使用git add命令后添加的文件，放入stage；
+	git commit就是将暂存区中的文件提交到当前分支。（工作区内修改的文件未使用git add添加到stage，不会将此修改commit到分支）
+	
+7:撤销修改
+	git checkout -- **.txt  //把该文件在工作区的所有修改撤销(1:未add到stage，撤销修改回到和版本库一样的状态；2：add之后再修改，回到stage中的状态）
+	git reset HEAD **.txt   //将暂存区中的对该文件的修改撤销，并且重新放回到工作区；之后再使用上面的命令撤销修改
+	git reset -- hard **    //如果修改的文件已经commit，使用版本回退
+	
+8:删除文件
+	rm **.txt              //删除工作区文件
+	git rm **.txt   &    git commit -m "info"     //删除版本库该文件
+	git checkout -- **.txt  //如果工作区文件误删，该命令将版本库的版本替换工作区的版本
+	
+9:远程仓库
+	ssh-keygen -t rsa -C "email@example.com" //生成id_rsa和id_rsa.pub
+	git remote add origin git@github.com:*path*/*repo-name*.git  //将本地仓库与远程仓库关联
+	git push -u origin master               //将本地库的内容推送到远程库
+	git clone git@github.com:*path*/*repo-name*.git                 //从远程仓库克隆
+	
+10:分支管理
+	git checkout -b dev    //创建dev分支，并切换到这个分支（git branch dev  创建  &     git checkout dev  切换）
+	git merge dev          //在分支dev上提交修改内容，使用git merge合并分支（快速合并，）
+	git branch -d dev      //合并完成后可以删除dev分支
+	git log --graph (--pretty=oneline --abbrev-commit)    //查看分支历史
+	git  merge --no-ff -m "merge without no-ff" dev       //普通模式合并，能看到历史分支
+	*git stash            //将当前工作现场隐藏，去另一个分支解决bug（git stash list查看   git stash apply恢复）
+	
+11:多人协作
+	首先，可以试图用git push origin <branch-name>推送自己的修改；
+	如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+	如果合并有冲突，则解决冲突，并在本地提交；
+	没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
