@@ -1,0 +1,66 @@
+Git初始化 及仓库创建操作:
+1. 有个 疑问 删除分支后 add 不了 不知道为什么 ？？？？？
+
+
+
+设置用户名
+* Git config —global user.name ‘xxx’
+设置用户邮箱
+* Git config —global user.email ‘xxx@xxx.com’
+
+1. ls 查看当前文件
+2. pwd 查看当前工作目录
+3. mkdir 创建文件夹
+4. touch 创建文件
+5. rm 删除文件
+6. rm-r 删除文件夹
+7. Git status 查看当前状态 nothing to commit 没有文件提交
+8. Git add . 将文件添加至暂存区
+9. Git commit -m ‘xx’ 为文件添加描述
+10.  vi demo.js  编辑文件内容
+11. Esc —> : wq 保存
+12. cat demo.js 查看内容
+13. Git log 查看日志
+14. rm -rf 删除工作目录下的文件
+15. Git rm 删除暂存区的文件 (删除文件也需要提交描述 git commit -m ‘描述’)
+16. git branch 创建分支
+17. git branch -d 删除分支
+18. git branch -a 查看本地远程分支
+19. git pull 在远程仓库创建分支进行拉取
+20. git checkout 切换分支
+
+
+
+
+
+GitHub:
+
+* create new repository  创建新的存储库
+* add a Local repository 添加本地存储库
+* clone a repository  克隆存储库
+
+仓库（repository）
+仓库的意思 即你的项目  你想在github上开园一个项目，那就必须要新建一个repository， 每个项目对应一个仓库
+
+收藏（star）
+收藏项目
+
+Forked from
+复制克隆项目
+该fork的项目是独立存在的
+
+Pull Requests
+发起请求
+
+watch
+关注 项目 项目更新可以接收通知
+
+issue
+发现bug 新建一个issue 通知
+
+
+
+
+git克隆
+将远程仓库（github项目）复制到本地
+命令：git clone https://github.com/LTM-PROTO/test.git（仓库地址）
