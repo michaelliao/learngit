@@ -1,0 +1,10 @@
+
+1.fork
+2.clone本地
+3.remote add 别名 地址
+
+4.创建分支；create branch,checkout branch
+
+5.stage changed ->commit->pull
+
+6.向远程仓库PR
