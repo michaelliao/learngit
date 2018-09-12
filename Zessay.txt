@@ -1,7 +1,0 @@
-Dear Mr Liao:
-	I am following your Git tutorial to learn how to use git command. I make some notes and 
-want to put them to my CSDN. The notes may use some pictures in your website. Of courese, I
-will indicate the source in my blog. I wish you can permit! If it is inconvenient, you can 
-contact me  through the emai zhushuai0403@163.com. Thanks again for your tutorial!
-                                                        Yours sincerely,
-                                                          Zhu Shuai														
