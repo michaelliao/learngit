@@ -1,0 +1,23 @@
+git init 初始化一个空的git仓库
+
+git add <file> 将修改的内容增加到暂存区
+
+git commit -m "xxxxx" 将添加在暂存区的内容提交到git仓库
+
+git status 查看git当前仓库中文件的状态
+
+git diff <file> 查看文件修改的具体内容
+
+git log 查看git日志
+
+git log --pretty=oneline 已简单的方式显示git日志
+
+git reflog 查看git的操作日志
+
+git reset --hard HEAD^ 将内容撤回到某个版本，^表示上个版本，^^表示上上个版本，如果版本太多，可以使用HEAD~50（表示将文件恢复到第50次修改时的内容）
+
+git checkout  -- <file> 当一个文件只在工作区修改后并未提交到暂存区，可以使用该命令撤回到最近一次修改状态
+
+git checkout HEAD <file> 当文件修改后已经提交到暂存区，可以使用该命令撤回暂存区的提交
+
+git rm <file> 删除某个文件
