@@ -1,0 +1,39 @@
+1、git起源
+2、git下载，安装
+3、
+
+git add
+git commit -m "xxxx"
+git log 
+git reflog 
+git reset --hard xxx;
+git checkout -- file
+git rm file
+
+github
+
+git push origin master
+git clone git@github.com:xiyebusi/xxx.git
+git chekout -b dev
+git branch
+git merge dev
+git branch -d dev
+git merge --no-ff
+git stash
+git stash list
+git stash apply 
+git stash drop
+git stash pop
+git remote -v
+git pull
+git branch --set-upsteam branch_name origin/branch_name
+git checkout -b branch_name origin/branch_name
+git tag <name>
+git tag
+git tag tag_name id
+git show tag_name
+git tag -d v0.1
+git push origin tag_name
+git push origin --tags
+git tag -d tag_name
+git push origin:refs/tags/tag_name
