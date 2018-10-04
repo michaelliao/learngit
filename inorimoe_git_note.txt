@@ -1,0 +1,72 @@
+git is a distributed version control system.
+learn git from now.
+practice makes perfect.
+git init // 将当前目录定义为git库
+cd //定义目录
+pwd //查询当前目录
+git add //把文件保存到stage区
+git commit -m "version.name" //把stage区里的内容全部提交到master
+git diff //查看工作区与stage区的区别
+git status //查看当前状态
+
+git log//查询提交的版本记录
+git reset --hard HEAD^ //回溯上一个版本
+git reset --hard HEAD~10 //回溯到前10的版本
+git reset --hard commit_id //根据提交的id，回溯到某个版本
+
+cat file.txt //查看文件
+git reflog //显示记录的每一次命令
+git checkout -- file //丢弃工作区文件的修改，让这个文件回到最近一次git commit或git add时的状态
+git reset HEAD file.name //把暂存stage区的修改撤销掉（unstage）,重新放回工作区
+rm或git rm //把文件从stage区和工作区里删除，只能从版本库里回退最近提交版本的文件
+git rm --cached file_path //把文件从暂存区删除，但本地需要.
+
+git remote add origin git@github.com:inorimoe/git.git
+//把本地版本库关联到github远程库
+git remote add origin git@server-name:path/repo-name.git
+//要关联一个远程库，使用命令
+git push -u origin master //第一次推送master分支，-u参数不懂
+git clone git@github.com:account/远程库名.git //从远程库克隆
+
+git branch //查看分支	
+git branch <name> //创建分支
+git checkout <name> //切换分支
+git checkout -b <name> //创建+切换分支
+git merge <name> //合并某分支到当前分支
+git branch -d <name> //删除分支
+git log --graph //调出提交日志，显示分支合并路线图
+git log --graph --pretty=oneline --abbrev-commit //效果类似上一条指令，显示精简信息
+git merge --no-ff -m "xxx" dev
+//创建一个新的commit存放合并的文件，-m参数描述提交的commit("xxx")信息，注意--no-ff参数，即强制禁用Fast Forwad模式(通过移动HEAD指针来快速合并分支主干的内容)
+
+git stash //把当前工作区的内容储存起来,储存到stash@{n}
+//注意：stash的坑：可理解为：工作区和暂存区是一个公开的工作台，任何分支都会用到，并能看到工作台上最新的内容，只要在工作区、暂存区的改动未能够提交到某一个版本库（分支/）中，那么在任何一个分支下都可以看得到这个工作区、暂存区的最新实时改动。
+//使用git stash就可以将工作区和暂存区的修改藏匿起来，使整个工作台看起来都是干净的(可能会回退到最近commited的状态）。
+//所以要初始化整个工作台,之后在干净的工作台上可以做另外一件紧急事件与藏匿起来的内容是完全独立的。
+//把文件stash后，使用恢复指令都会恢复到工作区，注意status,并且及时add
+git stash list //查看储存到哪个stash@{n}
+git stash apply //恢复到工作区，恢复后，stash内容并不删除
+git stash drop //彻底删除
+git stash pop //恢复的同时把stash也删除了
+git stash apply stash@{0} //恢复指定的stash
+
+git branch -D <name> //强行删除某一个没有被合并过的分支，参数是大写D
+
+git remote -v //查看远程库的详细信息，去掉-v，显示精简信息
+git push origin master //把该master分支上的所有本地提交推送到远程库
+git push origin branch-name //效果同上，推送某个分支到远程库
+git pull //取回远程主机某个分支的更新，再与本地的指定分支合并，可使用下一个指令建立分支关联
+git branch --set-upstream branch-name origin/branch-name
+//建立本地分支和远程分支的关联
+git checkout -b branch-name origin/branch-name //在本地创建和远程分支对应的分支，本地和远程分支的名称最好一样；
+git push origin :br //(origin 后面有空格)，git 删除远程分支
+标签
+git tag <tagname> <commit_id> //用于新建一个标签，默认为HEAD,也可以用于指定的一个commit_id
+git tag -a <tagname> -m "blablabla..." //可以指定标签信息；
+git tag //可以查看所有标签
+git tag -d <tagname> //删除本地标签。
+git push origin <tagname> //推送某个标签到远程
+git push origin --tags //一次性推送全部尚未推送到远程的本地标签
+git push origin :refs/tags/<tagname> //可以删除一个远程标签。
+
+coding harder

@@ -1,0 +1,3 @@
+git tag v1.0
+git tag show v1.0
+git -a v1.0 -m "show tag" ab092250

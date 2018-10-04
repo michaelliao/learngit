@@ -1,0 +1,5 @@
+这里对老师讲的Rebase做了下自己的理解:
+1.git rebase过程相比较git merge合并整合得到的结果没有任何区别，但是通过git rebase衍合能产生一个更为整洁的提交历史。
+2.git rebase 处理主线和分支上的节点时不是按照时间顺序的，所以看起来会更清楚：仿佛所有修改都是在一根线上先后完成的，尽管实际上它们原来是同时并行发生的。
+$ git rebase -i [startpoint] [endpoint]：将某些commit合并，注意此处时前开后闭
+$ git rebase [startpoint] [endpoint] --onto [branchname]：将该提交复制到哪个分支上
