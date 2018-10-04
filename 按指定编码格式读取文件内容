@@ -1,0 +1,19 @@
+	/**
+	 * 按指定编码格式读取文件内容
+	 * @author  		    huzi
+	 * @date    		    2018年7月25日	
+	 * @param path		  需读取文件的路径
+	 * @param encoding	要转成的编码格式
+	 * @return
+	 * @throws IOException
+	 */
+	public static String read(InputStream inputStream, String encoding) throws IOException {
+		String content = "";
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, encoding));
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			content += line + "\n";
+		}
+		reader.close();
+		return content;
+	}
