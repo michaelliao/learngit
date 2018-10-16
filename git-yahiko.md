@@ -1,4 +1,4 @@
-##git
+## git
 	• 命令
 	• git diff   查看这次修改内容
 	• git log    查看所有修改时间线
@@ -53,4 +53,4 @@
 	• git push origin <tagname>   推送标签到远程
 	• git push origin --tags 推送所有本地标签到远程
 		○ git tag -d v1
-git push origin :refs/tags/<tagname>      删除远程标签
+        • git push origin :refs/tags/<tagname>      删除远程标签
