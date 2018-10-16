@@ -1,3 +1,0 @@
-learn git 
-test
-pull request
