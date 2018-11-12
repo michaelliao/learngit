@@ -3,15 +3,52 @@
 ---
 # git简介
 ## 集中式和分布式
+git为分布式，svn和cvs为集中式，集中式的优点：比集中式服务更健壮，没有单点风险；使用方便，没有网络也能用；性能优异，对分支管理更好
 ## git的诞生
+git由Linus 于2005年开发完成，为了摆脱商业vcs系统限制而开发。
 # 安装git
+- 可以在git官网下载最新版，直接安装即可。
+- 安装完后，需要设置参数```git config --global user.name```以及```git config --global user.email```
 # 创建版本库
+- 创建一个目录或工程，使用```git init```命令创建版本库
+- 使用```git add <file>```添加文件到缓存区
+- 使用```git commit -m '<comment>'```将修改提交到本地仓库
 # 版本管控
-版本管控，可以在管控各个版本，
+版本管控，可以在管控各个版本的修改。
+- 使用```git status```查看本地仓库的状态，包含未被版本管控的、本地修改需要添加到仓库的、需要push到远程的修改
+- 使用```git diff```命令 查看文件的修改。蓝色表示更改的内容，行前有+号；白色表示未修改的；红色为有冲突而删除的文件，行前有-号。
 ## 版本回退
+- 使用```git reset```命令回退版本，可以指定参数```git reset --hard git-commit-version```
+- git reset有三种方式：soft/hard/mixed，使用方法分别如下：
+--soft – 缓存区和工作目录都不会被改变，只更改commit的记录
+--mixed – 默认选项。缓存区和你指定的提交同步，但工作目录不受影响
+--hard – 缓存区和工作目录都同步到你指定的提交
+- 使用```git log```查看 回退的历史版本，不过不太直观，只展示了version，commit-comment等
+- 使用```git reflog```查看git命令执行历史，可以穿越到之前版本。
+
+**疑问**：
+1. 如何通过客户端界面 对比不同版本的修改???
 ## 工作区和缓存区
+git在本地有三棵树：work、index区以及head区。work为本地文件目录，index为中间缓存区域，head为最终的版本管控区域。
+
+**疑问**：
+1. 针对同一个文件，git add多次，无法恢复到中间add的状态，只能恢复到commit的状态.缓存区的作用是什么？
+缓存区用来存储工作区的多次修改，可以使用```stash```命令将缓存区暂时保存，使用的时候再恢复。
 ## 管理修改
+工作目录修改后必须使用命令```git add```将修改同步到缓存区，再执行```git commit```命令提交。
 ## 撤销修改
+撤销更改有3个命令:```git reset,git revert,git checkout```。
+```shell
+#git reset:三个模式
+#git checkout
+checkout 意思为检出，可以用来检出或切换分支，检出某个提交，检出谋和文件。
+- git checkout <branchname>：切换到某个分支
+- git checkout HEAD/版本号：将版本回退
+--git checkout file：将文件checkout，意思是将文件回退到check的版本
+#git revert
+git revert只适用于某个commit的回退，并且自动添加commit提交，在git log中可以添加新的revert日志。同svn的revert类似，用于回退版本。
+比git checkout命令 要安全一些，不会将已有的版本从git log中去除。
+```
 ## 删除文件
 ```shell
 #删除版本库文件，并需要commit
@@ -77,7 +114,7 @@ git版本冲突时，需要手工解决冲突，解决之后在提交，合并�
 4. 命令```git push origin :refs/tags/<tagname>```可以删除一个远程标签。
 
 ##问题
-1. 标签与stash的区别
+1. 标签与stash的区别???
 
 # 使用github
 1. 可以在github任意fork仓库
