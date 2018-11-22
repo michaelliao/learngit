@@ -1,30 +1,31 @@
-#µÇÂ¼×Ô¼ºµÄGithubÕËºÅ
+#ç™»å½•è‡ªå·±çš„Githubè´¦å·  
+#æµ‹è¯•utf-8ç¼–ç åœ¨pull
 $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
 
-#´´½¨×Ô¼ºĞèÒª¹ÜÀíµÄÄ¿Â¼ ×¢Òâ½øÈëDÅÌÊ¹ÓÃ cd D:
+#åˆ›å»ºè‡ªå·±éœ€è¦ç®¡ç†çš„ç›®å½• æ³¨æ„è¿›å…¥Dç›˜ä½¿ç”¨ cd D:
 $ mkdir learngit
 $ cd learngit
 $ pwd
 /Users/michael/learngit
 
-#git add xxx   Ìí¼ÓÎÄ¼şµ½git²Ö¿â
+#git add xxx   æ·»åŠ æ–‡ä»¶åˆ°gitä»“åº“
 $ git add readme.txt
 
-#git commit  °ÑÎÄ¼şÌá½»µ½²Ö¿â
+#git commit  æŠŠæ–‡ä»¶æäº¤åˆ°ä»“åº“
 $ git commit -m "wrote a readme file"
 [master (root-commit) eaadf4e] wrote a readme file
  1 file changed, 2 insertions(+)
  create mode 100644 readme.txt
 
  
-# ¿ÉÒÔ¶à´ÎÌá½»ÎÄ¼ş
+# å¯ä»¥å¤šæ¬¡æäº¤æ–‡ä»¶
 $ git add file1.txt
 $ git add file2.txt file3.txt
 $ git commit -m "add 3 files."
 
 
-#git status ¿ÉÒÔ²é¿´½á¹û
+#git status å¯ä»¥æŸ¥çœ‹ç»“æœ
 $ git status
 On branch master
 Changes not staged for commit:
@@ -36,7 +37,7 @@ Changes not staged for commit:
 no changes added to commit (use "git add" and/or "git commit -a")
 
 
-#git diff xxx   ¿ÉÒÔ²é¿´Õâ¸öÎÄ¼ş×ö¹ıÄÄĞ©ĞŞ¸Ä
+#git diff xxx   å¯ä»¥æŸ¥çœ‹è¿™ä¸ªæ–‡ä»¶åšè¿‡å“ªäº›ä¿®æ”¹
 $ git diff readme.txt 
 diff --git a/readme.txt b/readme.txt
 index 46d49bf..9247db6 100644
@@ -48,7 +49,7 @@ index 46d49bf..9247db6 100644
  Git is free software.
  
  
-# git log ¿ÉÒÔ²é¿´ËùÓĞµÄĞŞ¸Ä
+# git log å¯ä»¥æŸ¥çœ‹æ‰€æœ‰çš„ä¿®æ”¹
  $ git log
 commit 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -> master)
 Author: Michael Liao <askxuefeng@gmail.com>
@@ -71,23 +72,23 @@ Date:   Fri May 18 20:59:18 2018 +0800
 
 
 
-#¿ÉÒÔÊ¹ÓÃ --pretty=onelineÈ¥¾«¼òÊä³öĞÅÏ¢
+#å¯ä»¥ä½¿ç”¨ --pretty=onelineå»ç²¾ç®€è¾“å‡ºä¿¡æ¯
 $ git log --pretty=oneline
 1094adb7b9b3807259d8cb349e7df1d4d6477073 (HEAD -> master) append GPL
 e475afc93c209a690c39c13a46716e8fa000c366 add distributed
 eaadf4e385e865d25c48e7ca9c8395c3f7dfaef0 wrote a readme file	
 
 
-#°æ±¾»ØÍË  git reset
+#ç‰ˆæœ¬å›é€€  git reset
 $ git reset --hard HEAD^
 HEAD is now at e475afc add distributed
 
-#¿ÉÒÔÊ¹ÓÃÄÇ´®16½øÖÆÊı¾«È·»Ø¹é°æ±¾
+#å¯ä»¥ä½¿ç”¨é‚£ä¸²16è¿›åˆ¶æ•°ç²¾ç¡®å›å½’ç‰ˆæœ¬
 $ git reset --hard 1094a
 HEAD is now at 83b0afe append GPL
 
 
-#¿ÉÒÔÊ¹ÓÃ git reflog²é¿´×ÔÒÑÊ¹ÓÃÁËÄÄĞ©ÃüÁî
+#å¯ä»¥ä½¿ç”¨ git reflogæŸ¥çœ‹è‡ªå·²ä½¿ç”¨äº†å“ªäº›å‘½ä»¤
 $ git reflog
 e475afc HEAD@{1}: reset: moving to HEAD^
 1094adb (HEAD -> master) HEAD@{2}: commit: append GPL
@@ -95,17 +96,17 @@ e475afc HEAD@{3}: commit: add distributed
 eaadf4e HEAD@{4}: commit (initial): wrote a readme file
 
 
-#²é¿´¹¤×÷ÇøºÍ°æ±¾¿âÖĞµÄ×îĞÂÇé¿ö
+#æŸ¥çœ‹å·¥ä½œåŒºå’Œç‰ˆæœ¬åº“ä¸­çš„æœ€æ–°æƒ…å†µ
 git diff HEAD -- readme.txt
 
 
 
-#git checkout ¿ÉÒÔ¶ªÆúÔ­À´µÄĞŞ¸Ä
+#git checkout å¯ä»¥ä¸¢å¼ƒåŸæ¥çš„ä¿®æ”¹
 $ git checkout -- readme.txt
 
 
 
-# add ÁË×Ô¼ºµÄÎÄ¼ş ¶÷Ò²¿ÉÒÔÉ¾³ı 
+# add äº†è‡ªå·±çš„æ–‡ä»¶ æ©ä¹Ÿå¯ä»¥åˆ é™¤ 
 $ git reset HEAD readme.txt
 Unstaged changes after reset:
 M    readme.txt
@@ -113,8 +114,8 @@ M    readme.txt
 
 
 
-#ÏÖÔÚÄãÓĞÁ½¸öÑ¡Ôñ£¬Ò»ÊÇÈ·ÊµÒª´Ó°æ±¾¿âÖĞÉ¾³ı¸ÃÎÄ¼ş£¬ÄÇ¾ÍÓÃÃüÁîgit rmÉ¾µô£¬²¢ÇÒgit commit£º
-#´íÉ¾¿ÉÒÔÊ¹ÓÃgit checkout -- test.txt»Ö¸´´íÉ¾ÎÄ¼ş
+#ç°åœ¨ä½ æœ‰ä¸¤ä¸ªé€‰æ‹©ï¼Œä¸€æ˜¯ç¡®å®è¦ä»ç‰ˆæœ¬åº“ä¸­åˆ é™¤è¯¥æ–‡ä»¶ï¼Œé‚£å°±ç”¨å‘½ä»¤git rmåˆ æ‰ï¼Œå¹¶ä¸”git commitï¼š
+#é”™åˆ å¯ä»¥ä½¿ç”¨git checkout -- test.txtæ¢å¤é”™åˆ æ–‡ä»¶
 $ git rm test.txt
 rm 'test.txt'
 
@@ -124,22 +125,22 @@ $ git commit -m "remove test.txt"
  delete mode 100644 test.txt
  
  
-#Á¬½ÓÔ¶³Ì²Ö¿â²½Öè
-1.´´½¨sshkey£¨²é¿´ÓĞÎŞ.sshÎÄ¼ş¼Ğ£©
+#è¿æ¥è¿œç¨‹ä»“åº“æ­¥éª¤
+1.åˆ›å»ºsshkeyï¼ˆæŸ¥çœ‹æœ‰æ— .sshæ–‡ä»¶å¤¹ï¼‰
 $ ssh-keygen -t rsa -C "youremail@example.com"
-Èç¹ûÒ»ÇĞË³ÀûµÄ»°£¬¿ÉÒÔÔÚÓÃ»§Ö÷Ä¿Â¼ÀïÕÒµ½.sshÄ¿Â¼£¬ÀïÃæÓĞid_rsaºÍid_rsa.pubÁ½¸öÎÄ¼ş£¬
-ÕâÁ½¸ö¾ÍÊÇSSH KeyµÄÃØÔ¿¶Ô£¬id_rsaÊÇË½Ô¿£¬²»ÄÜĞ¹Â¶³öÈ¥£¬
-id_rsa.pubÊÇ¹«Ô¿£¬¿ÉÒÔ·ÅĞÄµØ¸æËßÈÎºÎÈË¡£
+å¦‚æœä¸€åˆ‡é¡ºåˆ©çš„è¯ï¼Œå¯ä»¥åœ¨ç”¨æˆ·ä¸»ç›®å½•é‡Œæ‰¾åˆ°.sshç›®å½•ï¼Œé‡Œé¢æœ‰id_rsaå’Œid_rsa.pubä¸¤ä¸ªæ–‡ä»¶ï¼Œ
+è¿™ä¸¤ä¸ªå°±æ˜¯SSH Keyçš„ç§˜é’¥å¯¹ï¼Œid_rsaæ˜¯ç§é’¥ï¼Œä¸èƒ½æ³„éœ²å‡ºå»ï¼Œ
+id_rsa.pubæ˜¯å…¬é’¥ï¼Œå¯ä»¥æ”¾å¿ƒåœ°å‘Šè¯‰ä»»ä½•äººã€‚
 
-2.ÓÃÍøÒ³°æGithub Ìí¼Ó´ËµçÄÔµÄssh¹«Ô¿
-3.ÓÃÍøÒ³°æGithub ´´½¨Ò»¸öĞÂµÄ Create a new repo ĞÂµÄ²Ö¿â
-4.½¨Á¢±¾µØÓëÍøÒ³²Ö¿âµÄÁ¬½Ó
+2.ç”¨ç½‘é¡µç‰ˆGithub æ·»åŠ æ­¤ç”µè„‘çš„sshå…¬é’¥
+3.ç”¨ç½‘é¡µç‰ˆGithub åˆ›å»ºä¸€ä¸ªæ–°çš„ Create a new repo æ–°çš„ä»“åº“
+4.å»ºç«‹æœ¬åœ°ä¸ç½‘é¡µä»“åº“çš„è¿æ¥
   $ git remote add origin git@github.com:michaelliao/learngit.git
-5.ÍÆËÍ±¾µØ·ÖÖ§£¨×¢Òâ±¾µØ·ÖÖ§ÓëÍøÒ³·ÖÖ§Ãû×ÖÒ»ÖÂ£©
+5.æ¨é€æœ¬åœ°åˆ†æ”¯ï¼ˆæ³¨æ„æœ¬åœ°åˆ†æ”¯ä¸ç½‘é¡µåˆ†æ”¯åå­—ä¸€è‡´ï¼‰
   $ git push -u origin master  
-6.ÍÆËÍ¹ıÒ»´Îºó¿ÉÒÔÊ¹ÓÃ¾«¼òÃüÁî
+6.æ¨é€è¿‡ä¸€æ¬¡åå¯ä»¥ä½¿ç”¨ç²¾ç®€å‘½ä»¤
   $ git push origin master  
-7.Ô¶³Ìclone Ò»¸ö½¨ºÃµÄ²Ö¿â
+7.è¿œç¨‹clone ä¸€ä¸ªå»ºå¥½çš„ä»“åº“
   $ git clone git@github.com:michaelliao/gitskills.git
 Cloning into 'gitskills'...
 remote: Counting objects: 3, done.
@@ -147,37 +148,37 @@ remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 3
 Receiving objects: 100% (3/3), done.
 
 
-#·ÖÖ§¹ÜÀí
-#´´½¨Ò»¸öĞÂµÄ·ÖÖ§dev
+#åˆ†æ”¯ç®¡ç†
+#åˆ›å»ºä¸€ä¸ªæ–°çš„åˆ†æ”¯dev
 git checkout = $ git branch dev
                $ git checkout dev
-#ÃüÁî¼ÓÉÏ-b²ÎÊı±íÊ¾´´½¨²¢ÇĞ»»£¬
-#Ïàµ±ÓÚÒÔÏÂÁ½ÌõÃüÁî
+#å‘½ä»¤åŠ ä¸Š-bå‚æ•°è¡¨ç¤ºåˆ›å»ºå¹¶åˆ‡æ¢ï¼Œ
+#ç›¸å½“äºä»¥ä¸‹ä¸¤æ¡å‘½ä»¤
 
-git branch ¿É²é¿´µ±Ç°·ÖÖ§Çé¿ö
+git branch å¯æŸ¥çœ‹å½“å‰åˆ†æ”¯æƒ…å†µ
 
-#ÏÖÔÚdev·ÖÖ§ÉÏĞŞ¸Äºó¿ÉÒÔºÏ²¢µ½master·ÖÖ§ÉÏ
- Ê¹ÓÃÃüÁî$ git merge dev
+#ç°åœ¨devåˆ†æ”¯ä¸Šä¿®æ”¹åå¯ä»¥åˆå¹¶åˆ°masteråˆ†æ”¯ä¸Š
+ ä½¿ç”¨å‘½ä»¤$ git merge dev
 Updating d46f35e..b17d20e
 Fast-forward
  readme.txt | 1 +
  1 file changed, 1 insertion(+)
 
-#ÏÖÔÚºÏ²¢½áÊøÖ®ºó¿ÉÒÔÉ¾³ıdev·ÖÖ§£¬ÒòÎªÖ÷·ÖÖ§
-#ÒÑ¾­¸Ä±äÁËËû
-Ê¹ÓÃgit branch -d dev
+#ç°åœ¨åˆå¹¶ç»“æŸä¹‹åå¯ä»¥åˆ é™¤devåˆ†æ”¯ï¼Œå› ä¸ºä¸»åˆ†æ”¯
+#å·²ç»æ”¹å˜äº†ä»–
+ä½¿ç”¨git branch -d dev
 $ git branch -d dev
 Deleted branch dev (was b17d20e).
 
 
-#ºÏ²¢·ÖÖ§»áÓöµ½µÄÎÊÌâ
-#Á½¸ö·ÖÖ§¶¼ÓĞÄÚÈİÌá½»²»Í³Ò»£¬
-#ĞèÒªÍ³Ò»ºó²ÅÄÜ¼ÌĞøÇ°½ø
-git log --graphÃüÁî¿ÉÒÔ¿´µ½·ÖÖ§ºÏ²¢Í¼¡£
+#åˆå¹¶åˆ†æ”¯ä¼šé‡åˆ°çš„é—®é¢˜
+#ä¸¤ä¸ªåˆ†æ”¯éƒ½æœ‰å†…å®¹æäº¤ä¸ç»Ÿä¸€ï¼Œ
+#éœ€è¦ç»Ÿä¸€åæ‰èƒ½ç»§ç»­å‰è¿›
+git log --graphå‘½ä»¤å¯ä»¥çœ‹åˆ°åˆ†æ”¯åˆå¹¶å›¾ã€‚
 
 
-#git merge Ê¹ÓÃFast forwardÄ£Ê½ºÏ²¢Õâ¸ö»á¶ªÊ§·ÖÖ§ĞÅÏ¢
-#¿ÉÒÔ½ûÖ¹Ê¹ÓÃÕâ¸öÄ£Ê½½øĞĞºÏ²¢
+#git merge ä½¿ç”¨Fast forwardæ¨¡å¼åˆå¹¶è¿™ä¸ªä¼šä¸¢å¤±åˆ†æ”¯ä¿¡æ¯
+#å¯ä»¥ç¦æ­¢ä½¿ç”¨è¿™ä¸ªæ¨¡å¼è¿›è¡Œåˆå¹¶
 #merge with no-ff
 $ git merge --no-ff -m "merge with no-ff" dev
 Merge made by the 'recursive' strategy.
@@ -185,7 +186,7 @@ Merge made by the 'recursive' strategy.
  1 file changed, 1 insertion(+)
  
  
-#Ê¹ÓÃÈı¸öÃüÁî
+#ä½¿ç”¨ä¸‰ä¸ªå‘½ä»¤
  $ git log --graph --pretty=oneline --abbrev-commit
 *   e1e9c68 (HEAD -> master) merge with no-ff
 |\  
@@ -195,22 +196,22 @@ Merge made by the 'recursive' strategy.
 
 
 
-#bug ·ÖÖ§¹ÜÀí
-#±£´æ¹¤×÷Çø
+#bug åˆ†æ”¯ç®¡ç†
+#ä¿å­˜å·¥ä½œåŒº
 $ git stash
 Saved working directory and index state 
 WIP on dev: f52c633 add merge
 
 
-#²é¿´»º´æµÄ¹¤×÷Çø
+#æŸ¥çœ‹ç¼“å­˜çš„å·¥ä½œåŒº
 $ git stash list
 stash@{0}: WIP on dev: f52c633 add merge
 
-#Ò»ÊÇÓÃgit stash apply»Ö¸´£¬
-#µ«ÊÇ»Ö¸´ºó£¬stashÄÚÈİ²¢²»É¾³ı£¬
-#ÄãĞèÒªÓÃgit stash dropÀ´É¾³ı£»
+#ä¸€æ˜¯ç”¨git stash applyæ¢å¤ï¼Œ
+#ä½†æ˜¯æ¢å¤åï¼Œstashå†…å®¹å¹¶ä¸åˆ é™¤ï¼Œ
+#ä½ éœ€è¦ç”¨git stash dropæ¥åˆ é™¤ï¼›
 
-#Ê¹ÓÃgit stash pop
+#ä½¿ç”¨git stash pop
 $ git stash pop
 On branch dev
 Changes to be committed:
@@ -225,52 +226,52 @@ Changes not staged for commit:
     modified:   readme.txt
 	
 	
-#feature·ÖÖ§
-#Èç¹ûÒª¶ªÆúÒ»¸öÃ»ÓĞ±»ºÏ²¢¹ıµÄ·ÖÖ§
-#¿ÉÒÔÍ¨¹ı
-#git branch -D <name>Ç¿ĞĞÉ¾³ı¡£	
+#featureåˆ†æ”¯
+#å¦‚æœè¦ä¸¢å¼ƒä¸€ä¸ªæ²¡æœ‰è¢«åˆå¹¶è¿‡çš„åˆ†æ”¯
+#å¯ä»¥é€šè¿‡
+#git branch -D <name>å¼ºè¡Œåˆ é™¤ã€‚	
 
 
-#²é¿´Ô¶³Ì¿âĞÅÏ¢
+#æŸ¥çœ‹è¿œç¨‹åº“ä¿¡æ¯
 git remote
 
-#²é¿´ÏêÏ¸ĞÅÏ¢
+#æŸ¥çœ‹è¯¦ç»†ä¿¡æ¯
 git remote -v
 
-#git±êÇ©¹ÜÀí
+#gitæ ‡ç­¾ç®¡ç†
 git tag v1.0
 
 
-#²é¿´±êÇ©
+#æŸ¥çœ‹æ ‡ç­¾
 git tag
 
 
 git show v1.0
-#²é¿´ÏêÏ¸ĞÅÏ¢
+#æŸ¥çœ‹è¯¦ç»†ä¿¡æ¯
 	
-#»¹¿ÉÒÔ´´½¨´øÓĞËµÃ÷µÄ±êÇ©£¬
-#ÓÃ-aÖ¸¶¨±êÇ©Ãû£¬-mÖ¸¶¨ËµÃ÷ÎÄ×Ö£º
+#è¿˜å¯ä»¥åˆ›å»ºå¸¦æœ‰è¯´æ˜çš„æ ‡ç­¾ï¼Œ
+#ç”¨-aæŒ‡å®šæ ‡ç­¾åï¼Œ-mæŒ‡å®šè¯´æ˜æ–‡å­—ï¼š
 
 $ git tag -a v0.1 -m "version 0.1 released" 1094adb
 
 
-#´ò´í¿ÉÉ¾³ı±¾µØ±êÇ©
+#æ‰“é”™å¯åˆ é™¤æœ¬åœ°æ ‡ç­¾
 $ git tag -d v0.1
 Deleted tag 'v0.1' (was f15b0dd)
 
 
-#ÍÆËÍ±êÇ©
+#æ¨é€æ ‡ç­¾
 $ git push origin v1.0
 
-#Ò»´ÎÍÆËÍËùÓĞ±êÇ©
+#ä¸€æ¬¡æ¨é€æ‰€æœ‰æ ‡ç­¾
 $ git push origin --tags
 
 
-#Èç¹û±êÇ©ÒÑ¾­ÍÆËÍµ½Ô¶³Ì£¬ÒªÉ¾³ıÔ¶³Ì±êÇ©¾ÍÂé·³Ò»µã£¬ÏÈ´Ó±¾µØÉ¾³ı£º
+#å¦‚æœæ ‡ç­¾å·²ç»æ¨é€åˆ°è¿œç¨‹ï¼Œè¦åˆ é™¤è¿œç¨‹æ ‡ç­¾å°±éº»çƒ¦ä¸€ç‚¹ï¼Œå…ˆä»æœ¬åœ°åˆ é™¤ï¼š
 
 $ git tag -d v0.9
 Deleted tag 'v0.9' (was f52c633)
-#È»ºó£¬´ÓÔ¶³ÌÉ¾³ı¡£É¾³ıÃüÁîÒ²ÊÇpush£¬µ«ÊÇ¸ñÊ½ÈçÏÂ£º
+#ç„¶åï¼Œä»è¿œç¨‹åˆ é™¤ã€‚åˆ é™¤å‘½ä»¤ä¹Ÿæ˜¯pushï¼Œä½†æ˜¯æ ¼å¼å¦‚ä¸‹ï¼š
 
 $ git push origin :refs/tags/v0.9
 To github.com:michaelliao/learngit.git
