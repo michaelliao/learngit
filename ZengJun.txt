@@ -1,0 +1,4 @@
+by learning the courses of Mr Liao,I gradually unserstand the background and great usages of Git,which is a wonderful code management and cooperation tools ,or stage  to some extend.
+
+    At the same time,Githun covers seas of excellent open sources of differrent team or person.offering enough learning materials for the net surfer.
+    I should thank the great contribution of the Mr Liao
