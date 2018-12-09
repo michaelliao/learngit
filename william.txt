@@ -1,0 +1,5 @@
+
+我是小小同学，正在练习 fork 与 pull requests 操作。
+
+有一个疑问，fork 时只能从某一次的分支上 fork，不能从某一次的 commit 上 fork 吗？
+
