@@ -1,0 +1,141 @@
+'''
+备忘git的命令语句
+
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+
+1、git init
+仓库初始化，可以把整个文件夹声明为 git 的仓库。
+会在主目录下添加一个 .git 的隐藏文件
+
+2、git add filename 
+推送修改了的文件到 git 的 版本库里的 stage 暂存区，
+
+3、git commit -m "some memo,备忘你修改了什么"
+把暂存区的所有内容提交到当前分支
+
+4、git log < --pretty = oneline>
+输出由近到远的日志  <精简输出，只输出散列号和备忘的信息>
+
+5、git reset --hard "HEAD^" 
+输出上一个版本，有多少个 ^ 代表回退多少个版本，如果数字太大，可以改成
+
+git reset --hard "HEAD~xxx"
+git reset --hard version_number #version_number 是log里输出的散列号，输入前几个数字就行
+
+由于在windows中 ^ 是一个特殊符号，所以才需要用双引号
+
+6、git reflog
+记录所有的操作，可以用来查询误回退的版本号
+
+7、git diff HEAD --filename
+查看工作区和版本库里面最新版本的区别
+
+8、git checkout --filename
+撤销自上次保存到版本库之后的修改，也就是回退到上次提交给 stage 的那个版本
+实质是将版本库里的版本替换工作区的版本
+
+9、git reset HEAD <filename>
+当 add 到暂存区之后，在 commit 之前，可以使用这个命令，将暂存区的修改撤销，
+并把之前add到暂存区的文件重新放回工作区，此时再次使用git checkout 就可以撤销修改
+
+10、git rm filename git commit --m "remove test.txt"
+删除文件后使用这两条命令删除版本库里的文件并且提交给分支
+
+'''
+
+#############
+############
+
+'''
+1、ssh-keygen -t rsa -C "youremail@example.com"
+ 需要在 git bash 里，本地创建ssh
+
+2、git remote add origin git@github.com:username/learngit.git
+关联本地的 learngit.git 仓库到github
+默认的远程库的名字是 origin，可以把origin改为其他名字
+
+3、git push origin master
+把本地 master 分支的最新修改推送至 github
+当第一次关联时，需要加上 -u 参数，会把本地的master分支和远程的master分支关联起来
+
+4、git clone git@github.com:username/remote_repository_name.git
+克隆远程仓库到本地仓库
+这里的语句 git@ 是使用ssh协议，也可以直接复制 github 仓库的网址，https：//协议克隆
+克隆的仓库会保存到现在的工作目录下，而不是 git init 的那个仓库根目录
+
+5、git remote <-v>
+查看远程库信息 <显示详细信息，可以获取抓取和推送的地址>
+
+6、git push origin <branch-name>
+推送其他分支的修改
+
+7、git checkout -b dev origin/dev
+创建本地 dev 分支为远程的 dev 分支
+
+8、git pull
+把最新的提交从origin/dev 抓下来，
+但是要先制定 本地的 dev 分支与远程的 origin/dev 分支链接
+git branch --set-upstream-to=origin/remote_branch local_branch
+
+9、git remote rm origin或其他远程库的名字
+删除关联的远程库
+'''
+#################################
+#################################
+
+'''
+1、git checkout -b newbranch_name
+创建并切换到新分支，等同于
+git branch newbranch_name 创建新分支
+git checkout dev
+(git checkout 语句是用来切换分支或者恢复工作区的)
+
+2、git branch
+查看当前分支
+
+3、git merge dev
+把 dev 分支的工作合并到master分支
+
+4、git branch -d dev
+删除 dev 分支
+（如果要删除一个没有合并过的分支，需要使用 git branch -D branch_name)
+
+5、git log --graph --pretty=oneline --abbrev-commit
+打印分支的合并情况
+可以简单地使用 git log --graph
+
+6、git merge --no-ff -m "merge with no-ff" dev
+不使用 fast forward 的分支合并，合并之后会保留分支历史信息
+
+7、git stash
+保存工作现场
+
+8、git stash pop 
+恢复工作现场并且删除stash的内容
+ps：7、8用来当需要临时处理其他bug，但当前分支工作又没完成的时候使用
+
+9、git tag tag_name [commit id]
+对当前branch 打标签 <对历史版本打标签>
+git tag -a <tag_name> [-m "statement"] [commit id]
+
+10、git tag
+查看所有标签
+
+11、git show tag_name
+查看标签信息
+
+12、git tag -d <tag_name>
+删除标签
+
+'''
+
+####################
+####其他############
+'''
+1、忽略 untracked 文件，让 git status 看起来更清晰
+https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013758404317281e54b6f5375640abbb11e67be4cd49e0000
+
+
+2、How to delete the branch when it appears the info "*** is not fully merged..."
+需要使用" -D " 而不是 “ -d ”
