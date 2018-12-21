@@ -1,4 +1,4 @@
-##THANKS
+## THANKS
 
 尊敬的廖老师：
 
