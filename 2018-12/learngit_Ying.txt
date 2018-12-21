@@ -1,0 +1,54 @@
+
+# Git和GitHub(Git远程仓库)完全不一样
+# 本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，两个仓库远程同步
+# ---添加远程库---
+# git remote add origin git@github.com:StephanieHuang0801/learngit.git 
+# git push -u origin master （第一次推送，加上-u使二者关联）
+# git push origin master（往后直接推送）
+# origin是远程库的名字
+# ---从远程库克隆---
+# git clone git@github.com:StephanieHuang0801/gitskills.git
+# Git 分布式版本控制系统：没有中央服务器
+# SVN集中式版本控制系统：版本库是集中放在中央服务器
+# 学习命令行------学习图形化软件
+# .git文件夹→版本库（控制配置信息）暂存区在版本库里
+# ---常用指令---
+# git config --global user.email(1029476703@qq.com) /user.name (ying0801) git用户名邮箱的配置与查询 
+# mkdir learngit(在某个盘下创建文件夹)
+# cd learngit
+# pwd (查看文件夹路径)
+# git init(将目录变成git可管理的仓库)
+# git vi "文件名"
+# 一进来是命令模式（按i切换到编辑模式）
+# 按Esc切换回命令模式
+# ：+x回车能保存并退出
+# git add readme.txt(要先有这个文件，添加要提交的文件)
+# git commit -m"my remark"(提交并备注)
+#（修改文件）
+# git status(掌握仓库当前状态)
+# git diff (查看修改内容)
+# git diff HEAD -- readme.txt（查看工作区和版本库中最新版本的区别）
+# git add(将要提交的修改放到暂存区，每一次修改都要add)
+# git status(先查看当前仓库状态) 显示要提交的文件有readme.txt
+# git commit -m" "（一次性将暂存区的所有修改提交到分支）
+# git status
+# git log(历史记录)
+# git log --pretty=oneline(简化版的日志)
+# git reset --hard HEAD^(退回到上一版本，退几步加几个^,n个HEAD~n)
+# cat mygit.txt(查看当前内容，验证已还原)
+# git status(发现最新版本的已经不见了)
+# git reset --hard 1094a(commit id的前几位，又能恢复回去)
+# git reflog(若重启以后再看commit id，先cd到那个目录)
+# git checkout -- readme.txt（撤销工作区修改）
+# git reset HEAD readme.txt（撤销暂存区修改，退回到工作区）
+# rm test.txt（删除工作区里的文件，该文件已经在版本库里）
+# git rm test.txt(从版本库中删除文件)
+# git checkout -- test.txt(从版本库中恢复工作区被删的文件到工作区)
+# ---分支管理---
+# HEAD指向当前分支，master指向提交
+# git checkout -b dev(创建+切换分支)可以在该分支上修改代码（add，commit）
+# git branch(查看已有分支，当前分支前有*)
+# git checkout master(切换回master，dev分支上的修改将不可见)
+# git merge dev(合并到master，现在dev分支上的修改就可见了)
+# git branch -d dev(删除dev分支)
+# git branch
