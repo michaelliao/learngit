@@ -1,0 +1,60 @@
+    pwd
+	cd
+	ls
+	mkdir test
+	cd test
+	git init
+	git add
+	git commit -m "reduce desc"  
+	git diff   //  查看上次改的什么 详情
+	git status   
+	git log
+	git log --pretty==oneline
+	git reset --hard HEAD^   / HEAD~100
+	git reset --hard commit_id
+	git reflog
+	git checkout -- zhang.txt  //保证工作区和版本库内容最新一致
+	git reset HEAD zhang.txt //工作区清空 或者 撤销工作区的添加
+	git rm zhang.txt //从版本库删除  并且要   git commit
+	cat readme.txt  //查看当前工作区内容
+	git diff HEAD  -- readme.txt //查看工作区和版本库里的最新版本的差别
+	git remote -v //查看远程详细信息（https和ssh模式区别  https 需要输入用户名            	和密码）
+	git remote add origin https://github.com/llzhang123/test.git   //在本		地目录下关联远程repository
+	git remote add origin git@github.com:llzhang123/????
+	git remote rm origin  //取消本地目录下关联的远程库
+	git push -u origin master  //第一次推送master分支的所有内容，以及关联远		程库
+	git push origin master  //本地修改后推送到远程库
+	git branch   //查看分支
+	git branch <name>  //创建分支
+	git checkout <name>  //切换分支
+	git checkout -b <name>  //创建同时切换
+	git merge <name>  //合并某分支到当前分支
+	git branch -d <name>  //删除分支
+	创建分支，修改分支提交，修改主分支提交。merge 合并到当前分支查看是否冲		突  修改  提交 解决冲突
+	git mergr --no-ff -m '' <branch name>    //--no--ff  表示禁用 Fast 		forward   
+	git log --graph --pretty=oneline --abbrev-coomit  
+	git stash //可以隐藏工作区内容  （add 后但未 commit）
+	git stash apply //恢复隐藏的内容  但是stash内容不删
+	git stash apply stash@{0}
+	git stash drop  //删除stash内容
+	git stash pop //恢复内容并且删除stash内容
+	git stash list  //查看stash有哪些
+	git branch D <name> 强行删除文件
+	git push origin <branch_name> //像远程推送自己的修改
+	git pull //如果推送失败需要先 git pull
+	git branch --set-upstream-to origin/two two //如果git pull失败 先和远	程建立分支链接
+	git clone git@github.com:llzhang123/zhnag.git   //克隆
+	git rebase //将原本分叉的提交现在变成一条直线	
+	git tag v1.0 //创建标签
+	git tag v0.9 f52c633 //指定commit_id打标签
+	git tag -a v0.1 -m'version 0.1 released' 1009dab  //-a 指定标签名  -m说	明文字
+	git tag //查看所有标签
+	git show <tagname> 查看标签说明文字
+	git tag -d v0.1
+	git push origin v1.0
+	git push origin --tags  //一次性推送全部尚未推送到远程的本地标签
+	git tag -d v0.9   //如果标签已经推送到远程若想删除需先从本地删除
+	git push origin ：refs/tags/v0.9 
+	查看别人的代码，访问项目主页，fork。链接到该远程库。clone代码。
+	
+	2018.08.02

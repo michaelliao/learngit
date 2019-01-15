@@ -1,0 +1,5 @@
+谢谢你的分享。
+本文件测试一下pull repuest。
+顺便提一个问题希望能得到你的回答。
+在刚刚frok你的项目并clone之后，发现远程仓库有Thankyou.txt 和 thankyou.txt两个文件，我在checkout的时候只能checkout出一个，另一个无论如何checkout不出来。我知道是大小写敏感问题，我已经把global和local的core.ignorecase都设置成了false。但是无济于事，我还是checkout不出两个文件来。
+想请问一下这个情况要怎么解决，谢谢。
