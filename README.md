@@ -8,8 +8,8 @@ Git教程 → http://t.cn/zQ6LFwE
 
 推送格式：
 
-1. 按日期放入文件夹；
+1. 按日期放入文件夹；(. Put in a folder by date)
 
-2. 使用英文文件名；
+2. 使用英文文件名；(Use English file name)
 
-3. 扩展名为`.txt`或`.md`。
+3. 扩展名为`.txt`或`.md`。(Refer .txt and .md)
