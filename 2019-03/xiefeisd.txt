@@ -109,7 +109,7 @@ $ ssh-keygen -t rsa -C "youremail@example.com" /* 生成ssh密钥 */
 登录github，头像>>settings>>SSH and GPG keys>>new ssh key ,在key文本框里粘贴id_rsa.pub文件的内容。
 
 7.2 关联远程仓库
-$ git remote add origin git@github.com:<username>/git_learn.git /* 关联远程库 */
+$ git remote add origin git@github.com:<username> /* 关联远程库 */
 $ git remote rm origin /* 删除关联 */
 
 7.3 克隆远程库
