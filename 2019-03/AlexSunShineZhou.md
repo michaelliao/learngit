@@ -784,3 +784,6 @@ git-sh-setup
 
 包含于其他脚本中，提供 shell 编程的函数库
 ```
+
+# 附图一张
+![Git command](raw.githubusercontent.com/AlexSunShineZhou/learngit/master/2019-03/Git.png)
