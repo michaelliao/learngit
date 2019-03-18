@@ -786,4 +786,4 @@ git-sh-setup
 ```
 
 # 附图一张
-![Git command](raw.githubusercontent.com/AlexSunShineZhou/learngit/master/2019-03/Git.png)
+![Git command](https://raw.githubusercontent.com/AlexSunShineZhou/learngit/master/2019-03/Git.png)
