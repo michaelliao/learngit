@@ -1,6 +1,6 @@
-# 常用 Git 命令清单
+# 常用 Git 676070143@qq.com 命令清单
 
-作者： [刘洋](https://www.thisliuyang.cn/)
+作者： [*test*](https://www.thisliuyang.cn/)
 
 日期： [2016年4月30日](https://www.thisliuyang.cn/)
 
