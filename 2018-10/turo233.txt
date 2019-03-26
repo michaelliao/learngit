@@ -1,0 +1,11 @@
+GIT
+
+添加远程仓库
+git remote add origin git@github.com:Turo233/learngit.git
+其中origin为远程仓库的名字，虽可以自定义，但是都使用默认
+
+推送分支
+git push origin master
+其中master可换成其他分支
+
+
