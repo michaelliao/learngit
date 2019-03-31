@@ -1,0 +1,47 @@
+【Author：ZouAgTao】
+git init【初始化git目录】
+git add <file>【添加文件到暂存区】
+git commit -m "<commit>"【提交所有暂存区修改到当前分支】
+git status【查看当前修改变化状态】
+git diff <file>【对比查看文件的变化】
+git log【查看git提交日志】
+git reset --hard HEAD^【版本回退到HEAD的前1次】
+git reset --hard HEAD^^^【版本回退到HEAD的前3次】
+git reset --hard HEAD~100【版本回退到HEAD的前100次】
+git reflog 【查看git历史修改命令记录】
+git checkout -- <file>【撤销对文件的修改】【如果为add直接修改，如果已add则变成add的样子】
+git reset HEAD <file>【将暂存的所有add取消，用于配合上一个命令使用】
+git rm <file>【类似add的操作，用于从版本库中删除】
+git remote add origin git@server-name:path/repo-name.git【关联远程仓库】
+git push -u origin master【第一次推送master分支，-u是为了以后简化命令】
+git push origin master【正常推送master分支】
+git pull【拉去远程分支（与当前对应的分支）并进行合并】
+git branch --set-upstream-to <branch-name> origin/<branch-name>【如果pull失败，说明还没有和远程分支对应，用这句进行绑定】
+git clone git@server-name:path/repo-name.git【克隆下载远程仓库，采用ssh+git原生方式最快】
+git branch【查看所有分支】
+git branch -l【查看本地分支】
+git branch -r【查看远程分支】
+git branch <dev>【新建dev分支】
+git checkout <dev>【HEAD跳转到dev分支】
+git checkout -b dev【创建并跳转到dev分支】
+git merge <name>【合并某分支到当前分支】
+git branch -d <name>【删除分支】
+git branch -D <name>【强行删除未merge的分支】
+git merge --no-ff -m "<commit>" <dev>【合并某分支到当前分支并且留下commit信息】
+git stash【储存当前工作现场，留作之后重新开展当前工作】
+git stash list【查看当前分支所有工作现场列表】
+git stash apply【恢复工作现场，列表只有一个的时候】
+git stash apply <stash>【恢复指定的stash】
+git stash drop【删除指定的工作现场】
+git stash pop【恢复并删除指定的工作现场，相当于apply+drop】
+git rebase【commit后pull后push前，用于重修改基，使得最后提交是一条直线】
+git tag <name>【对当前分支的当前commit状态进行打标签】
+git tag【查看所有标签】
+git tag <name> <commitID>【对指定commitID进行打标签】
+git show <tagname>【显示指定标签的那次commit详情】
+git tag -a <tagname> -m <decription> <commitID>【创建带说明的标签】
+【tips:标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签】
+git push origin <tagname>【推送一个标签到远程】
+git push origin --tags【推送全部标签到远程】
+git tag -d <tagname>【删除本地标签】
+git push origin :refs/tags/<tagname>【远程删除一个标签】
