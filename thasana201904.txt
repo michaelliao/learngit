@@ -1,0 +1,127 @@
+0、 修改用户名及邮箱
+git config --global user.name "Shuyi Wang"
+git config --global user.email "thasanashuyi@gmail.com"
+
+1、 初始化文件夹和文件
+mkdir test （创建文件夹test）
+cd test （切换到test目录）
+pwd  (查看当前位置)
+touch a.txt （新建a.txt  文件）
+git init
+git status
+
+2、 编辑文件
+# pwd手动到文件夹里找到文件编辑或者：
+vi test.txt
+# 长按o插入 退出先Esc + :wq! + Enter
+
+3、 让文件进stage和进仓库
+git add test.txt
+git commit -m “my first commit”
+git log
+
+4、 提交/下载代码
+# 先在git +new repository, 取个名字复制SSH码git@github.com:thasana/ugh.git
+git remote add origin git@github.com:thasana/ugh.git
+#查看当前有什么项目然后提交代码到远程
+git remote 
+git remote -v (更详细)
+git push origin master
+
+5、远程Push分支
+#从本地推送分支
+git push origin branchname
+# if push失败
+git pull
+# if  git pull失败
+  #在本地创建和远程分支对应的分支
+  git checkout -b branchname origin/branchname
+  #建立本地分支和远程分支的关联
+  git branch --set-upstream branchname origin/branchname
+git pull
+
+6.一些指令
+branch
+git branch  (查看分支)
+git branch newbranch   (新建分支)
+git checkout newbranch   (切换到newbranch分支)
+#以上两句指令等于 git checkout -b newbranch
+#将分支推到远程
+git push origin newbranch
+#查看远程分支
+git branch -r
+#删除远程分支
+git push origin :newbranch
+#把远程的 develop 分支迁到本地：
+git checkout newbranch origin/ newbranch
+#把远程分支迁到本地顺便切换到该分支
+git checkout -b newbranch origin/ newbranch
+#合并分支
+git checkout master
+git merge newbranch
+#合并好后删除分支
+git branch -d newbranch
+# 没合并分支想强制删除
+git branch -D newbranch
+tag
+# 新建标签(默认在最新的commit上)
+git checkout master
+git tag v1.0
+#要打在历史commit上
+git tag f52c633
+#创建带有说明的标签，用-a指定标签名
+git tag -a v0.1 -m "version 0.1 released" 1094adb
+#查看所有标签
+git tag
+#查看标签信息
+git show v1.0
+# 切换到标签v1.0
+git checkout v1.0
+#没推送时删除标签
+git tag -d v1.0
+#推送到远程
+git push origin v1.0  (推v1.0)
+git push origin –tags  (全推)
+#推送之后删除标签
+git tag -d v1.0
+git push origin :refs/tags/v1.0
+
+alias
+git config --global alias.psm "push origin master"    #以后git psm == git push origin master
+git config --global alias.plm "pull origin master" 
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset%s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"            #git lg画出来的图好看！
+
+diff
+git diff       # 比较当前和stage文件
+git diff <$id1> <$id2>   # 比较两次提交之间的差异
+git diff <branch1>..<branch2>   # 在两个分支之间比较
+git diff --staged   # 比stage和repo差异
+
+checkout
+git checkout newbranch
+git checkout v1.0    #切换tag
+git checkout ffd9f2dd68f1  #切换到commit id
+# if 改动没add 到stage
+git checkout  test.txt     #撤销对test.txt的修改
+
+stash(bug分支。即branch a没commit，需要修改branch b并马上提交，此时先将branch a放在暂存区)
+git stash 
+git stash list    (看暂存区有些啥)
+# 改好branch b并commit之后
+git stash pop       (找回branch a并删除stash记录) ==  git stash apply + git stash drop
+
+merge&rebase
+
+
+# merge(暴力合并). merge默认Fast forward模式
+git checkout master
+git merge newbranch
+#如果不采用fast forward模式
+git merge --no-ff -m "merge with no-ff" newbranch
+
+# rebase (把本地未push的分提交历史整理成直线)
+git checkout master
+git rebase newbranch
+
+解决conflict
+merge的时候有conflict, git status看哪里有问题，vi 查看文件并手动解决，然后再次add 和commit
