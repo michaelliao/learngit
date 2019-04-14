@@ -1,14 +1,3 @@
 # learngit
 
-官网 → https://www.liaoxuefeng.com
-
-Git教程 → http://t.cn/zQ6LFwE
-
-此仓库用于测试Pull Request，推送请使用UTF-8编码。
-
-推送格式：
-
-1. 按日期放入文件夹；(. Put in a folder by date)
-2. 使用英文文件名；(Use English file name)
-3. 扩展名为`.txt`或`.md`。(Refer .txt and .md)
-4. 喜欢可以请作者喝咖啡
+Fork廖雪峰的Github上的一个项目，这样做的目的是给廖雪峰的这个项目开一个分支，然后把fork到自己的Github上的这个项目克隆到本地，然后在本地给这个项目增加一个文件，然后再把修改过的这个项目push到远程仓库（自己的Github）中。如果希望廖雪峰的官方库能够接受我对这个项目的修改，就可以在我的GitHub上发起一个pull request请求，当然对方是否接受这个请求就不一定了。
