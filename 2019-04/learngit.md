@@ -1,7 +1,5 @@
 [TOC]
 
-By <https://github.com/protogenesis>
-
 #### Git的介绍
 
 Git是世界上最流行的分布式版本管理系统
@@ -180,6 +178,16 @@ Git的优势不单是不必联网这么简单，Git有极其强大的分支管�
 2. 推送当前分支的提交到远程仓库 ```git push origin master```
 3. 拉取远程仓库代码  ```git pull origin master```
 4. 查看远程库信息```git remote -v```
+
+
+
+> <https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137628548491051ccfaef0ccb470894c858999603fedf000>
+
+By <https://github.com/protogenesis>
+
+
+
+
 
 
 
