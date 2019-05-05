@@ -1,0 +1,2 @@
+It's important to know working area,staged area,commited area.
+And stash area is also important.
