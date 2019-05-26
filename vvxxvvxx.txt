@@ -1,4 +1,0 @@
-I didn't install Chinese input on my system, so I write this file in English. 
-Thanks for teacher Liao's learning materials about GIT. It's really comprehensable and easy to understand. I had some experience to use SVN before, which is one of the reasons I can learn Git a bit faster. 
-Next up, I will check your learning rescources about Python. Hopefully I can learn it faster and well like I learned Git here.
-Thank you again. What I need to do is more practices to solid the knowledge I learnt and use it skillfully when developing my own project. :)

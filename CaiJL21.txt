@@ -1,3 +1,0 @@
-2019-3-11
-After learning the teacher Michaelliao 's Git course ,I almost got the basic operation of git.
-Thanks yours course !

@@ -1,2 +1,0 @@
-try pull request,
-and try to pull a .py file which defined three functions.
