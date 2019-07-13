@@ -1,0 +1,8 @@
+Your tutorial need to update：
+https://www.liaoxuefeng.com/wiki/896043488029600/900375748016320
+多人协作-倒数第二个小结：
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+
+//--set-upstream 貌似已经不能用了，系统提示 使用替代语句：--set-upstream-to
+
+感谢你的教程
