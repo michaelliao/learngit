@@ -4,3 +4,4 @@
 $ git rebase -i [startpoint] [endpoint]：将某些commit合并，注意此处时前开后闭
 $ git rebase [startpoint] [endpoint] --onto [branchname]：将该提交复制到哪个分支上
 asdf asdfasdfsadf
+rebease 
