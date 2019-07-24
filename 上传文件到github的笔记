@@ -1,0 +1,150 @@
+
+例子1：(http协议方式)
+
+1 新建文件夹Git2,然后把需要更新的文件全部复制到该文件夹下
+
+2 在该文件夹初始化一个仓库
+  2.1 在该文件夹下鼠标右键，弹出对话框，选择Git Bash Here 
+  2.2 直接输入命令:
+      git init
+      
+3 把远程仓库的文件拖拽下来
+  输入命令：
+  git pull --rebase https://github.com/zxy15914507674/MyNote.git master   (其中https://github.com/zxy15914507674/MyNote.git为远程仓库地址，后面加不加后缀.git都可以)
+  
+4 添加要更新的文件
+
+  输入命令：
+  git add "文件名1"   (注意：1 可以同时添加多个文件,即 git add "文件名1" "文件名2" ，多个用空格隔开即可   2 可以一次性添加所有没添加的  git add .)
+  
+5 提交更新的文件到本地仓库
+
+  输入命令：
+  git commit -m  "你要提交的说明"
+  
+6 提交到远程仓库
+
+  注意：如果你是第一次提交文件到github上，即github上没有记录到你所在的电脑的任何信息，则你需要执行方式一操作，否则执行方式二
+  
+  方式一：
+      输入命令：
+            git config --global user.name "你注册github时的用户名，不用与昵称搞错了"
+            git config --global user.email "你注册github时使用的邮箱"
+            
+            然后就会弹出一个对话框，要求你输入登录github的的账号和密码，输完了，等待操作完成
+            
+            接着输入命令进行提交：
+            git push -u https://github.com/zxy15914507674/MyNote.git master  (其中https://github.com/zxy15914507674/MyNote.git为远程仓库地址）
+            
+ 方式二： 
+      输入命令：
+          git push -u https://github.com/zxy15914507674/MyNote.git master  (其中https://github.com/zxy15914507674/MyNote.git为远程仓库地址）
+  
+  
+  至此，全部完成
+  
+  
+  
+  
+  例子2 利用分支,需要克隆远程仓库 (ssh协议的方式)
+  1 在远程仓库中克隆仓库到本地文件夹Git
+    输入命令：
+    git clone git@github.com:zxy15914507674/MyNote.git  (MyNote为远程仓库的名称)
+  
+  2 克隆下来后可以看到文件夹Git中有一个文件夹MyNote,进入该文件夹，即进入主分支
+    命令:
+      cd MyNote
+      
+  3 创建分支dev用来提交新的内容，并自动从主分支master切换到dev
+    命令：
+    git checkout -b dev    (如果仓库中就包含有分支dev，则命令变为 git checkout -b dev origin/dev)
+  
+  4 把新的文件(假设都在文件夹versoin内)全部拷贝到MyNote文件夹内，进行添加
+    命令：
+    git add version
+  
+  5 把新提交的提交的本地仓库
+    命令：
+    git commit -m "提交说明"
+    
+  6 进行提交
+    命令:
+    git push origin dev    (如果是步骤3中的本来就存在分支dev,同时你的小伙伴有把他的更新的内容提交到github的分支dev内，则提交命令git push origin dev前需要把他更新的拖拽下来,)
+                            使用命令:git pull origin dev。 如果他更新的跟你更新的冲突，则还需要解决冲突) 
+                            
+                            
+                            
+  
+  
+  
+  
+  例子3 (ssh协议的方式)
+  利用分支，但不用克隆远程仓库下来(推荐使用，需要合并的时候在 git pull拖拽主分支和其它分支下来)
+  
+  步骤：
+  1 初始化本地仓库，并创建空的虚拟主分支master  (其实这个虚拟主分支并不存在，当你从这个虚拟主分支切换到其它分支后，根本没法从其它分支切换回这个虚拟主分支)
+   命令：
+     git init
+  2 设置该主分支master与github远程仓库的主分支master关联，这样就不用把远程仓库的主分支和其它分支的文件都下载下来才能操作
+    命令：
+    git remote add origin git@github.com:zxy15914507674/MyNote.git    (其中zxy15914507674/MyNote.git是你github远程仓库的地址)
+    
+ 3 在本地的空主分支master(现在就是主分支)新建一个名为version2的空分支并自动切换到version2分支
+   命令：
+   git checkout -b version2
+   
+ 4 把需要添加的文件(假设都在文件夹version2Files内)复制到仓库所在的文件夹内
+ 
+ 5  添加文件到version2分支内,当前就是version2分支
+    命令:
+      git add version2Files
+      
+ 6 提交文件到version2分支
+    git commit -m "add File to version2"
+    
+ 7 单独把version2分支推送到远程仓库
+   命令：
+      git push origin version2
+      
+ 到此，你可以在github上的仓库MyNote上看到新建了分支version2，并存有刚才的文件夹version2Files内的所有内容，但并没有其它分支的内容
+  
+  
+  
+  
+  例子4 (ssh协议方式)
+  
+  单独拉远程仓库的某个特定的分支(如version2分支)下来，修改或者添加文件后又提交到远程仓库的特定的分支version2上
+  
+
+  步骤：
+  1 初始化本地仓库，并创建空的虚拟主分支master  (其实这个虚拟主分支并不存在，当你从这个虚拟主分支切换到其它分支后，根本没法从其它分支切换回这个虚拟主分支)
+   命令：
+     git init
+  2 设置该虚拟主分支master与github远程仓库的主分支master关联，这样就可以下载特定的分支的所有内容，然后修改有提交回远程仓库
+    命令：
+    git remote add origin git@github.com:zxy15914507674/MyNote.git    (其中zxy15914507674/MyNote.git是你github远程仓库的地址)
+    
+  3 从远程仓库拉取某个分支version2下来
+    命令：
+      git fetch origin version2   
+  
+  4 这时本地仓库并没有建立version2分支，需要自己创建分支version2并切换到分支version2
+    命令：
+        git checkout -b version2 origin/version2
+        
+  5 这时就进入分支version2了，添加文件test.txt(自己新建或者从别的地方拷贝到仓库目录下)到分支version2内
+    命令：
+       git add test.txt
+  
+  6 提交到分支version2内
+    命令：
+      git commit -m "add file by the primary version2"
+      
+  7 把分支version2提交到远程仓库的分支version2内   （如果有冲突，则解决冲突后再提交）
+     命令：
+     git push origin version2
+     
+     
+  至此，完成所要求的需求
+  
+  
