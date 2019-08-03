@@ -1,0 +1,15 @@
+hello,all
+
+thanks for pull
+
+haha!
+
+
+master O--O--O--O--O --O---------O
+              \       / \       /
+dev            O--O--O   O--O--O 
+                      \
+dev2                   O-- O
+
+
+
