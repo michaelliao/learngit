@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # windows
 
 # Windows thumbnail cache files
@@ -69,3 +70,6 @@ Temporary Items
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+=======
+*.md
+>>>>>>> c654b1385790015fb499113e9ba91cd81856136d

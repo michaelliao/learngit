@@ -1,0 +1,57 @@
+侧边栏到动态表单
+from: sidebar 
+to: empty-container ele-content inner-content element form-vessel componentVessel|DynamicForm1547111105380
+
+侧边栏到动态分类
+from:sidebar
+to:empty-container vessel-area componentVessel|DynamicClassifyLevel1Horizontal1547111239376
+
+侧边栏到动态列表
+from:sidebar
+to:empty-container vessel-area componentVessel|DynamicList1547111292948
+
+手机到动态表单
+from:body
+to:empty-container ele-content inner-content element form-vessel componentVessel|DynamicForm1547111105380
+
+手机到动态分类
+from:body
+to:empty-container vessel-area componentVessel|DynamicClassifyLevel1Horizontal1547111239376
+
+手机到动态列表
+from:body
+to:empty-container vessel-area componentVessel|DynamicList1547111292948
+
+双栏到动态表单(双栏在手机中)
+from:Double1547112053620_left|phone
+to:empty-container ele-content inner-content element form-vessel componentVessel|DynamicForm1547111105380
+
+双栏到动态分类(双栏在手机中)
+from:Double1547112056565_left|phone
+to:empty-container vessel-area componentVessel|DynamicClassifyLevel1Horizontal1547111239376
+
+双栏到动态列表(双栏在手机中)
+from:Double1547112057549_left|phone
+to:empty-container vessel-area componentVessel|DynamicList1547111292948
+
+双栏到动态表单(双栏在可嵌套元素中)
+from:Double1547112057549_left|DynamicForm1547111105380
+to:ele-content inner-content element form-vessel componentVessel|DynamicForm1547111105380
+
+双栏到动态分类(双栏在可嵌套元素中)
+from:Double1547112056565_left|DynamicClassifyLevel1Horizontal1547111239376
+to:vessel-area componentVessel|DynamicClassifyLevel1Horizontal1547111239376
+
+双栏到动态列表(双栏在可嵌套元素中)
+from:Double1547112053620_left|DynamicList1547111292948
+to:vessel-area componentVessel|DynamicList1547111292948
+
+
+动态分类到动态表单
+from:vessel-area componentVessel|DynamicClassifyLevel1Horizontal1547111239376
+to:ele-content inner-content element form-vessel componentVessel|DynamicForm1547111105380
+
+动态分类到动态列表
+from:vessel-area componentVessel|DynamicClassifyLevel1Horizontal1547111239376
+to:vessel-area componentVessel|DynamicList1547111292948
+
