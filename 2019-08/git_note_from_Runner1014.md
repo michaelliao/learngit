@@ -65,9 +65,9 @@
   ```
   git rm test.txt 
   ```
-  
+
   类似于 git add ，这个操作也是将修改放到暂存区，也需要commit才能真正删掉版本库中的文件。如果工作区的文件是手动删除的，并且还没有git rm，则可以使用上述的git checkout命令恢复文件，原理相同，只不过一个是撤销了修改，一个是撤销了删除（删除其实也是一种修改）；如果工作区的这个文件没有删除，执行这个命令之后，文件会被删除，然后将修改放到暂存区，如果要撤销修改，则用上述的git reset -> get checkout，原理跟撤销修改也是类似的。
-  
+
   注：经过测试，如果删了文件test.txt之后，仍然可以使用`git add test.txt`，效果与`git rm test.txt `相同，这样删除文件和修改文件就可以完全等同处理了。
 
 # 远程仓库
@@ -156,9 +156,9 @@
   ![](https://www.liaoxuefeng.com/files/attachments/919022412005504/0)
 
   普通模式合并，合并后的历史有分支，能看出来曾经做过合并。
-  
+
   ```
-git merge --no-ff -m "merge with no-ff" dev
+  git merge --no-ff -m "merge with no-ff" dev
   ```
 
   因为本次合并要创建一个新的commit，所以加上`-m`参数，把commit描述写进去。
@@ -168,13 +168,12 @@ git merge --no-ff -m "merge with no-ff" dev
   若合并分支时存在冲突，需手动解决冲突，然后再add->commit。[详情](<https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000>)
 
   ![](https://www.liaoxuefeng.com/files/attachments/919023000423040/0)
-  
-  ![](https://www.liaoxuefeng.com/files/attachments/919023031831104/0)
-  
-  个人理解：当出现冲突时，文件中会有相应的标记，手动解决冲突实际上就是重新编辑了文件，此后的操作与更新仓库是一样的，都需要add->commit，所以此时的merge其实只是起到工具的作用，帮忙查出冲突，并且在提交记录的graph中会进行merge的记录。
-  
-  所以，合并的最大作用是合并没有冲突的修改，比如不同文件的修改，同一文件不同地方的修改。
 
+  ![](https://www.liaoxuefeng.com/files/attachments/919023031831104/0)
+
+  个人理解：当出现冲突时，文件中会有相应的标记，手动解决冲突实际上就是重新编辑了文件，此后的操作与更新仓库是一样的，都需要add->commit，所以此时的merge其实只是起到工具的作用，帮忙查出冲突，并且在提交记录的graph中会进行merge的记录。
+
+  所以，合并的最大作用是合并没有冲突的修改，比如不同文件的修改，同一文件不同地方的修改。
 
 - 删除分支
 
@@ -189,7 +188,6 @@ git merge --no-ff -m "merge with no-ff" dev
   ```
 
 - 分支策略
-
 
   - 首先，`master`分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；那在哪干活呢？干活都在`dev`分支上，也就是说，`dev`分支是不稳定的，到某个时候，比如1.0版本发布时，再把`dev`分支合并到`master`上，在`master`分支发布1.0版本；
 
@@ -234,9 +232,9 @@ git merge --no-ff -m "merge with no-ff" dev
   4. 没有冲突或者解决掉冲突后，（先commit），再用`git push origin <branch-name>`推送就能成功！
 
   如果`git pull`提示`no tracking information`，则说明本地分支和远程分支的链接关系没有创建，用命令`git branch --set-upstream-to <branch-name> origin/<branch-name>`。
-  
+
   - 在本地创建和远程分支对应的分支
-  
+
     ```
     git checkout -b branch-name origin/branch-name
     ```
