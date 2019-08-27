@@ -1,6 +1,0 @@
-June 8, 2019
-Dear Xuefeng Liao, 
-	I am a student at Dalian University of Technology. 
-	Thanks for your course which let me master git!
-Sincerely yours,
-Andrew Pan
