@@ -1,0 +1,38 @@
+git init 初始化
+git clone
+git add
+git commit
+
+git log
+git log --pretty=oneline 简介显示
+git log --graph 显示分支合并图
+git log --abbrev-commit 使用简短且唯一的值
+
+git status
+git diff
+git pull
+git push
+git push -f 强制更新
+git reset --hard HEAD^ 回滚到上个版本
+git reset --hard commit_id
+git reset HEAD <file> 把stage的修改撤销(unstage) 重新放回工作区
+
+git reflog 查看命令历史
+
+git checkout -- file 把file在工作区的修改全部撤销
+git checkout 切换到另一个分支
+git checkout -b dev 创建+切换到dev分支 = git branch dev + git checkout dev
+git branch 列出所有分支 当前分支前会有×号
+git merge 合并指定分支到当前分支
+git branch -d dev 删除dev分支
+git switch -c dev = git branch -b dev 创建+切换到dev分支
+git switch master = git checkout master
+
+
+git remote add origin git@server-name:path/repo-name.git 使本地库-关联-远程库 举例：git remote add origin git@github.com:doublezero0211/test.git
+git push -u origin master 关联后，第一次推送master分支的所有内容
+git push (origin master) 此后提交的指令
+
+git clone git@server-name:path/repo-name.git 从远程库-克隆-本地库
+
+

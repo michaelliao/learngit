@@ -1,0 +1,33 @@
+合并分支时，git会用Fast forward模式，删除分支后，会丢失分支信息，后面便看不出曾经合并过
+强制禁用FF模式，git就会在merge时，生成一个新的commit，从分支历史上，可以看出分支信息
+git merge --no-ff -m 'xxxx' dev
+
+修复bug时，创建新的bug分支--修复--合并--删除
+修复bug前，手头工作还没完成，可以先把工作现场先'隐藏'起来，在bug修复后，恢复现场，继续工作
+git stash
+git checkout master
+git checkout -b issue-001
+git add test.txt && git commit -m 'fix bug 001' 
+git checkout master
+git merge --no-ff -m 'merge bug fix 001' issue-001
+git branch -d issue-001
+
+git checkout dev
+git stash list
+一 git stash apply && git stash drop 
+二 git stash pop
+可以多次stash 恢复时 先用git stash list查看 然后恢复指定的stash
+git stash apply stash@{0}
+
+在master分支上修复的bug 可以合并到当前dev分支 
+git cherry-pick <commit>
+把bug提交的修改-复制-到当前分支，避免重复劳动
+开发新功能时，同理。
+
+丢弃一个没有被合并的分支
+git branch -D <name> 强制删除
+
+git remote -v 查看远程库信息
+git push origin <branch-name> 从本地推送分支到远程，若失败，先git pull抓取远程的新提交
+git checkout -b <branch-name> origin/<branch-name> 在本地创建 和 远程分支对应的分支，名称建议保持一致
+git branch --set-upstream <branch-name> origin/<branch-name> 建立 本地分支 和 远程分支的关联
