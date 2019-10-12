@@ -1,4 +1,4 @@
-#git的知识点小结
+# git的知识点小结
 0. 部分地方使用了自己的github用户名
 1. git config --global user.name "Hexagram"
    git config --global user.email "1471685806@qq.com"
