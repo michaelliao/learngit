@@ -100,4 +100,4 @@
     * --global参数使该命令针对这台电脑所有Git仓库有效
     * *git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"* **神仙用法**
 >以上
-<p style="text-align:right">lmx-Hexagram</p>
+<p align=right>lmx-Hexagram</p>
