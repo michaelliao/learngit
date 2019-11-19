@@ -45,7 +45,7 @@
    > .git文件 存了很多东西，最重要的就是stage的暂存区,  
    > 还有Git为我们自动创建的第一个分支`master`，以及指向`master`的一个指针叫`HEAD`  
    >
-   > ![工作区与暂存区](C:\Users\zzZZ-ssq~~\Desktop\git\img\01.png)
+   > ![工作区与暂存区](https://raw.githubusercontent.com/zzZZ-ssq/learngit/master/2019-11/01.png)
 
 7. Git是追踪修改的，  
 
@@ -71,7 +71,7 @@
    >
    > 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考[版本回退](https://www.liaoxuefeng.com/wiki/896043488029600/897013573512192)一节，不过前提是没有推送到远程库。
    >
-   > ![撤销示意](C:\Users\zzZZ-ssq~~\Desktop\git\img\02.png)
+   > ![撤销示意](https://raw.githubusercontent.com/zzZZ-ssq/learngit/master/2019-11/02.png)
 
 9. 远程仓库
 
