@@ -1,0 +1,27 @@
+#git 学习笔记
+
+***本地仓库***
+cd 工作区目录
+在当前工作区目录下（创建）初始化git版本库（仓库）：git init
+将工作区文件添加到暂存区：git add <filename>
+将暂存区内容提交到版本库：git commit -m <message>
+
+从版本库中恢复工作区的文件：git checkout -- <filename>
+
+将暂存区中的修改撤销（尚未commit，撤销add）：git reset HEAD <filename>
+
+查看目前工作区、暂存区的状态：git status
+（是否有工作区未添加到暂存区的文件，或是否有暂存区未提交到版本库的文件）
+
+仓库版本回退：git log查看提交历史，获得每次提交版本的id
+              git reset --hard <commit_id> 回退到指定id的版本
+
+***远程仓库GitHub***
+https://github.com
+新建仓库获得仓库地址（url）https://github.com/Ryconler/learngit.git
+将本地仓库与远程仓库关联：git remote add origin <url>
+解除关联：git remote remove origin
+将本地仓库内容推送到远程仓库上：git push -u origin master
+
+cd 本地目录
+克隆远程仓库到该目录：git clone <url>

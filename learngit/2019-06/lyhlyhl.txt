@@ -1,0 +1,2 @@
+at first, i can't figure out the different between git and github.After reading your blog, i now understand, github is just like a huge repository to share our coding, and it is based on git!
+thank you a lot!

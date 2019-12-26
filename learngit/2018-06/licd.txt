@@ -1,0 +1,33 @@
+史上最好的git教程，谢谢大神！
+以下是我学习中记录的命令，非常实用：
+   *******************BEGIN****************
+git log --pretty=oneline
+git checkout -- readme.txt
+git rm test.txt
+git commit -m "remove test.txt"
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+git branch dev
+git checkout dev
+git merge dev
+git branch -d dev 删除分支
+git log --graph --pretty=oneline --abbrev-commit  查看log 分支合并情况
+git merge --no-ff -m "merge with no-ff" dev 合并分支禁用Fast forward
+git stash apply  恢复工作区不删除
+git stash pop  恢复工作区删除
+如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除
+查看远程库的信息，用git remote：
+git remote -v显示更详细的信息
+ git push origin dev 推送分支
+ git checkout -b dev origin/dev 创建远程origin的dev分支到本地
+ git branch --set-upstream-to=origin/dev dev 指定本地dev分支与远程origin/dev分支的链接
+ git log --graph --pretty=format:'%C(bold red)%h %Creset- %C(bold yellow)%d %C(bold cyan)%s %C(bold green)[%cr] %C(bold magenta)[%cn] %C(bold green)[%ci]'
+ git tag v0.9 f52c633 对相关commitid打标签
+ git show v0.9 查看标签信息
+ git tag -d v0.1  删除标签
+ git push origin <tagname> 推送某个标签到远程
+ git push origin --tags 一次性推送全部尚未推送到远程的本地标签
+ git push origin :refs/tags/v0.9  如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除 然后，从远程删除。删除命令也是push
+  *****************END*********************
+
