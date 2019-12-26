@@ -1,0 +1,182 @@
+﻿//配置仓库对应的用户和email
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+
+//创建进入显示文件目录
+mkdir   myDirName
+cd myDirName
+pwd
+
+//把创建的目录变成可以管理的仓库，文件夹下出现.git文件，默认隐藏
+git init
+ls -ah    //查看隐藏的.git
+
+//版本控制只能跟着文本文件的改动，建议使用utf-8编码   word为二进制文件，无法跟踪修改
+//不使用自带记事本，每个文件开头添加了0xefbbbf（十六进制）的字符，会遇到很多不可思议的问题，
+//建议  notepad++  设置默认格式   utf-8  without  bom
+
+//把文件添加提交到仓库，加以说明
+git add 文件名
+git commit -m "文件说明"   
+
+//查看当前状态，撤销所作的修改，查看作的修改. git status告诉你有文件被修改过，用git diff可以查看修改内容。
+git status  
+git checkout -- 文件名
+git diff
+
+//添加到仓库，撤销添加到仓库，提交仓库
+git add 文件名
+git checkout HEAD 文件名
+git commit --m ''说明信息''
+
+//查看修改的历史记录    单行查看  
+git log 
+git log --pretty=oneline
+
+//版本回退   HEAD^^   HEAD~2
+ git reset --hard HEAD^(这是版本标识符还可以写成 HEAD~1)
+
+//查看文件内容
+cat 文件名
+
+//版本回退，需要记得要回退到的历史版本id      或者使用reflog来查看不记得的版本id
+git reset --hard id(如1094a)
+git reflog
+
+//小结
+    HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+
+    穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+
+    要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+
+//git add把文件修改添加到暂存区stage；git commit提交更改，把暂存区的所有内容提交到当前分支master。
+
+//查看工作区和版本库里面最新版本的区别
+git diff HEAD -- 文件名
+
+//丢弃工作区的修改：1  readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+//
+//                               2   readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+//		总之，就是让这个文件回到最近一次git commit或git add时的状态。
+git checkout -- 文件名   
+ 
+//cat 文件名 查看当前工作区的内容
+
+//git reset HEAD <file>可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+//然后使用checkout来回退到上一版本的工作区
+
+//小结
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，
+分两步，第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+
+//删除文件并提交到版本库，如果没有提交到版本库，则误删后可以通过【git checkout - - 文件名】恢复
+git rm 文件名
+git commit -m“”
+
+
+//配置密钥以便实现远程，在用户目录找到.ssh文件夹，然后在github 添加公有密钥
+$ ssh-keygen -t rsa -C "youremail@example.com"
+ 添加远程库，github创建同名文件目录，然后本地仓库进行bash
+$ git remote add origin git@github.com:zhaobinga/learngit.git
+
+//将本地仓库推送到远程仓库   -u 将本地与远程关联起来，简化后面的拉取或者推送命令
+//git push origin master推送最新修改；
+$ git push -u origin master
+
+//第一次push或clone时会得到警告，输入yes即可，后面就不会再出现了
+// push或者clone使用两种协议：http协议，原生git协议
+
+
+
+
+//分支命令
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>
+
+创建+切换分支：git checkout -b <name>
+
+合并某分支到当前分支：git merge <name>
+
+删除分支：git branch -d <name>
+
+强行删除分支：git branch -D <name>
+
+查看分支合并图： git log --graph
+
+退出log或者文本编辑：ctrl +c
+
+
+
+
+普通模式合并分支：git merge --no-ff -m "提交的信息" 分支名
+
+存储当前工作现场，便于后面恢复工作：git stash
+
+查看存储的工作现场：git stash list
+
+恢复工作现场1：git stash apply (恢复)        git stash drop（删除stash内容）
+
+恢复工作现场2：git stash pop（恢复+删除）
+
+
+
+
+查看远程仓库信息：git remote
+
+产看详细信息：git remote -v
+
+创建本地与远程仓库的连接：git --set-upstream-to=origin/dev dev    (远程仓库下的分支与本地分支连接)	
+						              (提示no tracking information)		
+
+创建远程仓库的分支到本地：git checkout -b <name> origin/<name>
+
+获取远程仓库的最新分支情况和试图合并：git pull
+
+
+
+
+将分叉的提交历史变成一条直线：git rebase         （当前版本已经解决）
+
+然后查看分支状况：git log --graph --pretty=oneline --abbrev-commit
+
+对应的HEAD->dev与 origin/dev 指向不同的提交历史记录版本
+
+
+
+
+标签就是commit别名，方便查找
+
+给相应分支打标签：git tag v1.0
+
+查看所有标签：git tag
+
+查看log找到相应id并打标签：git tag v2.0 id号
+
+查看标签信息：git show 标签名
+
+创建带有说明文字的标签：git -a v1.0.1 -m "标签说明" v1.0/<commit-id>
+
+注意：
+标签总是和某个commit挂钩。如果这个commit既出现在master
+分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+
+删除标签：git tag -d <tagname>
+
+推送标签到远程仓库：git push origin v1.0
+
+一次推送所有标签：git push origin --tags
+
+删除远程标签：git tag -d <tagname>      git push origin :refs/tags/<tagname> 
+
+
+
+

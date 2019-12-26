@@ -1,0 +1,29 @@
+git add        把文件添加到仓库
+git status     
+仓库当前的状态
+git diff       顾名思义就是查看difference  查看具体修改了什么内容
+git log        显示从最近到最远的提交日志 
+ 如果嫌输出信息太多，看得眼花缭乱的，可以试试加上--pretty=oneline参数：
+ --graph分支合并图。
+ --graph --pretty=oneline(单列) --abbrev(缩写)-commit
+
+git branch       查看所有分支，当前分支前面会标一个*号。
+git branch -d/D hranch_name       删除分支/强制删除分支 
+
+git stash         存储
+git stash  list   查看保存存文件列表
+git stash  apply  恢复储藏不删除
+git stash  pop    恢复储藏并删除存储
+git stash  drop   删除存储
+
+git checkout -- file_Name  撤销file_Name全部修改；
+git reset HEAD   把暂存区的修改撤销掉（unstage），重新放回工作区：
+
+git commit   -m 后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到改动记录。
+  嫌麻烦不想输入-m "xxx"行不行？确实有办法可以这么干，但是强烈不建议你这么干，因为输入说明对自己对别人阅读都很重要。
+  实在不想输入说明的童鞋请自行Google，我不告诉你这个参数。
+
+git config --system --list     查看系统配置
+git config --global --list     查看当前用户(global)配置
+git config --local  --list     查看当前仓库配置
+config 配置有system级别 global（用户级别） 和local（当前仓库）三个 设置先从system-》global-》local  底层配置会覆盖顶层配置 分别使用--system/global/local 可以定位到配置文件
