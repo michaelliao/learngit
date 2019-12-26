@@ -1,8 +1,0 @@
-git init
-vi gitgit.txt
-learn git.
-:wq
-git add gitgit.txt
-git commit -m "add gitgit"
-git remote add origin git@github.com:yank136/learngit-1.git
-git push origin master
