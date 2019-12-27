@@ -1,1 +1,0 @@
-Learning Git，first time to send 'pull request'.

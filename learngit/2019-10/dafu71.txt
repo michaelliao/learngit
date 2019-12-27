@@ -1,5 +1,0 @@
-git remote add origin git@github.com:dafu71/learngit.git
-关联远程库learngit
-
-git push -u origin master 
-第一次推送master分支的内容

@@ -1,3 +1,0 @@
-this file is used to learn git.
-I learn to create files in git and how to add or commit from local.
-I fork the learngit-1 repository,cloned to local.
