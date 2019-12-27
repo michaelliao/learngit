@@ -1,0 +1,107 @@
+1.安装好git后，设置name和email:
+git config --global user.name "xiaoxu"
+git config --global user.email "15611895341@163.com"
+
+1-1.创建ssh-key，使个人PC机可以使用git：
+ssh-keygen -t rsa -C "15611895341@163.com"
+登陆github，添加ssh key,粘贴id_rsa.pub里的key
+
+1-2.克隆github上的远程库：
+git clone git@github.com:xumaozeng/learngit.git  或者
+git clone https://github.com/xumaozeng/learngit.git
+
+2.创建版本库:
+mkdir learngit
+cd learngit
+pwd      // 显示当前目录
+
+3.通过git init变成管理的仓库:
+git init
+
+4.把文件添加到版本库：
+git add <file>
+git commit -m <message>
+
+5.通知文件是否修改过，当前的工作区的状态：
+git status
+
+6.查看修改什么内容：
+git diff <file>
+
+7.历史记录：HEAD表示当前版本
+git log --pretty=oneline
+git log --graph --pretty=oneline --abbrev-commit  看到分支的合并情况
+
+8.回退到之前版本：HEAD~100(之前100的版本)
+git reset --hard HEAD^
+
+9.记录每一次命令：
+git reflog
+
+10.查看文件：
+cat <file>
+vim命令下：
+:w   保存当前文件，但不退出
+:w <newname>  可以起个新名字
+:q!  不保存文件且退出
+:wq  保存文件并退出
+
+11.撤销修改：
+git checkout -- file
+
+12.删除文件：
+rm file
+git rm <file>
+
+13.关联一个远程库：
+git remote add origin git@github.com:xumaozeng/learngit.git
+
+14.使用命令第一次推送master分支的所有内容：
+git push -u origin master
+
+15.每次提交推送：
+git push origin master
+git push -f 也可以推送所有内容
+git push origin dev  推送其他分支
+
+但是，并不是一定要把本地分支往远程推送，哪些需要推送，那些不需要？
+1)master分支是主分支，因此要时刻与远程同步；
+2)dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+3)bug分支只用于在本地修复bug，就没必要推送到远程了，除非老板要每周看看你修复了几个bug；
+4)feature分支是否推送到远程，取决你是否和你的小伙伴合作在上面开发
+
+16:写python文件声明：
+#!/usr/bin/python
+# -*-coding:utf-8-*-
+
+17.鼓励Git大量使用分支进行读写：
+查看分支：git branch -a(查看素有分支)
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+创建远程分支到本地：git checkout -b dev origin/dev
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+master分支使非常稳定的，仅用来发布新版本，平时不能在上面干活；
+干活都在dev分支上
+合并时加上git merge --no-ff -m "merge with no-ff" <name> ，表示禁用Fast forward
+储藏当前现场：git stash  
+修复bug后恢复：git stash pop
+丢弃一个没有合并过的分支：git branch -D <name> 强行删除
+
+18.多人协作：
+查看远程库的信息：git remote -v
+从本地推送分支：git push origin branch-name, 如果推送失败，先用git pull抓取远程的新提交
+在本地创建和远程对应的分支：git checkout -b branch-name origin/branch-name ,本地和远程分支的名称最好一致
+建立本地分支和远程分支的关联：git branch --set-upstream branch-name origin/branch-name
+从远程抓取分支：git pull, 如果有冲突，先处理冲突
+命令git tag <tagname> 用于创建一个标签，默认为HEAD,也可以指定一个commit id
+命令git tag -a <tagname> -m "info" 可以指定标签信息
+命令git tag可以查看所有标签, git show <tagname>查看信息
+命令git push origin <tagname>推送一个本地标签
+命令git push origin --tags推送所有标签
+命令git tag -d <tagname>删除一个本地标签
+命令git push origin :refs/tags/<tagname>删除一个远程标签
+19.贡献代码：
+在Github上，可以任意Fork开源仓库
+完了推送pull request给官方仓库来贡献代码

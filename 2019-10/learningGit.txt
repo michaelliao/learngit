@@ -1,0 +1,3 @@
+I can just use SVN because my company still uses that.
+After following the tutorial, 	I think may be I get how Git works.
+Thanks!
