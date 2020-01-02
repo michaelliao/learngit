@@ -1,0 +1,5 @@
+1.git init 在该工作目录下初始git
+2. 修改文件
+3.git add '文件名' &　git commmit '文件名' -m  '提交说明'　提价修改
+4. git remote add 主机名　仓库地址和名字　：创建远程仓库
+5. git push 主机名　分支名　:将修改push 到远程分支上

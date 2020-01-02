@@ -1,6 +1,6 @@
 # learngit
 
-官网 → https://www.liaoxuefeng.com
+官方网站 → https://www.liaoxuefeng.com
 
 Git教程 → https://www.liaoxuefeng.com/wiki/896043488029600
 
@@ -8,7 +8,7 @@ Git教程 → https://www.liaoxuefeng.com/wiki/896043488029600
 
 推送格式：
 
-1. 按日期放入文件夹；(. Put in a folder by date)
+1. 按日期放入文件夹；(Put in a folder by date)
 
 2. 使用英文文件名；(Use English file name)
 
