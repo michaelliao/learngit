@@ -1,0 +1,70 @@
+非常感谢廖老师！！！
+非常感谢廖老师！！！
+非常感谢廖老师！！！
+
+用了一整天学习了git，学到了很多，非常感谢！！！
+date:2020.1.10   from：ChangSheng
+
+以下是学习教程时的一些笔记：
+
+
+// 1.创建版本库
+git config --global user.name "Your Name"  // 安装完成后自报家门
+git config --global user.email "email@example.com"
+mkdir learngit 		
+cd learngit 	
+pwd  // 显示当前所在目录的文件夹 
+git init // 将当前目录变成Git可以管理的仓库（即工作区）
+git add readme.txt // 把文件readme.txt添加到版本库的暂存区stage）
+git commit -m "wrote a readme file" // 把文件提交到版本库中的master并添加注释
+git status // 查看仓库当前状态
+git diff readme.txt // 查看工作区readme.txt与之前提交到版本库commit中的不同
+
+// 2.时光穿梭机
+git log  // 查看提交日志记录
+git log --pretty=oneline // 查看提交日志记录一行显示
+git reset --hard HEAD^ // 回退到上一个版本（HEAD指当前版本）
+git reset --hard da55595... // 回退到指定版本da55595（可以不用写全版本号）
+cat readme.txt // 查看readme.txt的内容
+git reflog // 查看命令历史（commit和reset）
+git checkout -- readme.txt // 丢弃Readme.txt文件在工作区的修改。（未add）
+git reset HEAD readme.txt // 把暂存区的readme.txt修改撤销掉unstage（add了readme.text想撤销）
+git rm text.txt // 从版本库暂存区删除文件text.text（add了到stage的文件text.txt）
+git checkout -- text.text // 从版本库暂存区中的text.txt文件，替换到工作区中的text.txt文件（比如工作区没有文件时但版本库还有时使用）
+
+// 3.远程仓库
+ssh-keygen -t rsa -C "youremail@example.com" // 创建SSH Key
+git remote add origin git@server-name:path/repo-name.git // 关联一个远程库
+git push -u origin master // 第一次推送master分支的所有内容（链接超时请参考：https://segmentfault.com/a/1190000009567576）
+git push origin master // 从现在起，只要本地作了提交，就可以通过命令push到远程
+git clone git@github.com:michaelliao/gitskills.git // 克隆一个远程库到当前目录下
+git remote // 查看远程仓库信息
+git remote -v // 查看远程仓库详细信息
+git push origin master // 推送分支(本地推送分支，使用git push origin branch-name)
+
+// 4.分支管理
+git branch // 查看分支
+git checkout -b dev // 新版本git推荐下面方式。创建并切换到dev分支（相当于git branch dev + git checkout dev）
+git checkout master // 新版本git推荐下面方式。切换到master分支。（dev分支的工作完成，我们就可以切换回master分支。）
+git switch -c dev // 创建并切换到新的dev分支
+git switch master // 切换到master分支
+git merge dev // 把dev分支的工作成果合并到master分支上：
+git branch -d dev // 删除dev分支
+git branch -D dev // 强制删除dev（commit了但是未merge）
+git log --graph --pretty=oneline --abbrev-commit // 用带参数的git log也可以看到分支的合并情况。
+git merge --no-ff -m "merge with no-ff" dev // 准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward（作用看着更好看一点？）
+bug分支
+git stash // 将当前分支（工作现场）存储起来。
+git stash list // 查看存起来的分支工作现场
+git stash pop // 恢复工作现场
+git tag v1.0 // 创建标签
+git tag v0.9 f4712e5// 创建标签为f4712e5
+git tag	 // 查看所有标签
+git show v1.0 // 查看v1.0标签
+git tag -a v0.1 -m "version 0.1 released." 097db2c // 为097db2c机上v0.1标签和描述version...
+git tag -d v0.9	// 删除标签v0.9
+
+
+
+
+
