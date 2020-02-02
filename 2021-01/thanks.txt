@@ -6,3 +6,5 @@ Git has its own unique features which is quite different from SVN.
 Try to Push this as a pull quest.
 
 make some changes:
+
+change email
