@@ -1,0 +1,10 @@
+# Thanks for teaching
+
+I have learn a lot from git learn by teacher Liao. 
+In general, I learn the history of "git". What is git and who invented this tool.
+Git has its own unique features which is quite different from SVN.
+Try to Push this as a pull quest.
+
+make some changes:
+
+change email
