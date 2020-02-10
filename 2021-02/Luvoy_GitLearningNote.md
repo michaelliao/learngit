@@ -64,9 +64,9 @@
 
 ## **远程与协作**
 
-26. <span id="question_26"></span>如何查看远程仓库信息?[查看答案](#answer_2pan id="question_27"></span>查看答案](#answer_26)
+26. <span id="question_26"></span>如何查看远程仓库信息?[查看答案](#answer_26)
 27. <span id="question_27"></span>远程origin下只有一个master分支, 如何创建一个新分支?[查看答案](#answer_27)
-28. <span id="question_28"></span>如果一个用户A在他的设备上向origin下的dev分支提交并推送了东西, 然后B也想向dev推送,应该怎么做?[[查看答案](#answer_28)
+28. <span id="question_28"></span>如果一个用户A在他的设备上向origin下的dev分支提交并推送了东西, 然后B也想向dev推送,应该怎么做?[查看答案](#answer_28)
 29. <span id="question_29"></span>rebase操作有什么用?[查看答案](#answer_29)
 30. <span id="question_30"></span>如何删除远程分支?[查看答案](#answer_30)
 
