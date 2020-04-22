@@ -1,0 +1,130 @@
+
+# git安装后的初始设置：
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+
+$ mkdir git_test
+$ cd git_test
+$ git init      # 初始化一个git仓库，可以是一个空仓库（空文件夹）或非空仓库
+
+$ git status        # 查看仓库的当前状态，包括有没有待add的修改，待commit的add等
+
+$ git diff readme.txt       # 查看修改后未add的文件的修改内容（工作区与暂存区比较）
+$ git diff HEAD -- readme.txt       # 查看工作区和本地仓库最新版本的区别
+
+$ git add readme.txt    # 把工作区的文件修改添加到暂存区，可以add多个文件 git add file1 file2 ...
+$ git commit -m "wrote a readme file"       # 把暂存区的所有内容提交到当前分支，-m指定对当次提交的说明
+
+$ git log       # 显示从最近到最远的commit日志，包括了commitID，git reset之后，git log就只能显示回退到的版本及其之前的版本
+$ git log --pretty=oneline      # git log 的单行简化版输出
+$ git reflog    # 显示从最近到最远的所有commit日志，包括所有的reset日志
+
+
+
+
+$ git reset --hard HEAD^    # 回退版本至上一个版本
+$ git reset --hard bd8c     # $ git reset --hard commitID 回退版本至commitID指定的那次提交
+    # 在Git中，用HEAD表示当前版本（最后一次的commit），上一个版本就是HEAD^，上上一个版本就是HEAD^^，往上100个版本写成HEAD~100
+    # Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD指针的指向切换，顺便把工作区的文件更新
+
+# 工作区（Working Directory）:就是你在电脑里能看到的目录，比如我git_test就是一个工作区
+# 版本库（Repository）：工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库，Git的版本库里存了很多东西，
+  其中最重要的就是暂存区（stage 或 index），还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD
+
+$ git checkout -- readme.txt        # 让这个文件在工作区的内容回到最近一次git commit或git add时的状态（撤销对工作区的修改）
+$ git reset HEAD readme.txt         # 把暂存区的修改回退到工作区（撤销add操作，修改依旧会在工作区存在）
+    # 场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令 git checkout -- file
+    # 场景2：当你不但改乱了工作区某个文件的内容，还add到了暂存区时，想丢弃修改，分两步，第一步用命令
+             git reset HEAD <file>，就回到了场景1，第二步按场景1操作
+    # 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，用命令 git reset --hard commitID
+
+# 要从版本库中彻底删除一个文件，执行命令 $ git rm <file>  和  $ git commit
+# 如果 git rm <file> 之后（在暂存区生效）后悔了，执行命令 $ git reset HEAD <file>  和  $ git checkout -- <file>
+# 如果只是在工作区执行 $ rm <file> 后后悔了，执行命令 $ git checkout -- <file>
+
+
+
+
+# 创建SSH Key：在git bash中执行 $ ssh-keygen -t rsa -C "renzhijiang@163.com" ，然后一路回车，
+# 如果一切顺利，会在~/.ssh/下生成 id_rsa（私钥） 和 id_rsa.pub（公钥，用于在GitHub添加ssh key）
+
+$ git remote add origin git@github.com:renquan0201/git_test.git    # 把本地仓库关联到远程仓库
+																# origin 是常用的远程仓库名称，也可以是别的名称
+$ git clone git@github.com:renquan0201/git_test_2.git   # 克隆一个远程仓库至本地
+$ git remote -v    # 查看远程库的信息（origin是远程库的默认名称）
+$ git remote rm origin  # 删除已经关联的远程仓库
+
+$ git push -u origin master    # 第一次推送master分支的所有内容
+                               # 由于远程库是空的，我们第一次推送master分支时，加上了-u参数，
+                               # Git不但会把本地的master分支内容推送到远程新的master分支，
+                               # 还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
+$ git push origin master    # 推送最新本地仓库的master分支至远程仓库
+$ git pull                  # 从远程抓取分支，如果有冲突，要先处理冲突
+$ git branch --set-upstream branch-name origin/branch-name    # 建立本地分支和远程分支的关联
+$ git checkout -b branch-name origin/branch-name              # 在本地创建和远程分支对应的分支，本地和远程分支的名称最好一致
+
+# 多人协作的工作模式通常是这样:
+	# 首先，add+commit后，可以试图用git push origin <branch-name>推送自己的修改；  
+	# 如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；  
+	# 如果合并有冲突，则解决冲突，并在本地提交；  
+	# 没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！  
+	# 如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，
+	# 用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+
+
+
+
+# HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以，HEAD指向的就是当前分支
+# 每次提交，master分支都会向前移动一步，这样，随着你不断提交，master分支的线也越来越长
+# 当我们创建新的分支，例如dev时，Git新建了一个指针叫dev，指向master相同的提交，再把HEAD指向dev，就表示当前分支在dev上
+
+$ git branch dev            # 创建 dev 分支
+$ git checkout dev          # 切换到 dev 分支  （git switch master）
+$ git checkout -b dev       # 创建并切换到 dev 分支  （git switch -c dev）
+$ git branch                # 查看分支，当前分支前标“*”
+$ git merge dev             # 合并指定分支 dev 到当前分支
+$ git diff --check			# 检查 conflict markers（冲突标记）和whitespace errors（空格错误），防止漏掉部分冲突
+  #合并分支时，加上--no-ff参数就可以用普通模式合并，
+  #合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+  #当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成
+  #解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交
+  #用git log --graph命令可以看到分支合并图  $ git log --graph --pretty=oneline --abbrev-commit
+$ git branch -d dev               # 删除本地的 dev 分支（-D 参数强制删除）
+$ git push origin --delete dev    # 删除远程仓库的 dev 分支
+
+$ git stash            # 将当前工作现场“储藏”起来，执行后git status将查询不到分支变更
+                       # 此时当前工作现场被保存但不会丢失，可以切换到别的分支修复bug等等
+$ git stash list       # 查看被保存的工作现场有哪些
+$ git stash apply      # 恢复现场但不删除stash
+$ git stash drop       # 删除stash
+$ git stash pop        # 恢复现场并删除stash
+  # 可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：git stash apply stash@{0}
+
+$ git cherry-pick <commit id>    #把某个commit修改的内容“复制”到当前分支（可能需要解决冲突）
+
+
+
+
+# Git的标签是版本库的快照，它就是指向某个commit的指针（跟分支很像，但是分支可以移动，标签不能移动），
+# 创建和删除标签都是瞬间完成的。tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+
+$ git tag <tagname>                 # 在当前分支的最新commit上打标签
+$ git tag <tagname> <commitID>		# 在指定的commit上打标签
+$ git show <tagname>				# 查看指定标签的信息，包括对应的commit等
+$ git tag -a <tagname> -m "<descriptions>" <commitID>    # 打标签时指定描述信息 
+
+$ git tag -d <tagname>				# 删除标签
+$ git push origin <tagname>         # 推送指定标签到远程仓库
+$ git push origin --tags			# 一次性推送全部尚未推送到远程的本地标签
+# 删除远程仓库中的标签操作如下：
+	# 使用命令$ git tag -d <tagname> 先从本地删除，
+	# 使用命令$ git push origin :refs/tags/<tagname> 删除远程。
+
+
+
+
+
+
+
+
+
