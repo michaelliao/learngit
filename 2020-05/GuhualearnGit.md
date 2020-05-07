@@ -53,7 +53,7 @@ git config --global user.email "Your email"
 2. 通过 `git init` 命令可以把目录变成Git可以管理的版本库
 
    ```bash
-$ git init
+   $ git init
    $ Initialized empty Git repository in XXX/demo/.git/
    ```
    
