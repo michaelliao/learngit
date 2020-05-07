@@ -57,13 +57,20 @@ git init
    Initialized empty Git repository in XXX/demo/.git/
    ```
    
-   仓库建好之后，会提示是一个empty Git repository，目录中会多出一个 **.git**的目录（隐藏目录），这是Git原来跟踪管理版本库的，不能随意修改。
+   
 
+   仓库建好之后，会提示是一个empty Git repository，目录中会多出一个 **.git**的目录（隐藏目录），这是Git原来跟踪管理版本库的，不能随意修改。
+   
+   
+   
    > 注：所有的版本控制系统，其实只能跟踪文本文件的改动，比如TXT、HTML、code文件等。版本控制系统可以告诉你每次的改动，比如在第几行增加或减少什么单词。而图片、视频这些二进制文件，没法跟踪文件的具体变化，只知道文件的大小发生了变化。
    >
    > 而word是二进制文件，所以Git是不能跟踪word文档的改动。首先文本是由编码的，中文常见的由GBK编码，建议使用标准的UTF-8编码，所有的语言统一使用UTF-8。所有的平台都能够支持。
    >
    > Win系统不建议使用记事本来编辑任何文件，记事本保存UTF-8会在每个文件的开头添加0xefbbf（十六进制）的字符，会导致各种问题。建议使用[Notepad++](https://notepad-plus-plus.org/)，并将默认编码设置为UTF-8 without BOM。
+   
+   
+   
 3. 编写一个readme.txt文件（内容任意）必须放入demo目录下（根目录或子目录）
 
    ```
