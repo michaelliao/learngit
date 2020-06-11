@@ -1,0 +1,85 @@
+一、git的安装
+根据对应的操作系统去官网下载对应的系统安装包，windows下载后直接下一步即可。
+安装完成后需要配置：git config --global user.name "Your Name"和git config --global user.email "email@example.com"
+查看已配置的用户名和邮箱：git config user.name & git config user.email
+
+二、常用命令使用
+一个新的文件或者修改的文件需要提交到远程仓库需要经过以下几个步骤：
+第一，用git add 文件名，将文件提交到本地的缓存中以便提交到本地仓库
+第二，用git commit -m "注释内容"，将缓存中的文件提交到本地仓库中（-m:代表需要注释，后面携带注释的内容）
+
+git add 文件名：将文件提交到暂存区中（可以多次提交）
+git commit -m "注释"：可以一次性将暂存区中所有的文件提交到本地仓库（-m代表需要注释，后面携带注释内容）
+git status:时刻显示仓库当前的状态（会显示哪些文件被修改过）
+git diff 文件名：查看修改的内容
+git log:显示从最近到最远的提交日志（可以加上参数--pretty=oneline即git log --pretty=oneline只看关键提交信息）
+git reflog:用来记录你的每一次命令
+git diff HEAD -- 文件名：查看工作区和版本库里面最新版本的区别
+git checkout -- 文件名：放弃这次工作区的修改（回退工作区的修改）
+git reset HEAD 文件名：将暂存区的文件退回到工作区，这时如果需要撤销工作区的修改再用git checkout -- 文件名（回退提交到     暂存区的修改，退回到工作区）
+git reset --hard HEAD^(HEAD代表当前版本，回退上一个版本用^表示，^^代表要回退前两个版本，依次类推，如果太多版本可以用      HEAD~100表示前100个版本)（已已经提交到本地仓库的回滚，这时连工作区也一起回滚）
+git reset --head commit_id:可以指定回到对应提交id的版本
+rm 文件：删除工作区的文件
+git rm 文件：如果该文件添加到暂存区了就需要用该命令(如果该文件提交到了本地仓库同时还需要git commit -m ""提交到本地仓      库)
+git checkout -- test.txt:如果工作区删除了，版本库有则可以用该命令还原
+先有本地库，后有远程库的时候：
+git remote add origin git@github.com:learnGitH/learngit.git:关联远程仓库并把远程仓库起名为origin
+git push -u origin master:第一个推送master分支的所有内容到远程仓库，下次推送就可以去掉-u
+先创建远程库，然后从远程库克隆：
+git clone git@github.com:learnGitH/firstGitProject.git
+
+三、连接github
+首先需要确保自己电脑有id_rsa和id_rsa.pub
+
+没有的话右在用户目录右键Git Bash here,然后输入ssh-keygen -t rsa -C "hbshencon@163.com"
+然后再github上的ssh上配置id_rsa.pub里面的公钥
+
+四、分支管理
+1、创建与合并分支
+	git checkout -b dev:创建一个dev分支并切换到dev分支上，相当于以下两条命令（新版可以用git switch -c <name>）
+	git branch dev:创建dev分支
+	git checkout dev:切换到dev分支上（新版可以用git switch <name>）
+	git branch:查看当前分支（会列出所有的分支，如果是当前分支，当前分支前面会标一个*号）
+	git merge dev:当前分支合并到dev分支
+	git branch -d dev:删除dev分支
+2、解决冲突
+	如果两个分支合并时出现冲突，这时就需要我们手动编辑冲突的文件后再进行提交，合并完成，最后删除分支
+	git log --graph --pretty=oneline -abbrev-commit:查看分支合并的情况
+3、分支管理策略
+	git merge --no-ff -m "merge with no-ff" dev:合并分支的时候加上--no-ff表示使用普通合并，不使用Fast forward,使用Fast 	forwrd进行合并是看不到之前做了什么的。
+4、Bug分支
+	git stash:可以把当前工作现场“储存”起来，等以后恢复现场后继续工作
+	git stash list:查看存储起来的工作现场
+	git stash apply:恢复现场，但stash的内容并不删除，需要用git stash drop来进行删除
+	git stash drop:删除工作现场
+	git stash pop:恢复的同时把stash内容也删除了
+	git cherry-pick commit-id:合并其它分支修复的bug
+	git branch -D 分支名：强行删除一个没有合并过的分支
+5、多人协作
+	git remote:查看远程库的信息（如果想查看更详细的信息加-v即git remote -v）
+	git push origin master:把该master分支上的所有本地提交推送到远程库（origin指的是远程库，master指的是本地分支）
+	git clone git@github.com:learnGitH/learngit.git:从远程克隆到本地
+	git checkout -b dev origin/dev:创建本地dev分支并关联到远程库
+	git push origin dev:将dev分支push到远程库
+	git pull:拉取远程库最新的信息
+	git branch --set-upstream-to=origin/dev dev:将本地dev分支与远程dev分支进行关联
+	git rebase:可以把本地未push的分叉提交历史整理成直线
+
+五、标签管理
+发布一个版本时，我们通常先在版本库中打一个标签（tag），这样，就唯一确定了打标签时刻的版本。将来无论什么时候，取某个标     签的版本，就是把那个打标签的时刻的历史版本取出来。所以，标签也是版本库的一个快照。
+1、创建标签
+	git tag <tagname>:用于新建一个标签，默认为HEAD，也可以指定一个commit id
+	git tag -a <tagname> -m "标签说明"：可以指定标签信息，后面也可以具体指定一个commit id
+	git tag:查看所有的标签
+	git show <tagname>:查看该标签的说明文字
+2、操作标签
+	git push origin <tagname>:可以推送一个本地标签到远程
+	git push origin --tags:可以推送全部未推送过的本地标签到远程
+	git tag -d <tagname>:可以删除一个本地标签
+	git push origin :refs/tags/<tagname>:可以删除一个远程标签（前提是需要先用git tag -d <tagname>删除本地标签）
+六、自定义Git
+git config --global user.name "名字":设置全局名字
+git config --global user.email "email":设置全局邮箱
+git config --global color.ui true:显示颜色
+
+	
