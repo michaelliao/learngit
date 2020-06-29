@@ -1,0 +1,21 @@
+- git branch -a，列出所有远程分支名称
+- git checkout -b dev origin/dev   作用是checkout远程的dev分支，在本地起名为dev分支，并切换到本地的dev分支
+- git checkout dev，切换回dev分支，并开始开发。
+- git remote -v  查看远程仓库
+- git remote add [name] [url]  添加远程仓库
+- git remote rm [name]  删除远程仓库
+- git branch [name] 创建本地分支
+- git branch -d [name] 删除分支
+-d选项只能删除已经参与了合并的分支，对于未有合并的分支是无法删除的。如果想强制删除一个分支，可以使用-D选项
+- git merge origin/dev 将分支dev与当前分支进行合并
+- git branch -a 查看所有的分支
+git branch -r 查看本地所有分支
+- git pull 隐含了 git merge
+- git log 查看历史提交的日志
+- git log --oneline 可以看到简洁版的日志
+- git reflog 可以倒序查看提交日志
+回退到指定的版本：
+- git reset --hard Head~`0
+表示回退到上一次代码提交时的状态
+- git reset --hard Head~1 
+表示回退到上上一次代码提交时的状态
