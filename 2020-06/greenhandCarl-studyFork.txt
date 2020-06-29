@@ -17,5 +17,4 @@ git branch -r 查看本地所有分支
 回退到指定的版本：
 - git reset --hard Head~`0
 表示回退到上一次代码提交时的状态
-- git reset --hard Head~1 
-表示回退到上上一次代码提交时的状态
+- git reset --hard Head~1  表示回退到上上一次代码提交时的状态
