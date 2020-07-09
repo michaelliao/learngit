@@ -1,0 +1,14 @@
+git本地与远程库的关联与取消:
+关联：
+1.先创建本地仓库，再与远程仓库关联：
+git remote add origin git@github.com:git_username/repository_name.git
+git push -u origin master  // 这句可以不用，目的是将本地库的内容全部推送到远程库，由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+
+2.先创建远程仓库，然后直接在没有本地仓库的文件夹中clone
+git clone git@github.com:git_username/repository_name.git
+
+取消本地目录下关联的远程库：
+git remote remove origin
+
+注意：clone要起关联的作用必须在没有创建本地仓库的情况下使用，如果已有本地仓库，clone就只起克隆的作用。那么要从本地仓库中关联一个远程仓库就参考第一种关联的方法。
