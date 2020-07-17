@@ -1,0 +1,103 @@
+1、全局安装git设置用户名和用户email：
+git config --global user.name "your name"
+git config --globle user.email "email@example.com"
+
+2、创建版本库：
+mkdir learngit
+cd learngit
+pwd
+当前目录：/c/Users/wudong/Desktop/javaFAW/learngit
+
+3、把当前目录编程Git可以管理的仓库
+git init
+
+4、添加文件到仓库
+git add readme.txt
+5、文件提交到仓库
+git commit -m "wrote a readme files"
+-m后面输入的是本次提交的说明，可以输入任意内容，当然最好是有意义的，这样你就能从历史记录里方便地找到该共记录
+注释：git提交分两步，可以多次add不同的文件，一次全部commit
+
+6、git status 让我们时刻查看仓库当前的状态
+
+7、git diff查看different
+
+8、修改了文件提交和提交新文件一样也需要先git add
+9、git log 查看从最近到最远的提交日志，
+10、git log --pretty=oneline
+11、git reset --hard HEAD^上一个版本，git reset --head HEAD~100上往前100个版本
+12、git reset --hard VESION ID回退到指定版本id好
+13、git reflog查看用来记录你的每一次命令
+14、工作区：电脑里当前能看到得目录，
+15、版本库：.git文件，stage（index）暂存区，master分支（HEAD），git add把文件添加到暂存区，git commit把更改提交到当前分支
+16、git checkout -- file 可以丢弃工作区得修改
+
+创建2远程github仓库
+17、创建ssh key 
+18、在gitdhub账户中添加ssh key
+19、在github创建仓库
+20、git remote add reponame git@github.com:wudong1211991/learngit.git
+21、首次推送分支git push -u origin master
+22、再次提价送远程仓库只需要：git push origin master
+
+23、从远程仓库获取：git clone git@github.com:wudong1211991/gitkills.git
+创建分支，指针标识分支，指针指向提交，head指向指针
+24创建dev分支指针：
+git checkout -b dev相当于：git branch dev 和git checkout dev，或者git switch -c name
+25、git branch查看当前分支
+26、切换分支git checkout branchname或git switch <name>
+27、删除分支：git branch -d dev
+28、合并分支：git merge <name>
+鼓励大量使用分支
+当git无法自动解决冲突时，需要首先解决冲突再提交，合并完成，删除分支
+29、查看分支图：git log --graph --pretty=oneline --abbrev-commit
+
+通常情况下，git使用fast forward模式，在这种模式下，删除分支后，会丢掉分支信息
+如果强制金庸fast forward 模式，git就会在merge时生成一个新的commit，这样从分支历史上就可以看除分支信息。
+30、合并分支禁用fast-foward模式；git merge --no-off -m "comment"
+
+分支策略：
+master是非常稳定的，用于发布新版本
+dev分支上用来开发新功能
+每个人自己在分支上开发，开发完成后再合并到dev分支\\
+
+31、处理临时bug：git stash将当前工作区未提交的修改保存起来。
+
+git remote 查看远程分支
+
+git remote 查看远程分支和抓取推送权限
+
+git checkout -b dev origin/dev 从远程仓库创建分支
+
+
+标签管理
+通常再版本库中打一个标签，标签确定了一个事科的版本，标签是版本库的快照
+Git标签虽然是版本库的一个快照，但其实他就是指向可某一个commit的一个指针，只是分支可以移动，标签不能移动。
+
+tag是一个让人容易记住的名字，它根某个commit绑定在一起。
+
+32、git tag <name> 打一个新的标签
+33、git tag 查看所有标签
+34、git tag <tag-name> <version id> 对历史版本添加tag
+35、git show <tag-name>显示标签详细
+36、git tag -a <tagname> -m "标签说明" <version id>
+37、git tag -d <tagname> 删除标签
+38、git push origin <tagname> 手动推送某个标签到远程
+39、git push origin --tag 提交所有远程分支
+40、git push origin:refs/tag/<tagnmae> 删除远程分支上的标签，首先删除你本地分支上的标签再删除远程分支上的注释
+41、
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

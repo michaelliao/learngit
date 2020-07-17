@@ -1,0 +1,82 @@
+首先感谢廖老师的教程，讲的很好
+以下是个人在学习过程中整理的命令笔记，希望可以帮到有需要的人
+
+
+1.本地库操作：
+	git status 查看工作区的状态
+	git diff 查看被修改的内容
+	git log 查看提交的历史记录
+		如果嫌显示的太多，看得眼花缭乱的，可以试试加上git log --pretty=oneline
+	git reset 版本回退、清空暂存区的内容
+		git reset --hard HEAD^ （一个尖括号代表回退一次上个版本，回退100次可以用，HEAD~100）
+		git reset --hard commitId （commitId就是你commit之后那串SHA1加密后的串，使用comitId可以跳到你任何你想去的版本）
+		git reflog （可以查看每次的commitId）
+		git reset HEAD filename （把提交到暂存区的内容清空掉，然后在使用git checkout -- filename 清空工作区）
+	git rm filename 在git版本库上删除这个文件
+
+
+
+
+2.远程仓库操作：
+	git remote add origin git@git名:路径/远程仓库名.git （关联一个远程库）
+		例子：git remote add origin git@github.com:michaelliao/learngit.git
+	git push -u origin master （第一次推送master分支的所有内容，要加-u参数）
+	git push origin master （此后，每次本地提交后，可以用这个命令推送最新修改）
+	git checkout -b dev （创建并切换到dev分支）
+		这个其实是两命令合在一起的快速写法
+		git branch dev （创建dev分支）
+		git checkout dev （切换到dev分支）
+	git switch -c <name> （创建并切换到dev分支，这里是-c create）
+	git branch （查看所有分支，当前分支前面会标一个*号。）
+	git merge （用于合并指定分支到当前分支）
+	git merge dev （把dev分支的工作成果合并到master分支上，在master分支下运行）
+	git branch -d dev （删除dev分支）
+	git merge --no-ff -m "merge with no-ff" dev （使用--no-ff合并可以回退到分支，fast-forward看不到被合并的分支。    因为采用这模式合并之后会多了一次commit，所以需要使用 -m  "commit信息"）
+	git remote -v （显示了可以抓取和推送的origin的地址。如果没有推送权限，就看不到push的地址。）
+	git push origin master （把本地的master分支推送到origin远程仓库上）
+	git push origin dev （如果要推送其他分支，比如dev，就改成这样）
+	git rebase（把分叉的提交历史“整理”成一条直线，看上去更直观。缺点是本地的分叉提交已经被修改过）
+
+
+
+
+3.合并冲突：
+	git merge dev （会提示冲突）
+	git status （查看冲突文件）
+	Git用<<<<<<<，=======，>>>>>>>标记出不同分支的内容。 解决冲突就是把这些删除成你最终想要的样子
+	git add index.php
+	git commit -m "conflict fixed"
+	git branch -d dev
+	git log --graph （可以看到分支合并图）
+	git log --graph --pretty=oneline --abbrev-commit （查看分支图，并且是区掉无用信息的）
+
+
+
+
+4.修复BUG：
+	git stash （保存现场到当前分支。 ps：如果不保存，那么你切到别的分支区解决bug，工作区的修改也会带过去）
+	git status （工作区如果是干净的，则代表保存了。 工作区没有被污染）
+	git checkout master（确定要在哪个分支上修复bug，就切换到那个分支）
+	git checkout -b issue-101 （创建并切换到新建的解决BUG的分支）
+	修复BUG文件， add .... commit ....
+	git checkout master | git merge --no-ff -m "merged bug fix 101" issue-101 | git branch -d issue-101（修复完成后，切换到master分支，并完成合并，最后删除issue-101分支）
+	上面步骤修复完成， 现在回到dev分支恢复现场，继续工作
+	git checkout dev （切换到之前保存现场的分支）
+	git stash list （查看保存的现场信息）
+	git stash pop （恢复现场）
+	git stash apply stash@{0} （先用git stash list查看，然后恢复指定的stash）
+	git cherry-pick 4c805e2 （在当前dev分支下，复制4c805e2 fix bug 101这个提交所做的修改。 注意：我们只想复制4c805e2 fix bug 101这个提交所做的修改，并不是把整个master分支merge过来。）
+
+
+
+
+5.标签操作：
+	git tag <name> （创建一个标签）
+	git tag （查看所有标签。注意，标签不是按时间顺序列出，而是按字母排序的）
+	git tag v0.9 f52c633 （对特定的commitId打标签， git tag tagName commitId）
+	git show <tagname> （查看单个标签的详细信息）
+	git tag -a v0.1 -m "version 0.1 released" 1094adb （还可以创建带有说明的标签，用-a指定标签名，-m指定说明文字）
+	git tag -d v0.1 （删除标签）
+	git push origin <tagname> （推送某个标签到远程）
+	git push origin --tags （一次性推送全部尚未推送到远程的本地标签）
+	git push origin :refs/tags/v0.9 （从远程删除）
