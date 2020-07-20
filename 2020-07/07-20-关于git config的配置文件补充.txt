@@ -1,0 +1,102 @@
+    《感觉git config的配置文件挺重要的，三个配置文件需要好好理解》
+
+    毫无疑问，安装完Git首先应该进行用户信息的配置，如廖大神所言，在分布式版本控制系统中，每一个机器节点都需要自报家门。也就是要进行我们配腻了的命令配置：
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+    
+
+    这里，我想详细的说明一下这个配置的作用以及写在哪个配置文件中了，之间的区别是什么。我们不仅要知其然，还要知其所以然~
+
+
+
+    我们肯定会猜到上面的两行命令配置完之后肯定会写到某一个配置文件中，而且出现了可选项"--global"，那么肯定是对应着不同等级范围的多个配置文件。
+
+
+    事实就是如此~实际上Git中对应了“local 仓库级别”，“global 用户级别”，“system 系统级别”三个配置等级，优先级依次降低，对应的配置文件如下表：
+配置级别
+配置文件位置
+local 仓库级别	当前仓库下 .git/config
+global 用户级别	用户家目录 ~/.gitconfig
+system 系统级别	git安装目录 ./mingw64/etc/gitconfig
+
+
+    我们可以直接打开对应的config文件查看git不同级别下的配置信息，也可以使用一下命令进行查看：
+
+$ git config --local -l
+$ git config --global -l
+$ git config --system -l
+$ git config -l // 查看所有配置信息
+
+
+    如下图使用“git config -l”查看git所有配置信息：
+
+
+    
+
+    同时可以使用“-e”选项编辑对应的配置文件：
+$ git config --local -e 编辑仓库级别配置文件
+$ git config --global -e 编辑用户级别配置文件
+$ git config --system -e 编辑系统级别配置文件
+
+
+    当然可以通过最开始我们的配置name和email的命令修改配置文件中的属性：
+
+$ git config --global user.email “you@example.com”
+$ git config --global user.name “Your Name”
+
+
+    配置文件的加载顺序即如前面所说，优先级：local>global>system，所以git加载顺序是依次加载system、global、local的配置文件属性，并在对应的范围生效，后面配置文件属性会覆盖前面加载的同名属性。
+
+
+    类似于其他的对象配置套路，我们也肯定可以对添加"--add"、查看"--get"以及删除"--unset"自定义的属性配置：
+// 默认操作"local"属性
+$ git config [--local|--global|--system] --add section.key value
+$ git config [--local|--global|--system] --get section.key
+$ git config [--local|--global|--system] --unset section.key
+
+
+    注意，其中的section不能省略，后面我会展示配置。另外注意到使用“--unset”只会删除key，即使key为空也不会删除section，而且新增如果section不连续，git会傻瓜式的重新添加section，并不会进行配置文件的检查工作......可能为了效率吧。。。
+
+
+
+
+3.本地创建Git仓库
+
+
+
+    配置完个人信息就可以使用Git干活儿了。就像出来混最重要的是什么啊？是出来！！！别一直让我等半天还没出门好吧......(小声比比)分布式本本控制系统当然首先需要新建一个仓库，即在预先需要建立仓库的文件夹中执行命令：
+$ git init
+
+
+    如果是文件夹中已有项目文件，则执行下面命令就可以看到当前仓库的状态：
+
+$ git status
+
+
+    如下，Git就会提示我们哪些文件可以添加至Git仓库进行文件修改的追踪：
+
+
+
+
+
+
+
+    然后我们按照提示，将文件添加至Git仓库的暂存区，并将文件提加到 Git仓库，暂存区的概念我们后面会进行介绍。
+$ git add t1.txt t2.txt
+$ git commit -m "commit t1 and t2"
+$ git status
+
+
+我们可以看到当前Git仓库的状态：
+
+
+
+
+    所有文件都已经将最新的修改进行了提交，working directory clean。
+
+
+    需要注意的是：Git等版本控制工具只能追踪记录文本文件，对于二进制文件只能显示我们对其做了修改，但是具体是什么修改，Git是无法就进行追踪的。如下图，我分别修改了图片和一个TXT的文本文件，通过"git diff"查看修改前后的异同：
+
+
+
+    可以看到，文本文件我们可以清晰地看到我做了哪些修改，而二进制的图片文件只能监测到我对文件进行了修改，具体是什么修改，无从显示。
