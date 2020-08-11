@@ -1,0 +1,202 @@
+git指令
+////用户姓名，邮箱设置
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。
+
+
+
+///创建一个文件夹并进入文件夹
+
+$ mkdir learngit
+$ cd learngit
+$ pwd
+/Users/michael/learngit
+pwd命令用于显示当前目录。在我的Mac上，这个仓库位于/Users/michael/learngit。
+///////将此目录作为库
+$ git init
+Initialized empty Git repository in /Users/michael/learngit/.git/
+
+
+
+///////把一个文件放到Git仓库
+$ git add readme.txt  
+添加文件    可多次添加
+
+$ git commit -m "wrote a readme file"
+提交文件 
+-m后面输入的是本次提交的说明
+
+$ git status
+可以看仓库状态，是否有修改
+
+git diff
+顾名思义就是查看difference（不同）
+git diff HEAD -- readme.txt
+查看readme.txt的不同
+
+
+
+git log
+显示从最近到最远的提交日志  按Q退出历史记录  
+如果嫌输出信息太多，可以试试加上--pretty=oneline参数
+$ git log --pretty=oneline --abbrev-commit  
+
+HEAD指向的版本就是当前版本
+git reset --hard commit_id
+用于切换版本--切换成历史文件或切换之前的文件，只要id记得
+
+穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本
+
+要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本
+
+$git restore readme.txt 
+用于撤销之前的操作 ，就是让这个文件回到最近一次git commit或git add时的状态。
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+
+$ rm test.txt
+删除文件
+
+$ git rm test.txt
+确定要删除
+
+$ git commit -m "remove test.txt"
+提交到版本库中
+
+如果误删除工作区文件可以用
+$ git restore test.txt 恢复
+
+
+-------------------------------------------------------
+远程库
+
+$ sh-keygen -t rsa -C "youremail@example.com"  然后一路回车
+创建SSH Key
+id_rsa是私钥   id_rsa.pub是公钥
+
+$ git remote add origin git@github.com:2252030510/learngit.git
+本地库关联到远程库   2252030510是github账号名  origin是远程库的名字
+
+
+$ git push -u origin master
+推送本地库内容到远程库   实际上是把当前分支master推送到远程。
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+
+
+
+$ git push origin master
+从现在起，只要本地作了提交，就可以通过上述命令推送至github
+
+
+$ git clone git@github.com:2252030510/gitskills.git
+克隆远程库到本地库
+GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址。实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议。
+
+使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+
+----------------------------------------------------
+
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>或者git switch <name>
+
+创建+切换分支：git checkout -b <name>或者git switch -c <name>
+
+合并某分支到当前分支：git merge <name>
+
+$ git merge --no-ff -m "merge with no-ff" dev
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+
+删除分支：git branch -d <name> 
+		  git branch -D <name> 未合的情况下并强制删除
+
+
+用git log --graph命令可以看到分支合并图。
+$ git log --graph --pretty=oneline --abbrev-commit 查看简洁的分支合并图
+
+
+
+$ git stash 
+可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+
+
+$ git stash list
+列出“储藏”起来的工作现场
+
+$ git stash apply 
+从“储藏”中恢复工作现场
+
+$ git stash drop 
+删除“储藏”的工作现场 即删除stash内容
+
+$ git stash pop 
+恢复的同时把stash内容也删了
+
+$ git cherry-pick <commit>
+在master分支上修复的bug，想要合并到当前dev分支，把bug提交的修改“复制”到当前分支，避免重复劳动。
+
+------------------------------------------------------
+$ git remote 
+查看远程库信息
+$ git remote -v 
+信息更详细  显示了可以抓取和推送的origin的地址 
+如果没有推送权限，就看不到push的地址。
+
+你的小伙伴要在dev分支上开发，就必须创建远程origin的dev分支到本地，于是他用这个命令创建本地dev分支：
+$ git checkout -b dev origin/dev
+
+如果推送失败 用git pull
+如果git pull失败 先设置dev和origin/dev的链接
+$ git branch --set-upstream-to=origin/dev dev
+再git pull
+
+$ git rebase
+可以把本地未push的分叉提交历史整理成直线
+push后远程分支更美观
+
+-----------------------------------------------
+
+$ git tag <tagname>
+用于新建一个标签，默认为HEAD，也可以指定一个commit id；
+tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+
+$ git tag -a <tagname> -m "blablabla..." 
+在标签上写信息
+
+$ git tag 
+查看所有标签
+
+$ git show <标签名>
+查看标签所带的信息
+
+$ git tag -d <tagname>
+删除指定标签，因为创建的标签都只存储在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
+
+$ git push origin <tagname>
+推送本地标签到远程库
+
+$ git push origin --tags
+一次性推送所有尚未推送到远程的标签
+
+----删除远程库标签
+$ git tag -d <tagname>  先删除本地标签
+
+$ git push origin :refs/tags/<tagname> 在删除远程库的标签
+
+
+-----------------------------------------------------------
+参与开源项目
+fork后再clone到本地，不能直接clone作者的，要不然没有权限推送修改
+
+clone别人项目过程中断推出
+使用断点续传 git fetch  --recurse-submodules <website>
+
+待续。。。
