@@ -1,0 +1,2 @@
+请问git push的时候，必须要push到master吗？
+尝试push到另外一个分支dev再pull request到master好像不成功
