@@ -1,0 +1,94 @@
+git命令
+fork   就可以把这个项目放到自己的github账号下面，代表你想跟作者一起弄这个东西
+star 收藏，方便查找
+watch 关注，作者更新的时候你会收到消息
+
+git使用
+首先建立一个仓库  mkdir  目录名
+1、git init 将目录变成Git管理的仓库
+2、写文件
+3、git add 文件名 将文件添加到仓库
+4、git commit -m  注释字符串  将文件提交到仓库
+5、git status查看工作区的状态  当发生冲突时，还可以指出冲突的文件
+6、git diff   查看改了些什么
+7、更改后需要冲洗执行3、4
+8、git log打印文件的修改记录
+9、git log --pretty=oneline   修改记录简化信息
+10、git reset  回退版本  参数为HEAD^ 一个^代表往前一个版本  也可以写HEAD~100代表回退100个版本
+11、(没关闭gitbash)如果想要在回退回来 git reset --hard  id  id为那次记录的id号
+12、如果关闭了gitbash 想要回退回来
+git reflog 可以记录你的每次命令，找到那个id 这时候就能用git reset --hard  commitId  来回退版本了
+13、git checkout --文件名 错误还未git add 放弃工作区的修改，将在工作区的修改撤销。如果没放到暂存区，就撤销成版本库中的，否则撤销成暂存区的，这个修改只是修改工作区
+14、git checkout 文件名   切换到另一个分支
+15、git reset HEAD 文件名 可以将暂存区的修改撤销掉，重新放回工作区，也就是将git add状态撤销会没有add之前
+git checkout git reset 实在本地运行的，在没有放到网络时，别人不知道我们的操作。
+16、git checkout --文件名 可以将版本库中的文件还原（删除或者修改想要反悔的时候可以用）
+17、git remote add origin git@github.com:helloworld0102/gitRepository.git
+将本地的项目第一次放到github的仓库中
+
+18、git push -u origin master 将本地的代码上传到远程仓库 master 可以替换成其他分支来提交其他分支的修改
+
+19、本地仓库修改后运行git push origin 分支名称  该分支上的所有本地提交推送到远程库
+
+20、 git clone git@github.com:helloworld0102/仓库名称.git
+就能把仓库克隆下来 ，但是只能克隆master分支
+
+21、git checkout -b 分支名称   创建分支并且转换到分支
+git branch 分支名 创建分支
+git checkout 分支名 切换到分支
+git branch 列出所有分支，当前分支前面有一个*号
+
+22、git merge 分支名   合并分支
+出现冲突之后要手动合并，然后add commit
+
+23、git branch -d 分支名   删除分支
+
+24、git switch -c dev  创建并切换到新的分支
+标准
+25、git switch 分支名称 切换到分支  标准
+
+26、git push origin --delete 分支名称
+删除远程的分支
+
+27、git merge --no-ff -m "merge with no-ff" dev 禁用Fast forward模式，并添加日志
+
+28、git stash  [“备注"]  将本地做过的修改先做一个备份,并备注
+
+29、git stash pop stash @{num}恢复并删除第num个备份
+
+30、git stash list  查看前面做的备份列表
+
+31、git stash apply  stash@{num} 用备份恢复第num个修改
+
+32、git stash drop stash@{num}删除第num个备份
+
+33、git stash clear 删除所有备份
+
+34、git cherry-pick 复制特定的提交到当前分支 
+
+35、git remote  查看远程库的信息
+
+36、git remote -v  查看远程库的详细信息
+显示可以抓取和推送的origin的地址
+37、git checkout -b 本地创建的分支名称                   origin/远程分支名称 ，将远程分支克隆下来复制到本地新建分支
+38、git pull 拉取最新的版本
+
+39、git branch --set-upstream-to=origin/远程分支名称  本地分支名称    将本地的分支和远程分支建立联系
+
+40、git tag 标签名  在当前分支打一个标签，可以作为版本号使用
+
+42、git tag 查看所有的标签
+
+43、git tag 标签名称    提交id     在某次提交处打一个标签
+
+44、git show 标签名   显示标签的那次提交的详细信息
+
+45、 git tag -a 标签名字 -m "标签说明"  提交id     带说明的标签
+
+46、git tag -d  标签名  删除标签
+
+47、git push origin 标签名   将标签放到远程
+
+48、git push origin --tags  推送全部为提交的标签到远程
+
+49、git push origin :refs/tags/标签名    删除远程的标签，执行该操作前先删除本地的标签
