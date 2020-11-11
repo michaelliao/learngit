@@ -1,2 +1,0 @@
-thanks
-learning git pull request

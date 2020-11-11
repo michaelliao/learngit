@@ -1,1 +1,0 @@
-Well, thanks Michael Liao for teaching us how to use git!

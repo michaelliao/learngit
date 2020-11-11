@@ -1,6 +1,0 @@
-﻿Happy Mid-Autumn Festival！
-感谢！
-------------------------------------------------------
-Sat Sep 28 2019 11:53:16 GMT+0800 (中国标准时间) PR
-use git commit --amend
-two commit

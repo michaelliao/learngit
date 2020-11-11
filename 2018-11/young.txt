@@ -1,7 +1,0 @@
-此教程比较系统的讲解了git的基本操作，通过学习，对git,github,gitee有了大概了解。
-应深入了解的命令为：
-  1.git reset 版本指针指向
-  2.git checkout -b 版本创建并切换
-    git checkout fecthname 版本切换
-    git brance -d 删除 -D 未合并也强制删除
-  3.git remote add origin xx仓库地址
