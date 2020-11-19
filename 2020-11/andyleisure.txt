@@ -1,0 +1,93 @@
+Git is a distributed version control system.
+Git is free software.
+
+===============================================git总结======================================
+git init
+git add xxx  或git add .
+git commit -m '说明'
+
+git status  告诉你有文件被修改过
+git diff   查看修改内容
+
+git log --pretty=oneline 查看版本号
+
+git reset --hard HEAD^  回退到上一个版本
+git reset --hard HEAD~100 回退往上100个版本
+git reset --hard 1094a 根据查看的版本号回退到某个版本号
+git reset HEAD 文件名     可以把暂存区的修改撤销掉（unstage），重新放回工作区
+
+git reflog  记录你的每一次命令
+
+git rm  xxx     删掉，并且git commit：
+
+git checkout -- readme.txt  意思就是，把readme.txt文件在工作区的修改全部撤销，丢弃工作区的修改
+git checkout -- test.txt    也可以用做删除恢复,从版本库恢复，但是本次修改魏提交的内容无法恢复
+
+把本地仓库与远程github仓库关联,
+使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令，
+但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https。
+git remote add origin git@github.com:andyleisure/learngit.git/git remote add origin https://github.com/michaelliao/gitskills.git
+
+推送内容
+git push -u origin master 把本地库的所有内容推送到远程库上，实际上是把当前分支master推送到远程
+我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，
+还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+
+从现在起，只要本地作了提交，就可以通过命令：
+git push origin master
+
+从0开发，先在远程库创建项目，然后大家克隆 
+git clone git@github.com:andyleisure/gitskills.git
+
+--------------------------------------------------分支操作---------------------------------------------------
+
+创建dev分支，然后切换到dev分支：相当于两条命令： git branch dev，git checkout dev
+git checkout -b dev
+
+git branch 查看当前分支
+
+。。在dev分支修改内容，并提交本地库。。。
+
+git checkout master  切换回master分支
+
+合并指定分支dev到当前分支master， 直接把master指针指向dev的当前提交，就完成了合并
+git merge dev 
+git merge --no-ff -m "merge with no-ff" dev  
+强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息
+
+删除dev分支
+git branch -d dev
+
+因为创建、合并和删除分支非常快，所以Git鼓励你使用分支完成某个任务，合并后再删掉分支，这和直接在master分支上工作效果是一样的，但过程更安全。
+
+git log --graph --pretty=oneline --abbrev-commit 看到分支的合并情况
+
+git stash 把当前工作现场“暂存”起来，等以后恢复现场后继续工作，用git status查看工作区 是干净的
+
+修复完其他bug后，继续在dev分支干活
+git stash list 看看之前工作现场
+stash@{0}: WIP on dev: f52c633 add merge
+
+git stash pop  恢复的同时把stash内容也删了, git stash apply恢复，stash内容并不删除
+你可以多次stash，恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：
+$ git stash apply stash@{0}
+
+复制一个可能在其他分支上修改的特定的提交到当前分支
+$ git branch
+* dev
+  master
+$ git cherry-pick 4c805e2
+在master分支上修复的bug，想要合并到当前dev分支，可以用git cherry-pick <commit>命令，把bug提交的修改“复制”到当前分支，避免重复劳动
+
+
+git tag v1.0 打标签
+git tag -d v0.1 删
+git push origin v1.0 要推送某个标签到远程
+git push origin --tags 一次性推送全部尚未推送到远程的本地标签
+
+如果标签已经推送到远程，要删除远程标签就麻烦一点，先从本地删除：
+git tag -d v0.9
+然后，从远程删除。删除命令也是push，但是格式如下：
+git push origin :refs/tags/v0.9
+
+
