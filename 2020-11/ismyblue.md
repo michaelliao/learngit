@@ -639,17 +639,48 @@ $ git push origin :refs/tags/<tagname1>
 
 ## 使用GitHub
 
-- 在GitHub上，可以任意Fork开源仓库；
-- 自己拥有Fork后的仓库的读写权限；
-- 可以推送pull request给官方仓库来贡献代码。
+名词解释：
+
+- master：其实就是你的本地(Local)项目（在你自己电脑里面）
+- origin：是你GitHub上Fork的远程项目（托管在GitHub上项目，属于你自己的）
+- upstream： 别人的开源项目，origin项目最开始就是从那fork过来的。（托管在GitHub上项目，属于别人的）
+
+fetch 命令可以直接把开源项目代码抓到本地来再合并(merge)，push 命令是把本地代码推送到远程GitHub上自己的那个Fork项目中去。如果要把自己的代码合并到开源项目中去，就需要在GitHub中发起 Pull Request，再由开源项目负责人把你代码进行合并。
 
 工作流程：
 
-1. 先fork别人的仓库
-2. 然后本地git clone自己账号上的仓库。
-3. 在本地仓库进行修改代码。
-4. commit到自己的本地仓库，然后push到自己账号上的远程仓库。
-5. 发起pull request到官方仓库，贡献代码。
+1. 先fork别人的仓库，然后本地git clone自己账号上的仓库(`git clone git@github.com:originauthor/gitlearning.git`)。
+2. 配置上游项目地址(`git remote add upstream git@github.com:originauthor/gitlearning.git`)，获取最新源码(`git pull upstream master`)。
+3. 在本地仓库新建一个分支`git switch -c feature1`，在此分支上进行修改代码提交`git commit -a -m “new commit”`。
+4. 合并修改。
+
+此时，可能会遇到一个问题，即远程的 upstream (originauthor/gitlearning) 有了新的更新，导致我们提交的 **Pull Request** 引起了冲突。因此，我们可以在提交前，先把远程其他开发者的`commit`和我们的`commit`合并。
+
+```shell
+# 切换到 master 分支：
+$ git checkout master
+# 再pull远程的最新代码：
+$ git pull upstream master
+# 切换回 branch1:
+$ git checkout feature1
+# 把 master 的 commit 合并到 feature1分支：
+$ git rebase master
+# 把更新代码提交到自己远程仓库的 feature1 分支中：
+$ git push origin feature1
+```
+
+5. 发起pull request到官方仓库，请求作者合并自己的分支，贡献代码。
+
+6. 合并开源项目最新代码到自己的Fork项目中
+
+```shell
+# 1、获取上游项目更新
+git fetch upstream
+# 2、合并到本地分支
+git merge upstream/master
+# 3、提交推送
+git push origin master
+```
 
 ## 使用Gitee
 
