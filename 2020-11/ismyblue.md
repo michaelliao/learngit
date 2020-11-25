@@ -3,17 +3,17 @@
 ## 创建仓库
 
 ```shell
-// 创建仓库文件夹
+# 创建仓库文件夹
 $ mkdir learngit
-// 进入仓库文件夹
+# 进入仓库文件夹
 $ cd learngit
-// 初始化一个代码仓库
+# 初始化一个代码仓库
 $ git init
-// 使用命令git add <file>，注意，可反复多次使用，添加多个文件；
+# 使用命令git add <file>，注意，可反复多次使用，添加多个文件；
 $ git add <file>
-// 添加所有新文件到暂存区
+# 添加所有新文件到暂存区
 $ git add --all
-// 提交改动
+# 提交改动
 $ git commit -m <message>
 ```
 
@@ -38,7 +38,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ----------------------------
 
 
-// 文件有修改，但是没有add 和 commit,可以使用git diff 查看修改的地方
+# 文件有修改，但是没有add 和 commit,可以使用git diff 查看修改的地方
 $ git diff 
 -----------------------------
 E:\ScanMine>git diff readme.txt
@@ -74,9 +74,9 @@ $ git commit -m "add distributed"
 - 要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本。
 
 ```shell
-// 输出提交日志
+# 输出提交日志
 $ git log
-// 简略输出提交日志
+# 简略输出提交日志
 $ git log --pretty=oneline 
 ```
 
@@ -109,18 +109,18 @@ $ git diff HEAD   #是工作区(work dict)和分支(master)的比较
 丢弃工作区文件修改，与暂存区保持一致
 
 ```shell
-// 过时
+# 过时
 $ git checkout -- <file>...
-// 新指令
+# 新指令
 $ git restore <file>...
 ```
 
 从暂存区撤销到工作区
 
 ```shell
-// 过时
+# 过时
 $ git reset HEAD <file>
-// 新指令
+# 新指令
 $ git restore --staged <file>...
 ```
 
@@ -344,7 +344,6 @@ $ git branch -d bugfix-xxx
 ```
 
 修复完bug之后，恢复工作现场，继续工作。
-
 ```shell
 # 回到之前工作的分支
 $ git switch priv-username-xxx
@@ -655,7 +654,6 @@ fetch 命令可以直接把开源项目代码抓到本地来再合并(merge)，p
 4. 合并修改。
 
 此时，可能会遇到一个问题，即远程的 upstream (originauthor/gitlearning) 有了新的更新，导致我们提交的 **Pull Request** 引起了冲突。因此，我们可以在提交前，先把远程其他开发者的`commit`和我们的`commit`合并。
-
 ```shell
 # 切换到 master 分支：
 $ git checkout master
