@@ -1,4 +1,0 @@
-# 学习git
-# pull request
-# 感谢 廖老师
-by @xing.yang

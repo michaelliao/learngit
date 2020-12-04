@@ -1,4 +1,0 @@
-我在liaoxuefeng.com上从Python3.5学到了Python3.7，
-现在又学到了Git的知识。
-感谢廖老师！
-太强了！

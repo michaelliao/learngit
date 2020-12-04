@@ -1,2 +1,0 @@
-# Hello!
-I am Xiaohu!
