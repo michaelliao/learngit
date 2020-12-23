@@ -1,0 +1,114 @@
+在廖老师的平台学了git两次了，两次间隔两三年。
+第一次过了一遍，也做了笔记，但因为没有太多的实际使用场景（机会是要自己创造的！），很快便淡忘。
+现在再次拿起来学，争取在工作中、业余中多使用这个工具，能让自己熟悉的同时，可能也能发现github其他闪光点。
+记住学习的这份感觉，一起快乐生活~~
+
+---
+
+创建版本库： git init
+工作区（Working Directory）→暂存区（stage）： git add file
+暂存区→master分支： git commit -m "comment"
+
+查看版本库状态： git status
+查看修改： git diff file，对比当前file与master分支的变化
+查看修改（对比工作区和分支的指定版本）： git diff HEAD -- file，git diff id -- file
+
+查看历史记录： git log
+查看历史记录（简易输出）： git log --pretty=oneline
+分支合并图： git log --graph
+简易id： git log --abbrev-commit
+
+当前版本是HEAD，依次旧版本是HEAD^，HEAD^^，…
+为简便，往前第n个版本是HEAD~n
+版本回退： git reset --hard HEAD^
+回退之后，回到新版本：
+
+方法1：趁着没关窗口，找到新版本的commit id，再git reset --hard 'id前几位'；
+方法2：若找不到commit id。git reflog，查看过往用过的命令，里面有commit id。
+撤销修改（回到近一次add或commit时）： git checkout -- file
+新版本： git restore file
+撤销修改（把已经add的unstage）： git reset HEAD file
+
+删除add过的文件： 先手动删除文件，再git rm/add file。当然，要恢复被删除文件（像上面的撤销修改），就git checkout -- file。
+
+远程仓库
+
+创建SSH Key： ssh-keygen -t rsa -C "abc@mail.com"，创建完毕会在用户主目录的.ssh下生成id_rsa和id_rsa.pub。
+远端添加Key： 登录GitHub - Account settings - SSH Keys - Add SHH Key - 任意Title - 粘贴id_rsa.pub内容。
+
+连接远程仓库：
+
+关联： git remote add origin git@github.com:name/repo.git，其中origin是给远程库取的名，name是用户名，repo是仓库名。
+推送（push）： 第一次推送用git push -u origin master，会把本地master分支和远程master分支关联，简化后续推送和拉取的命令。
+后续推送： git push origin master或者git push。
+拉取/克隆（clone） git clone git@github.com:name/repo.git，这个git://默认使用SSH，也可以使用https的协议（但速度偏慢）。
+
+分支
+
+创建/切换分支（旧版本）： git checkout -b dev，加上-b表示创建并切换，相当于git branch dev + git checkout dev。
+创建/切换分支（新版本）： git switch -c dev，加上-c表示创建并切换，相当于git branch dev + git switch dev。
+
+查看当前分支： git branch，当前分支前有个*号。
+合并分支： 返回master分支后，git merge dev。
+Fast-Forward：简单地把master指针指向dev的当前提交，所以速度很快。
+删除分支： git branch -d dev
+
+分支合并的冲突解决：
+当merge的时候，两个分支对同一个文件都进行了修改，则无法进行Fast-Forward，并且会在文件中用<<<、===、>>>标记出不同分支的内容。
+需要手动修改好冲突的文件后，再add和commit，则算是解决了该文件的冲突。
+可以用git log --graph看分支合并图。
+git log --abbrev-commit可以看简短commit id。
+
+禁止Fast-Forward：
+在使用Fast-Forward时，merge后看不到合并过的信息。
+强制禁止FF的话，会在merge时新生成一个commit，就能从log中看出分支信息。
+git merge --no-ff -m "comment" dev
+像这里dev我commit了两次，no-ffmerge了两次：
+在这里插入图片描述
+分支策略：
+在这里插入图片描述
+
+Bug分支：
+
+对于工作区文件的任何修改，如果不commit，就和版本库没任何关系。
+修改之后，并且add到stage了，这时切换到任何分支，这个add对任何分支都有效，都会提示commit，因此对于任何分支而言都已add。
+所以如果改了一些东西，在还不想commit却不得不switch时，就只能先stash缓存起来再switch。
+
+缓存： git stash
+查看缓存列表： git stash list
+缓存恢复： git stash apply name + git stash drop name
+缓存恢复： 恢复顶层（最近的）（因为是栈）的stash并删除：git stash pop
+例如先stash了stash 1，
+然后stash了stash 2，
+那么git stash pop是恢复stash 2，并把它删除。
+git stash list则只剩stash 1。
+
+在master分支上修复bug后，想把这个commit也推广到正在编码的dev分支：
+复制commit： switch到dev分支后，查找想复制的commit id，并git cherry-pick id。
+注意： cherry-pick时要被复制所修改的文件不要有修改，否则无法复制修改。因此最好先cherry-pick再stash pop。
+在这里插入图片描述
+开发新的Feature，最好新建一个branch
+删除未被合并的分支： git branch -D feature，原本是git branch -d feature。
+
+查看远程信息： git remote -v，能看到fetch和push（如果有权限）
+clone时，默认下载master分支
+创建远程origin的dev分支到本地： git switch -c dev origin/dev
+
+与伙伴在远程同一个分支起冲突，导致push失败：
+先git pull下来
+如果因dev分支还未关联，则git branch -set-upstream-to=origin/dev dev，关联完成后，pull并解决冲突，就能push成功。
+
+梳理因远程冲突导致的分支分叉： git rebase
+根据评论区的描述：若pull后有冲突，先不管冲突代码，git add和commit。
+执行git rebase提示xxx，再手动解决冲突，执行git add，以及git rebase --continue。之后再push。
+（先解决冲突再rebase，会恢复冲突）
+
+打标签： 切换到对应分支，git tag v1.0，默认打到最新commit
+对历史commit打标签： git tag v1.0 id
+创建有说明标签： git tag -a <tagname> -m "comment" id
+查看所有标签： git tag
+查看标签信息： git show <tagname>
+删除标签： git tag -d <tagname>
+远程发送标签： git push origin <tagname>
+远程推送所有未同步标签： git push origin --tags
+删除已推送远端标签： git tag -d <tagname> + git push origin :refs/tags/<tagname>
