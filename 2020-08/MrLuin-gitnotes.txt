@@ -1,0 +1,248 @@
+1. 集中式 v.s. 分布式管理
+2. git init 将当前目录变成Git可管理的仓库
+3. Git只能跟踪文本文件的变动，如txt，网页，程序代码，无法跟踪二进制文件，如图片，视频的变化
+   especially, word是二进制的，无法跟踪
+   要统一使用UTF8编码
+4. 不要使用记事本编辑任何文本文件，在保存UTF8编码文件的时候，文件开头默认添加0xefbbbf的字符，会遇到很多麻烦 --> Notepad++
+5. 	git add 添加文件到repositary 可以多次add不同的文件
+	git commit -m <comment>      一次可以提交很多文件
+     
+   e.g. git add file1.txt
+		git add file2.txt file3.txt
+		git commit -m "add 3 files"
+6. 设置全局用户名和邮箱，所有库都可以使用 			
+	git config --global user.name "Your Name"
+	git config --global user.email "email@example.com"
+		
+7. Git命令必须在 Git仓库目录内执行
+8. git status 查看状态
+9. git diff 查看前后不同
+10. git commit 相当于一个快照，当觉得修改的差不多的时候就存一下
+11. git log 可以查看修改情况
+    git log --pretty=oneline 查看所有修改情况，并显示在一行中
+	
+12. 版本回退，
+	当前版本是HEAD，上一个版本是HEAD^, 上上是HEAD^^, 再往前 HEAD~100
+	git reset --hard HEAD^
+	git reset --hard <commitID> 这里也可以写提交号，指定回到哪个提交
+	如果添加到了暂存区，不想commit了
+	git reset HEAD filename 拿出暂存区 unstaged
+ 
+13. git 内部有一个指向当前提交 HEAD 指针，回退到哪个提交，HEAD就指向哪个提交
+14. git reflog 记录每次使用的命令，由此可以找到之前的提交号
+15. 工作区 Working Directory
+    版本库 Repository：.git目录
+	版本库中有一个暂存区 stage, 以及自动创建的第一个分支 master，以及指向master的一个指针 HEAD
+	git add 将文件从工作区添加到暂存区
+	git commit 将暂存区的文件提交到当前分支
+16. 跟踪的是修改，而不是文件：
+	修改 add 再修改 git commit 则文件仍然处于修改状态，因为add只把第一次修改提交到了暂存区
+	正确的顺序应该是 修改 add 修改 add commit
+17. git status 查看状态
+	可以选择 git add
+	或者 git checkout -- file 放弃工作区的修改
+	有两种情况这里：
+		如果修改后没有放到暂存区，撤销以后会和当前HEAD版本库一样的状态
+		如果已经添加到了暂存区，又做了修改，撤销后会回到暂存区的状态
+	
+17. 如果遇到从工作区删除的文件的时候，
+	如果要在版本库删除的话 git rm filename -> git commit -m 'message'
+	如果不想删除的话 git checkout -- test.txt
+	
+18. 远程仓库
+	将原始库存放到非本地，所有机器共享原始库
+	github
+	
+	ssh-keygen -t rsa -C "youremail@example.com"
+	
+	本地库 与 github 之间是通过SSH加密的，
+		首先创建 SSH KEY id_rsa id_rsa.pub 分别是私钥和公钥
+		将SSHKey 添加到 github 中 Account Setting SSHKey add
+		如果有多台电脑，每台电脑都要添加SSHKey
+		
+19. github 上创建一个新库
+	
+	git remote add origin（这个可以是其他的名字） https://github.com/mrluin/learngit.git
+	远程添加库 origin
+	
+	git push -u origin master
+	第一次推送的时候 要有-u 不但会把本地master分支内容推送到远程master分支上，还会进行关联
+	之后进行推送的时候，master -> origin
+	git push origin master
+	
+20. 克隆远程库
+	git clone ......
+	这里最好使用 ssh协议，http协议速度慢
+	
+21. 分支管理
+	创建分支，切换分支，删除分支，不同平行线上进行
+	
+	主分支 master分支 HEAD指向master，master指向提交，∴Head指向当前分支
+	每次提交，master分支都会前进一步，master越来越长
+	新分支，与master指向相同的提交，HEAD指向当前新分支
+	
+	新分支上任务完成后，合并到master分支：将master指针指向新分支的提交
+	此时可以删除新分支
+	所以整个过程都是些指针的变化，不涉及到工作区的变更
+	
+	git checkout -b dev 创建并切换到dev分支上
+	= git branch dev 
+	  git checkout dev
+	 
+	git branch 查看当前分支
+	
+	切换到master
+	git merge dev 将dev分支合并到master上
+	
+	Fast-forward 合并模式，快进模式
+	合并完成后再删除 dev 分支
+	
+	git switch -c dev 创建并切换到新分支dev
+	git switch master
+	
+	当主分支与新分支内容有分歧的时候，merge就会出现冲突
+	手动解决冲突
+	
+	git log --graph 查看分支合并图
+	
+	关于fast forward模式下的分支合并，删除分支后，会丢掉分支信息
+		如果禁用fast forward模式，git在merge的时候生成一个新的commit，在分支历史上就会看出分支信息
+		--no-ff git merge
+		
+		
+	git merge --no-ff -m <comment> dev 
+	此时 合并后历史有分支，能够看出来做过的合并，ff看不出
+	
+	开发过程中，
+	master 是非常稳定的，只用来发布新版本
+	分支上干活，发布时在master分支上
+	
+	BUG 都可以由新的临时分支来解决，修复后合并再删除
+	
+	git stash 将现场工作储存起来，等后面再用
+	git stash list 查看藏起来的现场
+		git stash apply + git stash drop
+		恢复现场 git stash apply （可以用于恢复指定的stash） 但是stash内容不删除，再用git stash drop来删除
+		git stash pop
+		或者 直接用 git stash pop 恢复的同时把stash内容删除
+		
+	同样的bug再在dev分支上进行修改：把之前提交的内容复制到dev分支上就可以
+		git cherry-pick <commitID>
+		
+	
+	类似地，添加新功能的时候，不想在主分支上进行修改，添加新的功能分支，在上面搞好后，再合并到主分支，再删除
+	如果该分支还没有进行merge到master分支上，但是要删除
+	git branch -D <branchname> 要用 -D 删除没有merge到主分支的分支
+	
+	多人协作
+	远程分支 默认名字为 origin
+	查看远程分支信息
+	git remote
+	-> origin
+	
+	git remote -v 查看详细信息
+	
+	推送分支的时候
+	git push origin(远程分支默认名) master(这里也可以是其他分支比如说dev)
+	
+	master 分支，时刻要与远程分支保持同步
+	dev 开发分支，主要在此上进行工作，所以也要与远程分支保持同步
+	bug 分支，
+	feature 分支，
+	没有必要推到远程上
+	
+	抓取分支 fetch
+	多人协作的时候，都会在master以及 dev 分支上推送各自的修改。
+	
+	clone 过来直接拉取 git pull 
+	当多个人对同样的文件进行修改的时候，都push的话，会提示有冲突
+	提示 先 pull 再修改
+	
+	git pull 的时候还要建立与远程库的连接
+	（clone 可以建立连接 ，-u push的时候可以建立连接）
+	git branch --set-upstream-to=origin/dev dev
+
+	
+	1. 首先可以 git push origin <branch-name> 推送自己的修改
+	2. 如果推送失败 git pull
+	3. 如果没有连接 git branch --set-upstream-to=origin/dev <branch-name>
+	4. 如果有冲突，解决冲突，并在本地库提交
+	5. 如果没有冲突了，git push origin <branch-name>
+	
+	rebase
+	
+	git log --graph --pretty=oneline --abbrev-commit
+	
+	git rebase
+	本地提交，先于远程的时候，push，graph比较乱，分支比较多
+	git rebase后，将本地提交挪放在，远程origin最近提交版本之后，这样相当于在origin进行的修改，提交历史为直线
+	优点是：查看历史提交的变化时，比较容易
+	缺点是：本地的提交被修改了
+		
+	库的标签管理，打标签时刻的版本唯一确定，取这个标签的时候，也可将历史版本取出来
+	标签也是指向某个commit的指针，但是与分支不同的是，分支可以以移动，标签不能移动, 死指针与活指针
+	
+	commit ID很乱，不好找，所以用tag
+	
+	** 标签是打在commit上面的
+	
+	git tag <name> 为当前库的当前版本（最新commit）添加一个tag
+	git tag 显示当前库中所有的标签，按照字母顺序显示
+	
+	git log --pretty=oneline --abbrev-commit commit的ID也缩写
+	
+	git tag <name> <commitid> 对某次的提交打标签
+	
+	git show <tagname> 查看标签信息
+	
+	git tag -a <tagname> -m <comment> <commitID>
+
+	tag 与 commit 相关，与分支无关
+	
+	错误的标签可以进行删除 git tag -d <tagname>
+	标签都在本地进行存储，不会推送到远程
+	如果要将某个标签推送，git push origin <tagname>
+	或者将所有标签推送 git push origin --tags
+	
+	^^Github上面也分成 branch 和 tag 可以进行切换
+	
+	如若已经push的标签删除，先从本地删除，再从远程删除
+	git tag -d <tagname>
+	git push origin :refs/tags/<tagname>
+	但是好像 直接远程删除也是可以的 而且还不用账号和密码
+	
+	在github上参与项目修改的时候，先fork到自己的账号下，再通过clone传到自己的本地
+	干活的时候，往自己的库里面推送
+	再在官方库中 pull request PR
+	
+	git remote rm origin 删除已有的远程库
+	
+	多个远程库
+	
+	git remote add <name> git@.....
+	git remote add <name2> git@.....
+	
+	git push <name> master
+	git push <name2> master
+	
+	当在工作区的时候，有些内容不想被git track 
+	.gitignore 把文件的名字或者正则表达式的名字 放在这里面 github上面有现成的配置文件
+	写好后，将其也提交到 Git 上去
+	
+	如果遇到添加文件但是说被 .gitignore 忽略的话，强行添加 -f
+	
+	git add -f App.class
+	git check-ignore -v App.class 可以查看 .gitignore 文件中哪个忽略了
+	
+	通过alia控制命令的别名
+	git config --global alias.<别名> <原名>
+	git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+	git config --global alias.unstage 'reset HEAD'
+	git config --global alias.last 'log -1'
+	
+	正常 git log -1 查看最后一次的结果，
+		 git last 
+	
+	配置文件所在位置，.git/config
+	
+	♥lzy

@@ -1,0 +1,17 @@
+//$ git init
+//$ git add xxx
+//$ git commit -m "xxx"
+
+//$ git status
+//$ git diff
+//$ git log
+//$ git reset --hard HEAD^
+//$ git reflog查看命令历史
+//$ git git checkout -- readme.txt 撤销修改，分两种情况
+//$ git reset HEAD <file>  提交到暂存区了的
+//$ $ git rm xxx 删除版本库文件
+
+--------------------------以上为本地版本库----------------------------
+
+//$ git clone git@github.com:michaelliao/gitskills.git clone 远程库
+//$ git push origin master 提交本地库到远程库  第一回push 添加-u 参数表示本地 master和远程master 连接
