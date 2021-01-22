@@ -1,1 +1,2 @@
 感谢廖老师的 Git 教程！受益匪浅！
+thransk too!
