@@ -1,0 +1,17 @@
+说实话挺难想象的，几天就把 git 给摸了一边，虽然说现在还是会犯迷糊，但我觉得以后用的多了应该就会好一点吧，嗯。
+顺便补充一下教程里自己摸黑的几个步骤：
+1. 新建版本库要使用 'git config user.email "xxx@xxx.com"' 和 'git config user.name "xxx"' 来设置 commit 的用户名和邮箱，如果以后都用这个可以加 '--global' 参数；
+2. 连接到远程 GitHub 仓库的 ssh 密钥必须要放在家目录的 .ssh 文件夹下，还要指定名字为 id_rsa，搞得很不爽，解决方法是我把密钥改名为 'GitHubKey.pem' 并放在 .ssh 目录下，在 .ssh 目录下创建 config 文件，里面输入如下：
+	Host github.com
+	  User git
+	  IdentityFile /home/aniypc421/.ssh/GitHubKey.pem
+	  IdentitiesOnly yes
+   （参考自 https://segmentfault.com/a/1190000005349818）
+   再次进行 push/pull 操作即可。
+3. 备忘：标签删除后 pull 到仓库可以使用 'git push origin :refs/tags/xxx'
+         也可使用 'git push origin --delete tag xxx'
+         切换分支使用 'git checkout' 或 'git switch'
+         从 commit 中恢复文件到工作区使用 'git checkout -- xxx'
+4. GitHub 我默认创建仓库名是 main，push 上去之后才发现，在设置里可以改
+剩下的暂时想不出来了，日后 Git 学成离不开廖老师的指导
+看到其他人都在为武汉加油，我在这里提前祝 2021 年平平安安地度过，2020 年的医生们已经够忙的了，希望在 2021 年他们能够过个好年
