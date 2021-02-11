@@ -1,0 +1,61 @@
+windows下显示隐藏文件的命令是dir/ah
+                          type代替cat：查看文本内容
+
+mkdir learngit      创建空目录
+cd learngit 
+git命令：必须在Git的仓库目录下执行（此处即learngit）
+git init       把这个目录变成git可以管理的仓库
+git add  document.xxx        把文件添加到仓库
+git commit    把文件提交到仓库（可以将添加的文件一次性提交上去）
+-m后面输入的是本次提交的说明
+显示：1 file changed:一个文件被改动
+           2 insertions   :插入了两行内容（即提交  的文本有两行）
+
+更改readme.txt，保存
+git status:掌握仓库当前的状态（eg：被修改，但还没有添加）
+git diff：查看修改了什么
+
+git log:显示从最近到最远的提交日志
+git reset hard HEAD~1/2/3......                              HEAD:表示当前版本
+Git在内部有个指向当前版本的HEAD指针，当你回退版本的时候，Git仅仅是把HEAD从指向append GPL
+工作区 、 版本库：包括暂存区和分支master
+每次修改，如果不用git add到暂存区，那就不会加入到commit中git
+
+git restore  readme.txt:                                  把readme.txt文件在工作区的修改全部撤销。让这个文件回到最近一次git commit 或git add 时的状态
+git restore --staged readme.txt把暂存区的修改回退到工作区，然后再用上面的restore命令丢弃工作区的修改
+
+远程仓库
+git remote：查看远程库的信息
+git remote -v：查看更详细的信息
+ git remote rm origin：删除关联的远程仓库
+
+git remote add origin git@github.com:lucky-fairy-girl/firstt.git 把一个已有的本地仓库（即当前目录）与之（github上的firstt仓库）关联
+git branch -M main
+git push -u origin main：把本地库的所有内容推送到远程库上
+
+git push origin dev：把分支dev推送到远程库对应的远程分支上
+
+git clone git@github.com:lucky-fairy-girl/gitskills.git从远程库克隆
+
+分支
+git branch:查看分支
+git checkout -b dev /git switch -c dev           创建dev分支并切换
+git checkout main/git switch master切换到main分支
+git merge dev 把dev的成果合并到main上
+（就是直接把main指向dev的当前提交）
+git branch -d dev:删除dev分支
+git log --graph --pretty=online --abbrev-commit
+git branch -D <name>如果要丢弃一个没有被合并过的分支，可以通过-D强行删除。
+
+多人协作
+首先，可以试图用git push origin <branch-name>推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功
+
+标签
+git tag <tag name>新建标签，默认为HEAD，也可以指定一个commit
+git tag -a v0.7 -m "version 0.7 released" 83bf8d1：用-a指定标签名，-m指定说明文字
+git show <tagname>：可以看到说明文字
+git tag -d v0.8：删除标签
+git push origin v1.0:推送到远程
