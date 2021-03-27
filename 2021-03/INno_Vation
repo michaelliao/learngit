@@ -1,0 +1,22 @@
+git 常用指令
+
+git config --global user.name "<user_name: work-desktop>"
+git config --global user.email "<user_email: 475761912@qq.com>"
+git clone <url: git@e.coding.net:puluomixiusi456/pythonProject/test.git>
+git init
+git remote add <host: origin> <url: git@e.coding.net:puluomixiusi456/pythonProject/test.git>
+git push --set-upstream <host: origin> <branch: master>
+
+git add .
+git commit -m "<message>"
+git pull <host: origin> <branch: master>
+git push <host: origin> <branch: master>
+
+git status
+git diff
+git log --oneline --graph
+git reset --hard <SHA1>
+git checkout -- <file>
+git remote -v
+git remote rm <host: origin>
+git rm --cached <file: .idea>
