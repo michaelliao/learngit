@@ -7,3 +7,4 @@ paullbm学习GIT心得体会
 当然了，想要完全掌握还得时间的积累！
 看github里的各个菜单也知道是怎么回事了！
 非常感谢廖老师！
+make the change !!!
