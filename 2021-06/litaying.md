@@ -92,8 +92,7 @@ ssh-keygen -t rsa -C "Youremail@mail.com"
 把本地库推送到远程仓库
 
 ```
-git remote add origin //关联本地仓库
-git@gitee.com:taying/learngit.git
+git remote add origin git@gitee.com:taying/learngit.git //关联本地仓库
 
 git push -u orign master //推送当前master分支到远程 -u关联远程库
 git push origin master //关联后推送方式
