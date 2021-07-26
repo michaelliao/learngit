@@ -1,0 +1,10 @@
+#new
+#自己生成ca证书
+#new cmd模式下，管理员用户生成证书，生成别名为tomcat，保存路径为D盘，命令：keytool -genkeypair -alias tomcat -keyalg RSA -keystore D:\keystore.jks
+#自己生成的证书，要在浏览器添加信任。
+#非本机部署时需通过域名访问？？？
+
+server.ssl.key-store=classpath:keystore.jks
+server.ssl.key-store-password=123456
+server.ssl.key-password=123456
+server.ssl.key-alias=tomcat
