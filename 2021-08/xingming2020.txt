@@ -1,0 +1,202 @@
+谢谢！
+
+git笔记总结
+
+pwd								显示当前目录
+
+git init 						初始化
+git add							添加到暂存区
+git commit -m	 				提交到仓库
+git status						查看仓库当前状态
+git diff   						查看区别
+git log							查看提交历史
+git log --pretty=oneline		一行显示提交历史
+
+
+---------------------------------------------
+版本回退
+
+在Git中，用HEAD表示当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，往上100个版本写成HEAD~100
+
+git reset --hard HEAD^			回退一个版本
+git reset HEAD^					本地在commit后想要取消当前commit但保留变更的内容
+
+只要还找得到commit id就可以使用git reset --hard (commit id的前若干位)回到未来的某个版本
+
+git reflog						记录了每一次的命令，可在回退后再回到未来的某个版本
+如果无法在命令行中找到commit id，可使用git reflog找到之前的commit id，再使用git reset --hard (commit id的前若干位)
+
+---------------------------------------------
+撤销修改
+
+git checkout -- file			丢弃工作区的修改，回到最近一次git commit或git add时的状态
+git restore <file>				同上
+
+git reset HEAD <file>			把暂存区的修改撤销掉（unstage），重新放回工作区
+git restore --staged <file>		同上
+
+小结
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git restore <file>。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git restore --staged <file>，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+
+---------------------------------------------
+删除文件
+
+git rm <file>			用于删除一个文件
+git rm --cached <file>	从跟踪清单中删除，但仍然希望保留在当前工作目录中
+git rm -f <file>		强行从暂存区和工作区中删除修改后的文件
+
+如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
+
+---------------------------------------------
+Github/Gitee添加SSH Key
+
+由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的，所以，需要一点设置：
+
+第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。
+操作步骤如下：
+1.	cd~(进入用户主目录) 
+2.	cd .ssh(进入.ssh目录) 
+3.	ls(列出.ssh目录的文件，可以看到id_rsa id_rsa.pub两个文件) 
+4.	cat ~/.ssh/id_rsa.pub(可以看到id_rsa.pub文件的内容，复制即可)
+如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+$ ssh-keygen -t rsa -C "youremail@example.com"
+你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容
+
+
+---------------------------------------------
+个人对于远程库的一些理解：
+
+从项目的角度来看，每个项目可以关联一个或者多个远程库
+
+1.要关联一个远程库，使用命令git remote add origin “远程库地址”；
+	关联一个远程库时必须给远程库指定一个名字，origin是默认习惯命名；
+	关联远程库后，可以选择把本地的仓库推送到远程库，也可以从远程库克隆一个本地库：
+	1)本地推送到远程
+		使用命令git push -u origin master第一次推送master分支的所有内容；
+		上面命令将本地的master分支推送到origin主机，同时-u参数指定origin为默认主机（把本地的master分支和远程的master分支关联起来），后面就可以不加任何参数使用git push了。
+	2)克隆一个本地库
+		可以使用git clone “远程库地址” 克隆一个本地库；
+		此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+		从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin。
+
+2.若是想更换远程库，可以先用git remote -v查看远程库信息
+	我们可以删除已有的GitHub远程库git remote rm origin
+	（此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库。远程库本身并没有任何改动。要真正删除远程库，需要登录到GitHub，在后台页面找到删除按钮再删除。）
+	然后使用git remote add origin git@server-name:path/repo-name.git 添加其它远程库
+
+3.若是想同时关联github和gitee
+	使用多个远程库时，我们要注意，git给远程库起的默认名称是origin，如果有多个远程库，我们需要用不同的名称来标识不同的远程库。
+	仍然以learngit本地库为例，我们先删除已关联的名为origin的远程库：
+		git remote rm origin
+	然后，先关联GitHub的远程库：
+		git remote add github git@github.com:michaelliao/learngit.git
+	注意，远程库的名称叫github，不叫origin了。
+	接着，再关联Gitee的远程库：
+		git remote add gitee git@gitee.com:liaoxuefeng/learngit.git
+	同样注意，远程库的名称叫gitee，不叫origin。
+	现在，我们用git remote -v查看远程库信息，可以看到两个远程库：
+		gitee	git@gitee.com:liaoxuefeng/learngit.git (fetch)
+		gitee	git@gitee.com:liaoxuefeng/learngit.git (push)
+		github	git@github.com:michaelliao/learngit.git (fetch)
+		github	git@github.com:michaelliao/learngit.git (push)
+	如果要推送到GitHub，使用命令：
+		git push github master
+	如果要推送到Gitee，使用命令：
+		git push gitee master
+
+-----------------------------------------------
+分支管理
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>或者git switch <name>
+
+创建+切换分支：git checkout -b <name>或者git switch -c <name>
+
+合并指定分支到当前分支：git merge <name>
+
+删除分支：git branch -d <name>
+
+
+当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+用git log --graph命令可以看到分支合并图。
+git log --graph --pretty=oneline --abbrev-commit
+
+
+git merge –no-ff -m <commit message> <branch name>
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。
+
+
+
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+
+当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场；
+(
+	使用git stash list命令查看保存的工作现场
+
+	恢复工作现场的方式：
+	1) git stash apply，但是恢复后，stash内容并不删除，需要用git stash drop来删除
+	2) git stash pop，恢复的同时把stash内容也删了。git默认会把工作区和暂存区的改动都恢复到工作区。
+	   git stash pop --index 恢复最新的进度到工作区和暂存区。（尝试将原来暂存区的改动还恢复到暂存区）
+)
+
+在master分支上修复的bug，想要合并到当前dev分支，可以用git cherry-pick <commit id>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。
+
+
+
+开发一个新feature，最好新建一个分支；
+如果要丢弃一个没有被合并过的分支，git branch -d <name>删除失败，可以通过git branch -D <name>强行删除。
+
+
+
+查看远程库信息，使用git remote -v；
+本地新建的分支如果不推送到远程，对其他人就是不可见的；
+从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
+
+因此，多人协作的工作模式通常是这样：
+1.	首先，可以试图用git push origin <branch-name>推送自己的修改；
+2.	如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+3.	如果合并有冲突，则解决冲突，并在本地提交；
+4.	没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，用命令git branch --set-upstream-to <branch-name> origin/<branch-name>。
+这就是多人协作的工作模式，一旦熟悉了，就非常简单。
+
+
+git rebase 的理解：
+本地提交若干commit后需要推送到远端origin，但是远端origin在我们上次同步后有了新的commit，于是我们需要git pull拉取新的内容在本地合并然后commit，此时，本地的提交历史分叉了，如果直接推送到远端origin的话会产生混乱。这时就可以使用git rebase，该命令会修改我们原本在本地提交的commit，它不再基于原来同步的分支，而是基于最新git pull拉取后的分支，最终提交的内容是一致的
+
+git rebase小结：
+rebase操作可以把本地未push的分叉提交历史整理成直线；
+rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
+
+---------------------------------
+标签管理
+
+git tag      查看所有标签
+git tag <tagname>				新建一个标签，默认为HEAD
+git tag <tagname> <commit_id>   在指定的commit id新建一个标签
+git tag -a <tagname> -m "blablabla..."		可以指定标签信息；
+
+注意，标签不是按时间顺序列出，而是按字母排序的。
+
+git show <tagname>				查看标签信息
+
+git tag -d <tagname>					删除一个本地标签；
+git push origin :refs/tags/<tagname>	删除一个远程标签。
+
+git push origin <tagname>		推送一个本地标签；
+git push origin --tags			推送全部未推送过的本地标签；
