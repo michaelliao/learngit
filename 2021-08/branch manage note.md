@@ -17,4 +17,8 @@ git merge --no-ff -m "merge with no-ff" dev和git merge dev 中的Fast forward �
 
 I am hwy，Thank you for your git learning Tutorials.
 
-so good for me.
+So good for me.
+
+If is possible，can you please receive my pull request for test？
+
+Very Thankyou！
