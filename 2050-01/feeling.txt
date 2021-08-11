@@ -1,0 +1,6 @@
+Studying Way About Git:https://www.liaoxuefeng.com/wiki/896043488029600
+To begin with, I made acquaintance with git by means of some blogs in IT tech communication platform like CSDN.
+But after a while, it was unclear for me that what is git and what I could do with this powerful tool.
+Later on, I knew about this Mr Liao's website and learnt relevant knowledge carefully.
+Wow! What a delight! 
+Thanks Mr.Liao for imparting the knowledge&skills.The teaching method kind of suits STAR mode. It's helpful for me.
