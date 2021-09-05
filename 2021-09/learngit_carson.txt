@@ -1,0 +1,73 @@
+Carson is learning git:
+
+git config --global user.name "Carson Chen"
+git config --global user.email "carson.chen@example.com"
+
+git init
+git add <file> [<file>] [(<file>)]
+git commit -m "<message>"
+
+git status
+git diff
+
+git log
+git log --pretty=oneline
+
+git reset --hard HEAD^
+git reset --hard HEAD^^
+git reset --hard HEAD~100
+git reset --hard <commit id>
+
+git reflog
+
+git checkout -- <file>
+git restore <file>
+
+git reset HEAD <file>
+git restore --staged <file>
+
+git rm <file>
+
+git remote add origin <url>
+git push -u origin master
+git push origin master
+
+git remote -v
+git remote rm origin
+
+git clone <url>
+
+git branch
+git branch dev
+git checkout dev = git switch dev
+git checkout -b dev = git branch dev + git checkout dev = git switch -c dev
+git merge dev
+git branch -d dev
+
+git log --graph --pretty=oneline --abbrev-commit
+
+git merge --no-ff -m "<message>" dev
+
+git stash
+git stash pop = git stash apply + git stash drop
+git stash list
+
+git cherry-pick <commit>
+
+git branch -D dev
+
+git checkout -b dev origin/dev
+
+git branch --set-upstream-to=origin/dev dev
+
+git rebase
+
+git tag
+git tag <tagname>
+git tag <tagname> <commit>
+git tag -a <tagname> -m "<message>" <commit>
+git show <tagname>
+git tag -d <tagname>
+git push origin <tagname>
+git push origin --tags
+git push origin :refs/tags/<tagname>
