@@ -1,0 +1,216 @@
+﻿刚开始学习git的时候网上搜了好多资料，没有系统的讲解杂七杂八的看的头大不理解，偶然看见了廖老师的官网
+系统的讲解使我了解git是什么东西以及一系列的命令等等，这是我结合网上还有廖老师和自己理解的笔记虽然写的很杂（看了其他人写的笔记后，虽然看之前也觉得）
+希望各位阅读后有自己的理解（感觉没啥人看呢）
+
+workspace  >>add>>  index  >>commit>>   Repository   >>push>>   Remote
+从remote和workspace同步代码 git pull origin master（分支名称）
+
+workspace工作区
+index暂存区
+repository版本区（本地）
+remote远程仓库
+以上是github区域和工作流程（大概）
+
+
+以下是GitHub操作（大体上和GitEE差不多吧，gitee是码云中国的github托管平台）：
+
+GitHub和GitEE可以同时关联同一个本地库，需要先删除默认的关联如origin
+				git remote rm origin 删除origin的命令
+				git remote add name remoteURL（是远程仓库的地址） 添加远程仓库的名字如github，仓库的地址关联github就用github地址
+																								关联gitee就用gitee的地址。
+				关联过后使用如下命令：
+				git remote -v 查看远程库的信息一般一个库有两条fetch和push
+				关联后，尽量pull后再进行push（有时候可能会冲突视情况而定吧）
+				默认命令是git push origin master ，git和push是不变的origin是远程仓库名字，master是分支名这两个是可以改变的。
+				远程仓库名改为github的话提交命令就是 git push github master 了。
+
+GitHub操作流程：参与开源项目流程，在项目界面点击Fork在自己账号下克隆出一个仓库再从自己账号下clone
+				这样的话就可以进行推送修改了，因为再别人的账号下进行clone的话是没有推送权限的。
+				关系例如：twbs/bootstrap  >>>  my/bootstrap  >>>  local/bootstrap
+						上面的关系是用my将twbs的仓库克隆到my再用my clone到local本地
+						如果要将修改推送到别人官方仓库的话需要发起一个 pull request的请求，对方接受了pullrequest的话就修改成功
+				在GitHub上可以随意Fork开源仓库（将仓库建立到自己账号下我是这样理解的）
+				拥有Fork到把自己的仓库读写的权利。
+				能用 pull request给官方仓库贡献代码。
+
+
+
+GitHub修改使用命令：
+
+	分支管理：分支像平行宇宙，不同分支做不同的事，分支是独立的不会相互影响，
+			在开发中写了不完整的代码会导致别人不能进行正常工作，
+			可以创建分支在分支上进行代码编写，等待开发完毕后再合并给原分支即安全又不影响别人工作。
+			分支常用命令：git remote 查看远程库名
+						  git remote -v 查看远程库详细信息
+						  git checkout --set-upstream-to=origin/name name 本地和远程分支建立联系
+						  git branch -branch name origin/name 在本地创建和远程对应的分支（一样）本地和远程分支名最好一致
+			ReBase（变基）分支线强迫症命令：当多人在同一个分支上进行提交时，分支线会很乱后面push的话需要先进行pull才能push
+											rebase（变基）将分支线整理成一条干净的线，方便观看。缺点是本地分叉提交被修改过。
+			下面是分支的理解（看了廖雪峰老师的官网）：
+						github创建一个默认的分支master又为主分支，
+						master每提交一次分支就增长一次，（分支像一条提交线）
+						master是一个指针指向提交，HEAD指向分支，当HEAD指向master当前分支就为master
+						如果有一个叫leangle的分支，HEAD指向leangle时那现在使用的就是leangle分支了，
+						当在master指向最新提交的时候创建leangle，leangle指向的提交和master一样，
+						这时切换到leangle分支进行提交时只有leangle的提交增长，
+						master的提交不变。（看评论说好像有在master的时候能看见和操控leangle的情况）
+						如果想合并分支将leangle的改动合并到master上的话，直接将master指向leangle的当前提交即可。
+						合并的话只是修改了指针的指向罢了。
+			分支推送需求：master主分支，时刻与远程仓库同步。
+						  dev开发分支，开发成员在上面进行工作，需与远程同步。
+						  bug分支，用于在本地修复bug一般不进行推送。
+						  feature分支，取决于是否和朋友再合作上进行开发。
+			分支命令：git branch 是查看所有分支，当前分支前面会有*并且是绿色
+					  git branch name 是创建分支
+					  git branch -d name 删除分支
+					  git checkout name OR git switch name切换分支
+					  git chectout -b name OR git switch -c name 是创建并且切换分支
+					  git merge name 在当前分支使用就是将name的分支合并到当前分支
+					  git log --graph --pretty=oneline --abbrev-commit 查看分支合并图详细情况
+					  git log --graph 查看分支合并图
+					  （切换分支和创建并切换分支建议使用switch，因为checkout是撤销修改命令有点不好分别）
+					  
+			分支合并（分支冲突）：现有2个分支master and leangle，使用leangle进行文件修改，master分支不变这时合并的话
+						需切换至master使用git master leangle命令进行分支合并，这个情况为快速合并git只需要将
+						master的指针移动到leangle的位置即可，master就能拥有leangle的修改内容了。
+					还有分支不成功的情况，如：
+						在leangle对文件修改并commit了再切换到master
+						（此时会提示master分支比远程的master分支超前一个提交（我觉得可能指的是leangle的提交因为master还没进行commit呢）
+						然后在master上对文件进行修改后commit，此时两个分支都有了新的提交，git无法执行快速合并
+						只能把各自的修改进行合并但是可能会有冲突，此时git status的话会提示冲突的文件
+						然后再查看文件内容，git用<<<<  ====  >>>>在文件中标记不同分支修改的内容
+						再用master修改文件commit，此时git就能进行快速合并了
+						查看分支情况命令：git log --graph --pretty=oneline --abbrev-commit此命令详细点
+										  git log --graph）
+						（个人理解的话，git的快速合并的情况是在一个分支比另一个分支多提交的时候才有效
+						合并错误的话可能是因为两个分支提交位置相同，进行合并的话产生冲突）
+						
+			分支策略管理：分支合并优先情况下使用fast forward（快速）模式，这种模式删除分支后会丢失分支信息（没有合并历史），
+						  也可以禁用Fast Forward模式，git在merge时会生成一个新的commit，历史上就会显示分支信息（有合并历史），
+						  git merge --no-ff -m“提交描述” name 此命令禁止fast forward并合并分支-m是因为创建一个新的commit
+						  （合并管理的话，master应该只是用于将所有的更新push到remote（更新版本），
+							工作修改等操作应当在其他分支上进行操作，其他人在自己分支上进行工作，忘一条分支上进行合并，
+							当发送新版本的时候这条分支再与master进行合并，master再进行push）
+			BUG分支还不明白：
+			
+			FeaTure分支添加新功能：添加新功能时应当创建一个新的分支编写功能，如后期出现变故也能删除而不影响主分支
+									删除分支git branch -d name 会提示未合并什么的如果要强行删除的话输入-D。
+									
+			分支多人协作模式：简介每人新建自己的分支或者从remote将项目上pull到workspace，各自在workspace上编写新功能
+						  再将功能合并到主分支上在进行提交推送
+						  注：从remote上clone时，只能看见本地的master分支！！
+						  所以需要创建origin的dev分支到本地，命令如下：
+						  git checkout -b dev origin/dev 
+						  如果其他人已经向origin/dev推送，你也对文件进行修改推送的话就会提示冲突！！！导致推送失败。
+						  解决方法就是git pull将最新的dev抓取下来在本地合并，解决冲突进行推送，
+						  如果pull失败，可能是本地和远程的dev没有进行指定，需要设置，命令如下：
+						  git branch --set-upstream-to=origin/dev dev
+						  解决冲突的话上面有解决冲突的理解可自行翻阅
+						  协作流程：git push origin name推送修改 >>>  推送失败的话可能因为远程版本比本地新  >>
+									使用git pull同步 >>  如果有冲突需解决冲突 >> 然后git push origin name即可
+									如果pull提示 no reacking information说明本地和远程分支没有建立关系命令如下：
+									git branch --set-upstream-to=origin/name name （name是分支名，origin是远程仓库名）
+											
+				
+				
+	标签管理：需要先切换到要打标签的分支
+			  注：标签是打在最新的commit上的，如果有两个或多个分支有这个commit，那么在其他分支上也能看见该标签（标签和commit挂钩）
+			创建标签：git tag name（标签名） 新建标签，默认为HEAD，也可以指定commit_id
+					  git tag 查看所有标签
+					  git tag name commit_id（commit的唯一标识） 在以前的commit上打标签
+					  git show name 查看标签信息（提交的文件信息和标签说明文字）
+					  git tag -a name -m "标注" commit_id   -a是指定标签名-m指定说明文字
+			操作标签：因为标签创建是在本地，需要的话可将其推送到远程，以下是操作
+					  git push origin name  将标签推送到远程
+					  git push origin --tags  将所有未推送的标签推送到远程
+					  git tag -d name  删除标签
+					  git push origin :refs/tags/name（标签名）   删除远程标签的命令
+					  
+					  
+					  
+
+
+	https和ssh协议的区别：https速度慢以外有时推送必须输入口令
+						 （本人碰到很多次不明原因，看到其他人的博客了解的，输入的应该是用户名和密码） 
+
+	HEAD是一个指向分支的指针
+	关于github版本控制的理解：git add是将文件的修改提交到暂存区（index）可将多个文件add到暂存区，
+							  git commit是将暂存区的文件提交到分支（master是git的默认分支），
+							  要实现本地仓库和远程仓库（repository）的版本控制的话需要，
+							  将分支的文件修改推送（push）到远程仓库完成版本控制
+							  推送命令git push -u origin master
+
+	将本地仓库文件推送到新的远程仓库：
+							1.先断开与现remote的关联，命令：git remote rm origin
+							2.关联新的remote，命令：git remote add origin RemoteUrl（远程仓库的地址）
+							3.将workspace文件推送到remote需要命令：git push -u origin master
+
+		  
+	github版本回退：
+					没有add时用git status会显示工作区有修改，回退则使用
+						git checkout -- file（文件名）或者
+						git restore file（文件名）
+					已经add后git status会显示有一个修改已经add等待commit，回退至没有add时则使用
+						git reset HEAD file（文件名）
+						git restore --staged file（文件名）
+					已经commit后，git status会显示push（这是让你推送到远程仓库，一旦推送到远程仓库后就gg了无法回退）
+					如需回退到已经add时则使用
+						git reset --soft HEAD^ （个人理解的意思是回退到上一个版本
+						HEAD^和HEAD~1一样都是上一个版本的意思，如果进行了2次commit，想撤回的话就可以使用HEAD~2
+						撤销commit参数：
+										--mixed：此为默认参数，不删除工作空间的修改，撤销commit和git add
+												 git reset --mixed HEAD^和git reset HEAD^效果一样
+										--soft：不删除工作空间改动，撤销commit但不撤销git add
+										--hard：删除工作空间改动，撤销commit和git add
+										注：使用次操作后，就恢复到上一次的commit状态
+						）
+
+	github文件删除：1.rm file（文件名，删除工作区文件）文件add后在文件资源管理器中删除文件或者直接
+					rm file（文件名）删除都会将工作区中文件进行删除。
+					2.这时git status的状态会变成有新的一个提交等待commit（因为文件已经add到暂存区了），
+					还有因为工作区文件删除显示暂存区和工作区不一致。
+					（到达第二种状态时，有两个选择一是回退版本恢复工作区文件因为暂存区还有的缘故可使用git checkout file恢复
+												  二是使用git rm file彻底删除文件并且git commit一下）
+					注：从未添加到暂存区就被删除的文件是无法修复的！！！
+					
+					
+	github未整理的命令
+					remoteClone到workspace命令：git clone RemoteUrl（远程仓库的地址）
+					（远程仓库克隆到本地工作区）：克隆成功的前提是先选取一个文件夹将它和remote进行关联
+		
+					将remote同步到workspace的命令：git pull（下拉）origin master（分支）
+												   pull下拉，就是将remote的文件下发到workwspace实现同步
+
+					git init     通过这个命令把这个该目录变成Git可以管理的仓库：
+
+					git ..\ 	返回上一级文件夹
+
+					cd d:	将路径跳转至指定盘服（示例为d盘）
+					cd test	如果在某个盘服下执行该命令将路径跳转至test文件夹下
+
+					git diff HEAD -- file	file（文件名）通过此命令查看工作区和版本库里的最新版本区别
+					git diff 通过此命令查看文件修改的内容，前提条件是文件已经被add到暂存区了
+					git reflog 查看每一次命令
+					git reset --hard commit_id	此命令用于切换文件的任意版本（commit_id写上前几个数字）
+
+					git status 查看当前仓库状态，如果出现以下（）中的代码就能正常提交了
+					（$ git commit -m "add distributed"
+					[master e475afc] add distributed
+					 1 file changed, 1 insertion(+), 1 deletion(-）
+
+	一、上传文件命令
+					git add .	1、.代表上传所有文件（.的位置能替换成文件名代表上传单个文件）
+					git commit -m "提交备注"	2、提交上传文件
+					git push -u origin master（分支名称） 	3、将上传的文件push（推送）到github远程仓库（最终一步）
+
+	二、更新文件命令
+					git pull origin master		1、此命令为同步本地and远程仓库
+					git add file				2、上传要更新的文件（file）
+					git commit -m "提交备注"	3、提交到本地添加操作说明
+					git push -u origin master（分支名称）	4、将更新文件推送至远程仓库
+
+	三、删除文件命令
+					git pull origin master		1、同步本地and远程仓库
+					git rm -r --cached file 	2、file为要删除的文件
+					git commit -m '提交备注'	3、提交到本地添加操作说明
+					git push -u origin master（分支名称）	4、将更新文件推送至远程仓库

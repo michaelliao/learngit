@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 this is my first pull request
 what will happen?let's see
+=======
+this is my first gitee pull request.
+thanks for the git course.
+>>>>>>> 9826de4bfca49d7fac14b71713059f78730b632b

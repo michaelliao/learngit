@@ -1,0 +1,186 @@
+git笔记
+==============================================================
+注意：git bash命令窗口，能执行大部分linux指令，awk、grep、sed都可以使用
+==============================================================
+
+学习资料来自廖雪峰git教程
+
+git安装配置
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+
+初始化git仓库
+新建一个目录，比如learngit，进入目录
+git init	就可以将此目录变成git可以管理的仓库
+
+提交文件到git仓库
+git add readme.txt	把文件添加到仓库
+git commit -m “add sometime.”	把文件提交到仓库，-m 后面填写的是本次提交说明
+
+掌握工作区状态
+git status		查看当前工作区状态
+git diff readme.txt	当前文件与上一个版本对比
+git diff HEAD readme.txt  当前文件与上一个版本对比   
+
+版本回退
+git log		查看提交日志，由近到远
+git log --pretty=oneline	只显示一行日志
+
+git reset --hard HEAD^	恢复上个版本（在Git中，用HEAD表示当前版本，也就是最新的提交3628164...882e1e0（注意我的提交ID和你的肯定不一样），上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100）
+git reflog	查看命令历史，可以看到之前
+
+git reset --hard 63a351f	指向commit_id为63a351f的版本
+tips：
+回到以前版本，用git log可以查看提交历史，以便确定要回退到哪个版本。
+重返未来版本，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+（如果发现重回未来版本无效，看看是不是因为该指定版本其实也是历史中的某次指定操作。）
+
+
+工作区（Working Directory）和 版本库（Repository）
+
+
+前面讲了我们把文件往Git版本库里添加的时候，是分两步执行的：
+第一步是用git add把文件添加进去，实际上就是把文件修改添加到暂存区；
+第二步是用git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+因为我们创建Git版本库时，Git自动为我们创建了唯一一个master分支，所以，现在，git commit就是往master分支上提交更改。
+可以简单理解为，需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改。
+
+管理修改
+Git是如何跟踪修改：每次修改，如果不add到暂存区，那就不会加入到commit中。
+即不管你怎么改文件，git只管add到暂存区的修改。
+
+撤销修改
+1，在工作区，想撤销修改
+git checkout -- readme.txt	把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+总之，就是让这个文件回到最近一次git commit或git add时的状态。
+2，add到暂存区，想撤销修改
+git status命令可以看到提示：Git同样告诉我们，用命令git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区。这样就恢复在add之前了。如果工作区也要撤销，那就用上一步的git checkout -- readme.txt
+
+3，如果修改已经提交到版本库了，要撤销修改，就要版本回退了。参考版本回退。当然前提是没有推送到远程库。那如果推送了呢？
+小结：
+
+
+删除文件
+git rm file	从版本库中删除文件
+如果一个文件已经被提交到版本库，那么在工作区你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
+git checkout -- file		其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+
+远程仓库
+ssh-keygen -t rsa -C "youremail@example.com"	创建私钥、公钥，一路回车，windows存放路径为：/c/Users/Administrator/.ssh
+
+创建远程仓库		新建名为learngit的远程仓库
+
+git remote add origin git@github.com:makasama/learngit.git
+添加后，远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。
+下一步，就可以把本地库的所有内容推送到远程库上：
+git push -u origin master
+
+把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+（这些命令在创建新仓库时，readme里面就有了）
+推送成功后，可以立刻在GitHub页面中看到远程库的内容已经和本地一模一样：
+
+从现在起，只要本地作了提交，就可以通过命令：
+
+git push origin master
+
+把本地master分支的最新修改推送至GitHub，现在，你就拥有了真正的分布式版本库！
+
+
+从远程库克隆（推荐方式）
+新建远程库（非必要）
+克隆远程库（以文件夹形式）	git clone git@github.com:mikasama/gitskills.git
+
+
+分支管理
+1，创建与合并分支
+Git鼓励大量使用分支：
+查看分支：git branch
+创建分支：git branch <name>
+切换分支：git checkout <name>
+创建+切换分支：git checkout -b <name>
+合并某分支到当前分支：git merge <name>
+删除分支：git branch -d <name>
+tips：如果创建了dev分支，那么通过git push origin dev就可以推送到远程库
+2，解决冲突
+当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
+用git log --graph命令可以看到分支合并图。
+冲突原因：master分支与feature分支同时修改了同一个文件并都提交了，这时候在master分支执行合并git merge feature，就会发生冲突。此时会将冲突内容写进该文件，而且此时属于合并操作，不允许切换分支。重新提交该文件，就可以解决冲突。git log --graph --pretty=oneline --abbrev-commit可以用来查看分支合并图
+
+
+
+3，分支管理策略
+通常，合并分支时，如果可能，Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息。
+如果要强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
+即合并时使用：git merge --no-ff -m "merge with no-ff" dev
+因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。
+合并后，我们用git log看看分支历史git log --graph --pretty=oneline --abbrev-commit
+
+而之前直接使用Fast forward模式，即git merge dev，是这样的。
+
+
+分支策略：
+
+小结：
+
+
+
+bug分支
+在dev分支工作，但临时有bug，需要从master拉取分支解决问题。
+此时在dev分支git stash一下，隐藏现有工作内容。然后回到master分支，新建解决问题分支issue-101，解决问题之后，合并到master（git merge --no-ff -m "merged bug fix 101" issue-101），然后删除分支issue-101。
+接着回到dev分支，git stash pop（恢复并删除），就可以恢复之前的工作状态了。
+查看stash列表	git stash list
+另一个恢复的方法	git stash apply（指定某个stash用git stash apply stash@{0}）
+删除stash（删除全部）	git stash drop
+注意：新增文件，如果没有提交，是不会隐藏的
+
+========================================================
+其实在有修改时，切换分支时，系统就会提示你提交文件或者stash隐藏
+
+
+
+丢弃一个没有合并过的分支	git branch -D feature-vulcan
+
+
+多人协作
+查看远程库信息		git remote
+查看远程库详细信息		git remote -v
+分支推送				git push origin master（origin是远程分支，master是本地要推送的分支，如果该分支远程没有，则自动会创建）
+
+
+git checkout -b dev origin/dev
+在本地建立和远程分支对应的分支，如果远程没有，则自动会在远程创建
+
+多人协作发生冲突
+多人协作也是容易出现冲突问题，在push事提示失败，这时处理该问题思路跟分支合并类似。
+先拉去远程分支最新内容	git pull
+再add /commit 冲突文件，然后git push。
+
+git branch --set-upstream branch-name origin/branch-name	建立本地分支和远程分支的关联
+
+标签管理
+git tag <name>用于新建一个标签，默认为HEAD，也可以指定一个commit id（即给历史提交打标签git tag <name> <commit id>）
+git tag -a <tagname> -m "something..."可以指定标签信息
+git tag -s <tagname> -m "something..."可以用PGP签名标签
+git tag 查看所有标签
+git show <tag name> 查看标签详细信息
+
+git push origin <tag name> 推送一个本地标签
+git push origin --tags 推送所有本地标签
+git tag -d v1.0 删除一个本地标签标签
+git push origin :refs/tags/<tagname> 删除一个远程标签
+
+关联多个远程库（需要对远程库别名，否则都默认origin，无法关联多个）
+git remote add origin git@gitee.com:mikasama/gitskills.git  关联远程库
+git remote -v  查看远程库连接状态
+git remote rm origin  删除远程库origin
+git remote add gitee git@gitee.com:mikasama/gitskills.git  关联码云远程库，别名为gitee
+git remote add github git@gitee.com:mikasama/gitskills.git  关联GitHub远程库，别名为github
+git push gitee master 将master分支推送到码云
+git push github master 将master分支推送到github
+
+
+注意：连接多个远程库之后，git pull 是无法拉取，需要加上远程库名，如：git pull gitee master

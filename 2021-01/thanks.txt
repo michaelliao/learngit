@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Thanks for teaching
 
 I have learn a lot from git learn by teacher Liao. 
@@ -11,3 +12,6 @@ change email
 
 
 Thanks from a student. Git is a great distributed version control system.
+=======
+It's an awesome tutorial.
+>>>>>>> 9826de4bfca49d7fac14b71713059f78730b632b

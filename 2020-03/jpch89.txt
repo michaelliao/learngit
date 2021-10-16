@@ -1,0 +1,113 @@
+# `Git` 教程之命令小抄
+
+---
+
+[TOC]
+
+---
+
+## 0. 前言
+- 本文 `99%` 总结自廖雪峰的 [`Git` 教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)。
+- 另有 `1%` 来自于个人心得。
+
+
+## 1. 创建版本库
+
+|命令|用途|
+|---|---|
+|`mkdir learngit`<br>`cd learngit`|创建并进入空目录|
+|`git init`|初始化 `Git` 仓库|
+|`git add 文件名1 文件名2 ...`|添加文件|
+|`git add .`|暂存所有更改的文件|
+|`git commit -m "说明内容"`|提交文件|
+
+
+---
+
+## 2. 时光穿梭
+
+|命令|用途|
+|---|---|
+|`git status`|查看当前仓库状态|
+|`git diff 文件名`|查看工作区与暂存区之间的改动<br>如暂存区为空，则查看工作区与版本库上次提交之间的改动|
+|`git log`|显示提交日志|
+|`git log --pretty=oneline`|以单行显示提交日志|
+|`git reset --hard HEAD^`|返回前一个版本|
+|`git reset --hard HEAD^^`|返回前两个版本|
+|`git reset --hard HEAD~100`|返回前100个版本|
+|`git reset --hard 提交号`|指定回到某个版本号|
+|`git reflog`|查看命令历史|
+|`git diff HEAD -- 文件名`|查看工作区与版本库最新版本之间的区别|
+|`git checkout -- 文件名`|丢弃工作区的更改，回到最近一次 `git add/commit` 时的状态|
+|`git reset HEAD 文件名`|把暂存区的修改回退到工作区|
+|`rm 文件名`<br>`git rm/add 文件名`<br>`git commit -m "删除文件"`|从版本库删除文件|
+|`rm 文件名`<br>`git checkout -- 文件名`|从文本库恢复误删的文件|
+
+
+---
+
+## 3. 远程仓库
+|命令|用途|
+|---|---|
+|`git remote add origin git@github.com:自己的用户名/仓库名.git`|关联远程库|
+|`git remote add origin https://github.com/自己的用户名/仓库名.git`|关联远程库|
+|`git push -u origin master`|第一次推送 `master` 分支所有内容并关联远程库的 `master` 分支|
+|`git push origin master`|推送 `master` 分支的最新修改|
+|`git clone git@github.com:自己的用户名/仓库名.git`|克隆远程库到本地|
+|`git clone https://github.com/自己的用户名/仓库名.git`|克隆远程库到本地|
+
+
+---
+
+## 4. 分支管理
+|命令|用途|
+|---|---|
+|`git branch`|查看分支|
+|`git branch 分支名`|创建分支|
+|`git checkout 分支名`|切换分支|
+|`git checkout -b 分支名`|创建并切换分支|
+|`git merge 分支名`|合并分支名到当前分支|
+|`git branch -d 分支名`|删除分支|
+|`git log --graph --pretty=oneline -abbrev-commit`|查看分支合并情况|
+|`git merge --no-f -m "提交说明" 分支名`|非快进模式合并分支|
+|`git stash`|储存工作区|
+|`git stash list`|查看工作区储存列表|
+|`git stash apply`<br>`git stash drop`|恢复工作区<br>删除储存内容|
+|`git stash apply stash@{数字}`<br>`git stash drop stash@{数字}`|从指定储存恢复工作区并删除储存内容|
+|`git stash pop`|恢复储存内容并同时删除|
+|`git branch -D 分支名`|强行删除没有合并过的分支|
+|`git remote`|查看远程库的信息|
+|`git remote -v`|查看远程库的详细信息|
+|`git push origin 分支名`|推送分支|
+|`git checkout -b 分支名 origin/分支名`|创建分支到本地|
+|`git branch --set-upstream-to=origin/分支名 分支名`|指定本地分支与远程分支的链接|
+|`git pull`|抓取远程最新提交|
+|`git rebase`|变基，把本地未 `push` 的分叉提交历史整理成直线|
+
+
+---
+
+## 5. 标签管理
+|命令|用途|
+|---|---|
+|`git tag 标签名`|在当前分支的最新提交上打标签|
+|`git tag 标签名 提交号`|给指定的提交号打标签|
+|`git tag`|查看所有标签名|
+|`git show 标签名`|查看标签详情|
+|`git tag -a 标签名 -m "标签说明"`|创建带有说明的标签|
+|`git push origin 标签名`|推送本地标签|
+|`git push origin --tags`|推送全部未推送的本地标签|
+|`git tag -d 标签名`|删除本地标签|
+|`git tag -d 标签名`<br>`git push origin :refs/tags/标签名`|删除远程标签|
+
+
+---
+
+## 6. 使用码云
+|命令|用途|
+|---|---|
+|`git remote rm origin`|删除 `origin` 远程库|
+|`git remote add github git@github.com:用户名/仓库名.git`|添加 `GitHub` 远程库|
+|`git remote add gitee git@github.com:用户名/仓库名.git`|添加 `Gitee` 远程库|
+|`git push github master`|推送到 `GitHub`|
+|`git push gitee master`|推送到 `Gitee`|

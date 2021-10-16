@@ -1,0 +1,37 @@
+git add 文件名：将修改后的该文件提交至暂存区
+
+gie commit -m '提交说明'：将修改的东西提交上传
+
+git checkout -- 要恢复的文件名：丢弃工作区中的修改
+
+git reset HEAD <要恢复的文件名>：将已经上传到暂存区的东西丢弃
+
+git branch：查看分支
+
+git branch <name>：创建分支
+
+git checkout <name>或者git switch <name>：切换分支
+
+git checkout -b <name>或者git switch -c <name>：创建+切换分支
+
+git merge <name>：合并某分支到当前分支
+
+git branch -d <name>：删除分支
+
+git branch -D <name>：删除一个未合并过的分支
+
+git stash：（当前事情没做完又需要新建分支做事情的时候使用这个命令隐藏当前工作）
+
+git stash pop：（将之前隐藏起来的部分恢复）
+
+git cherry-pick <commit>：（将之前在master分支上做过的操作复制过来到当前分支做一遍）
+
+git push origin <branch-name>：推送自己的修改
+
+git branch --set-upstream-to <branch-name> origin/<branch-name>：关联本地分支和远程分支
+
+git checkout -b branch-name origin/branch-name：在本地创建和远程分支对应的分支
+
+git tag <name>：给当前分支打标签
+
+git tag -a <tagname> -m "blablabla..."：指定标签信息

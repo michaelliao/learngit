@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 just a little test on git push
+=======
+many thanks for the tutorial!
+>>>>>>> 9826de4bfca49d7fac14b71713059f78730b632b
