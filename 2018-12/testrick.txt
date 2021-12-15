@@ -1,3 +1,0 @@
-git clone
-git add
-git push
