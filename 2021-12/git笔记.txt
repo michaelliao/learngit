@@ -1,0 +1,18 @@
+git init                   初始化仓库
+git add a.txt              添加文件，其实是添加到暂存区
+git commit -m "提交日志"   提交文件，真正提交到版本库中,所以流程是add->commit
+git status                 查看文件状态
+git diff a.txt             查看文件差异   
+cat a.txt                  查看文件内容
+git reflog                 查看命令历史
+git reset --hard HEAD^     切换版本,HEAD代表当前版本，^代表上一个版本，^^就是上上个版本,也可以直接用版本id的前几位如  --hard a3956  
+git checkout --a.txt       撤回工作区的修改
+git reset HEAD a.txt       撤回暂存区的修改
+git rm a.txt               删除文件,删除暂存区的，需要commit才会删除版本库中的
+git checkout -b dev        新建并切换到分支,相当于git branch dev和git checkout dev 
+git switch -c dev          新建并切换到分支,相当于git switch dev 和git checkout dev 
+git checkout dev           切换分支
+git branch -d dev          删除分支
+git branch                 查看所有分支
+git merge dev              在master运行此命令，合并dev分支内容
+git log                    查看提交日志，加上--pretty=oneline会打印成一行
