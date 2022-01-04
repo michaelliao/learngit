@@ -3,3 +3,5 @@ This is my first time to use vim. It is really cool because it makes me engaged 
 It is my honor to test the git operation here teached by Mr.Liao Xuefeng! Best wishes for him!!!
 
 :work on the dev branch
+
+I am doing what I ought to do in spite of the bug existing.
