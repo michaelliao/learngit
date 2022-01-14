@@ -34,6 +34,9 @@ $RECYCLE.BIN/
 # Icon must end with two \r
 Icon
 
+# jetbrain
+.idea
+
 
 # Thumbnails
 ._*
