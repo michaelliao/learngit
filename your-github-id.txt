@@ -1,0 +1,33 @@
+//获取所有文件
+    public static void getAllFileName(String path, ArrayList<String> list) {
+        File file = new File(path);
+        //获取全部File
+        //返回目录名加文件名
+        //添加过滤器
+        String[] strings = file.list();
+        for (String string : strings) {
+            System.out.println(string);
+        }
+        //这些路径名表示此抽象路径名所表示目录中的文件。
+        File[] files = file.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return true;
+            }
+        });
+        for (int i = 0; i < files.length; i++) {
+            //判断是否是目录，是的话继续递归
+            if (files[i].isDirectory()) {
+                getAllFileName(files[i].getAbsolutePath(), list);
+            } else {
+                //否则添加到list
+                //获取全部文件名
+                list.add(files[i].getName());
+                //获取全部包+文件名
+                //list.add(files[i].getAbsolutePath());
+            }
+        }
+    }
+————————————————
+版权声明：本文为CSDN博主「qq_34341338」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_34341338/article/details/86584485
