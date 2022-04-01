@@ -1,0 +1,18 @@
+廖雪峰大大:
+    您好！十分感谢您提供的十分有趣易懂git教程，我这个小白非常受益!
+    以下是我的一些整理：（不对之处还望指正，感谢！）
+    1、[commit描述vs标签]：commit –m是一个描述，描述可重复，标签是鉴别commit的名称，不可重复；且描述是每一次commit都要有，而标签可以挑出重要的几个commit来写上
+    2、分支的创建、查看、推送与删除，都和标签十分类似：
+        创建：分支git branch dev；标签git tag v0.1
+        查看：分支git branch；标签git tag
+        推送：分支git push origin dev；标签git push origin v0.1
+        删除：分支git branch -d dev；标签git tag -d v0.1
+        断联远程：分支git push origin --delte dev；标签git push origin :ref/tags/v0.1
+    3、库、分支、标签三者与远程库的关联与断联的对比：
+                         关联                                    断联
+        库  git remote add origin <SSH协议的地址>       git remote rm origin
+        分支    git push origin dev                    git push origin --delete dev
+        标签    git push origin v0.1                   git push origin :ref/tags/v0.1
+    最后，十分感谢您能提供机会让我们尝试pull request操作！再次谢谢您，让我感受到学习的乐趣！
+祝：
+    体健安康！工作顺遂！生活愉快！
