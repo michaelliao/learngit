@@ -1,0 +1,6 @@
+rm test.txt文件后 还没有从版本库中删除
+git checkout --test.txt可以 恢复【利用版本库取代工作区】
+
+修改了 但还没有add 利用 checkout -- test.txt 可以回到修改前
+add到了暂存区之后 git reset HEAD <file> 回退一下 然后在checkout
+commit了 要做版本退回，然后重复上面步骤
