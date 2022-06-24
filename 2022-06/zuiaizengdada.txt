@@ -1,0 +1,7 @@
+看了阮神的git教程，学到了超级多的实用的git技巧以及原理，举例非常的生动形象。
+git init 添加版本库
+git add <file> / git add . 添加文件至暂存区
+git commit -m '<注释内容>' 提交变动文件
+git push -u origin master 推送文件至远程仓库origin的master分支
+...
+还有很多没有一一写上来了 不过我全都用小本本记下来了。感谢阮神将这些知识开源出来写成教程!
