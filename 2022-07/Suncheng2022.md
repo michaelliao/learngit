@@ -372,7 +372,7 @@ git push origin :refs/tags/v1.0	然后从远程删除，要注意格式！
 
 若希望其接受你的修改，发起pull request，对方会考虑是否接受你的pull request。
 
-
+a
 
 
 
