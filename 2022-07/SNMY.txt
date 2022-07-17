@@ -20,3 +20,5 @@ test in dev
 Creating a new branch is quick AND simple.
 
 CONFlicts.
+
+merge with no-ff
