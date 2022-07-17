@@ -1,0 +1,17 @@
+Not the first time to learn git.
+It's interesting but hard to understand.
+Too many command to remember.
+I have to learn them because of work.
+I also want to learn from it.
+Thank you very much, Mr. Liao.
+Thanks for your wiki about git.
+
+Here is a newline for test.
+
+
+test for reset.
+
+test for rebase.
+test for rebase. 2;
+test
+test in dev
