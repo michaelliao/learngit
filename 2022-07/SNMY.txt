@@ -13,6 +13,9 @@ test for reset.
 
 test for rebase.
 test for rebase. 2;
-test 
 
-Creating a branch is quick & simple.
+test
+test in dev
+
+Creating a new branch is quick AND simple.
+
