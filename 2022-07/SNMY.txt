@@ -15,3 +15,5 @@ test for rebase.
 test for rebase. 2;
 test
 test in dev
+
+Creating a new branch is quick and simple.
