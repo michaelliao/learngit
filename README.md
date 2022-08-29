@@ -12,4 +12,4 @@ Git教程 → https://www.liaoxuefeng.com/wiki/896043488029600
 
 2. 使用英文文件名；(Use English file name)
 
-3. 扩展名为`.txt`或`.md`。(Refer .txt and .md)
+3. 扩展名为`.txt`或`.md`。(Refer .txt or .md)

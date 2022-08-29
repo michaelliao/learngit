@@ -1,0 +1,72 @@
+Stolen from johnmyf-git-command.txt in Directory:2019-05
+Thanks a lot!
+
+基本操作......
+git init						#让当前目录初始化成git仓库
+git add <file>						#添加<file>到stage, 用于文件修改/添加
+git status						#获取当前目录的git状态
+git rm --cached <file>					#对<file>从stage中删除
+git commit -m 'xxxx'					#提交stage中的文件到本地仓库
+git log							#查看提交记录
+git log --oneline					#查看提交记录, 以一行显示
+git checkout -- <file>...				#use "git checkout -- <file>..." to discard changes in working directory
+git reset HEAD <file>...				#use "git reset HEAD <file>..." to unstage
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+git config --global user.email "you@example.com"	#设置默认用户账号的邮箱
+git config --global user.name "Your Name"		#设置默认用户帐号的用户名
+
+git reset --hard <version>  				#回退到某个版本
+git reset --hard HEAD^       				#回退到上一个版本
+git reset --hard HEAD^^     				#回退到上上一个版本
+git reflog
+git diff <version1> <version2> <file> 	#比较版本差别
+git diff <version1> -- <file>				#比较<file>在工作区和版本库<version1>的区别
+git rm <file>						#标记在stage中删除<file>
+git rebase                           			#重整多分支的提交历史
+
+远程库操作.....
+git remote add origin git@github.com:johnmyf/testgit.git			#origin为远程库的名字, 名字可以改, 默认为origin.  后面一串是远程库的id及位置
+git push -u origin master				#-u第一次推送到远程库用
+git push origin master					#把master的变更推送到origin
+git push						#默认推送变更到origin
+git clone  git@github.com:johnmyf/testgit.git		#克隆某个库到本地
+git remote						#查看远程库列表
+git remote -v						#查看远程库详细列表
+git push origin <branch_name>				#推送某一个本地分支的改动到远程库
+git branch -r						#查看远程分支
+git checkout -b <local_branch_name> <remote_branch_name>	#签出远程分支到本地, 并切换到本地的这个分支
+git pull						#拉取远程库里的更新到本地
+
+
+分支管理......
+git checkout -b <newbranchname>				#创建并切换到此新分支
+git branch <newbranchname>				#只创建新分支               
+git checkout <branchname>				#切换到某分支
+git branch						#查看当前仓库本地分支列表
+git branch -a						#查看当前仓库所有分支列表(含本地和远程)
+git merge <name>					#合并某分支到当前分支, 默认走fast forward模式, 合并分支没有commit记录
+git branch -d <name>					#删除分支
+git branch -D <name>					#强行删除某分支(可能还没有merge)
+git log --graph --pretty=oneline --abbrev-commit	#看分支合并图
+git log --graph						#看分支合并图
+git merge --no-ff -m "merge with no-ff" dev		#带-no-ff参数, 走正常merge模式, 合并分支带有commit记录
+
+临时保存工作区(stash)
+git stash						#把当前工作现场“储藏”起来，等以后恢复现场后继续工作
+git stash list						#当前临时存储区的列表
+git stash apply  <stash_name>				#从某个临时存储区恢复改动到当前工作区
+git stash drop <stash_name>				#删除指定的临时存储区
+git stash pop						#从最近一次保存的临时存储区中恢复改动到当前工作区, 并删除此临时存储区
+
+标签管理(tag)
+git tag							#查看所有标签
+git tag <tag_name>					#对当前分支当前最新版本代码HEAD打标签, <tag_name> 为标签名
+git tag <tag_name>	<version>			#对当前分支<vesion>版本代码打标签, <tag_name> 为标签名
+git tag -a <tag_name> -m "[message]" <version>		#对当前分支<vesion>版本代码打标签, 并打上注释说明[message], <tag_name> 为标签名
+git show <tag_name>					#查看标签信息
+git push origin <tagname>				#可以推送一个本地标签；
+git push origin --tags					#可以推送全部未推送过的本地标签；
+git tag -d <tagname>					#可以删除一个本地标签；
+git push origin :refs/tags/<tagname>			#可以删除一个远程标签。比如: git push origin :refs/tags/v0.9

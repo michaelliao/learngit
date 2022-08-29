@@ -1,1 +1,0 @@
-I've learned a lot from Mr.Liao's git course. From now on I will no longer depend on Idea's git plug-in and I can type git command by myself.

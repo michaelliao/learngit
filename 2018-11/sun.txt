@@ -1,2 +1,0 @@
-i wanna see more details about how to use github.
-although git is the basis of github.But we use github more than git. so we hope to get more detailsabout github, like, how to pull request to the official github account to contribute for them.

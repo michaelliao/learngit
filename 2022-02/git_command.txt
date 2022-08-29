@@ -1,0 +1,69 @@
+创建文件夹：			mkdir <name>
+进入文件夹：			cd <name>
+显示当前目录：		pwd
+把当前目录变成Git：	git init
+显示隐藏目录：		ls -ah
+查看git仓库状态：		git status
+把文件添加到git仓库：	git add <file name>
+把文件提交到仓库：		git commit -m "说明"
+查看修改后的不同：		git diff
+查看提交历史：		git log --pretty=oneline
+回退到上一个版本：		git reset --hard HEAD^
+回退到某个版本：		git reset --hard <commit id>
+查看命令历史：		git reflog
+工作区和暂存区对比：	git diff
+暂存区和分支对比：		git diff --cached
+工作区和分支对比：		git diff -- <file...>
+丢弃工作区的修改：		git checkout -- <file...>
+撤销暂存区的修改：		git reset HEAD <file...> + git checkout -- <file...> 或 git reset --hard HEAD
+删除工作区文件：		rm <file...>
+从版本库删除该文件：	git rm <file...> + git commit -m "说明"
+撤销工作区文件的删除：	git checkout -- <file...>
+撤销暂存区文件的删除：	git reset HEAD <file...> + git checkout -- <file...> 或 git reset --hard HEAD
+创建SSH Key:			ssh-keygen -t rsa -C "15521232672@163.com"
+关联一个远程库：		git remote add origin git@github.com:RaymondHww/learngit.git
+推送master分支的内容：	git push -u origin master （第一次推送要参数 -u ，之后就不用了）
+从远程克隆仓库到本地：	git clone git@github.com:RaymondHww/gitskills.git
+查看分支：			git branch
+创建分支：			git branch <name>
+切换分支：			git checkout <name> 或 git switch <name>
+创建+切换分支：		git checkout -b <name> 或者 git switch -c <name>
+合并某分支到当前分支：	git merge <name>
+删除分支：			git branch -d <name>
+查看分支合并情况：		git log --graph --pretty=oneline --abbrev-commit
+使用普通模式合并：		git merge --no-ff -m "说明" dev
+把工作现场储藏：		git stash
+查看储藏的工作现场：	git stash list
+恢复储藏的工作现场：	git stash apply stash@{0}
+删除stash内容：		git stash drop stash@{0}
+恢复并删除stash内容：	git stash pop
+在master分支上修复的bug，想要合并到当前dev分支，可以用git cherry-pick <commit>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。
+强行删除未合并的分支：	git branch -D <branch_name>
+显示详细的远程库信息：	git remote -v
+推送分支到远程库：		git push origin master 或 git push origin dev
+
+克隆远程库到本地后只有master分支
+在本地创建和远程分支对应的分支：git checkout -b branch-name origin/branch-name
+建立本地分支和远程分支的关联：	git branch --set-upstream branch-name origin/branch-name
+
+因此，多人协作的工作模式通常是这样：
+首先，可以试图用git push origin branch-name推送自己的修改；
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并；
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin branch-name推送就能成功！
+如果git pull提示“no tracking information”，则说明本地分支和远程分支的链接关系没有创建，
+用命令git branch --set-upstream branch-name origin/branch-name。
+
+tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。
+打一个新标签到最新的提交上：		git tag v1.0
+打一个新标签到历史的提交上：		git tag v1.1 <commit-id>
+查看所有标签：					git tag
+查看标签信息：					git show v1.0
+创建带有说明的标签：				git tag -a v1.2 -m "说明" <commit-id>
+通过-s用私钥签名一个标签：			git tag -s v1.3 -m "说明" <commit-id>
+删除本地标签：					git tag -d v1.0
+推送某个标签到远程：				git push origin <tag-name>
+一次性推送全部尚未推送到远程的标签：git push origin --tags
+删除已经推送到远程的标签：			git tag -d v1.0 然后 git push origin :refs/tags/v1.0
+让Git忽略文件：					创建.gitignore文件，把要忽略的文件的后缀填进去
+
