@@ -1,0 +1,80 @@
+git add 文件    <!--把文件添加到仓库 -->
+
+git commit -m “提交的说明”   <!--把文件提交到仓库 -->
+
+git status   <!--查看工作区当前的状态-->
+
+git diff 文件  <!--查看修改了什么内容-->
+
+git log   <!--查看从近到远的提交日志-->
+
+git log	--pretty=oneline   <!--只查看日志中的commit id（版本号）-->
+
+git diff HEAD -- 文件   <!--查看工作区和版本库里最新版本的区别-->
+
+git checkout -- 文件  <!--丢弃工作区的修改--> 这个命令中的--很重要，如果没有--，就变成了切换到另一个分支的命令
+
+git restore 文件   <!--丢弃工作区的修改-->
+
+git restore --staged 文件   <!--丢弃暂存区的修改，返回到工作区的修改中-->
+
+git reset HEAD 文件   <!--丢弃暂存区的修改，返回到工作区的修改中-->
+
+git rm 文件    <!--删除文件-->
+
+git push origin（远程库的名字） master（分支）  <!--上传本地库的内容到远程库-->
+
+git remote -v   <!--查看远程库信息-->
+
+git remote rm origin（远程库的名字）  <!--删除本地和远程的绑定关系 -->
+
+git clone <code下的链接>   <!--克隆库-->
+
+git checkout -b <分支>   <!--创建并切换到分支-->
+
+git switch -c <分支>    <!--创建并切换到分支-->
+
+git switch <分支>    <!--切换分支-->
+
+git branch <分支>     <!--创建分支-->
+
+git checkout <分支>    <!--切换分支-->
+
+git branch    <!--查看分支，当前分支前面会标一个`*`号 -->
+
+git merge <分支>    <!--合并指定分支到当前分支 -->
+
+git branch -d <分支>   <!--删除分支-->
+
+git stash   <!--把当前工作现场隐藏起来 -->
+
+git stash list   <!--查看隐藏的工作现场-->
+
+git stash apply   <!--恢复工作现场，但是恢复后，stash内容并不删除 -->
+
+git stash drep <隐藏的工作现场>   <!--删除隐藏的工作现场-->
+
+git stash pop   <!--恢复的同时把stash内容也删了 -->
+
+git cherry-pick <commit_id>   <!--复制一个特定的提交到当前分支 -->
+
+git branch -D <分支>    <!--强行删除分支-->
+
+git tag v1.0    <!--给当前提交打标签-->
+
+git tag   <!--查看所有标签-->
+
+git show v1.0   <!--查看指定标签的详细信息-->
+
+git tag v1.1 <commit_id>   <!--给指定的提交打标签-->
+
+git tag -a v1.2 -m “说明” <!--创建带有说明的标签 -a：指定标签名。-m：指定说明文字-->
+
+git tag -d <标签>   <!--删除本地标签-->
+
+git push origin :refs/tags/<标签>    <!--删除远程库标签-->
+
+git tag <远程库名>  <标签>   <!--推送某个标签到远程 -->
+
+git tag <远程库名> --tags   <!--推送所有标签到远程 -->
+
