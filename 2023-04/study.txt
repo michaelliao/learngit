@@ -1,0 +1,213 @@
+2023.04.09
+mkdir 文件名
+cd 文件名
+pwd命令用于显示当前目录
+初始化一个Git仓库 ：git init把目录变成git可以管理的仓库
+.git用来跟踪管理版本库（尽量不要修改，会破坏仓库）
+.git是隐藏的，用ls -ah可以看到
+可以在空的目录下创建git仓库，也可以在有东西的目录下创建git仓库
+
+#文件添加到版本库
+版本控制系统智能跟踪文本文件的改动（txt，网页，代码等）
+可以显示每次改动
+图片、视频等二进制文件不能跟踪其变化
+把文件添加到仓库:$git add readme.txt （git add <file>）
+把文件提取到仓库$ git commit -m "wrote a readme file" （git commit -m <message>） add distributed 添加分布式
+-m后面为本次提交说明
+执行成功后显示1 file changed 2 insertions
+commit可以一次提交多个文件
+$ git add file1.txt
+$ git add file2.txt file3.txt
+$ git commit -m "add 3 files."
+添加某个文件时，该文件必须在当前目录下存在，用ls或者dir命令查看当前目录的文件
+看看文件是否存在，或者是否写错了文件名。
+git status 随时掌握仓库当前的状态
+git status 告诉你文件被修改过之后，可以用git diff可以查看difference，可以看到对txt做了什么修改
+知道修改之后再提交到仓库就方便许多
+提交修改和提交新文件是一样的两步
+working tree clean 工作目录是干净的 没有要提交的修改
+git log 命令来查看我们的修改的历史记录  
+如果输出信息过多，可以用--pretty=oneline来简化输出
+
+#版本回退
+HEAD表示当前版本（一大串id）
+HEAD^表示上一个版本
+HEAD^^表示上上个版本
+HEAD~100
+$ git reset --hard HEAD^  （git reset --hard commit_id）
+回退之前可以用git log查看提交历史，确定要回退到哪个版本
+git reflog记录每一次命令，确定要回到未来的哪个版本
+
+#工作区和暂存区
+工作区：在电脑里能够看到的目录
+版本库（Repository）
+.git（隐藏目录）是Git的版本库
+stage（index）暂存区，分支master，以及指向master的指针HEAD
+git add把文件添加进去，实际上就是把文件修改添加到暂存区
+git commit提交更改，实际上就是把暂存区的所有内容提交到当前分支
+git commit 就是在master分支上提交修改
+需要提交的文件修改通通放到暂存区，然后，一次性提交暂存区的所有修改
+
+#撤销修改
+1.修改了工作区某个文件的内容，直接丢弃修改，用 git checkout -- file  or  git restore -- file
+2.修改了工作区某个文件的内容，并且添加到了暂存区，想丢弃修改，第一步用命令 git reset HEAD <file> 回到1场景
+3.提交了不合适的修改到达版本库，想撤回提交，可以版本回退（前提是没有推送到远程库）
+
+#删除文件
+$ rm test.txt  
+git status会用告诉你哪些文件被删除
+1确实要从版本库中删除该文件，那就用命令git rm删掉并且git commit
+tip：先手动删除文件，然后使用git rm <file>和rm <file>效果是一样的。
+2删错了，版本库里还有，可以把误删的文件恢复到最新版本
+$ git checkout -- test.txt
+git checkout是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”
+从来没有被添加到版本库就被删除的文件，是无法恢复的！
+
+#远程仓库（！）
+同一个git仓库可以分布到不同机器上
+一台电脑充当24h开机的服务器，其余从服务器仓库克隆一份到自己电脑，并且把commit推送到服务器仓库中
+也可以从中拉取别人的commit
+本地Git仓库和GitHub仓库之间的传输通过SSH加密
+第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件
+如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+$ ssh-keygen -t rsa -C "youremail@example.com"
+你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可
+由于这个Key也不是用于军事目的，所以无需设置密码
+可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对
+id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+为什么GitHub需要SSH Key呢？
+因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议
+所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送
+GitHub允许添加多个key
+
+#添加远程库
+https://www.liaoxuefeng.com/wiki/896043488029600/898732864121440
+远程库的名字就是origin
+关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git 
+origin是默认习惯命名；
+$ git push -u origin main（master）  第一次推送master分支的所有内容
+本地库的内容推送到远程，用git push命令，实际上是把当前分支main推送到远程
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数
+Git不但会把本地的master分支内容推送的远程新的master分支
+还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
+本地作了提交，就可以通过命令：
+每次本地提交后，只要有必要，就可以使用命令$ git push origin master推送最新修改把本地master分支的最新修改推到Github上
+
+#删除远程库
+如果添加的时候地址写错了，或者就是想删除远程库，可以用git remote rm <name>命令。
+使用前，建议先用git remote -v查看远程库信息：
+$ git remote -v
+origin  git@github.com:michaelliao/learn-git.git (fetch)
+origin  git@github.com:michaelliao/learn-git.git (push)
+此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库
+远程库本身并没有任何改动
+要真正删除远程库，需要登录到GitHub，在后台页面找到删除按钮再删除
+分布式版本系统的最大好处之一是在本地工作完全不需要考虑远程库的存在，也就是有没有联网都可以正常工作，而SVN在没有联网的时候是拒绝干活的！
+当有网络的时候，再把本地提交推送一下就完成了同步，真是太方便了！
+
+#从远程库克隆  
+https://www.liaoxuefeng.com/wiki/896043488029600/8987327929736643
+首先，登陆GitHub，创建一个新的仓库
+$ git clone git@github.com:michaelliao/gitskills.git
+GitHub给出的地址不止一个，还可以用https://github.com/michaelliao/gitskills.git这样的地址
+实际上，Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议
+使用https除了速度慢以外，还有个最大的麻烦是每次推送都必须输入口令
+但是在某些只开放http端口的公司内部就无法使用ssh协议而只能用https
+克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆
+Git支持多种协议，包括https，但ssh协议速度最快
+
+#分支管理
+分支（平行宇宙）
+创建了一个属于你自己的分支，别人看不到，还继续在原来的分支上正常工作，而你在自己的分支上干活
+想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，这样，既安全，又不影响别人工作
+
+#创建与合并分支
+每次提交，Git都把它们串成一条时间线
+HEAD指向master（主要时间线），master指向提交，HEAD所以指向当前分支
+HEAD->master->[]
+每次提交master都向前一步，不断提交，master分支不断变长
+假设在dev上完成了任务，可以合并到master上，直接把master指向dev的当前提交（修改指针）
+删除分支就是删除指针
+创建分支 git checkout -b dev   $git branch <name>
+-b表示创建并且切换，相当于$ git branch dev  $ git checkout <name>
+分支前面有一个*
+git checkout main（分支名）表示切换分支
+git merge <name> 表示将分支合并到main分支上
+git branch -d <name> 删除分支
+git switch -c dev 
+git switch <name> 切换分支  比git checkout更好用
+git checkout -b <name>或 git switch -c <name> 创建+切换分支
+
+#解决冲突
+git status 会告诉冲突
+Git无法自动分支合并，先解决冲突，解决之后在提交进行合并。
+解决冲突：把git合并失败的文件手动编辑为我们希望的内容再提交
+git log --graph看到分支合并图
+
+#分支管理
+fast forward模式下删除分支会丢失分支信息
+一般master主分支比较稳定，平时不在上面进行干活，一般在dev分支上进行干活，在进行合并
+--no-ff可以使用普通模式合并，合并后的历史有分支，能看出来曾经合并过，fast forward模式看不出来合并
+
+#bug分支  https://www.liaoxuefeng.com/wiki/896043488029600/900388704535136
+bug可以用创建新的临时分支来修复，然后合并，最后删除
+用git stash保存工作现场，再去修复bug，修复后，再git stash pop，回到工作现场
+在main分支上修复的bug，想合并到dev上，用git cherry-pick<commit>，把bug提交的修改复制到当前分支
+
+#Feature分支
+每添加一个新功能，最好添加一个feature分支，在上面开发，完成后进行合并，最后删除feature分支
+丢弃一个还没有进行合并过的分支，使用git branch -D <name>进行强行删除
+
+#多人协作
+从远程仓库克隆时，Git自动把本地的master分支和远程的master分支对应起来
+远程仓库的默认名称是origin
+git remote 查看远程库的信息
+git remote -v显示更详细的远程库信息
+推送分支
+把该分支上的所有本地提交推送到远程库
+推送时，要指定本地分支
+Git就会把该分支推送到远程库对应的远程分支上
+master分支是主分支，因此要时刻与远程同步
+dev分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步
+bug分支只用于在本地修复bug，就没必要推到远程了，除非有需求修复了几个bug
+feature分支是否推到远程，取决于是否合作在上面开发
+抓取分支
+
+本地推送分支，使用git push origin branch-name
+推送失败，先用git pull抓取远程的新提交
+本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name（本地和远程分支的名称最好一致）
+建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name
+从远程抓取分支，使用git pull，如果有冲突，要先处理冲突
+多人协作的工作模式：
+首先，可以试图用git push origin <branch-name>推送自己的修改
+如果推送失败，则因为远程分支比你的本地更新，需要先用git pull试图合并  
+git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，再推送
+如果合并有冲突，则解决冲突，并在本地提交；
+没有冲突或者解决掉冲突后，再用git push origin <branch-name>推送就能成功！
+本地新建的分支如果不推送到远程，对其他人就是不可见的
+
+#Rebase 变基
+多人在同一个分支上协作时，很容易出现冲突
+即使没有冲突，后push的不得不先pull，在本地合并，然后才能push成功
+rebase操作可以把本地未push的分叉提交历史整理成直线
+rebase的目的是使我们更容易查看历史提交的变化，分叉的提交需要三方对比
+
+#标签管理
+发布一个版本时，我们通常先在版本库中打一个标签（tag）
+标签是版本库的一个快照，是指向某个commit的指针，但是不能移动，创建和删除标签都是瞬间完成的
+tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起
+
+#创建标签
+标签总是和某个commit挂钩
+如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+git tag <tagname>用于新建一个标签，默认为HEAD，也可以指定一个commit id
+git tag -a <tagname> -m "blablabla..."可以指定标签信息
+git tag可以查看所有标签
+
+#操作标签
+git push origin <tagname>可以推送一个本地标签；
+git push origin --tags可以推送全部未推送过的本地标签
+git tag -d <tagname>可以删除一个本地标签
+git push origin :refs/tags/<tagname>可以删除一个远程标签
+
+#使用GitHub!!!
