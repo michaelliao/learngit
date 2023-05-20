@@ -5,3 +5,7 @@ class calculator:
     
     def add_v2(a, b, weight):
         return a + weight * b
+
+class Sub:
+    def sub(a, b):
+        return a - b 
