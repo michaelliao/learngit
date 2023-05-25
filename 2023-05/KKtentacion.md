@@ -1,2 +1,1 @@
-非常nice的教程啊 感谢廖老师
-
+Very fantastic learning experience!
