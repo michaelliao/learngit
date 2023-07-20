@@ -1,0 +1,5 @@
+ready to learn git.
+
+learning git...
+
+git learned.
