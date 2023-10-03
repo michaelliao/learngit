@@ -1,0 +1,9 @@
+Thanks for your wiki document(https://www.liaoxuefeng.com/wiki/896043488029600).
+I'm a sophomore majoring in CS from QHU.
+That's really helpful for my learning in git.
+The course is really accessible and I have organized my notes when learning it by onenote.
+Of course I will origanized it again by Markdown and open source it on github.
+
+With my utmost respect and thanks.
+
+Written by Kaige Zheng 2023/10/3 
