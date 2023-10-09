@@ -1,1 +1,0 @@
-Thanks to teacher Liaoxuefeng for the turtorial.

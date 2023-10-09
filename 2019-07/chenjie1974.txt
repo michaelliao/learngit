@@ -1,4 +1,0 @@
-开始学习：GIT
-测试pull request；
-
-感谢 liaoxuefeng
