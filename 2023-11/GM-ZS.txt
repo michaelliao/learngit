@@ -1,0 +1,58 @@
+git 命令
+
+git init		//用于将该文件夹用作为git版本库
+git add		//将文件提交至暂存库
+git commit -m"说明信息"		//将暂存库中的文件提交至版本库
+git status		//用于查看是否有文件被改了
+git diff		//用于查看文件被改了啥
+git log		//用于查看从近到远的版本信息
+git reset --hard HEAD^/版本号		//用于版本穿梭HEAD^:上一个版本，HEAD^^:上上个版本，HEAD~100:上一百个版本；版本号用于“回到未来”
+git reflog		//用于查看最近的指令
+git checkout --file		//用于丢弃工作区的修改
+git reset HEAD <file>		//用于将暂存区的修改撤销掉，重新放回工作区
+git rm <file>		//用于删除文件
+git checkout --file		//还可以用于撤销删除
+git remote add origin <远程仓库号>eg: git@github.com:GM-ZS/gitskills.git?		//用于关联远程仓库
+git remote -v		//用于查看远程库信息
+git remote rm <name>	eg:origin		//用于删除与远程仓库的关联
+git push -u origin master 		//-u用于与一个空的远程仓库第一次建立联系
+git clone <远程仓库号>		//用于克隆远程仓库
+
+
+
+创建与合并分支：
+git checkout -b <branch>	==git switch -c <branch>		//用于创建并切换分支==git branch <branch>,git checkout <branch>
+git switch <branch>==git checkout <branch> 		//用于切换分支
+git branch		//用于查看当前分支
+git branch <branch>		//用于创建分支
+git branch -d <branch>		//用于删除<branch>分支
+git merge <branch>		//用于合并某分支到当前分支
+
+解决冲突：
+git log --graph		//用于查看分支合并图
+git merge --no-ff -m "merge with no-ff" dev			//合并dev分支，--no-ff参数表示禁用Fast forward,因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去
+
+BUG分支：
+git stash 		//用于将当前工作区暂存起来
+git stash list		//用于查看stash内容
+git stash apply			//用于恢复工作区，但是保留stash内容，去要用git stash drop来删除
+git stash pop		//用于恢复工作区，恢复的同时就把stash内容删了
+git cherry-pick <commit>		//用于把bug提交的修改“复制”到当前分支，避免重复劳动
+git branch -D <branch>		//用于把一个需要丢弃且还没有合并的分支强行删掉
+
+多人协作：
+git pull 		//用于抓取远程库的新提交
+git checkout -b branch-name origin/branch-name 		//用于在本地创建和远程仓库相对应的分支
+git branch --set-upstream branch-name origin/branch-name 		//用于建立本地分支和远程分支的联系
+git rebase 		//用于把本地未push的分叉提交历史整理成直线，使我们在查看历史提交的变化时更容易
+
+标签管理：
+git tag <tagname>		//用于建立一个新标签，默认为HEAD，也可以指定一个commit id
+git tag -a <tagname> -m <message>		//用于在创建标签的同时给标签加上一些标签信息 
+git tag		//用于查看所有的标签
+git show <tagname>		//用于查看标签内容
+对于没有被推送到远程仓库的标签来说，它们一般都是储存在本地
+git tag -d <tagname>			//用于删除本地标签
+git push origin <tagname>		//将标签推送至远程仓库
+git push origin --tags		//将没有被推送的标签一起推送过去
+git push origin :refs/tags/<tagname>		//删除一个远程标签
