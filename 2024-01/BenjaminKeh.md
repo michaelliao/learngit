@@ -1,7 +1,9 @@
+
+
+# 学习记录
 Thanks a lot!
 This is my summury for now. I will share it for all mates learing this course.
 
-# 学习记录
 ## 初始化git库
 git init                初始化git库
 
