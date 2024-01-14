@@ -1,4 +1,6 @@
 Person Summary
+
+
 一、Git GUI 客户端
 Git 客户端下载（Windows）TortoiseGit 客户端下载（Windows）Sourcetree 客户端下载（Windows、Mac）Git Extensions 客户端下载（Windows、Mac、Linux）SmartGit 客户端下载（Windows、Mac、Linux）GitEye 客户端下载 （Windows、Mac、Linux）gitg 客户端下载（Windows、Linux）ungit 客户端下载（Windows、Mac、Linux）git-cola 客户端下载（Windows、Mac、Linux）Tower 客户端下载（Windows、Mac）Gitbox 客户端下载（Mac）GitUp 客户端下载（Mac）giggle 客户端下载（Linux）Pocket Git 客户端下载（Andorid）Working Copy 客户端下载（IOS）Git2Go 客户端下载（IOS）GitDrive 客户端下载（IOS）Fork 客户端（Windows、Mac）GitKraken 客户端（Windows、Mac、Linux）
 二、Git IDE 插件
