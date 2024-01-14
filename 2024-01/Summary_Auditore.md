@@ -1,4 +1,4 @@
-Person Summary
+Personal Summary
 
 
 一、Git GUI 客户端
