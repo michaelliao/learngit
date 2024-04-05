@@ -1,0 +1,6 @@
+I knew git a few years ago and was laughed by classmate for not understanding the difference between git and github. 
+
+Thanks a lot for the material.
+
+This is the first one that make learner get started in a real good pace while finally get a pretty decent insight to the git system. 
+

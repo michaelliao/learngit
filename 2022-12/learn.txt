@@ -1,0 +1,9 @@
+Git is a distructed version control system.
+Git is free software distructed under GPL.
+Git has a mutable index called stage.
+Create a new branch quickly and simple.
+Create a new branch quickly &&&&& simple.
+11111   simple
+fix issue-101
+fix issue-102
+do devople task

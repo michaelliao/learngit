@@ -1,0 +1,75 @@
+非常好教程
+很受益
+感谢大师的分享，很有帮助，这下算是真正的入门git和github了，太感谢了
+分享笔记：Git
+mkdir qhfz
+cd qhfz 
+pwd
+git init
+git add readme.txt
+Git commit -m”***”
+Git status
+Git log
+Git reset —hard commit_id
+Git reflog
+
+git diff HEAD -- readme.txt
+git checkout -- readme.txt//add之前恢复到上次提交的状态
+git reset HEAD readme.txt//add之后commit之前unstage
+从暂存区恢复工作区，
+git restore --worktree readme.txt
+从master恢复暂存区 
+git restore --staged readme.txt
+从master同时恢复工作区和暂存区
+git restore --source=HEAD --staged --worktree readme.txt
+rm test.txt
+git rm test.txt
+git commit -m "remove test.txt"
+
+Github
+ssh-keygen -t rsa -C "huang-sq23@mails.tsinghua.edu.cn" 
+然后一路回车用默认值
+shift+command+.可以显示对应目录下的隐藏文件
+git remote add origin git@github.com:knightnemo/learngit.git
+git push -u origin master//第一次
+git push origin master
+git remote -v
+git remote rm origin
+创建并切换分支：
+git checkout -b dev;
+Or
+$ git branch dev
+$ git checkout dev
+Git branch:查看分支情况
+git merge
+删除分枝：git branch -d dev
+
+我们注意到切换分支使用git checkout <branch>，而前面讲过的撤销修改则是git checkout -- <file>，同一个命令，有两种作用，确实有点令人迷惑。
+创建并切换：
+所以切换分支用git switch -c dev
+直接切换：
+git switch master
+git log --graph --pretty=oneline --abbrev-commit炫酷的log指令
+git merge --no-ff -m "merge with no-ff" dev
+Bug分支：git stash储存当前工作
+Git stash list
+用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；
+另一种方式用git stash pop，恢复的同时把stash内容也删了：
+多次stash恢复的时候，先用git stash list查看，然后恢复指定的stash，用命令：	$ git stash apply stash@{0}
+Git cherry-pick 4c805e2(复制一个特定提交到当前分支)
+强制销毁分支：git branch -D ****
+git remote
+
+Git rebase
+
+打标签：
+Git tag v1.0
+Git tag查看所有tag
+打历史版本的标签：git tag v0.9 f52c633
+Git show v0.9
+Tag同时加comment
+git push origin --tags//标签全推上去
+git push origin v1.0
+$ git tag -d v0.9
+$ git push origin :refs/tags/v0.9
+//远程库标签的删除

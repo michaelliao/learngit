@@ -1,0 +1,81 @@
+感谢廖老师的git教程，通过不到一星期的学习掌握到了很多有关git的知识，廖老师的教程生动形象，简单易学！
+
+git init ---初始化 Repo 仓库
+git commit –m "自定义本次修改的记录名字" ---修改记录
+
+git log ---查看之前的Commit记录和对应的 SHA 编码
+1.相对寻址 HEAD~i 前i个版本 2.id寻址 使用sha编码前几位
+
+git reset --hard <Version> ---恢复之前或未来的版本
+git diff ---查看修改内容
+git log --pretty=oneline ---以sha编码和自定义名称查看Commit记录
+cat <文件名.后缀> ---查看文件内容
+git reflog ---记录你的每一次命令
+git rm <文件名.后缀> ---版本库里删文件 不加git目录下删文件
+git checkout -- <文件名.后缀> ---把文件在工作区的修改全部撤销
+
+git checkout其实是用版本库里的版本替换工作区的版本
+1.文件自修改后还没有被放到暂存区，撤销修改就回到和版本库一模一样的状态；
+2.文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+
+git reset HEAD <文件名.后缀> ---git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。
+（即修改内容和add后没commit）当我们用HEAD时，表示最新的版本。
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，
+第一步用命令git reset HEAD <file>，就回到了场景1，第二步按场景1操作。
+
+git remote add origin git@github.com:2twentyto2/opp-git.git ---在github上添加远程库
+
+git push ---把本地库的内容推送到远程，实际上是把当前分支推送到远程库
+-u参数把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
+
+git remote -v ---查看远程库信息
+
+
+git checkout -b <分支名> ---创建并切换分支 == git branch <分支名> ---创建分支
+			    		                      git checkout <分支名> ---切换分支
+
+git switch -c <分支名> ---创建并切换分支
+git switch <分支名> ---切换到该分支
+git branch ---查看当前分支 -d参数用于删除分支 -D强制删除分支
+
+git merge <分支名> ---用于合并指定分支到当前分支
+解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+
+git log --graph ---查看分支合并图
+git merge --no-ff <分支名> ---用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，
+而fast forward合并就看不出来曾经做过合并
+
+git stash ---隐藏文件和工作区即git status
+git stash apply ---恢复工作区但是stash内容并不删除
+git stash pop ---恢复工作区且stash内容删除
+git stash list ---查看stash内容
+git cherry-pick <commit的sha号> ---应该在stash下用于复制其他分支下的commit到当前分支
+git push origin <分支名> ---往远程仓库推送分支上的修改
+
+git pull ---用于抓取远程仓库上当前分支上其他同名分支推送的内容
+git pull origin <分支名> ---用于当前分支拉取远程库上不同分支的文件内容
+如果git pull提示no tracking information，则说明本地分支和远程分支的链接关系没有创建，
+用命令git branch --set-upstream-to <分支名> origin/<分支名>。
+本地创建和远程分支对应的分支，使用git checkout -b <分支名> origin/<分支名>，本地和远程分支的名称最好一致
+
+git tag <tag名> ---给当前分支打上标签
+git tag ---查看标签名
+git tag <tag名> <版本sha号> ---给该sha号的commit打上标签
+git show <tag名> ---查看标签信息
+git tag -a <tag名> -m <说明信息> <sha号> ---给该sha号的commit打上标签同时附上说明
+git push origin --tags ---用于向本体推送修改内容时添加所有标签说明 不用--tags参数直接<tag名>推送单个标签
+git tag -d <tag名> ---删除标签名
+git push origin :refs/tags/<标签名> ---删除远程库上的标签，前提是要在本地也进行删除
+git push origin :<标签名> ---推送空标签==删除远程库上的标签
+查看分支 git branch
+查看远程分支 git branch -r
+查看所有分支 git branch -a
+删除本地分支 git branch -d 分支名
+强制删除本地分支 git branch -D 分支名  
+删除远程分支 git push 远程仓库名 :分支名
+查看标签 git tag
+创建标签 git tag -a 标签名 -m '描述'
+删除本地标签 git tag -d 标签名
+强制删除本地标签 git tag -D 标签名
+删除远程标签 git push 远程仓库名 :标签名

@@ -1,2 +1,0 @@
-认真学习git教程.现在是时候来pull request了.嘻嘻嘻.
-test!

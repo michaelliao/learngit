@@ -1,3 +1,0 @@
-Hi, Michaell!
-Thank you for your git tutorial！I've learned a lot from it!
-Now, I'm trying to use the pull-request funtion of Github.
