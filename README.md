@@ -4,7 +4,7 @@
 
 Git教程 → https://www.liaoxuefeng.com/wiki/896043488029600
 
-Gitignore在线生成工具 → https://gitignore.itranswarp.com
+Gitignore在线生成工具 → [https://gitignore.itranswarp.com](https://michaelliao.github.io/gitignore-online-generator/)
 
 此仓库用于测试Pull Request，推送请使用UTF-8编码。
 
