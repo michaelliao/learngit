@@ -1,0 +1,170 @@
+git常用命令
+1：创建目录
+mkdir learngit
+2：显示当前目录
+pwd
+3：进入到下一层目录
+cd 目录名
+4:把当前目录变成git可以管理的仓库
+git init
+
+细心的读者可以发现当前目录下多了一个.git的目录，这个目录是Git来跟踪管理版本库的，没事千万不要手动修改这个目录里面的文件，不然改乱了，就把Git仓库给破坏了。
+如果你没有看到.git目录，那是因为这个目录默认是隐藏的，用ls -ah命令就可以看见。
+5:文件一定要放到仓库里，至于是仓库的a,b,c区随意，只有放到仓库里git才能找到，
+6：把文件添加到仓库（两步）
+git add readme.txt(先把东西拉到仓库)
+git commit -m “wrote a readme file”(告诉仓库管理员你干了什么)(起别名)仓库管理员的表达能力差，你要是不说干了什么，它支支吾吾半天说不出来，主要是便便自己
+7:添加多个文件，一次性提交
+8：查看状态(查看的是stage的状态)
+Git status 
+
+9:查看改动
+Git diff readme.txt
+10:查看历史记录
+Git log 或者 git log --pretty=oneline
+11:回退某个版本(几个^表示几个‘上’)
+Git reset --hard HEAD^
+12：瞄一眼某个文件里有什么
+Cat readme.txt
+13:回到指定的某个版本
+Git reset --hard 1094a(版本号不用写全，差不多得了)
+14：查看用过的每一次命令
+Git reflog
+HEAD指向的版本就是当前的版本，几个’^’就是几个’上’，用git reset --hard commit_id实现穿梭，
+穿梭之前用git log 查看提交历史，好确定去哪个版本，要重返未来用git reflog，可以去未来喽
+15：丢弃工作区修改
+Git checkout readme.txt
+16:将添加到暂存区的文件回退到工作区
+Git  reset HEAD readme.txt
+17:把本地库的内容推送到远程
+Git push 远程库名 master
+18:本地仓库与远程仓库建立连接
+Git  remote  add  origin git@github.com:nan1832/learngit.git
+Git 远程添加起源 git@github.com:github账户名/仓库.git
+
+19：删除远程仓库（掐断连接）真删除得登录github手动删
+Git  remote  rm  origin
+Git 远程rm仓库名
+20：查看远程库信息
+Git  remote  -v
+21:从远程库克隆到本地
+Git clone git@github.com:nan1832/gitskills.git
+默认远程库叫啥你克隆下来的叫啥
+Pwd
+Cd gitskills
+Ls
+22:本地有多个repo时，在git.bash里要进入到相应的库里。本地与remote连接后，你不管在哪个库里都是连接好的，就是add+commit+push得cd到相应的库操作
+23：创建本地仓库
+cd到某个目录下用git init是把当前目录变成仓库
+Git init repo则是在当前目录下初始化一个叫repo的仓库，当前目录还是目录，不是仓库
+24：ls -a 列出当前目录下的所有文件，管你隐不隐藏都得出来
+25：创建一个文件
+Vim 是个文本编辑器，进去写中文就行，i是进入编辑模式，esc退出编辑模式，：wq强制保存并退出
+Echo “this is a file”>file1.txt
+26:查看文件内容
+Cat file1.txt
+27:把所有以.txt结尾的文件都添加到暂存区
+Git add *.txt
+28:把当前文件夹下的所有文件文件夹也能提交，都添加到仓库里
+Git add .（有一个空格）
+29：git log（查看提交记录）
+Git commit -m “commit_id”
+30:创建分支
+Git branch dev
+31:切换到指定分支
+Git checkout dev(旧版本呢，不好用)
+Git switch dev
+32:创建并切换到指定分支dev
+Git checkout -b dev(旧版本呢，不好用)
+Git switch -c dev
+33:查看当前分支
+Git branch
+
+合并的时候只会更新做了更改的那个文件
+
+34:查看图形化的分支历史
+Git log --graph --pretty=oneline --abbrev -commit
+Git 日志 --图形 --最好是=一行 --带参数 -提交id
+35:合并dev分支，保留分支历史使用--no-ff
+默认合并分支时，使用fast forward，合并完分支后，一般要删除分支，删除之后不会保留这个分支的历史，正常操作就是这个呀，它默认的没毛病呀，但是你要是想保留分支历史用这个
+Git merge --no-ff -m “merge with no-ff” feature1
+就算删除了分支也还是有历史
+36:git add file.txt是跟踪这个文件，不跟踪没办法管理，就是把他添加到暂存区，提交才是真正的放到仓库里，所有文件都必须add
+37：把当前暂存区的工作存储起来
+Git stash
+38:删除某个分支
+Git branch -D 分支名
+39:显示隐藏的工作区
+Git stash list
+
+40:恢复工作现场
+Git stash apply(但是恢复后stash 内容并不删除)
+Git stash drop 删除stash
+40：一步到位就是git stash pop 但是一次只能恢复一个
+41:git stash 只能缓存被跟踪的文件，本次新增的文件并不能被缓存，需要先add进暂存区才能被缓存
+当前工作区有文件未提交 此时想切换分支如果有同一文件会冲突，so我们需要保存现场信息然后再去开启新的分支
+是回到dev分支后，先 git cherry-pick 4c805e2 再 git stash pop就可以了
+
+cherry-pick这个命令是重排一些commit
+因此应该是先使用cherry-pick命令将处理bug后的commit排到当前分支的最新提交处
+然后stash将保存的工作还原
+这样子就实现了在已经处理了bug后的位置进行工作的目的
+一般来说，dev分支比master要新很多，比如改了a，b，c，d，e共5个文件
+issue-101是从master拉出来的，然后改了f文件，这个时候，你把issue-101往dev合并，直接合不上去，必须先把dev的修改合到issue-101，再反过来合到dev
+还不如只把改动单独应用到dev来得简单，因为可能有冲突，而cherry-pick只解决小改动的冲突
+
+
+
+
+
+
+42:指定本地分支推送到远程上
+Git push origin main
+Git push origin dev
+43:从远程仓库克隆(克隆下来默认只有main)
+Git clone git@github.com:nan1832/learngit.git
+44:将远程的dev分支也拉过来
+Git checkout -b dev origin/dev(这个命令不对，应该是从远程origin/dev上拉下来，又给起了别名叫dev)
+so改进版
+Git checkout -b origin/dev(直接从远程拉过来，由于没有改名，所以现在的分支叫origin/dev)
+45:本地分支改名
+Git branch -m oldname newname
+46:查看远程库信息
+Git remote -v
+47:本地新建的分支如果不推送到远程，对其他人就是不可见的
+48:本地推送分支到远程
+Git push origin dev
+49:抓取新的远程提交
+Git pull
+50:在本地创建和远程分支对应的分支
+Git checkout -b branch-name origin/branch-name
+51:建立本地分支和远程分支的关联
+Git branch --set-upstream branch-name origin/brance-name
+
+
+52:给当前版本打标签(一般都是在main)
+Git tag v1.0
+53：查看所有标签(不是按时间输出)
+Git tag 
+54:指定某次提交打标签
+Git tag v0.9 commit_id
+55:查看标签详细信息
+Git show v0.9
+56:创建带有说明的标签，-a指定标签名,-m指定说明文字
+Git tag -a v0.1 -m “version 0.1 released” commit_id
+标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签
+57:删除打的标签
+Git tag -d v0.1
+标签默认打在本地，往远程打要push
+58：推送某个标签到远程
+Git push origin v1.0
+59:一次性推送全部尚未推送到远程的本地标签
+Git push origin --tags
+60:删除远程标签先删本地标签
+Git tag -d v0.9
+Git push origin :refs/tags/v0.9
+61:
+
+
+
+
