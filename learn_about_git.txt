@@ -1,0 +1,3 @@
+I am a student and i am studying git
+I plan to learn CS61B after learning git
+i appreciate your course.
