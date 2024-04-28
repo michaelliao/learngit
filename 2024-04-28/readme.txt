@@ -1,2 +1,0 @@
-thank teacher liao
-
