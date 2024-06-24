@@ -1,0 +1,35 @@
+this is my git learn pull request test 
+指定版本打标签
+$ git tag <tagName> <commitId>
+查看所有标签
+$ git tag
+按照字母排序显示所有标签
+创建带有说明的标签，用-a指定标签名 -m指定说明文字
+$ git tag -a v0.1 -m "version 0.1 released" 1094adb
+显示指定标签
+$ git show <tagName>
+tag v0.8
+Tagger: FNG-Y <2314950219@qq.com>
+Date:   Mon Jun 24 10:20:48 2024 +0800
+
+version 0.8 released
+
+commit 6ada05310016c11d160ef7f7c2f060227286f9f8 (tag: v0.8)
+Author: FNG-Y <2314950219@qq.com>
+Date:   Sat Jun 22 00:26:57 2024 +0800
+
+    123->1123
+
+diff --git a/test b/test
+......
+
+标签总是和某个commit挂钩。如果这个commit既出现在master分支，又出现在dev分支，那么在这两个分支上都可以看到这个标签。
+$ git push origin <tagname>
+$ git push origin --tags
+$ git tag -d <tagName>
+1.删除本地标签
+$ git tag -d v0.8
+2.用空替代远程标签
+$ git push origin :refs/tags/v0.8
+:前面为空 用空去替换远程标签v0.8 等同于删除远程标签
+冒号是分隔本地和远程的, 冒号左边的表示本地的，冒号右边的表示远程的
