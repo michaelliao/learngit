@@ -1,0 +1,14 @@
+- github和gitee的默认分支
+- ### 默认情况
+    - 没有修改的情况下，`github`和`gitee`默认的分支为`master`
+    - 修改默认分支，在`仓库设置`标签页下
+- ### 本地软件git的默认分支
+    - 使用`git init`时会生成一个分支，高版本生成的分支为`main`
+- ### 查看本地默认分支
+    - ```shell
+
+# 查看默认分支
+git config --global init.defaultBranch
+
+# 设置默认分支为master
+git config --global init.defaultBranch master```
