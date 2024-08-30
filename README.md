@@ -1,10 +1,10 @@
 # learngit
 
-官方网站 → https://www.liaoxuefeng.com
+官方网站 → [https://liaoxuefeng.com](https://liaoxuefeng.com)
 
-Git教程 → https://www.liaoxuefeng.com/wiki/896043488029600
+Git教程 → [https://liaoxuefeng.com/books/git/](https://liaoxuefeng.com/books/git/)
 
-Gitignore在线生成工具 → https://michaelliao.github.io/gitignore-online-generator/
+Gitignore在线生成工具 → [https://michaelliao.github.io/gitignore-online-generator/](https://michaelliao.github.io/gitignore-online-generator/)
 
 此仓库用于测试Pull Request，推送请使用UTF-8编码。
 
