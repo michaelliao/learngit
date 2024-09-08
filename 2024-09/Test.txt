@@ -1,0 +1,7 @@
+This is the first file that be upload to the github from my own computer.
+Several months ago,my tutor advised me to learn how to use git to improve my
+learning in the laboratory.I didn't pay my attention to it at that
+time,because I regarded it as unuseful before I learn about Git.But now,I
+finally spend time on learning the Git,and I am completely be touched by the
+ability of Git.Now,I upload a litle txt on the github,I am so exciting to be
+a part of github!
