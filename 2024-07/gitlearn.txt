@@ -1,0 +1,122 @@
+初始化一个Git仓库，使用`git init`命令。
+
+Git管理的文件分为：工作区，版本库，版本库又分为暂存区stage/index和暂存区分支master(仓库)，添加文件到Git仓库，分两步：
+
+1. 使用命令`git add <file0> <file1>`，注意，可反复多次使用，添加多个文件；`git add .`可以一次性添加所有改动；把工作区的文件修改添加到暂存区。
+
+2. 使用命令`git commit -m <message>`，完成，`commit`可以一次提交很多文件；把暂存区的所有内容提交到当前分支（仓库）。
+
+要随时掌握工作区的状态，使用`git status`命令。
+
+如果`git status`告诉你有文件被修改过，用`git diff`可以查看修改内容。 比较对象及命令：
+
+- 工作区&暂存区 `git diff <file>`
+
+- 工作区&仓库 `git diff HEAD <file>`
+
+- 暂存区&仓库 `git diff --cached <file>`
+
+**版本回退：**
+
+- `HEAD`指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令`git reset --hard commit_id`。
+
+- 穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本。
+
+- 要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本。
+
+**撤销修改：**
+
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令`git checkout -- file`。放弃工作区中全部的修改`git checkout .`。
+
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD <file>`，就回到了场景1，第二步按场景1操作。
+
+场景3：已经提交了不合适的修改到仓库时，想要撤销本次提交，参考版本回退，不过前提是没有推送到远程库。
+
+**删除文件：**
+
+1. `rm <file>` 可以在任何文件夹都可以用，包括不是git仓库的地方，是用来删除文件。如果用在git仓库里，则可以视为**删除工作区的文件**。
+
+2. `git rm <file>` 只能在git仓库里使用，是用来**删除（工作区+暂存区）**的文件用的。如果在git仓库外使用就会报错。
+
+3. `git rm --cached <file>` 如果想**仅删除暂存区**里的文件可以用此命令，它不会删除工作区中的文件。
+
+现在你有两个选择，一是确实要从版本库中删除该文件，那就用命令`git rm file`删掉，并且`git commit -m <message>`;
+
+另一种情况是`rm <file>`后删错了，因为版本库里还有(add →commit)，可以把误删的文件恢复到最新版本：`git checkout -- file`。
+
+**添加远程库：**
+
+要关联一个远程库，使用命令`git remote add origin + SSH_Ip_address`；关联一个远程库时必须给远程库指定一个名字，`origin`是远程仓库默认习惯命名。
+
+关联后，使用命令`git push -u origin master`第一次推送master分支的所有内容；此后，每次本地提交后，只要有必要，就可以使用命令`git push origin master`推送最新修改。
+
+要克隆一个仓库，首先必须知道仓库的地址，然后使用`git clone + SSH_Ip_address`命令克隆。克隆远程指定分支：`git clone -b <指定分支名> <远程仓库地址>`
+
+**创建与合并分支：**
+
+查看分支：`git branch`
+
+创建分支：`git branch <name>` 创建远程库分支：`git push origin <branch_name>`
+
+切换分支：`git checkout <name>`或者`git switch <name>`
+
+创建+切换分支：`git checkout -b <name>`或者`git switch -c <name>`
+
+合并某分支到当前分支：`git merge <name>`
+
+删除分支：`git branch -d <name>` 删除远程库分支：`git push origin --delete <branch_name>`
+
+开发一个新feature，最好新建一个分支；如果要丢弃一个没有被合并过的分支，可以通过`git branch -D <name>`强行删除。
+
+**解决合并分支冲突：**
+
+当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+
+合并分支时，加上`--no-ff`参数(`git merge --no-ff -m "merge with no-ff" dev`)就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而`fast forward`合并就看不出来曾经做过合并。
+
+**BUG分支：**
+
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；
+
+当手头工作没有完成时，先把工作现场`git stash`一下，然后去修复bug，修复后，再`git stash pop`，回到工作现场；
+
+在master分支上修复的bug，想要合并到当前dev分支，可以用`git cherry-pick <commit_id>`命令，把bug提交的修改“复制”到当前分支，避免重复劳动。
+
+- `master`分支是主分支，因此要时刻与远程同步；
+
+- `dev`分支是开发分支，团队所有成员都需要在上面工作，所以也需要与远程同步；
+
+- `bug`分支只用于在本地修复bug，就没必要推到远程了，除非老板要看看你每周到底修复了几个bug；
+
+- `feature`分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+**多人协作：**
+
+- 查看远程库信息，使用`git remote -v`；
+
+- 本地新建的分支如果不推送到远程，对其他人就是不可见的；
+
+- 从本地推送分支，使用`git push origin branch-name`，如果推送失败，先用`git pull`抓取远程的新提交；
+
+- 在本地创建和远程分支对应的分支，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致；
+
+- 建立本地分支和远程分支的关联，使用`git branch --set-upstream branch-name origin/branch-name`；
+
+- 从远程抓取分支，使用`git pull`，如果有冲突，要先处理冲突，见“解决合并分支冲突”。
+
+**标签管理：**
+
+- 命令`git tag <tagname> <HEAD>`用于新建一个标签，默认为`HEAD`，也可以指定一个commit id；
+
+- 命令`git tag -a <tagname> -m "blablabla..."`可以指定标签信息；
+
+- 命令`git show <tagname>`查看具体标签信息，`git tag`可以查看所有标签。
+
+- 命令`git push origin <tagname>`可以推送一个本地标签；
+
+- 命令`git push origin --tags`可以推送全部未推送过的本地标签；
+
+- 命令`git tag -d <tagname>`可以删除一个本地标签；
+
+- 命令`git push origin :refs/tags/<tagname>`可以删除一个远程标签。
+
