@@ -267,6 +267,6 @@ Temporary Items
 #################### Custom.gitignore ####################
 
 # add your custom gitignore here:
+.*
 !.gitignore
 !.gitsubmodules
-.idea/
