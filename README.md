@@ -4,7 +4,7 @@
 
 Git教程 → [https://liaoxuefeng.com/books/git/](https://liaoxuefeng.com/books/git/)
 
-PDF下载 → [https://dl.lxf.sh/pdf/index.html](https://dl.lxf.sh/pdf/index.html)
+PDF下载 → [https://dl.lxf.sh/pdf/](https://dl.lxf.sh/pdf/)
 
 Gitignore在线生成工具 → [https://michaelliao.github.io/gitignore-online-generator/](https://michaelliao.github.io/gitignore-online-generator/)
 
