@@ -1,0 +1,1 @@
+I still haven't used Git much though I have spend one year in graduate school. Thanks to the tutorial provided by the author, it's a great way to get started. Love from Hangzhou.
