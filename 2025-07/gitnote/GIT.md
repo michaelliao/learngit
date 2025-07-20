@@ -1,4 +1,4 @@
-		-分布式版本控制系统
+分布式版本控制系统
 - 记录每次改动
 - 没有“中央服务器”，每个人电脑有完整版本库
 git bash 里面配置global姓名和邮箱
@@ -13,12 +13,12 @@ Initialized empty Git repository in /Users/michael/learngit/.git/
 ```
 
 <font color="#953734">在仓库上传文件</font>
-![[Pasted image 20250713171153.png]]
+![图1](Pasted%20image%2020250713171153.png)
 <font color="#953734">修改文件</font>
-![[Pasted image 20250715182802.png]]
+![图2](Pasted%20image%2020250715182802.png)
 
 <font color="#953734">更改版本</font>
-![[Pasted image 20250715184433.png]]
+![图3](Pasted%20image%2020250715184433.png)
 `--hard`参数有啥意义？`--hard`会回退到上个版本的已提交状态，而`--soft`会回退到上个版本的未提交状态，`--mixed`会回退到上个版本已添加但未提交的状态。
 
 版本号没必要写全，前几位就可以了，Git会自动去找。当然也不能只写前一两位，因为Git可能会找到多个版本号，就无法确定是哪一个了。
@@ -76,7 +76,7 @@ $ git checkout -- readme.txt
 总之，就是让这个文件回到最近一次`git commit`或`git add`时的状态。
 用命令`git reset HEAD <file>`可以把暂存区的修改撤销掉（unstage），重新放回工作区：
 
-![[Pasted image 20250717035802.png]]
+![图4](Pasted%20image%2020250717035802.png)
 > [!NOTE] note
 > 先手动删除文件，然后使用`git rm <file>`和`git add<file>`效果是一样的。
 
