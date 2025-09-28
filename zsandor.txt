@@ -1,0 +1,4 @@
+学习Git的心得：
+1. Git是一个分布式版本控制系统。
+2. 先git add，再git commit。
+3. Pull Request可以把我的修改提交给别人。
