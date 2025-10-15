@@ -1,0 +1,11 @@
+bg：末流211硕非科班研二学生，第一段实习，学习Git
+从廖雪峰老师的Git 教程中，我学会了很多关于Git的常用指令
+git branch -b dev origin/dev
+git remote -v
+git switch -b dev origin/dev
+...
+...
+受益匪浅，十分感谢！
+
+recorder：qipengjiu
+date：2025.10.14  23：35
