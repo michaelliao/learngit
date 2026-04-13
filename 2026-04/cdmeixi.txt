@@ -1,0 +1,15 @@
+初步了解了git的起源，git的用途
+创建了一个git本地库，了解linux系统，git相关的基本命令
+cd+文件名 进入文件目录（cd .. 返回上一级目录），
+ls 列出当前文件夹的所有文件（-a包含隐藏文件），
+mkdir 创建一个文件夹 pwd查询当前所处的文件路径
+cat+文件名 读取文件 vi+文件名 编辑文件
+git相关命令
+git init 将当前目录变成git管理的仓库
+git add将文件从工作区提交到缓存区 
+git commit 提交文件至仓库（-m “并添加修改备注”
+git status检查工作区的状态
+git log 生成提交日志（--pretty=oneline可以让每条日志只有一行）
+git reset –hard HEAD^将版本回退至上一个版本
+git diff –- readme.txt 查看工作区的版本区别
+
