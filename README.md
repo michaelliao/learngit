@@ -6,7 +6,7 @@ Git教程 → [https://liaoxuefeng.com/books/git/](https://liaoxuefeng.com/books
 
 PDF下载 → [https://dl.lxf.sh/pdf/](https://dl.lxf.sh/pdf/)
 
-Gitignore在线生成工具 → [https://michaelliao.github.io/gitignore-online-generator/](https://michaelliao.github.io/gitignore-online-generator/)
+Gitignore在线生成工具 → [https://gitignore.puppylab.org/](https://gitignore.puppylab.org/)
 
 此仓库用于测试Pull Request，推送请使用UTF-8编码。
 
