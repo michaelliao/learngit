@@ -1,0 +1,3 @@
+git is good.
+learning git is fun.
+Thanks for the tutorial.
