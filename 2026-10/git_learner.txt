@@ -1,0 +1,42 @@
+It's awesome to learn git with Michael.
+
+*LOCAL:*
+- git init
+- git add <file>
+- git commit -m "xxx"
+- git status
+- git diff
+- git reset --(hard/soft/mixed) <commit>/HEAD(~n)
+- git reset HEAD <file>
+- git log (-graph)
+- git reflog
+- rm <file> -> git rm <file>
+- git restore (--stage) <file>
+- git switch (-c) <branch>
+- git branch (-d) (<branch>)
+
+*WEB:*
+- git push (-u) origin <branch>
+- git pull
+- git clone <SSH>
+
+*BRANCH:*
+- git merge (--no-ff) (-m "xxx") <branch>
+- git stash
+- git stash list
+- git stash apply -> git stash drop  <=> git stash pop
+- git cherry-pick <commit>
+
+*MULTI-PEOPLE:*
+- git remote (-v)
+- git switch -c <branch> origin/<branch>
+- git push origin <branch>
+- git pull
+- git branch --set-upstream-to=origin/<branch> <branch>
+
+*TAG:*
+- git tag
+- git tag (-d) <tag> (-m "xxx") (-a) (<commit>)
+- git show <tag>
+- git push origin <tag>/--tags
+- git tag -d <tag> -> git push origin :ref/tags/<tag>
