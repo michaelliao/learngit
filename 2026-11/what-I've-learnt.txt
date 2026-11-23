@@ -1,0 +1,52 @@
+Git is a distributed version control system.
+Git is a free software distributed under the GPL
+Git has a mutable index called stage
+Git tracks changes of files
+Creating a new branch is quick
+
+
+
+git add files   文件提交到暂存区
+git commit -m "describes"   文件提交
+git status      查看状态
+git log         查看日志，从当前分支head往前的所有提交历史
+git reflog      查看日志，看所有分支的指针移动记录，和reset，checkout等痕迹，可以找回删除的版本
+git diff HEAD -- readme.txt     查看readme.txt中head和工作区内文件的改动
+git reset --(hard,soft,mixed) versioncode/HEAD~number       重置工作区文件所在版本，（soft只改head指针，相当撤销commit；mixed（默认）
+                                                            撤销commit和add；hard重置commit暂存区和工作区）到···版本，或上移几个版本
+
+git restore file           将工作区文件恢复成暂存区版本
+git restore --staged file  将暂存区撤销回工作区
+git restore --source=HEAD file 工作区还原回HEAD
+
+local-origin                
+git push origin master      push文件到github仓库
+git pull                    pull仓库文件，并直接合并，需要先设upstream
+git remote -v               查看仓库和push地址
+
+branch management:
+git branch name//create a new branch        创建分支
+git branch -d name//delete a branch         删除分支
+git switch name                             切换分支
+
+git merge -m "" name                        合并分支
+git merge --no-ff -m "" name                保留分支指针的合并
+
+stash
+git stash                                   暂存工作（不用提交）
+git stash list                              查看stash列表
+git stash apply                             加载stash，不删除stash
+git stash pop                               加载加删除
+
+git rebase                  将自己工作线放在pull后面，整合成一条线
+
+git tag                     查看tag列表
+git tag -a v... -m "" (+code)       写tag+解释
+git tag -d v...                     删tag
+git push origin v...                上传tag
+git push origin --tags          上传所有tag
+
+
+
+and everything under the sun is in tune 
+but the sun is eclipsed by the moon
